@@ -12,28 +12,18 @@
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import VolumeIcon from '../../atoms/volume-icon/volume-icon.svelte';
 	import { Badge } from '$lib/components/ui/badge/index.js';
+	import Thumbnail from '../../atoms/thumbnail/thumbnail.svelte';
+	import ProgressIndicator from '../../atoms/progress-indicator/progress-indicator.svelte';
 
 	const playerState = getPlayerContext();
 </script>
 
 {#if playerState && playerState.currentTrack}
 	{@const currentTrack = playerState.currentTrack}
-	<div class="bg-background fixed bottom-0 z-10 w-full border-t">
+	<div class="bg-background fixed bottom-0 z-10 hidden w-full border-t lg:block">
 		<div class="grid grid-cols-3 p-4">
 			<div class="flex items-center space-x-2">
-				<!-- 
-				<img
-					src={currentTrack.cover_url || '/favicon.png'}
-					width="48"
-					alt="{currentTrack.album_name} cover"
-					class="bg-muted-foreground rounded-sm"
-				/>
-                 -->
-				<div
-					class="rounded-sm border bg-cover bg-center"
-					style="width: 48px; height: 48px; background-image: url('{currentTrack.cover_url ||
-						'/favicon.png'}"
-				></div>
+				<Thumbnail coverURL={currentTrack.cover_url}></Thumbnail>
 
 				<div>
 					<div class="text-sm">
@@ -99,13 +89,11 @@
 						{/if}
 					</Button>
 				</div>
-				<div class="flex items-center space-x-2 text-xs text-muted-foreground">
+				<div class="text-muted-foreground flex items-center space-x-2 text-xs">
 					<span>
 						{playerState.formattedCurrentTime}
 					</span>
-					<div class="bg-muted relative h-1 flex-1 overflow-hidden rounded-md">
-						<div class="absolute h-full bg-white" style="width: {playerState.progress}%"></div>
-					</div>
+					<ProgressIndicator progress={playerState.progress}></ProgressIndicator>
 					<span>
 						{playerState.formattedDuration}
 					</span>

@@ -11,6 +11,7 @@
 	import { PlayerState, setPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
 	import PlayerBar from '$lib/components/app/organisms/player-bar/player-bar.svelte';
+	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
 
 	let { children } = $props();
 
@@ -41,34 +42,6 @@
 <ParaglideJS {i18n}>
 	{@render children()}
 
-	<!-- 
-	<Drawer.Root>
-		<Drawer.Trigger class="sticky bottom-0 h-[80px] w-full bg-red-500">Show music</Drawer.Trigger>
-		<Drawer.Content>
-			<div>
-				<Drawer.Header>
-					<Drawer.Title>Song name desu</Drawer.Title>
-				</Drawer.Header>
-				<div>
-					Actual content
-
-					<div>
-						Player
-
-						{#if isPlaying}
-							<Button onclick={() => audio.pause()}>
-								<PauseIcon></PauseIcon>
-							</Button>
-						{:else}
-							<Button onclick={() => audio.play()}>
-								<PlayIcon></PlayIcon>
-							</Button>
-						{/if}
-					</div>
-				</div>
-			</div>
-		</Drawer.Content>
-	</Drawer.Root>
-	 -->
 	<PlayerBar></PlayerBar>
+	<MobilePlayerBar></MobilePlayerBar>
 </ParaglideJS>
