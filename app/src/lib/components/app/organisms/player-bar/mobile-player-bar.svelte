@@ -1,19 +1,11 @@
 <script lang="ts">
-	import PlayIcon from 'lucide-svelte/icons/play';
 	import PauseIcon from 'lucide-svelte/icons/pause';
-	import SkipBackIcon from 'lucide-svelte/icons/skip-back';
-	import SkipForwardIcon from 'lucide-svelte/icons/skip-forward';
-	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
-	import RepeatIcon from 'lucide-svelte/icons/repeat-1';
+	import PlayIcon from 'lucide-svelte/icons/play';
 
-	import PlaylistIcon from 'lucide-svelte/icons/list-music';
-	import { getPlayerContext } from '$lib/state/player.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { Slider } from '$lib/components/ui/slider/index.js';
-	import VolumeIcon from '../../atoms/volume-icon/volume-icon.svelte';
-	import { Badge } from '$lib/components/ui/badge/index.js';
-	import Thumbnail from '../../atoms/thumbnail/thumbnail.svelte';
+	import { getPlayerContext } from '$lib/state/player.svelte';
 	import ProgressIndicator from '../../atoms/progress-indicator/progress-indicator.svelte';
+	import Thumbnail from '../../atoms/thumbnail/thumbnail.svelte';
 
 	const playerState = getPlayerContext();
 </script>
