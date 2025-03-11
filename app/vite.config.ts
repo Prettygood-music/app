@@ -10,9 +10,6 @@ export default defineConfig(({ mode }) => ({
 			outdir: './src/lib/paraglide'
 		})
 	],
-	resolve: {
-		conditions: mode === 'test' ? ['browser'] : []
-	},
 
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']

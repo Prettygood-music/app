@@ -50,6 +50,7 @@ export class PlayerState {
 		const audio = new Audio();
 		this.setAudioElement(audio);
 	}
+	
 
 	setAudioElement(element: HTMLAudioElement) {
 		this.audioElement = element;

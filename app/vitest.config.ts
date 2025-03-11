@@ -4,7 +4,7 @@ import { svelteTesting } from '@testing-library/svelte/vite';
 
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({mode}) =>({
 	plugins: [svelte({ hot: !process.env.VITEST }), svelteTesting()],
 	test: {
 		globals: true,
@@ -34,6 +34,7 @@ export default defineConfig({
 			$utils: path.resolve('./src/lib/utils'),
 			$assets: path.resolve('./src/assets'),
 			$routes: path.resolve('./src/routes')
-		}
+		},
+		conditions: mode === 'test' ? ['browser'] : []
 	}
-});
+}));

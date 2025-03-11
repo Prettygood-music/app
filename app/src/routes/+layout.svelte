@@ -3,15 +3,11 @@
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 
-	import * as Drawer from '$lib/components/ui/drawer/index.js';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import PlayIcon from 'lucide-svelte/icons/play';
-	import PauseIcon from 'lucide-svelte/icons/pause';
 	import { browser } from '$app/environment';
+	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
+	import PlayerBar from '$lib/components/app/organisms/player-bar/player-bar.svelte';
 	import { PlayerState, setPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
-	import PlayerBar from '$lib/components/app/organisms/player-bar/player-bar.svelte';
-	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
 
 	let { children } = $props();
 
