@@ -8,6 +8,7 @@
 	import PlayerBar from '$lib/components/app/organisms/player-bar/player-bar.svelte';
 	import { PlayerState, setPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
+	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
 	let { children } = $props();
 
@@ -36,8 +37,12 @@
 </script>
 
 <ParaglideJS {i18n}>
-	{@render children()}
-
-	<PlayerBar></PlayerBar>
-	<MobilePlayerBar></MobilePlayerBar>
+	<div class="flex flex-col min-h-screen">
+		<Navbar />
+		<main class="flex-1">
+			{@render children()}
+		</main>
+		<PlayerBar></PlayerBar>
+		<MobilePlayerBar></MobilePlayerBar>
+	</div>
 </ParaglideJS>

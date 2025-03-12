@@ -63,8 +63,8 @@
         </div>
     </div>
     
-    <div>
-        <h3 class="font-medium truncate">{album.title}</h3>
+    <a href="/album/{album.id}" class="block group">
+        <h3 class="font-medium truncate group-hover:text-primary">{album.title}</h3>
         <p class="text-sm text-muted-foreground">{releaseYear} • {album.track_count} tracks</p>
-    </div>
+    </a>
 </div>
