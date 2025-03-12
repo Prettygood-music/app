@@ -1,0 +1,248 @@
+<script lang="ts">
+	import { TrackItem } from '$lib/components/music';
+	import { AlbumCard } from '$lib/components/music';
+	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
+	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
+	import { Separator } from '$lib/components/ui/separator';
+	import type { Track, Artist, Album } from '$lib/types/player';
+	
+	import PlayIcon from 'lucide-svelte/icons/play';
+	import PauseIcon from 'lucide-svelte/icons/pause';
+	import HeartIcon from 'lucide-svelte/icons/heart';
+	import ShareIcon from 'lucide-svelte/icons/share-2';
+	import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import MusicIcon from 'lucide-svelte/icons/music';
+	import ClockIcon from 'lucide-svelte/icons/clock';
+	import { getPlayerContext } from '$lib/state/player.svelte.js';
+	
+	// Page data from load function
+	let { data } = $props();
+	const playerState = getPlayerContext();
+
+
+	// Get data from the load function
+	let track = $state<Track>(data.track);
+	let artist = $state<Artist>(data.artist);
+	let album = $state<Album | null>(data.album);
+	let recommendedTracks = $state<Track[]>(data.recommendedTracks);
+	
+	// Using Svelte 5 runes for state management
+	let isPlaying = $state(false);
+	let isLiked = $state(false);
+	
+	// Function to format date in human-readable format
+	function formatDate(dateString: string): string {
+		const date = new Date(dateString);
+		return new Intl.DateTimeFormat('en-US', { 
+			year: 'numeric', 
+			month: 'long', 
+			day: 'numeric' 
+		}).format(date);
+	}
+	
+	// Function to format duration in MM:SS format
+	function formatDuration(seconds: number): string {
+		const minutes = Math.floor(seconds / 60);
+		const remainingSeconds = seconds % 60;
+		return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+	}
+	
+	// Handle play/pause
+	function togglePlay() {
+		isPlaying = !isPlaying;
+		// In a real app, this would trigger the audio player
+		console.log(`${isPlaying ? 'Playing' : 'Paused'} track: ${track.title}`);
+	}
+	
+	// Handle like
+	function toggleLike() {
+		isLiked = !isLiked;
+		console.log(`${isLiked ? 'Liked' : 'Unliked'} track: ${track.title}`);
+	}
+	
+	// Handle share
+	function shareTrack() {
+		console.log(`Sharing track: ${track.title}`);
+	}
+	
+	// Handle more options
+	function showMoreOptions() {
+		console.log(`Showing more options for track: ${track.title}`);
+	}
+</script>
+
+<svelte:head>
+	<title>{track.title} by {artist.artist_name} | prettygood.music</title>
+	<meta
+		name="description"
+		content="Listen to {track.title} by {artist.artist_name} on prettygood.music"
+	/>
+</svelte:head>
+
+<div class="container mx-auto px-4 py-8">
+	<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+		<!-- Track Artwork and Primary Actions -->
+		<div class="flex flex-col items-center lg:items-start">
+			<div class="mb-6 overflow-hidden rounded-lg shadow-xl">
+				<img
+					src={track.cover_url || '/images/default-track.jpg'}
+					alt={track.title}
+					class="aspect-square h-64 w-64 object-cover sm:h-80 sm:w-80"
+				/>
+			</div>
+			
+			<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
+				<Button
+					variant="default"
+					size="lg"
+					class="flex h-14 w-14 items-center justify-center rounded-full p-0"
+					onclick={togglePlay}
+				>
+					{#if isPlaying}
+						<PauseIcon class="h-6 w-6" />
+					{:else}
+						<PlayIcon class="ml-1 h-6 w-6" />
+					{/if}
+				</Button>
+				
+				<Button
+					variant={isLiked ? "default" : "ghost"}
+					size="icon"
+					class="rounded-full"
+					onclick={toggleLike}
+				>
+					<HeartIcon class="h-5 w-5" />
+				</Button>
+				
+				<Button
+					variant="ghost"
+					size="icon"
+					class="rounded-full"
+					onclick={shareTrack}
+				>
+					<ShareIcon class="h-5 w-5" />
+				</Button>
+				
+				<Button
+					variant="ghost"
+					size="icon"
+					class="rounded-full"
+					onclick={showMoreOptions}
+				>
+					<MoreHorizontalIcon class="h-5 w-5" />
+				</Button>
+			</div>
+		</div>
+		
+		<!-- Track Details -->
+		<div class="lg:col-span-2">
+			<div class="mb-6 space-y-2">
+				<div class="space-y-1">
+					<h1 class="text-3xl font-bold md:text-4xl">{track.title}</h1>
+					<div class="flex items-center">
+						<a
+							href="/artist/{artist.id}"
+							class="text-lg text-primary hover:underline"
+						>
+							{artist.artist_name}
+						</a>
+					</div>
+				</div>
+				
+				<!-- Track Metadata -->
+				<div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm md:grid-cols-3">
+					<div class="flex items-center gap-2">
+						<ClockIcon class="h-4 w-4 text-muted-foreground" />
+						<span>{formatDuration(track.duration)}</span>
+					</div>
+					
+					<div class="flex items-center gap-2">
+						<CalendarIcon class="h-4 w-4 text-muted-foreground" />
+						<span>{formatDate(track.published_at)}</span>
+					</div>
+					
+					<div class="flex items-center gap-2">
+						<MusicIcon class="h-4 w-4 text-muted-foreground" />
+						<span>{track.play_count.toLocaleString()} plays</span>
+					</div>
+				</div>
+				
+				<!-- Genre Tags -->
+				{#if track.genres && track.genres.length > 0}
+					<div class="mt-4 flex flex-wrap gap-2">
+						{#each track.genres as genre}
+							<Badge variant="secondary">{genre}</Badge>
+						{/each}
+					</div>
+				{/if}
+				
+				<!-- Album Section (if track belongs to an album) -->
+				{#if album}
+					<div class="mt-6">
+						<h3 class="mb-3 text-lg font-medium">From the album</h3>
+						<a
+							href="/album/{album.id}"
+							class="group flex items-start gap-4 rounded-md p-2 transition-colors hover:bg-muted/50"
+						>
+							<div class="h-16 w-16 overflow-hidden rounded-md">
+								<img
+									src={album.cover_url || '/images/default-album.jpg'}
+									alt={album.title}
+									class="h-full w-full object-cover"
+								/>
+							</div>
+							<div>
+								<h4 class="font-medium group-hover:text-primary group-hover:underline">
+									{album.title}
+								</h4>
+								<p class="text-sm text-muted-foreground">
+									{formatDate(album.release_date)} • {album.track_count} tracks
+								</p>
+							</div>
+						</a>
+					</div>
+				{/if}
+				
+				<Separator class="my-6" />
+				
+				<!-- Artist Section -->
+				<div>
+					<h3 class="mb-4 text-lg font-medium">Artist</h3>
+					<a
+						href="/artist/{artist.id}"
+						class="group flex items-center gap-4 rounded-md p-2 transition-colors hover:bg-muted/50"
+					>
+						<Avatar class="h-16 w-16">
+							<AvatarImage src={artist.avatar_url || ''} alt={artist.artist_name} />
+							<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
+						</Avatar>
+						<div>
+							<h4 class="font-medium group-hover:text-primary group-hover:underline">
+								{artist.artist_name}
+							</h4>
+							{#if artist.bio}
+								<p class="line-clamp-2 max-w-md text-sm text-muted-foreground">
+									{artist.bio}
+								</p>
+							{/if}
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- Recommended Tracks Section -->
+	{#if recommendedTracks && recommendedTracks.length > 0}
+		<div class="mt-12">
+			<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
+			<div class="space-y-1">
+				{#each recommendedTracks as recTrack}
+					<TrackItem track={recTrack} />
+				{/each}
+			</div>
+		</div>
+	{/if}
+</div>

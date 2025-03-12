@@ -11,7 +11,6 @@
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { Slider } from '$lib/components/ui/slider/index.js';
 	import VolumeIcon from '../../atoms/volume-icon/volume-icon.svelte';
-	import { Badge } from '$lib/components/ui/badge/index.js';
 	import Thumbnail from '../../atoms/thumbnail/thumbnail.svelte';
 	import ProgressIndicator from '../../atoms/progress-indicator/progress-indicator.svelte';
 
