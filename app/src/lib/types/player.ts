@@ -9,18 +9,6 @@ export interface User {
     is_artist: boolean;
   }
   
-  export interface Artist {
-    id: string;
-    artist_name: string;
-    bio: string | null;
-    avatar_url: string | null;
-    cover_url: string | null;
-    socials: {
-      website?: string;
-      twitter?: string;
-      instagram?: string;
-    };
-  }
   
   export interface Track {
     id: string;

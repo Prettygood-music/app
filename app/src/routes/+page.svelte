@@ -18,8 +18,6 @@
 	const client = browser ? makeClient(window.fetch) : null!;
 </script>
 
-<button onclick={async () => console.log(await (await client.hello.$get()).json())}>Yooooo</button>
-
 <div class="">
 	<Menu />
 	<div class="border-t">
