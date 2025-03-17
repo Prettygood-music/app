@@ -72,6 +72,7 @@
 	"dependencies": {
 		"@hono/zod-validator": "^0.4.3",
 		"@inlang/paraglide-sveltekit": "^0.15.5",
-		"hono": "^4.7.2"
+		"hono": "^4.7.2",
+		"uuid": "^11.1.0"
 	}
 }

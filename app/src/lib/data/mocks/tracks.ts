@@ -1,0 +1,146 @@
+import { v4 as uuidv4 } from 'uuid';
+import { bassArchitectureId, digitalHorizonsId, emotionalJourneysId, experimentalSoundscapesId, nostalgicFrequenciesId } from './albums';
+import type { Track } from '$lib/types';
+
+export const mockTracks: Track[] = [
+	{
+		id: uuidv4(),
+		title: 'Digital Dawn',
+		artist_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+		artist_name: 'Electric Symphony',
+		album_id: digitalHorizonsId,
+		album_name: 'Digital Horizons',
+		cover_url: 'https://example.com/images/digital-dawn.jpg',
+		duration: 237, // in seconds
+		playback_url: 'https://example.com/audio/digital-dawn.mp3',
+		published_at: '2023-10-05T14:30:22Z',
+		genres: ['Electronic', 'Ambient'],
+		play_count: 12453
+	},
+	{
+		id: uuidv4(),
+		title: 'Neon Nights',
+		artist_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+		artist_name: 'Electric Symphony',
+		album_id: digitalHorizonsId,
+		album_name: 'Digital Horizons',
+		cover_url: 'https://example.com/images/neon-nights.jpg',
+		duration: 195,
+		playback_url: 'https://example.com/audio/neon-nights.mp3',
+		published_at: '2023-10-12T09:45:18Z',
+		genres: ['Electronic', 'Synthwave'],
+		play_count: 9872
+	},
+	{
+		id: uuidv4(),
+		title: 'Retro Recall',
+		artist_id: 'b2c3d4e5-f6a7-8901-bcde-fa1234567890',
+		artist_name: 'Vintage Echoes',
+		album_id: nostalgicFrequenciesId,
+		album_name: 'Nostalgic Frequencies',
+		cover_url: 'https://example.com/images/retro-recall.jpg',
+		duration: 248,
+		playback_url: 'https://example.com/audio/retro-recall.mp3',
+		published_at: '2023-11-03T16:20:45Z',
+		genres: ['Lo-Fi', 'Chillwave'],
+		play_count: 15302
+	},
+	{
+		id: uuidv4(),
+		title: 'Analog Dreams',
+		artist_id: 'b2c3d4e5-f6a7-8901-bcde-fa1234567890',
+		artist_name: 'Vintage Echoes',
+		album_id: nostalgicFrequenciesId,
+		album_name: 'Nostalgic Frequencies',
+		cover_url: 'https://example.com/images/analog-dreams.jpg',
+		duration: 312,
+		playback_url: 'https://example.com/audio/analog-dreams.mp3',
+		published_at: '2023-11-10T11:15:30Z',
+		genres: ['Lo-Fi', 'Downtempo'],
+		play_count: 8564
+	},
+	{
+		id: uuidv4(),
+		title: 'Sonic Exploration IV',
+		artist_id: 'c3d4e5f6-a7b8-9012-cdef-ab1234567890',
+		artist_name: 'Sonic Wanderer',
+		album_id: experimentalSoundscapesId,
+		album_name: 'Experimental Soundscapes',
+		cover_url: 'https://example.com/images/sonic-exploration-iv.jpg',
+		duration: 432,
+		playback_url: 'https://example.com/audio/sonic-exploration-iv.mp3',
+		published_at: '2023-09-22T15:40:12Z',
+		genres: ['Experimental', 'Ambient'],
+		play_count: 5421
+	},
+	{
+		id: uuidv4(),
+		title: 'Dissonant Harmony',
+		artist_id: 'c3d4e5f6-a7b8-9012-cdef-ab1234567890',
+		artist_name: 'Sonic Wanderer',
+		album_id: experimentalSoundscapesId,
+		album_name: 'Experimental Soundscapes',
+		cover_url: 'https://example.com/images/dissonant-harmony.jpg',
+		duration: 378,
+		playback_url: 'https://example.com/audio/dissonant-harmony.mp3',
+		published_at: '2023-10-17T13:25:48Z',
+		genres: ['Experimental', 'Noise'],
+		play_count: 4278
+	},
+	{
+		id: uuidv4(),
+		title: 'Emotional Voyage',
+		artist_id: 'd4e5f6a7-b8c9-0123-defa-bc1234567890',
+		artist_name: 'Melodic Journey',
+		album_id: emotionalJourneysId,
+		album_name: 'Emotional Journeys',
+		cover_url: 'https://example.com/images/emotional-voyage.jpg',
+		duration: 287,
+		playback_url: 'https://example.com/audio/emotional-voyage.mp3',
+		published_at: '2023-12-01T10:12:35Z',
+		genres: ['Ambient', 'Cinematic'],
+		play_count: 18763
+	},
+	{
+		id: uuidv4(),
+		title: 'Melodic Sunset',
+		artist_id: 'd4e5f6a7-b8c9-0123-defa-bc1234567890',
+		artist_name: 'Melodic Journey',
+		album_id: emotionalJourneysId,
+		album_name: 'Emotional Journeys',
+		cover_url: 'https://example.com/images/melodic-sunset.jpg',
+		duration: 255,
+		playback_url: 'https://example.com/audio/melodic-sunset.mp3',
+		published_at: '2023-12-08T17:30:22Z',
+		genres: ['Ambient', 'Melodic'],
+		play_count: 14129
+	},
+	{
+		id: uuidv4(),
+		title: 'Deep Foundations',
+		artist_id: 'e5f6a7b8-c9d0-1234-efab-cd1234567890',
+		artist_name: 'Bass Architect',
+		album_id: bassArchitectureId,
+		album_name: 'Bass Architecture',
+		cover_url: 'https://example.com/images/deep-foundations.jpg',
+		duration: 342,
+		playback_url: 'https://example.com/audio/deep-foundations.mp3',
+		published_at: '2023-08-15T19:45:10Z',
+		genres: ['Bass', 'Electronic'],
+		play_count: 23456
+	},
+	{
+		id: uuidv4(),
+		title: 'Structural Bass',
+		artist_id: 'e5f6a7b8-c9d0-1234-efab-cd1234567890',
+		artist_name: 'Bass Architect',
+		album_id: bassArchitectureId,
+		album_name: 'Bass Architecture',
+		cover_url: 'https://example.com/images/structural-bass.jpg',
+		duration: 298,
+		playback_url: 'https://example.com/audio/structural-bass.mp3',
+		published_at: '2023-09-05T14:20:38Z',
+		genres: ['Bass', 'Dubstep'],
+		play_count: 19874
+	}
+];
