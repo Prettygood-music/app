@@ -12,7 +12,13 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import * as Tabs from '$lib/components/ui/tabs/index.js';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
+	import { makeClient } from '$lib/api';
+	import { browser } from '$app/environment';
+
+	const client = browser ? makeClient(window.fetch) : null!;
 </script>
+
+<button onclick={async () => console.log(await (await client.hello.$get()).json())}>Yooooo</button>
 
 <div class="">
 	<Menu />

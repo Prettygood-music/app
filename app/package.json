@@ -70,6 +70,8 @@
 		"zod": "^3.24.2"
 	},
 	"dependencies": {
-		"@inlang/paraglide-sveltekit": "^0.15.5"
+		"@hono/zod-validator": "^0.4.3",
+		"@inlang/paraglide-sveltekit": "^0.15.5",
+		"hono": "^4.7.2"
 	}
 }
