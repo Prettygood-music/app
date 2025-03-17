@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { bassArchitectureId, digitalHorizonsId, emotionalJourneysId, experimentalSoundscapesId, nostalgicFrequenciesId } from './albums';
+import { bassArchitectureId, digitalHorizonsId, emotionalJourneysId, experimentalSoundscapesId, nostalgicFrequenciesId } from './common';
 import type { Track } from '$lib/types';
 
 export const mockTracks: Track[] = [

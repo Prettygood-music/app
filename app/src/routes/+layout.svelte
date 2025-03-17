@@ -10,6 +10,11 @@
 	import type { Track } from '$lib/types';
 	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
+	import { makeClient } from '$lib/api';
+
+	// TODO: we'll want a context for this
+	const client = browser ? makeClient(window.fetch) : null!;
+
 	let { children } = $props();
 
 	if (browser) {
@@ -26,8 +31,8 @@
 			play_count: 10,
 			published_at: '2023-01-01T00:00:00Z',
 			album_id: null,
-			album_name: "Meteora",
-			cover_url: "https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b"
+			album_name: 'Meteora',
+			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b'
 		};
 
 		playerState.currentTrack = track;
@@ -37,7 +42,7 @@
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="flex flex-col min-h-screen mb-24">
+	<div class="mb-24 flex min-h-screen flex-col">
 		<Navbar />
 		<main class="flex-1">
 			{@render children()}

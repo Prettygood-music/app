@@ -1,5 +1,6 @@
-import type { Artist, ArtistWithDetails } from '$lib/types';
-import { mockArtists, mockTracks, mockAlbums } from '$lib/data/mocks/index';
+// server/src/repositories/artists.ts
+import type { User, Track, Album } from '$lib/types';
+import { mockUsers, mockTracks, mockAlbums } from '$lib/data/mocks';
 
 /**
  * Artist repository using mock data for development
@@ -8,52 +9,54 @@ export class ArtistRepository {
 	/**
 	 * Get all artists with pagination
 	 */
-	async getAll(page = 1, limit = 20): Promise<{ artists: Artist[]; total: number }> {
+	async getAll(page = 1, limit = 20): Promise<{ artists: User[]; total: number }> {
+		const artists = mockUsers.filter((user) => user.is_artist);
 		const offset = (page - 1) * limit;
-		const paginatedArtists = mockArtists.slice(offset, offset + limit);
-
-		// Add track count to each artist
-		const artists = paginatedArtists.map((artist) => {
-			const trackCount = mockTracks.filter((track) => track.artistId === artist.id).length;
-			return {
-				...artist,
-				trackCount
-			};
-		});
+		const paginatedArtists = artists.slice(offset, offset + limit);
 
 		return {
-			artists,
-			total: mockArtists.length
+			artists: paginatedArtists,
+			total: artists.length
 		};
 	}
 
 	/**
 	 * Get artist by ID with detailed information
 	 */
-	async getById(id: string): Promise<ArtistWithDetails | null> {
-		const artist = mockArtists.find((a) => a.id === id);
+	async getById(id: string): Promise<User | null> {
+		const artist = mockUsers.find((user) => user.id === id && user.is_artist);
+
+		if (!artist) return null;
+
+		return artist;
+	}
+
+	/**
+	 * Get artist profile with track and album count
+	 */
+	async getArtistProfile(id: string): Promise<{
+		artist: User;
+		trackCount: number;
+		albumCount: number;
+		recentTracks: Track[];
+	} | null> {
+		const artist = await this.getById(id);
 
 		if (!artist) return null;
 
 		// Get tracks for this artist
-		const artistTracks = mockTracks.filter((track) => track.artistId === id);
-		const albums = mockAlbums.filter((album) => album.artistId === id);
+		const artistTracks = mockTracks.filter((track) => track.artist_id === id);
+		const artistAlbums = mockAlbums.filter((album) => album.artist_id === id);
 
 		// Take 5 most recent tracks
 		const recentTracks = artistTracks
-			.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-			.slice(0, 5)
-			.map(({ id, title, duration, coverImage }) => ({
-				id,
-				title,
-				duration,
-				coverImage
-			}));
+			.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+			.slice(0, 5);
 
 		return {
-			...artist,
+			artist,
 			trackCount: artistTracks.length,
-			albumCount: albums.length,
+			albumCount: artistAlbums.length,
 			recentTracks
 		};
 	}
@@ -61,11 +64,18 @@ export class ArtistRepository {
 	/**
 	 * Get artist's tracks with pagination
 	 */
-	async getTracks(artistId: string, page = 1, limit = 20) {
-		const artistTracks = mockTracks.filter((track) => track.artistId === artistId);
+	async getTracks(
+		artistId: string,
+		page = 1,
+		limit = 20
+	): Promise<{
+		tracks: Track[];
+		total: number;
+	}> {
+		const artistTracks = mockTracks.filter((track) => track.artist_id === artistId);
 		const offset = (page - 1) * limit;
 		const paginatedTracks = artistTracks
-			.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+			.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
 			.slice(offset, offset + limit);
 
 		return {
@@ -77,24 +87,22 @@ export class ArtistRepository {
 	/**
 	 * Get artist's albums with pagination
 	 */
-	async getAlbums(artistId: string, page = 1, limit = 20) {
-		const artistAlbums = mockAlbums.filter((album) => album.artistId === artistId);
+	async getAlbums(
+		artistId: string,
+		page = 1,
+		limit = 20
+	): Promise<{
+		albums: Album[];
+		total: number;
+	}> {
+		const artistAlbums = mockAlbums.filter((album) => album.artist_id === artistId);
 		const offset = (page - 1) * limit;
 		const paginatedAlbums = artistAlbums
-			.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+			.sort((a, b) => new Date(b.release_date).getTime() - new Date(a.release_date).getTime())
 			.slice(offset, offset + limit);
 
-		// Add track count to each album
-		const albums = paginatedAlbums.map((album) => {
-			const trackCount = mockTracks.filter((track) => track.albumId === album.id).length;
-			return {
-				...album,
-				trackCount
-			};
-		});
-
 		return {
-			albums,
+			albums: paginatedAlbums,
 			total: artistAlbums.length
 		};
 	}
@@ -102,10 +110,16 @@ export class ArtistRepository {
 	/**
 	 * Search artists by name
 	 */
-	async search(query: string, limit = 10): Promise<Artist[]> {
+	async search(query: string, limit = 10): Promise<User[]> {
 		const searchQuery = query.toLowerCase();
-		return mockArtists
-			.filter((artist) => artist.artistName.toLowerCase().includes(searchQuery))
+
+		return mockUsers
+			.filter(
+				(user) =>
+					user.is_artist &&
+					(user.display_name.toLowerCase().includes(searchQuery) ||
+						user.username.toLowerCase().includes(searchQuery))
+			)
 			.slice(0, limit);
 	}
 
@@ -114,51 +128,64 @@ export class ArtistRepository {
 	 */
 	async upsert(artistData: {
 		userId: string;
-		artistName: string;
-		bio?: string;
-		profileImage?: string;
-	}) {
-		const { userId, artistName, bio, profileImage } = artistData;
+		displayName: string;
+		avatarUrl?: string;
+	}): Promise<User> {
+		const { userId, displayName, avatarUrl } = artistData;
 
-		// Check if artist already exists
-		const existingArtistIndex = mockArtists.findIndex((a) => a.id === userId);
+		// Check if user exists
+		const userIndex = mockUsers.findIndex((user) => user.id === userId);
 
-		if (existingArtistIndex === -1) {
-			// Create new artist
-			const newArtist = {
-				id: userId,
-				artistName,
-				bio: bio || null,
-				profileImage: profileImage || null,
-				walletAddress: `0x${Math.random().toString(16).substring(2, 42)}`,
-				createdAt: new Date().toISOString()
-			};
-
-			// In a real app, we'd insert into database
-			// For mock data, we'll just add to our array
-			mockArtists.push(newArtist);
-
-			return newArtist;
-		} else {
-			// Update existing artist
-			mockArtists[existingArtistIndex] = {
-				...mockArtists[existingArtistIndex],
-				artistName,
-				bio: bio || mockArtists[existingArtistIndex].bio,
-				profileImage: profileImage || mockArtists[existingArtistIndex].profileImage
-			};
-
-			return mockArtists[existingArtistIndex];
+		if (userIndex === -1) {
+			// In a real application, we'd throw an error if user doesn't exist
+			throw new Error('User not found');
 		}
+
+		// Update user and mark as artist
+		mockUsers[userIndex] = {
+			...mockUsers[userIndex],
+			display_name: displayName,
+			avatar_url: avatarUrl || mockUsers[userIndex].avatar_url,
+			is_artist: true
+		};
+
+		return mockUsers[userIndex];
 	}
 
 	/**
 	 * Get featured artists
 	 */
-	async getFeatured(limit = 6): Promise<Artist[]> {
-		// For mock data, just return some random artists
-		const shuffled = [...mockArtists].sort(() => 0.5 - Math.random());
-		return shuffled.slice(0, limit);
+	async getFeatured(limit = 6): Promise<User[]> {
+		// For mock data, just return artists sorted by play counts of their tracks
+		const artists = mockUsers.filter((user) => user.is_artist);
+
+		// Calculate total play counts for each artist
+		const artistPlayCounts = new Map<string, number>();
+
+		for (const artist of artists) {
+			const artistTracks = mockTracks.filter((track) => track.artist_id === artist.id);
+			const totalPlays = artistTracks.reduce((sum, track) => sum + track.play_count, 0);
+			artistPlayCounts.set(artist.id, totalPlays);
+		}
+
+		// Sort artists by play count
+		return artists
+			.sort((a, b) => {
+				const playsA = artistPlayCounts.get(a.id) || 0;
+				const playsB = artistPlayCounts.get(b.id) || 0;
+				return playsB - playsA;
+			})
+			.slice(0, limit);
+	}
+
+	/**
+	 * Get top tracks for an artist
+	 */
+	async getTopTracks(artistId: string, limit = 5): Promise<Track[]> {
+		return mockTracks
+			.filter((track) => track.artist_id === artistId)
+			.sort((a, b) => b.play_count - a.play_count)
+			.slice(0, limit);
 	}
 }
 

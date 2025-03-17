@@ -1,28 +1,27 @@
+// server/src/controllers/artists.ts
 import { Hono } from 'hono';
-import { z } from 'zod';
 import { zValidator } from '@hono/zod-validator';
-
-import { DATA } from '../../server/database/index.js';
-import type { APIError } from '../../types/error.js';
+import { z } from 'zod';
+import { artistRepository } from '$lib/data/repositories/artists';
+import { authMiddleware } from '$lib/hono/middlewares/access';
 
 // Define validation schemas
 const QuerySchema = z.object({
 	page: z.coerce.number().optional().default(1),
 	limit: z.coerce.number().min(1).max(100).optional().default(20)
 });
+
 const SearchQuerySchema = z.object({
 	query: z.string().min(1).max(100),
 	limit: z.coerce.number().min(1).max(20).optional().default(10)
 });
 
 const ArtistUpdateSchema = z.object({
-	artistName: z.string().min(2).max(100),
-	bio: z.string().max(500).optional(),
-	profileImage: z.string().url().optional()
+	displayName: z.string().min(2).max(100),
+	avatarUrl: z.string().url().optional()
 });
 
-const artistRouter = new Hono();
-
+// Create Hono router
 export const artistsRouter = new Hono()
 	// Get all artists with pagination
 	.get('/', zValidator('query', QuerySchema), async (c) => {
@@ -66,13 +65,13 @@ export const artistsRouter = new Hono()
 		const id = c.req.param('id');
 
 		try {
-			const artist = await artistRepository.getById(id);
+			const profile = await artistRepository.getArtistProfile(id);
 
-			if (!artist) {
+			if (!profile) {
 				return c.json({ error: 'Artist not found' }, 404);
 			}
 
-			return c.json({ artist });
+			return c.json(profile);
 		} catch (error) {
 			console.error('Error fetching artist:', error);
 			return c.json({ error: 'Failed to fetch artist' }, 500);
@@ -100,6 +99,26 @@ export const artistsRouter = new Hono()
 		}
 	})
 
+	// Get artist's top tracks
+	.get('/:id/tracks/top', async (c) => {
+		const id = c.req.param('id');
+
+		try {
+			// First check if artist exists
+			const artist = await artistRepository.getById(id);
+
+			if (!artist) {
+				return c.json({ error: 'Artist not found' }, 404);
+			}
+
+			const tracks = await artistRepository.getTopTracks(id);
+			return c.json({ tracks });
+		} catch (error) {
+			console.error('Error fetching artist top tracks:', error);
+			return c.json({ error: 'Failed to fetch artist top tracks' }, 500);
+		}
+	})
+
 	// Get artist's albums
 	.get('/:id/albums', zValidator('query', QuerySchema), async (c) => {
 		const id = c.req.param('id');
@@ -123,15 +142,18 @@ export const artistsRouter = new Hono()
 
 	// Become an artist (update user to artist)
 	.post('/', authMiddleware(), zValidator('json', ArtistUpdateSchema), async (c) => {
-		const { artistName, bio, profileImage } = c.req.valid('json');
-		const userId = c.get('userId');
+		const { displayName, avatarUrl } = c.req.valid('json');
+		const user = c.get('user');
+
+		if (!user) {
+			return c.json({ error: 'User not authenticated' }, 401);
+		}
 
 		try {
 			const artist = await artistRepository.upsert({
-				userId,
-				artistName,
-				bio,
-				profileImage
+				userId: user.id,
+				displayName,
+				avatarUrl
 			});
 
 			return c.json(
@@ -150,20 +172,23 @@ export const artistsRouter = new Hono()
 	// Update artist profile (for existing artists)
 	.patch('/:id', authMiddleware(), zValidator('json', ArtistUpdateSchema), async (c) => {
 		const id = c.req.param('id');
-		const { artistName, bio, profileImage } = c.req.valid('json');
-		const userId = c.get('userId');
+		const { displayName, avatarUrl } = c.req.valid('json');
+		const user = c.get('user');
+
+		if (!user) {
+			return c.json({ error: 'User not authenticated' }, 401);
+		}
 
 		// Check if user is the artist
-		if (id !== userId) {
-			return c.json({ error: 'Unauthorized' }, 403);
+		if (id !== user.id) {
+			return c.json({ error: 'You can only update your own artist profile' }, 403);
 		}
 
 		try {
 			const artist = await artistRepository.upsert({
-				userId,
-				artistName,
-				bio,
-				profileImage
+				userId: user.id,
+				displayName,
+				avatarUrl
 			});
 
 			return c.json({
@@ -175,4 +200,3 @@ export const artistsRouter = new Hono()
 			return c.json({ error: 'Failed to update artist profile' }, 500);
 		}
 	});
-export default artistRouter;

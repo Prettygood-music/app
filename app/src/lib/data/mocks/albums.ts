@@ -1,72 +1,75 @@
 import type { Album } from '$lib/types';
-import { v4 as uuidv4 } from 'uuid';
+import {
+	bassArchitectureId,
+	digitalHorizonsId,
+	emotionalJourneysId,
+	experimentalSoundscapesId,
+	nostalgicFrequenciesId
+} from './common';
 import { mockTracks } from './tracks';
 
-// Album IDs for reference
-export const digitalHorizonsId = uuidv4();
-export const nostalgicFrequenciesId = uuidv4();
-export const experimentalSoundscapesId = uuidv4();
-export const emotionalJourneysId = uuidv4();
-export const bassArchitectureId = uuidv4();
-
-
-const digitalHorizonsTracks = mockTracks.filter(track => track.album_id === digitalHorizonsId);
-const nostalgicFrequenciesTracks = mockTracks.filter(track => track.album_id === nostalgicFrequenciesId);
-const experimentalSoundscapesTracks = mockTracks.filter(track => track.album_id === experimentalSoundscapesId);
-const emotionalJourneysTracks = mockTracks.filter(track => track.album_id === emotionalJourneysId);
-const bassArchitectureTracks = mockTracks.filter(track => track.album_id === bassArchitectureId);
+const digitalHorizonsTracks = mockTracks.filter((track) => track.album_id === digitalHorizonsId);
+const nostalgicFrequenciesTracks = mockTracks.filter(
+	(track) => track.album_id === nostalgicFrequenciesId
+);
+const experimentalSoundscapesTracks = mockTracks.filter(
+	(track) => track.album_id === experimentalSoundscapesId
+);
+const emotionalJourneysTracks = mockTracks.filter(
+	(track) => track.album_id === emotionalJourneysId
+);
+const bassArchitectureTracks = mockTracks.filter((track) => track.album_id === bassArchitectureId);
 
 // Mock albums
 export const mockAlbums: Album[] = [
 	{
-	  id: digitalHorizonsId,
-	  title: "Digital Horizons",
-	  artist_id: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-	  artist_name: "Electric Symphony",
-	  cover_url: "https://example.com/images/digital-horizons.jpg",
-	  release_date: "2023-10-05T00:00:00Z",
-	  track_count: digitalHorizonsTracks.length,
-	  tracks: digitalHorizonsTracks
+		id: digitalHorizonsId,
+		title: 'Digital Horizons',
+		artist_id: 'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+		artist_name: 'Electric Symphony',
+		cover_url: 'https://example.com/images/digital-horizons.jpg',
+		release_date: '2023-10-05T00:00:00Z',
+		track_count: digitalHorizonsTracks.length,
+		tracks: digitalHorizonsTracks
 	},
 	{
-	  id: nostalgicFrequenciesId,
-	  title: "Nostalgic Frequencies",
-	  artist_id: "b2c3d4e5-f6a7-8901-bcde-fa1234567890",
-	  artist_name: "Vintage Echoes",
-	  cover_url: "https://example.com/images/nostalgic-frequencies.jpg",
-	  release_date: "2023-11-03T00:00:00Z",
-	  track_count: nostalgicFrequenciesTracks.length,
-	  tracks: nostalgicFrequenciesTracks
+		id: nostalgicFrequenciesId,
+		title: 'Nostalgic Frequencies',
+		artist_id: 'b2c3d4e5-f6a7-8901-bcde-fa1234567890',
+		artist_name: 'Vintage Echoes',
+		cover_url: 'https://example.com/images/nostalgic-frequencies.jpg',
+		release_date: '2023-11-03T00:00:00Z',
+		track_count: nostalgicFrequenciesTracks.length,
+		tracks: nostalgicFrequenciesTracks
 	},
 	{
-	  id: experimentalSoundscapesId,
-	  title: "Experimental Soundscapes",
-	  artist_id: "c3d4e5f6-a7b8-9012-cdef-ab1234567890",
-	  artist_name: "Sonic Wanderer",
-	  cover_url: "https://example.com/images/experimental-soundscapes.jpg",
-	  release_date: "2023-09-22T00:00:00Z",
-	  track_count: experimentalSoundscapesTracks.length,
-	  tracks: experimentalSoundscapesTracks
+		id: experimentalSoundscapesId,
+		title: 'Experimental Soundscapes',
+		artist_id: 'c3d4e5f6-a7b8-9012-cdef-ab1234567890',
+		artist_name: 'Sonic Wanderer',
+		cover_url: 'https://example.com/images/experimental-soundscapes.jpg',
+		release_date: '2023-09-22T00:00:00Z',
+		track_count: experimentalSoundscapesTracks.length,
+		tracks: experimentalSoundscapesTracks
 	},
 	{
-	  id: emotionalJourneysId,
-	  title: "Emotional Journeys",
-	  artist_id: "d4e5f6a7-b8c9-0123-defa-bc1234567890",
-	  artist_name: "Melodic Journey",
-	  cover_url: "https://example.com/images/emotional-journeys.jpg",
-	  release_date: "2023-12-01T00:00:00Z",
-	  track_count: emotionalJourneysTracks.length,
-	  tracks: emotionalJourneysTracks
+		id: emotionalJourneysId,
+		title: 'Emotional Journeys',
+		artist_id: 'd4e5f6a7-b8c9-0123-defa-bc1234567890',
+		artist_name: 'Melodic Journey',
+		cover_url: 'https://example.com/images/emotional-journeys.jpg',
+		release_date: '2023-12-01T00:00:00Z',
+		track_count: emotionalJourneysTracks.length,
+		tracks: emotionalJourneysTracks
 	},
 	{
-	  id: bassArchitectureId,
-	  title: "Bass Architecture",
-	  artist_id: "e5f6a7b8-c9d0-1234-efab-cd1234567890",
-	  artist_name: "Bass Architect",
-	  cover_url: "https://example.com/images/bass-architecture.jpg",
-	  release_date: "2023-08-15T00:00:00Z",
-	  track_count: bassArchitectureTracks.length,
-	  tracks: bassArchitectureTracks
+		id: bassArchitectureId,
+		title: 'Bass Architecture',
+		artist_id: 'e5f6a7b8-c9d0-1234-efab-cd1234567890',
+		artist_name: 'Bass Architect',
+		cover_url: 'https://example.com/images/bass-architecture.jpg',
+		release_date: '2023-08-15T00:00:00Z',
+		track_count: bassArchitectureTracks.length,
+		tracks: bassArchitectureTracks
 	}
-  ];
-  
+];
