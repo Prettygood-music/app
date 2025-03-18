@@ -4,9 +4,10 @@ import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 import { artistRepository } from '$lib/data/repositories/artists';
 import { authMiddleware } from '$lib/hono/middlewares/access';
+import { PaginationSchema, SearchSchema } from '$lib/types/schemas';
 
 // Define validation schemas
-const QuerySchema = z.object({
+/*const QuerySchema = z.object({
 	page: z.coerce.number().optional().default(1),
 	limit: z.coerce.number().min(1).max(100).optional().default(20)
 });
@@ -14,8 +15,7 @@ const QuerySchema = z.object({
 const SearchQuerySchema = z.object({
 	query: z.string().min(1).max(100),
 	limit: z.coerce.number().min(1).max(20).optional().default(10)
-});
-
+});*/
 const ArtistUpdateSchema = z.object({
 	displayName: z.string().min(2).max(100),
 	avatarUrl: z.string().url().optional()
@@ -24,7 +24,7 @@ const ArtistUpdateSchema = z.object({
 // Create Hono router
 export const artistsRouter = new Hono()
 	// Get all artists with pagination
-	.get('/', zValidator('query', QuerySchema), async (c) => {
+	.get('/', zValidator('query', PaginationSchema), async (c) => {
 		const { page, limit } = c.req.valid('query');
 
 		try {
@@ -48,7 +48,7 @@ export const artistsRouter = new Hono()
 	})
 
 	// Search artists
-	.get('/search', zValidator('query', SearchQuerySchema), async (c) => {
+	.get('/search', zValidator('query', SearchSchema), async (c) => {
 		const { query, limit } = c.req.valid('query');
 
 		try {
@@ -79,7 +79,7 @@ export const artistsRouter = new Hono()
 	})
 
 	// Get artist's tracks
-	.get('/:id/tracks', zValidator('query', QuerySchema), async (c) => {
+	.get('/:id/tracks', zValidator('query', PaginationSchema), async (c) => {
 		const id = c.req.param('id');
 		const { page, limit } = c.req.valid('query');
 
@@ -120,7 +120,7 @@ export const artistsRouter = new Hono()
 	})
 
 	// Get artist's albums
-	.get('/:id/albums', zValidator('query', QuerySchema), async (c) => {
+	.get('/:id/albums', zValidator('query', PaginationSchema), async (c) => {
 		const id = c.req.param('id');
 		const { page, limit } = c.req.valid('query');
 
