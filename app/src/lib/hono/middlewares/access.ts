@@ -58,7 +58,7 @@ export function authMiddleware(
  * For development/testing without SvelteKit, this middleware
  * simulates authentication using the Authorization header
  */
-/*
+
 export function mockAuthMiddleware(): MiddlewareHandler {
 	return async (c, next) => {
 		// Only use in development
@@ -100,4 +100,3 @@ export function mockAuthMiddleware(): MiddlewareHandler {
 		await next();
 	};
 }
-*/

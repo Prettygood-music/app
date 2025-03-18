@@ -114,11 +114,12 @@ export const albumsRouter = new Hono()
 			}
 
 			try {
+                // TODO: Replace with implementation
 				// In a real app, we'd validate that trackIds belong to the artist
 				// For mock data, we'll get tracks from our mock data
 
 				// Import mockTracks directly here to avoid circular dependencies
-				const { mockTracks } = await import('../data/mocks/mockData');
+				const { mockTracks } = await import('../../data/mocks');
 
 				// Filter tracks by artist and IDs if provided
 				const tracks =
