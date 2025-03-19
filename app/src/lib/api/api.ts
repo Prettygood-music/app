@@ -2,6 +2,7 @@ import { Hono } from 'hono';
 import { artistsRouter } from './artists';
 import { albumsRouter } from './albums';
 import { tracksRouter } from './tracks';
+import { recommendationsRouter } from './recommendations';
 
 type LocalsEnv = {
 	Bindings: Record<string, unknown>;
@@ -16,6 +17,7 @@ export const api = new Hono()
 	.basePath('/api')
 	.route('/artists', artistsRouter)
 	.route('/albums', albumsRouter)
-	.route('/tracks', tracksRouter);
+	.route('/tracks', tracksRouter)
+	.route('/recommendations', recommendationsRouter);
 
 export type Router = typeof router;

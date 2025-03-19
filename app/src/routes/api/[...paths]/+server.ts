@@ -45,7 +45,6 @@ async function handleHono(request: Request, params: { paths?: string }, locals: 
 			referrer: request.referrer,
 			referrerPolicy: request.referrerPolicy
 		});
-		console.log(newRequest)
 		// Call Hono app with the locals
 		const res = await api.fetch(newRequest, {
 			// Pass SvelteKit locals to Hono
