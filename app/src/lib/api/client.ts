@@ -9,5 +9,6 @@ export function makeClient(fetch: Window['fetch']) {
 		origin = window.location.origin;
 	}
 
-	return hc<Router>(origin + '/api', { fetch });
+	// return hc<Router>(origin + '/api', { fetch });
+	return hc<Router>(origin, { fetch });
 }

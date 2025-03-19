@@ -4,10 +4,11 @@ import { zValidator } from '@hono/zod-validator';
 import { recommendationsRepository } from '$lib/data/repositories/recommendations/tracks';
 import { TrackRecommendationsSchema } from './schema';
 
+
 // Create Hono router
 export const tracksRouter = new Hono()
 	// Get track recommendations
-	.get('', zValidator('query', TrackRecommendationsSchema), async (c) => {
+	.get('/', zValidator('query', TrackRecommendationsSchema), async (c) => {
 		const params = c.req.valid('query');
 
 		// Get user from context if available, but don't require authentication

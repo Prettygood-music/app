@@ -20,4 +20,4 @@ export const api = new Hono()
 	.route('/tracks', tracksRouter)
 	.route('/recommendations', recommendationsRouter);
 
-export type Router = typeof router;
+export type Router = typeof api;

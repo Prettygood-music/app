@@ -11,6 +11,7 @@
 	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
 	import { makeClient } from '$lib/api';
+	import { onNavigate } from '$app/navigation';
 
 	// TODO: we'll want a context for this
 	const client = browser ? makeClient(window.fetch) : null!;
@@ -39,10 +40,23 @@
 		//playerState.playTrack(track);
 		setPlayerContext(playerState);
 	}
+
+	onNavigate((navigation) => {
+		if (!document.startViewTransition) {
+			return;
+		}
+
+		return new Promise((resolve) => {
+			document.startViewTransition(async () => {
+				resolve();
+				await navigation.complete;
+			});
+		});
+	});
 </script>
 
 <ParaglideJS {i18n}>
-	<div class="mb-24 flex min-h-screen flex-col">
+	<div class="mb-24 flex min-h-screen flex-col" id="content">
 		<Navbar />
 		<main class="flex-1">
 			{@render children()}
@@ -51,3 +65,6 @@
 		<MobilePlayerBar></MobilePlayerBar>
 	</div>
 </ParaglideJS>
+
+<style global>
+</style>
