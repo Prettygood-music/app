@@ -114,7 +114,7 @@ export const albumsRouter = new Hono()
 			}
 
 			try {
-                // TODO: Replace with implementation
+				// TODO: Replace with implementation
 				// In a real app, we'd validate that trackIds belong to the artist
 				// For mock data, we'll get tracks from our mock data
 

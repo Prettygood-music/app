@@ -6,16 +6,6 @@ import { artistRepository } from '$lib/data/repositories/artists';
 import { authMiddleware } from '$lib/hono/middlewares/access';
 import { PaginationSchema, SearchSchema } from '$lib/types/schemas';
 
-// Define validation schemas
-/*const QuerySchema = z.object({
-	page: z.coerce.number().optional().default(1),
-	limit: z.coerce.number().min(1).max(100).optional().default(20)
-});
-
-const SearchQuerySchema = z.object({
-	query: z.string().min(1).max(100),
-	limit: z.coerce.number().min(1).max(20).optional().default(10)
-});*/
 const ArtistUpdateSchema = z.object({
 	displayName: z.string().min(2).max(100),
 	avatarUrl: z.string().url().optional()
