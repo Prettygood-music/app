@@ -31,10 +31,20 @@ export const load: PageLoad = async ({ params, parent }) => {
 		error(404, albumsJson.error);
 	}
 
+	const topTracks = await (async () => {
+		const topTracksResponse = await apiClient.api.artists[':id'].tracks.top.$get({
+			param: {
+				id: artistId
+			}
+		});
+		const topTracksJson = await topTracksResponse.json();
+		return 'tracks' in topTracksJson ? topTracksJson.tracks : [];
+	})();
+
 	return {
 		artist: artistJson.artist,
 		albums: albumsJson.albums,
-		topTracks: [],
+		topTracks: topTracks,
 		similarArtists: [
 			{
 				id: 'artist-2',
