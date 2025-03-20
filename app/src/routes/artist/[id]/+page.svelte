@@ -43,9 +43,9 @@
 	/>
 </svelte:head>
 
-<div class="flex min-h-screen flex-col">
+<div class="flex flex-col overflow-y-auto">
 	<!-- Artist Header with Cover Image -->
-	<div class="relative h-80 w-full overflow-hidden">
+	<div class="relative min-h-80 w-full overflow-hidden">
 		{#if data.artist.cover_url}
 			<img
 				src={data.artist.cover_url}
@@ -58,40 +58,40 @@
 
 		<div class="from-background absolute inset-0 bg-gradient-to-t to-transparent"></div>
 
-		<div
-			class="absolute bottom-0 left-0 flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center"
-		>
-			<Avatar class="border-background h-24 w-24 border-4 md:h-36 md:w-36">
-				<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
-				<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
-			</Avatar>
+		<div class="absolute bottom-0 inset-x-0">
+			<div class="container flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center">
+				<Avatar class="border-background h-24 w-24 border-4 md:h-36 md:w-36">
+					<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
+					<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
+				</Avatar>
 
-			<div class="flex-1">
-				<h1 class="text-3xl font-bold text-white drop-shadow-md md:text-5xl">
-					{data.artist.display_name}
-				</h1>
-				<div class="mt-2 flex items-center gap-2">
-					<Badge variant="secondary" class="text-xs">ARTIST</Badge>
-					<span class="text-sm text-white/80">25.4M monthly listeners</span>
+				<div class="flex-1">
+					<h1 class="text-3xl font-bold text-white drop-shadow-md md:text-5xl">
+						{data.artist.display_name}
+					</h1>
+					<div class="mt-2 flex items-center gap-2">
+						<Badge variant="secondary" class="text-xs">ARTIST</Badge>
+						<span class="text-sm text-white/80">25.4M monthly listeners</span>
+					</div>
 				</div>
-			</div>
 
-			<div class="flex gap-2">
-				<Button
-					size="icon"
-					variant="ghost"
-					class="bg-background/20 hover:bg-background/40 rounded-full"
-					onclick={share}
-				>
-					<ShareIcon class="h-5 w-5" />
-				</Button>
-				<Button onclick={toggleFollow} variant={isFollowing ? 'secondary' : 'default'}>
-					{isFollowing ? 'Following' : 'Follow'}
-				</Button>
-				<Button variant="default" onclick={tipArtist}>
-					<TipIcon class="mr-2 h-4 w-4" />
-					Tip Artist
-				</Button>
+				<div class="flex gap-2">
+					<Button
+						size="icon"
+						variant="ghost"
+						class="bg-background/20 hover:bg-background/40 rounded-full"
+						onclick={share}
+					>
+						<ShareIcon class="h-5 w-5" />
+					</Button>
+					<Button onclick={toggleFollow} variant={isFollowing ? 'secondary' : 'default'}>
+						{isFollowing ? 'Following' : 'Follow'}
+					</Button>
+					<Button variant="default" onclick={tipArtist}>
+						<TipIcon class="mr-2 h-4 w-4" />
+						Tip Artist
+					</Button>
+				</div>
 			</div>
 		</div>
 	</div>

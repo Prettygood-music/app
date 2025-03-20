@@ -56,6 +56,7 @@
 </script>
 
 <ParaglideJS {i18n}>
+	<!-- 
 	<div class="mb-24 flex min-h-screen flex-col" id="content">
 		<Navbar />
 		<main class="flex-1">
@@ -63,6 +64,21 @@
 		</main>
 		<PlayerBar></PlayerBar>
 		<MobilePlayerBar></MobilePlayerBar>
+	</div>
+	 -->
+
+	<div class="bg-background flex h-screen  flex-col" id="content">
+		<Navbar />
+		<main class="flex-1 overflow-y-hidden flex flex-col">
+			{@render children()}
+		</main>
+		<div class=" bg-blue-500 shrink-0">
+			<div class="h-[60px]">wooow</div>
+			<!-- 
+				<PlayerBar></PlayerBar>
+				<MobilePlayerBar></MobilePlayerBar>
+				-->
+		</div>
 	</div>
 </ParaglideJS>
 
