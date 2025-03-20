@@ -6,7 +6,7 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { Separator } from '$lib/components/ui/separator';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import type { Album, Artist, Track } from '$lib/types/player';
+	import type { Album, Artist, Track } from '$lib/types';
 
 	import TipIcon from 'lucide-svelte/icons/coins';
 	import GlobeIcon from 'lucide-svelte/icons/globe';
@@ -21,12 +21,6 @@
 	let isFollowing = $state(false);
 	let selectedTab = $state('overview');
 
-	// Get data from the load function
-	let artist = $state<Artist>(data.artist);
-	let albums = $state<Album[]>(data.albums);
-	let topTracks = $state<Track[]>(data.topTracks);
-	let similarArtists = $state(data.similarArtists);
-
 	function toggleFollow() {
 		isFollowing = !isFollowing;
 	}
@@ -37,25 +31,25 @@
 	}
 
 	function share() {
-		alert(`Sharing artist: ${artist.artist_name}`);
+		alert(`Sharing artist: ${data.artist.display_name}`);
 	}
 </script>
 
 <svelte:head>
-	<title>{artist.artist_name} | prettygood.music</title>
+	<title>{data.artist.display_name} | prettygood.music</title>
 	<meta
 		name="description"
-		content={artist.bio?.substring(0, 160) || `Music by ${artist.artist_name}`}
+		content={data.artist.bio?.substring(0, 160) || `Music by ${data.artist.display_name}`}
 	/>
 </svelte:head>
 
 <div class="flex min-h-screen flex-col">
 	<!-- Artist Header with Cover Image -->
 	<div class="relative h-80 w-full overflow-hidden">
-		{#if artist.cover_url}
+		{#if data.artist.cover_url}
 			<img
-				src={artist.cover_url}
-				alt={`${artist.artist_name} cover image`}
+				src={data.artist.cover_url}
+				alt={`${data.artist.display_name} cover image`}
 				class="h-full w-full object-cover"
 			/>
 		{:else}
@@ -68,13 +62,13 @@
 			class="absolute bottom-0 left-0 flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center"
 		>
 			<Avatar class="border-background h-24 w-24 border-4 md:h-36 md:w-36">
-				<AvatarImage src={artist.avatar_url || ''} alt={artist.artist_name} />
-				<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
+				<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
+				<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
 			</Avatar>
 
 			<div class="flex-1">
 				<h1 class="text-3xl font-bold text-white drop-shadow-md md:text-5xl">
-					{artist.artist_name}
+					{data.artist.display_name}
 				</h1>
 				<div class="mt-2 flex items-center gap-2">
 					<Badge variant="secondary" class="text-xs">ARTIST</Badge>
@@ -121,7 +115,7 @@
 					</div>
 
 					<div class="space-y-2">
-						{#each topTracks as track, i}
+						{#each data.topTracks as track, i}
 							<TrackItem {track} index={i} />
 						{/each}
 					</div>
@@ -131,13 +125,13 @@
 				<section>
 					<div class="mb-4 flex items-center justify-between">
 						<h2 class="text-2xl font-bold">Albums</h2>
-						<Button variant="link" href="/artist/{artist.id}/albums">See All</Button>
+						<Button variant="link" href="/artist/{data.artist.id}/albums">See All</Button>
 					</div>
 
 					<div class="relative">
 						<ScrollArea orientation="both">
 							<div class="flex space-x-4 pb-4">
-								{#each albums as album}
+								{#each data.albums as album}
 									<AlbumCard {album} size="default" />
 								{/each}
 							</div>
@@ -155,10 +149,10 @@
 					<div class="relative">
 						<ScrollArea orientation="both">
 							<div class="flex space-x-4 pb-4">
-								{#each similarArtists as artist}
+								{#each data.similarArtists as artist}
 									<ArtistCard
 										id={artist.id}
-										name={artist.artist_name}
+										name={artist.display_name}
 										avatarUrl={artist.avatar_url}
 									/>
 								{/each}
@@ -173,7 +167,7 @@
 				<h2 class="mb-4 text-2xl font-bold">Albums</h2>
 
 				<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{#each albums as album}
+					{#each data.albums as album}
 						<AlbumCard {album} />
 					{/each}
 				</div>
@@ -184,7 +178,7 @@
 				<section>
 					<h2 class="mb-4 text-2xl font-bold">Biography</h2>
 					<div class="prose prose-sm md:prose-base dark:prose-invert">
-						<p>{artist.bio}</p>
+						<p>{data.artist?.bio || 'bio'}</p>
 
 						<p class="mt-4">
 							Nina's journey began in the underground clubs of Berlin, where she honed her craft as
@@ -203,46 +197,48 @@
 
 				<Separator />
 
-				<section>
-					<h2 class="mb-4 text-xl font-bold">Social Links</h2>
-					<div class="space-y-2">
-						{#if artist.socials.website}
-							<a
-								href={artist.socials.website}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
-							>
-								<GlobeIcon class="h-5 w-5" />
-								<span>{artist.socials.website}</span>
-							</a>
-						{/if}
+				{#if data.artist.socials}
+					<section>
+						<h2 class="mb-4 text-xl font-bold">Social Links</h2>
+						<div class="space-y-2">
+							{#if data.artist.socials.website}
+								<a
+									href={data.artist.socials.website}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
+								>
+									<GlobeIcon class="h-5 w-5" />
+									<span>{data.artist.socials.website}</span>
+								</a>
+							{/if}
 
-						{#if artist.socials.twitter}
-							<a
-								href={`https://twitter.com/${artist.socials.twitter}`}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
-							>
-								<TwitterIcon class="h-5 w-5" />
-								<span>@{artist.socials.twitter}</span>
-							</a>
-						{/if}
+							{#if data.artist.socials.twitter}
+								<a
+									href={`https://twitter.com/${data.artist.socials.twitter}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
+								>
+									<TwitterIcon class="h-5 w-5" />
+									<span>@{data.artist.socials.twitter}</span>
+								</a>
+							{/if}
 
-						{#if artist.socials.instagram}
-							<a
-								href={`https://instagram.com/${artist.socials.instagram}`}
-								target="_blank"
-								rel="noopener noreferrer"
-								class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
-							>
-								<InstagramIcon class="h-5 w-5" />
-								<span>@{artist.socials.instagram}</span>
-							</a>
-						{/if}
-					</div>
-				</section>
+							{#if data.artist.socials.instagram}
+								<a
+									href={`https://instagram.com/${data.artist.socials.instagram}`}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
+								>
+									<InstagramIcon class="h-5 w-5" />
+									<span>@{data.artist.socials.instagram}</span>
+								</a>
+							{/if}
+						</div>
+					</section>
+				{/if}
 
 				<Separator />
 
