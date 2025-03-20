@@ -12,10 +12,19 @@ export const load = (async ({ fetch }) => {
 	});
 	// FIXME: We'll need a way to discriminate between success and failure.
 	const json = await recommendedTracksResponse.json();
-	if ('tracks' in json) {
+
+	const recommendedAlbumsResponse = await client.api.recommendations.albums.$get({
+		query: {
+			type: 'for-you'
+		}
+	});
+	const albumJson = await recommendedAlbumsResponse.json();
+
+	if ('tracks' in json && 'albums' in albumJson) {
 		return {
 			recommendations: {
-				tracks: json.tracks
+				tracks: json.tracks,
+				albums: albumJson.albums
 			}
 		};
 	}

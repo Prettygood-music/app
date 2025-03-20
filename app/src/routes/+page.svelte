@@ -94,9 +94,14 @@
 							<div class="relative">
 								<ScrollArea orientation="both">
 									<div class="flex space-x-4 pb-4">
-										{#each listenNowAlbums as album}
+										<!-- {#each listenNowAlbums as album} -->
+										 {#each data.recommendations.albums as album}
 											<AlbumArtwork
-												{album}
+												album={{
+													artist: album.artist_name,
+													cover: album.cover_url,
+													name: album.title
+												}}
 												class="w-[250px]"
 												aspectRatio="portrait"
 												width={250}
