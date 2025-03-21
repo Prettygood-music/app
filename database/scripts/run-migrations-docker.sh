@@ -12,20 +12,25 @@ DB_NAME=${DB_NAME:-prettygood}
 BASE_DIR="$(dirname "$(dirname "$0")")"
 MIGRATIONS_DIR="$BASE_DIR/migrations"
 
-# Check if Docker container is running
-if ! docker ps | grep -q postgres; then
-  echo "Error: Postgres container is not running"
+# Find the postgres container - look for any container running postgres
+POSTGRES_CONTAINER=$(docker ps | grep -E 'postgres|postgre|pg' | grep -v 'postgrest' | grep -v 'pgadmin' | head -n 1 | awk '{print $1}')
+
+if [ -z "$POSTGRES_CONTAINER" ]; then
+  echo "Error: No PostgreSQL container found running. Please start the container first."
+  echo "Run 'make db-docker-up' or 'docker-compose up -d' first."
   exit 1
 fi
 
+echo "Using PostgreSQL container: $POSTGRES_CONTAINER"
+
 # Create app directory in container if it doesn't exist
-docker exec postgres mkdir -p /app/migrations
+docker exec "$POSTGRES_CONTAINER" mkdir -p /app/migrations
 
 # Copy all migration files to the container
-docker cp "$MIGRATIONS_DIR/." postgres:/app/migrations/
+docker cp "$MIGRATIONS_DIR/." "$POSTGRES_CONTAINER:/app/migrations/"
 
 # Create migrations table in the container
-docker exec postgres psql -U $DB_USER -d $DB_NAME -c "
+docker exec "$POSTGRES_CONTAINER" psql -U $DB_USER -d $DB_NAME -c "
   CREATE SCHEMA IF NOT EXISTS prettygood_private;
   
   CREATE TABLE IF NOT EXISTS prettygood_private.migrations (
@@ -36,7 +41,7 @@ docker exec postgres psql -U $DB_USER -d $DB_NAME -c "
 "
 
 # Get already applied migrations
-applied_migrations=$(docker exec postgres psql -U $DB_USER -d $DB_NAME -t -c "
+applied_migrations=$(docker exec "$POSTGRES_CONTAINER" psql -U $DB_USER -d $DB_NAME -t -c "
   SELECT id FROM prettygood_private.migrations ORDER BY id;
 ")
 
@@ -56,10 +61,10 @@ run_migration() {
   migration_id="${file%%_*}"
   
   # Run the migration
-  docker exec postgres psql -U $DB_USER -d $DB_NAME -f "/app/migrations/$file"
+  docker exec "$POSTGRES_CONTAINER" psql -U $DB_USER -d $DB_NAME -f "/app/migrations/$file"
   
   # Record the migration in the migrations table
-  docker exec postgres psql -U $DB_USER -d $DB_NAME -c "
+  docker exec "$POSTGRES_CONTAINER" psql -U $DB_USER -d $DB_NAME -c "
     INSERT INTO prettygood_private.migrations (id, name, applied_at)
     VALUES ('$migration_id', '$file', NOW())
     ON CONFLICT (id) DO UPDATE SET

@@ -31,19 +31,40 @@ if [ "$USE_DOCKER" = "true" ]; then
     exit 1
   fi
 
-  # Check if the database container is running
-  if ! docker ps | grep -q postgres; then
-    echo "Error: Postgres container is not running"
+  # Find the postgres container - look for any container running postgres
+POSTGRES_CONTAINER=$(docker ps | grep -E 'postgres|postgre|pg' | grep -v 'postgrest' | grep -v 'pgadmin' | head -n 1 | awk '{print $1}')
+
+
+
+  if [ -z "$POSTGRES_CONTAINER" ]; then
+    echo "Error: No PostgreSQL container found running. Please start the container first."
+    echo "Run 'make db-docker-up' or 'docker-compose up -d' first."
     exit 1
   fi
+
+  echo "Using PostgreSQL container: $POSTGRES_CONTAINER"
+
+  # Install dependencies in the container if needed
+  if [ ! -d "$TYPE_GENERATOR_DIR/node_modules" ]; then
+    echo "Installing dependencies..."
+    cd "$TYPE_GENERATOR_DIR" && npm install
+  fi
+
+  # Copy the type generator to the container
+  docker exec "$POSTGRES_CONTAINER" mkdir -p /app/database/scripts/type-generator
+  docker cp "$TYPE_GENERATOR_DIR" "$POSTGRES_CONTAINER:/app/database/scripts/"
 
   # Run the type generator in the Docker container
   if [ "$USE_ADVANCED" = "true" ]; then
     echo "Using advanced type generator..."
-    cd "$TYPE_GENERATOR_DIR" && npm run generate:advanced:docker
+    docker exec -e DB_HOST=localhost -e DB_PORT=5432 -e DB_NAME=$DB_NAME -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e OUTPUT_DIR=/app/database/scripts/type-generator/output "$POSTGRES_CONTAINER" sh -c "cd /app/database/scripts/type-generator && node generate-types-advanced.js"
   else
-    cd "$TYPE_GENERATOR_DIR" && npm run generate:docker
+    docker exec -e DB_HOST=localhost -e DB_PORT=5432 -e DB_NAME=$DB_NAME -e DB_USER=$DB_USER -e DB_PASSWORD=$DB_PASSWORD -e OUTPUT_DIR=/app/database/scripts/type-generator/output "$POSTGRES_CONTAINER" sh -c "cd /app/database/scripts/type-generator && node generate-types.js"
   fi
+
+  # Copy the generated types from the container to the host
+  docker exec "$POSTGRES_CONTAINER" mkdir -p /app/database/scripts/type-generator/output
+  docker cp "$POSTGRES_CONTAINER:/app/database/scripts/type-generator/output/." "$OUTPUT_DIR"
 else
   echo "Generating types locally..."
   

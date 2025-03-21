@@ -5,6 +5,7 @@ services:
     build:
       context: ./docker
       dockerfile: Dockerfile
+    container_name: prettygood-postgres
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
@@ -14,6 +15,7 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./:/app:delegated
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -22,6 +24,7 @@ services:
 
   postgrest:
     image: postgrest/postgrest:latest
+    container_name: prettygood-postgrest
     ports:
       - "3000:3000"
     environment:
@@ -38,6 +41,7 @@ services:
   # Alternative to pg_prove for running tests with a nice UI
   pgadmin:
     image: dpage/pgadmin4:latest
+    container_name: prettygood-pgadmin
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@prettygood.music
       PGADMIN_DEFAULT_PASSWORD: admin

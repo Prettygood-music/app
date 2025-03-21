@@ -36,6 +36,18 @@ if ! docker info > /dev/null 2>&1; then
   exit 1
 fi
 
+# Find the postgres container - look for any container running postgres
+POSTGRES_CONTAINER=$(docker ps | grep -E 'postgres|postgre|pg' | grep -v 'postgrest' | grep -v 'pgadmin' | head -n 1 | awk '{print $1}')
+
+
+if [ -z "$POSTGRES_CONTAINER" ]; then
+  echo "Error: No PostgreSQL container found running. Please start the container first."
+  echo "Run 'make db-docker-up' or 'docker-compose up -d' first."
+  exit 1
+fi
+
+echo "Using PostgreSQL container: $POSTGRES_CONTAINER"
+
 # Function to run a test in Docker
 docker_test() {
   local test_file="$1"
@@ -46,20 +58,20 @@ docker_test() {
   
   # Copy the test file to the container
   # First create the directory in the container if it doesn't exist
-  docker exec postgres mkdir -p "/tests/$(basename "$(dirname "$test_file")")"
+  docker exec "$POSTGRES_CONTAINER" mkdir -p "/tests/$(basename "$(dirname "$test_file")")"
   
   # Then copy the file
-  docker cp "$test_file" "postgres:$test_path"
+  docker cp "$test_file" "$POSTGRES_CONTAINER:$test_path"
   
   # Run the test
   if [ $VERBOSE -eq 1 ]; then
-    docker exec postgres psql -U postgres -d prettygood -f "$test_path"
+    docker exec "$POSTGRES_CONTAINER" psql -U postgres -d prettygood -f "$test_path"
   else
     # Use pg_prove if available
-    if docker exec postgres which pg_prove > /dev/null 2>&1; then
-      docker exec postgres pg_prove -U postgres -d prettygood "$test_path"
+    if docker exec "$POSTGRES_CONTAINER" which pg_prove > /dev/null 2>&1; then
+      docker exec "$POSTGRES_CONTAINER" pg_prove -U postgres -d prettygood "$test_path"
     else
-      docker exec postgres psql -U postgres -d prettygood -f "$test_path" | grep -E "^(ok|not ok|#|1\.\.|plan)"
+      docker exec "$POSTGRES_CONTAINER" psql -U postgres -d prettygood -f "$test_path" | grep -E "^(ok|not ok|#|1\.\.|plan)"
     fi
   fi
   
@@ -69,7 +81,7 @@ docker_test() {
 echo "Running pgTAP tests in Docker for prettygood.music database"
 
 # Create tests directory in the container
-docker exec postgres mkdir -p /tests
+docker exec "$POSTGRES_CONTAINER" mkdir -p /tests
 
 if [ -n "$SPECIFIC_FILE" ]; then
   # Run a specific file

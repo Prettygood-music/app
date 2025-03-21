@@ -14,59 +14,41 @@ export DB_NAME
 export DB_USER
 export DB_PASSWORD
 
-# Ensure scripts are executable
-.PHONY: ensure-executable
-ensure-executable:
-	chmod +x ./run-migrations.sh
-	chmod +x ./scripts/reset-database.sh
-	chmod +x ./scripts/setup-fresh-database.sh
+.PHONY: setup-all local-setup docker-setup test-all
 
-# Run migrations
-.PHONY: migrate
-migrate: ensure-executable
-	./run-migrations.sh
+# Full setup from scratch
+setup-all: docker-setup
 
-# Reset the database (drop and recreate)
-.PHONY: reset-db
-reset-db: ensure-executable
-	./scripts/reset-database.sh
-
-# Setup a fresh database (reset, run migrations, and seed data)
-.PHONY: setup-fresh-db
-setup-fresh-db: ensure-executable
+# Setup for local development
+local-setup:
 	./scripts/setup-fresh-database.sh
+	./scripts/generate-types.sh
 
-# Create a new migration file
-.PHONY: create-migration
-create-migration:
-	@echo "Enter migration name:"; \
-	read name; \
-	node ./scripts/create-migration.js "$$name"
+# Setup for Docker development
+docker-setup:
+	docker-compose down -v || true
+	docker-compose build --no-cache
+	docker-compose up -d
+	./scripts/setup-fresh-database-docker.sh
+	./scripts/generate-types.sh
 
-# Create a new seed file
-.PHONY: create-seed
-create-seed:
-	@echo "Enter seed file name:"; \
-	read name; \
-	node ./scripts/create-seed.js "$$name"
+# Run all tests
+test-all:
+	./scripts/run-tests.sh
+
+# Run all tests in Docker
+docker-test-all:
+	./scripts/run-tests-docker.sh
 
 # Help command
-.PHONY: help
 help:
 	@echo "Available commands:"
-	@echo "  make migrate               - Run database migrations"
-	@echo "  make reset-db              - Reset database (drop and recreate)"
-	@echo "  make setup-fresh-db        - Setup fresh database with migrations and seed data"
-	@echo "  make create-migration      - Create a new migration file"
-	@echo "  make create-seed           - Create a new seed file"
-	@echo "  make help                  - Show this help message"
-	@echo ""
-	@echo "Environment variables (current values shown):"
-	@echo "  DB_HOST=$(DB_HOST)"
-	@echo "  DB_PORT=$(DB_PORT)"
-	@echo "  DB_NAME=$(DB_NAME)"
-	@echo "  DB_USER=$(DB_USER)"
-	@echo "  DB_PASSWORD=$(DB_PASSWORD)"
+	@echo "  make setup-all            - Complete setup (currently uses Docker)"
+	@echo "  make local-setup          - Setup database locally"
+	@echo "  make docker-setup         - Setup database in Docker"
+	@echo "  make test-all             - Run all tests locally"
+	@echo "  make docker-test-all      - Run all tests in Docker"
+	@echo "  make help                 - Show this help message"
 
 # Default target
 .DEFAULT_GOAL := help
