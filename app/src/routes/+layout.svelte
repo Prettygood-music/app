@@ -73,9 +73,9 @@
 			{@render children()}
 		</main>
 		<div class=" bg-blue-500 shrink-0">
-			<div class="h-[60px]">wooow</div>
+			<PlayerBar></PlayerBar>
 			<!-- 
-				<PlayerBar></PlayerBar>
+				<div class="h-[60px]">wooow</div>
 				<MobilePlayerBar></MobilePlayerBar>
 				-->
 		</div>

@@ -19,7 +19,7 @@
 
 {#if playerState && playerState.currentTrack}
 	{@const currentTrack = playerState.currentTrack}
-	<div class="bg-background fixed bottom-0 z-10 hidden w-full border-t lg:block">
+	<div class="bg-background  z-10 hidden w-full border-t lg:block">
 		<div class="container grid grid-cols-3 px-6 py-4">
 			<div class="flex items-center space-x-2">
 				<Thumbnail coverURL={currentTrack.cover_url}></Thumbnail>

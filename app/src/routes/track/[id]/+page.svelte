@@ -80,156 +80,158 @@
 	/>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8">
-	<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-		<!-- Track Artwork and Primary Actions -->
-		<div class="flex flex-col items-center lg:items-start">
-			<div class="mb-6 overflow-hidden shadow-xl">
-				<img
-					src={data.track.cover_url || '/images/default-track.jpg'}
-					alt={data.track.title}
-					class="aspect-square h-64 w-64 rounded-lg object-cover sm:h-80 sm:w-80"
-					style="--view-transition-tag:track-image-{data.track.id};"
-				/>
+<div class=" overflow-y-auto">
+	<div class="container mx-auto px-4 py-8">
+		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
+			<!-- Track Artwork and Primary Actions -->
+			<div class="flex flex-col items-center lg:items-start">
+				<div class="mb-6 overflow-hidden shadow-xl">
+					<img
+						src={data.track.cover_url || '/images/default-track.jpg'}
+						alt={data.track.title}
+						class="aspect-square h-64 w-64 rounded-lg object-cover sm:h-80 sm:w-80"
+						style="--view-transition-tag:track-image-{data.track.id};"
+					/>
+				</div>
+
+				<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
+					<Button
+						variant="default"
+						size="lg"
+						class="flex h-14 w-14 items-center justify-center rounded-full p-0"
+						onclick={togglePlay}
+					>
+						{#if isPlaying}
+							<PauseIcon class="h-6 w-6" />
+						{:else}
+							<PlayIcon class="ml-1 h-6 w-6" />
+						{/if}
+					</Button>
+
+					<Button
+						variant={isLiked ? 'default' : 'ghost'}
+						size="icon"
+						class="rounded-full"
+						onclick={toggleLike}
+					>
+						<HeartIcon class="h-5 w-5" />
+					</Button>
+
+					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
+						<ShareIcon class="h-5 w-5" />
+					</Button>
+
+					<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
+						<MoreHorizontalIcon class="h-5 w-5" />
+					</Button>
+				</div>
 			</div>
 
-			<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
-				<Button
-					variant="default"
-					size="lg"
-					class="flex h-14 w-14 items-center justify-center rounded-full p-0"
-					onclick={togglePlay}
-				>
-					{#if isPlaying}
-						<PauseIcon class="h-6 w-6" />
-					{:else}
-						<PlayIcon class="ml-1 h-6 w-6" />
+			<!-- Track Details -->
+			<div class="lg:col-span-2">
+				<div class="mb-6 space-y-2">
+					<div class="space-y-1">
+						<h1 class="text-3xl font-bold md:text-4xl">{data.track.title}</h1>
+						<div class="flex items-center">
+							<a href="/artist/{data.artist.id}" class="text-primary text-lg hover:underline">
+								{data.artist.display_name}
+							</a>
+						</div>
+					</div>
+
+					<!-- Track Metadata -->
+					<div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm md:grid-cols-3">
+						<div class="flex items-center gap-2">
+							<ClockIcon class="text-muted-foreground h-4 w-4" />
+							<span>{formatDuration(data.track.duration)}</span>
+						</div>
+
+						<div class="flex items-center gap-2">
+							<CalendarIcon class="text-muted-foreground h-4 w-4" />
+							<span>{formatDate(data.track.published_at)}</span>
+						</div>
+
+						<div class="flex items-center gap-2">
+							<MusicIcon class="text-muted-foreground h-4 w-4" />
+							<span>{data.track.play_count.toLocaleString()} plays</span>
+						</div>
+					</div>
+
+					<!-- Genre Tags -->
+					{#if data.track.genres && data.track.genres.length > 0}
+						<div class="mt-4 flex flex-wrap gap-2">
+							{#each data.track.genres as genre}
+								<Badge variant="secondary">{genre}</Badge>
+							{/each}
+						</div>
 					{/if}
-				</Button>
 
-				<Button
-					variant={isLiked ? 'default' : 'ghost'}
-					size="icon"
-					class="rounded-full"
-					onclick={toggleLike}
-				>
-					<HeartIcon class="h-5 w-5" />
-				</Button>
+					<!-- Album Section (if track belongs to an album) -->
+					{#if data.album}
+						<div class="mt-6">
+							<h3 class="mb-3 text-lg font-medium">From the album</h3>
+							<a
+								href="/album/{data.album.id}"
+								class="hover:bg-muted/50 group flex items-start gap-4 rounded-md p-2 transition-colors"
+							>
+								<div class="h-16 w-16 overflow-hidden rounded-md">
+									<img
+										src={data.album.cover_url || '/images/default-album.jpg'}
+										alt={data.album.title}
+										class="h-full w-full object-cover"
+									/>
+								</div>
+								<div>
+									<h4 class="group-hover:text-primary font-medium group-hover:underline">
+										{data.album.title}
+									</h4>
+									<p class="text-muted-foreground text-sm">
+										{formatDate(data.album.release_date)} • {data.album.track_count} tracks
+									</p>
+								</div>
+							</a>
+						</div>
+					{/if}
 
-				<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
-					<ShareIcon class="h-5 w-5" />
-				</Button>
+					<Separator class="my-6" />
 
-				<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
-					<MoreHorizontalIcon class="h-5 w-5" />
-				</Button>
-			</div>
-		</div>
-
-		<!-- Track Details -->
-		<div class="lg:col-span-2">
-			<div class="mb-6 space-y-2">
-				<div class="space-y-1">
-					<h1 class="text-3xl font-bold md:text-4xl">{data.track.title}</h1>
-					<div class="flex items-center">
-						<a href="/artist/{data.artist.id}" class="text-primary text-lg hover:underline">
-							{data.artist.display_name}
-						</a>
-					</div>
-				</div>
-
-				<!-- Track Metadata -->
-				<div class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-sm md:grid-cols-3">
-					<div class="flex items-center gap-2">
-						<ClockIcon class="text-muted-foreground h-4 w-4" />
-						<span>{formatDuration(data.track.duration)}</span>
-					</div>
-
-					<div class="flex items-center gap-2">
-						<CalendarIcon class="text-muted-foreground h-4 w-4" />
-						<span>{formatDate(data.track.published_at)}</span>
-					</div>
-
-					<div class="flex items-center gap-2">
-						<MusicIcon class="text-muted-foreground h-4 w-4" />
-						<span>{data.track.play_count.toLocaleString()} plays</span>
-					</div>
-				</div>
-
-				<!-- Genre Tags -->
-				{#if data.track.genres && data.track.genres.length > 0}
-					<div class="mt-4 flex flex-wrap gap-2">
-						{#each data.track.genres as genre}
-							<Badge variant="secondary">{genre}</Badge>
-						{/each}
-					</div>
-				{/if}
-
-				<!-- Album Section (if track belongs to an album) -->
-				{#if data.album}
-					<div class="mt-6">
-						<h3 class="mb-3 text-lg font-medium">From the album</h3>
+					<!-- Artist Section -->
+					<div>
+						<h3 class="mb-4 text-lg font-medium">Artist</h3>
 						<a
-							href="/album/{data.album.id}"
-							class="hover:bg-muted/50 group flex items-start gap-4 rounded-md p-2 transition-colors"
+							href="/artist/{data.artist.id}"
+							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 						>
-							<div class="h-16 w-16 overflow-hidden rounded-md">
-								<img
-									src={data.album.cover_url || '/images/default-album.jpg'}
-									alt={data.album.title}
-									class="h-full w-full object-cover"
-								/>
-							</div>
+							<Avatar class="h-16 w-16">
+								<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
+								<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
+							</Avatar>
 							<div>
 								<h4 class="group-hover:text-primary font-medium group-hover:underline">
-									{data.album.title}
+									{data.artist.display_name}
 								</h4>
-								<p class="text-muted-foreground text-sm">
-									{formatDate(data.album.release_date)} • {data.album.track_count} tracks
-								</p>
+								{#if data.artist.bio}
+									<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
+										{data.artist.bio}
+									</p>
+								{/if}
 							</div>
 						</a>
 					</div>
-				{/if}
-
-				<Separator class="my-6" />
-
-				<!-- Artist Section -->
-				<div>
-					<h3 class="mb-4 text-lg font-medium">Artist</h3>
-					<a
-						href="/artist/{data.artist.id}"
-						class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
-					>
-						<Avatar class="h-16 w-16">
-							<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
-							<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
-						</Avatar>
-						<div>
-							<h4 class="group-hover:text-primary font-medium group-hover:underline">
-								{data.artist.display_name}
-							</h4>
-							{#if data.artist.bio}
-								<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
-									{data.artist.bio}
-								</p>
-							{/if}
-						</div>
-					</a>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Recommended Tracks Section -->
-	{#if data.recommendedTracks && data.recommendedTracks.length > 0}
-		<div class="mt-12">
-			<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
-			<div class="space-y-1">
-				{#each data.recommendedTracks as recTrack}
-					<TrackItem track={recTrack} />
-				{/each}
+		<!-- Recommended Tracks Section -->
+		{#if data.recommendedTracks && data.recommendedTracks.length > 0}
+			<div class="mt-12">
+				<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
+				<div class="space-y-1">
+					{#each data.recommendedTracks as recTrack}
+						<TrackItem track={recTrack} />
+					{/each}
+				</div>
 			</div>
-		</div>
-	{/if}
+		{/if}
+	</div>
 </div>

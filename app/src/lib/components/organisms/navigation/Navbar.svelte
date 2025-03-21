@@ -41,9 +41,7 @@
 	});
 </script>
 
-<header
-	class="bg-background/95 supports-[backdrop-filter]:bg-background/60  w-full border-b backdrop-blur"
->
+<header class="bg-background w-full border-b" style="view-transition-name: none;">
 	<div class="container flex h-14 items-center">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
@@ -90,7 +88,7 @@
 				<div class="user-dropdown relative">
 					<button
 						class="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full"
-						onclick={() =>toggleDropdown()}
+						onclick={() => toggleDropdown()}
 					>
 						{userInitials}
 					</button>

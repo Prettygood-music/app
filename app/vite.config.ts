@@ -10,6 +10,9 @@ export default defineConfig(({ mode }) => ({
 			outdir: './src/lib/paraglide'
 		})
 	],
+	server: {
+		allowedHosts: ['93e2-2a01-e0a-80d-2240-4404-4cf-9fbc-7088.ngrok-free.app']
+	},
 
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']
