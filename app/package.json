@@ -16,7 +16,8 @@
 		"test": "npm run test:unit -- --run && npm run test:e2e",
 		"test:e2e": "playwright test",
 		"storybook": "storybook dev -p 6006",
-		"build-storybook": "storybook build"
+		"build-storybook": "storybook build",
+		"gen:types": "npx supabase gen types --lang typescript -s prettygood --db-url postgresql://postgres:postgres@localhost:5432/prettygood > ./src/lib/types/database.ts"
 	},
 	"devDependencies": {
 		"@chromatic-com/storybook": "^3.2.4",
@@ -72,6 +73,8 @@
 	"dependencies": {
 		"@hono/zod-validator": "^0.4.3",
 		"@inlang/paraglide-sveltekit": "^0.15.5",
+		"@mysten/sui": "^1.24.0",
+		"@supabase/postgrest-js": "^1.19.3",
 		"hono": "^4.7.2",
 		"uuid": "^11.1.0"
 	}
