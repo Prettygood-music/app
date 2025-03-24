@@ -2,7 +2,14 @@
   "name": "@prettygood/database",
   "version": "1.0.0",
   "description": "PostgreSQL database schema and migrations for prettygood.music",
-  "main": "index.js",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "default": "./dist/index.es.js"
+    }
+  },
   "scripts": {
     "migrate": "chmod +x ./run-migrations.sh && ./run-migrations.sh",
     "migrate:dev": "DB_HOST=localhost DB_PORT=5432 DB_NAME=prettygood DB_USER=postgres DB_PASSWORD=postgres ./run-migrations.sh",
@@ -20,7 +27,6 @@
     "test:db:api": "npm run test:db:dev -- -p \"api/*.sql\"",
     "test:db:integrity": "npm run test:db:dev -- -p \"integrity/*.sql\"",
     "test:db:verbose": "npm run test:db:dev -- -v",
-    
     "docker:build": "docker-compose build",
     "docker:up": "docker-compose up -d",
     "docker:down": "docker-compose down",
@@ -39,13 +45,15 @@
     "docker:postgrest": "echo 'PostgREST is available at http://localhost:3000'",
     "docker:reset-and-test": "npm run docker:setup-fresh-db && npm run docker:test",
     "docker:all": "npm run docker:build && npm run docker:up && npm run docker:setup-fresh-db && npm run docker:test && npm run docker:postgrest && npm run docker:pgadmin",
-    
     "generate-types": "chmod +x ./scripts/generate-types.sh && ./scripts/generate-types.sh",
     "generate-types:advanced": "USE_ADVANCED=true chmod +x ./scripts/generate-types.sh && ./scripts/generate-types.sh",
     "generate-types:docker": "USE_DOCKER=true chmod +x ./scripts/generate-types.sh && ./scripts/generate-types.sh",
     "generate-types:advanced:docker": "USE_DOCKER=true USE_ADVANCED=true chmod +x ./scripts/generate-types.sh && ./scripts/generate-types.sh",
     "setup-and-generate": "npm run setup-fresh-db:dev && npm run generate-types:advanced",
-    "docker:setup-and-generate": "npm run docker:setup-fresh-db && npm run generate-types:advanced:docker"
+    "docker:setup-and-generate": "npm run docker:setup-fresh-db && npm run generate-types:advanced:docker",
+    "gen:types": "pnpx supabase gen types --lang typescript -s prettygood --db-url postgresql://postgres:postgres@localhost:5432/prettygood > ./src/types/database.ts",
+    "gen:zod": "supazod -i ./src/types/database.ts  -o ./src/database.schema.ts",
+    "build": "vite build"
   },
   "keywords": [
     "postgresql",
@@ -54,5 +62,14 @@
     "schema"
   ],
   "author": "prettygood.music team",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "supazod": "^1.2.3",
+    "vite": "^6.0.0",
+    "vite-plugin-dts": "^4.5.3"
+  },
+  "dependencies": {
+    "@supabase/postgrest-js": "^1.19.3",
+    "zod": "^3.24.2"
+  }
 }

@@ -76,6 +76,7 @@
 		"@mysten/sui": "^1.24.0",
 		"@supabase/postgrest-js": "^1.19.3",
 		"hono": "^4.7.2",
-		"uuid": "^11.1.0"
+		"uuid": "^11.1.0",
+		"@prettygood/database": "workspace:*"
 	}
 }
