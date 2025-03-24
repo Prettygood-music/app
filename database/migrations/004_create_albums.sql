@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS prettygood.albums (
   title TEXT NOT NULL,
   artist_id UUID NOT NULL REFERENCES prettygood.artists(id) ON DELETE CASCADE,
   release_date DATE,
-  cover_image TEXT,
+  cover_url TEXT,
   description TEXT,
   genre TEXT[],
   type TEXT CHECK (type IN ('album', 'ep', 'single', 'compilation')),

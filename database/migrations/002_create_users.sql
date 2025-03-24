@@ -4,11 +4,11 @@
 -- Users table
 CREATE TABLE IF NOT EXISTS prettygood.users (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  wallet_address TEXT UNIQUE NOT NULL,
+  wallet_address TEXT UNIQUE,
   username TEXT UNIQUE NOT NULL,
   display_name TEXT,
   email TEXT UNIQUE,
-  profile_image TEXT,
+  profile_url TEXT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

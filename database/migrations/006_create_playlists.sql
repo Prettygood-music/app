@@ -7,9 +7,8 @@ CREATE TABLE IF NOT EXISTS prettygood.playlists (
   name TEXT NOT NULL,
   description TEXT,
   user_id UUID NOT NULL REFERENCES prettygood.users(id) ON DELETE CASCADE,
-  cover_image TEXT,
+  cover_url TEXT,
   is_public BOOLEAN DEFAULT TRUE,
-  collaborative BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
@@ -61,5 +60,5 @@ COMMENT ON TABLE prettygood.playlists IS 'User-created playlists on the prettygo
 COMMENT ON TABLE prettygood.playlist_tracks IS 'Junction table linking tracks to playlists';
 COMMENT ON TABLE prettygood.playlist_collaborators IS 'Users who can collaborate on a playlist';
 COMMENT ON TABLE prettygood.playlist_likes IS 'Tracks which users have liked which playlists';
-COMMENT ON COLUMN prettygood.playlists.collaborative IS 'Whether the playlist can be edited by collaborators';
+-- Removed collaborative field since it's not needed
 COMMENT ON COLUMN prettygood.playlist_tracks.position IS 'Position of the track in the playlist';

@@ -9,10 +9,10 @@ CREATE TABLE IF NOT EXISTS prettygood.tracks (
   album_id UUID REFERENCES prettygood.albums(id) ON DELETE SET NULL,
   duration INTEGER NOT NULL, -- Duration in seconds
   audio_url TEXT NOT NULL,
-  cover_image TEXT,
+  cover_url TEXT,
   track_number INTEGER,
   lyrics TEXT,
-  genre TEXT[],
+  genre TEXT[] NOT NULL DEFAULT '{}',
   explicit BOOLEAN DEFAULT FALSE,
   release_date DATE,
   isrc TEXT, -- International Standard Recording Code
