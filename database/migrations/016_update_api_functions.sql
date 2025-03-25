@@ -1,6 +1,17 @@
 -- Migration: 016_update_api_functions.sql
 -- Description: Updates existing API functions to match the new column names
 
+-- Check if the function exists with 4 parameters and drop it if it does
+DO $$
+BEGIN
+    IF EXISTS (SELECT 1 FROM pg_proc 
+               WHERE proname = 'create_playlist' 
+               AND pronamespace = (SELECT oid FROM pg_namespace WHERE nspname = 'prettygood')
+               AND pronargs = 4) THEN
+        DROP FUNCTION prettygood.create_playlist(TEXT, TEXT, BOOLEAN, BOOLEAN);
+    END IF;
+END $$;
+
 -- Update the create_playlist function to remove collaborative parameter and use cover_url
 CREATE OR REPLACE FUNCTION prettygood.create_playlist(
   name TEXT,

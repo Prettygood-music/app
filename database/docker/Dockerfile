@@ -1,44 +1,32 @@
-FROM postgres:15
+FROM postgres:16-alpine
 
-# Install dependencies for building PostgreSQL extensions
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    postgresql-server-dev-15 \
+# Install build dependencies and pgTAP
+RUN apk add --no-cache --virtual .build-deps \
     git \
+    gcc \
+    libc-dev \
     make \
+    perl-dev \
+    perl-app-cpanminus \
     curl \
-    ca-certificates \
-    libssl-dev \
-    libkrb5-dev \
-    nodejs \
-    npm \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install pgTAP
-RUN git clone https://github.com/theory/pgtap.git \
+    postgresql-dev \
+    patch \
+    && cpanm TAP::Parser::SourceHandler::pgTAP \
+    && git clone https://github.com/theory/pgtap.git \
     && cd pgtap \
     && make \
     && make install \
-    && cd .. \
-    && rm -rf pgtap
+    && cd / \
+    && rm -rf pgtap \
+    && apk del .build-deps
 
-# Install pg_prove (for running pgTAP tests)
-RUN curl -L https://cpanmin.us | perl - --self-upgrade \
-    && cpanm TAP::Parser::SourceHandler::pgTAP
+# Add pgTAP loading into shared_preload_libraries
+RUN echo "shared_preload_libraries = 'pgtap'" >> /usr/local/share/postgresql/postgresql.conf.sample
 
-# Copy initialization scripts
-COPY ./init-scripts/*.sql /docker-entrypoint-initdb.d/
-
-# Copy custom entrypoint scripts
-COPY ./entrypoint-scripts/setup-extensions.sh /docker-entrypoint-initdb.d/
-
-# Make entrypoint script executable
-RUN chmod +x /docker-entrypoint-initdb.d/setup-extensions.sh
-
-# Set environment variables
-ENV POSTGRES_USER postgres
+# Set PostgreSQL environment variables
 ENV POSTGRES_PASSWORD postgres
-ENV POSTGRES_DB prettygood
+ENV POSTGRES_USER postgres
+ENV POSTGRES_DB prettygood_test
 
-# Ensure psql is in PATH
-ENV PATH $PATH:/usr/lib/postgresql/15/bin
+# Add init script to create extension
+COPY ./init-pgtap.sh /docker-entrypoint-initdb.d/

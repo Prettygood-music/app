@@ -45,7 +45,7 @@ export type Database = {
       albums: {
         Row: {
           artist_id: string
-          cover_image: string | null
+          cover_url: string | null
           created_at: string
           description: string | null
           genre: string[] | null
@@ -57,7 +57,7 @@ export type Database = {
         }
         Insert: {
           artist_id: string
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           genre?: string[] | null
@@ -69,7 +69,7 @@ export type Database = {
         }
         Update: {
           artist_id?: string
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           genre?: string[] | null
@@ -421,8 +421,7 @@ export type Database = {
       }
       playlists: {
         Row: {
-          collaborative: boolean | null
-          cover_image: string | null
+          cover_url: string | null
           created_at: string
           description: string | null
           id: string
@@ -432,8 +431,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
-          collaborative?: boolean | null
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -443,8 +441,7 @@ export type Database = {
           user_id: string
         }
         Update: {
-          collaborative?: boolean | null
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           description?: string | null
           id?: string
@@ -530,11 +527,11 @@ export type Database = {
           album_id: string | null
           artist_id: string
           audio_url: string
-          cover_image: string | null
+          cover_url: string | null
           created_at: string
           duration: number
           explicit: boolean | null
-          genre: string[] | null
+          genre: string[]
           id: string
           isrc: string | null
           lyrics: string | null
@@ -547,11 +544,11 @@ export type Database = {
           album_id?: string | null
           artist_id: string
           audio_url: string
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           duration: number
           explicit?: boolean | null
-          genre?: string[] | null
+          genre?: string[]
           id?: string
           isrc?: string | null
           lyrics?: string | null
@@ -564,11 +561,11 @@ export type Database = {
           album_id?: string | null
           artist_id?: string
           audio_url?: string
-          cover_image?: string | null
+          cover_url?: string | null
           created_at?: string
           duration?: number
           explicit?: boolean | null
-          genre?: string[] | null
+          genre?: string[]
           id?: string
           isrc?: string | null
           lyrics?: string | null
@@ -809,36 +806,95 @@ export type Database = {
           display_name: string | null
           email: string | null
           id: string
-          profile_image: string | null
+          profile_url: string | null
           updated_at: string
           username: string
-          wallet_address: string
+          wallet_address: string | null
         }
         Insert: {
           created_at?: string
           display_name?: string | null
           email?: string | null
           id?: string
-          profile_image?: string | null
+          profile_url?: string | null
           updated_at?: string
           username: string
-          wallet_address: string
+          wallet_address?: string | null
         }
         Update: {
           created_at?: string
           display_name?: string | null
           email?: string | null
           id?: string
-          profile_image?: string | null
+          profile_url?: string | null
           updated_at?: string
           username?: string
-          wallet_address?: string
+          wallet_address?: string | null
         }
         Relationships: []
       }
     }
     Views: {
-      [_ in never]: never
+      album_play_counts: {
+        Row: {
+          album_id: string | null
+          play_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracks_album_id_fkey"
+            columns: ["album_id"]
+            isOneToOne: false
+            referencedRelation: "albums"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      artist_play_counts: {
+        Row: {
+          artist_id: string | null
+          play_count: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tracks_artist_id_fkey"
+            columns: ["artist_id"]
+            isOneToOne: false
+            referencedRelation: "artists"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      track_play_counts: {
+        Row: {
+          play_count: number | null
+          track_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "play_history_track_id_fkey"
+            columns: ["track_id"]
+            isOneToOne: false
+            referencedRelation: "tracks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_play_counts: {
+        Row: {
+          play_count: number | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "play_history_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       add_album_to_library: {
@@ -878,11 +934,9 @@ export type Database = {
           name: string
           description?: string
           is_public?: boolean
-          collaborative?: boolean
         }
         Returns: {
-          collaborative: boolean | null
-          cover_image: string | null
+          cover_url: string | null
           created_at: string
           description: string | null
           id: string
@@ -898,6 +952,12 @@ export type Database = {
         }
         Returns: string
       }
+      get_album_play_count: {
+        Args: {
+          album_id: string
+        }
+        Returns: number
+      }
       get_artist_payment_stats: {
         Args: {
           artist_id: string
@@ -910,6 +970,12 @@ export type Database = {
           month_year: string
         }[]
       }
+      get_artist_play_count: {
+        Args: {
+          artist_id: string
+        }
+        Returns: number
+      }
       get_recommendations: {
         Args: {
           limit_count?: number
@@ -918,11 +984,11 @@ export type Database = {
           album_id: string | null
           artist_id: string
           audio_url: string
-          cover_image: string | null
+          cover_url: string | null
           created_at: string
           duration: number
           explicit: boolean | null
-          genre: string[] | null
+          genre: string[]
           id: string
           isrc: string | null
           lyrics: string | null
@@ -931,6 +997,20 @@ export type Database = {
           track_number: number | null
           updated_at: string
         }[]
+      }
+      get_track_play_count: {
+        Args: {
+          track_id: string
+        }
+        Returns: number
+      }
+      get_track_play_count_by_period: {
+        Args: {
+          track_id: string
+          start_date: string
+          end_date: string
+        }
+        Returns: number
       }
       record_play: {
         Args: {
@@ -985,10 +1065,10 @@ export type Database = {
           display_name: string | null
           email: string | null
           id: string
-          profile_image: string | null
+          profile_url: string | null
           updated_at: string
           username: string
-          wallet_address: string
+          wallet_address: string | null
         }
       }
       tip_artist: {

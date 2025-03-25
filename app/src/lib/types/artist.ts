@@ -1,6 +1,7 @@
 import type { Track } from './player';
 import { z } from 'zod';
-
+import type { Database } from '@prettygood/database';
+/*
 export interface Artist {
 	id: string;
 	artist_name: string;
@@ -12,8 +13,8 @@ export interface Artist {
 		twitter?: string;
 		instagram?: string;
 	};
-}
-
+}*/
+export type Artist = Database['prettygood']['Tables']['artists']['Row'];
 /**
  * Artist with detailed information
  */

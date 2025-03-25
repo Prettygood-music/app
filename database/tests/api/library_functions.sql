@@ -4,6 +4,9 @@
 -- Start transaction
 BEGIN;
 
+-- Load test setup
+\i '/app/tests/setup-simple.sql'
+
 -- Load pgTAP and plan the tests
 SELECT plan(9);
 

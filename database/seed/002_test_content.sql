@@ -1,166 +1,255 @@
 -- Seed file: 002_test_content.sql
--- Description: Creates test content for development and testing
+-- Description: Creates test content (albums and tracks) for development and testing based on mock data
 
--- Create test albums for our test artists
+-- Create albums for our artists
 INSERT INTO prettygood.albums (
-  id, title, artist_id, release_date, genre, type
-) VALUES
-  ('10000000-0000-0000-0000-000000000001', 'Test Album 1', '00000000-0000-0000-0000-000000000002', '2024-01-01', ARRAY['test', 'rock'], 'album'),
-  ('10000000-0000-0000-0000-000000000002', 'Test Album 2', '00000000-0000-0000-0000-000000000002', '2024-02-01', ARRAY['test', 'pop'], 'ep'),
-  ('10000000-0000-0000-0000-000000000003', 'Test Album 3', '00000000-0000-0000-0000-000000000003', '2024-01-15', ARRAY['test', 'electronic'], 'album')
+    id,
+    title,
+    artist_id,
+    release_date,
+    cover_url,
+    description,
+    genre,
+    type
+  )
+VALUES 
+  -- Electric Symphony albums
+  (
+    '10000000-0000-0000-0000-000000000001',
+    'Digital Horizons',
+    '00000000-0000-0000-0000-000000000002',
+    '2023-10-05',
+    'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
+    'A futuristic journey through electronic soundscapes.',
+    ARRAY ['Electronic', 'Ambient'],
+    'album'
+  ),
+  
+  -- Vintage Echoes albums
+  (
+    '10000000-0000-0000-0000-000000000002',
+    'Nostalgic Frequencies',
+    '00000000-0000-0000-0000-000000000003',
+    '2023-11-03',
+    'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=300&dpr=2&q=80',
+    'Lo-fi beats with nostalgic vibes.',
+    ARRAY ['Lo-Fi', 'Chillwave', 'Downtempo'],
+    'album'
+  ),
+  
+  -- Sonic Wanderer albums
+  (
+    '10000000-0000-0000-0000-000000000003',
+    'Experimental Soundscapes',
+    '00000000-0000-0000-0000-000000000006',
+    '2023-09-22',
+    'https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?w=300&dpr=2&q=80',
+    'Pushing the boundaries of conventional music.',
+    ARRAY ['Experimental', 'Ambient', 'Noise'],
+    'album'
+  ),
+  
+  -- Melodic Journey albums
+  (
+    '10000000-0000-0000-0000-000000000004',
+    'Emotional Journeys',
+    '00000000-0000-0000-0000-000000000007',
+    '2023-12-01',
+    'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&dpr=2&q=80',
+    'Ambient compositions that tell a story.',
+    ARRAY ['Ambient', 'Cinematic', 'Melodic'],
+    'album'
+  ),
+  
+  -- Bass Architect albums
+  (
+    '10000000-0000-0000-0000-000000000005',
+    'Bass Architecture',
+    '00000000-0000-0000-0000-000000000008',
+    '2023-08-15',
+    'https://images.unsplash.com/photo-1503455637927-730bce8583c0?w=300&dpr=2&q=80',
+    'Deep bass explorations and innovative electronic structures.',
+    ARRAY ['Bass', 'Electronic', 'Dubstep'],
+    'album'
+  ) 
 ON CONFLICT (id) DO NOTHING;
 
--- Create test tracks for our test albums
+-- Create tracks for our albums
 INSERT INTO prettygood.tracks (
-  id, title, artist_id, album_id, duration, audio_url, track_number, genre
-) VALUES
-  -- Tracks for Test Album 1
-  ('20000000-0000-0000-0000-000000000001', 'Test Track 1', '00000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000001', 180, 'https://test.example.com/tracks/test1.mp3', 1, ARRAY['test', 'rock']),
-  ('20000000-0000-0000-0000-000000000002', 'Test Track 2', '00000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000001', 210, 'https://test.example.com/tracks/test2.mp3', 2, ARRAY['test', 'rock']),
-  ('20000000-0000-0000-0000-000000000003', 'Test Track 3', '00000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000001', 195, 'https://test.example.com/tracks/test3.mp3', 3, ARRAY['test', 'rock']),
+    id,
+    title,
+    artist_id,
+    album_id,
+    duration,
+    audio_url,
+    cover_url,
+    track_number,
+    lyrics,
+    genre,
+    explicit,
+    release_date
+  )
+VALUES 
+  -- Tracks for Digital Horizons (Electric Symphony)
+  (
+    '20000000-0000-0000-0000-000000000001',
+    'Digital Dawn',
+    '00000000-0000-0000-0000-000000000002',
+    '10000000-0000-0000-0000-000000000001',
+    237,
+    'https://example.com/audio/digital-dawn.mp3',
+    'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
+    1,
+    'Instrumental track with subtle vocal samples.',
+    ARRAY ['Electronic', 'Ambient'],
+    FALSE,
+    '2023-10-05'
+  ),
   
-  -- Tracks for Test Album 2
-  ('20000000-0000-0000-0000-000000000004', 'Test Track 4', '00000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000002', 240, 'https://test.example.com/tracks/test4.mp3', 1, ARRAY['test', 'pop']),
-  ('20000000-0000-0000-0000-000000000005', 'Test Track 5', '00000000-0000-0000-0000-000000000002', '10000000-0000-0000-0000-000000000002', 220, 'https://test.example.com/tracks/test5.mp3', 2, ARRAY['test', 'pop']),
+  (
+    '20000000-0000-0000-0000-000000000002',
+    'Neon Nights',
+    '00000000-0000-0000-0000-000000000002',
+    '10000000-0000-0000-0000-000000000001',
+    195,
+    'https://example.com/audio/neon-nights.mp3',
+    'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
+    2,
+    'Instrumental with synthesizer melodies.',
+    ARRAY ['Electronic', 'Synthwave'],
+    FALSE,
+    '2023-10-05'
+  ),
   
-  -- Tracks for Test Album 3
-  ('20000000-0000-0000-0000-000000000006', 'Test Track 6', '00000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003', 300, 'https://test.example.com/tracks/test6.mp3', 1, ARRAY['test', 'electronic']),
-  ('20000000-0000-0000-0000-000000000007', 'Test Track 7', '00000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003', 270, 'https://test.example.com/tracks/test7.mp3', 2, ARRAY['test', 'electronic']),
-  ('20000000-0000-0000-0000-000000000008', 'Test Track 8', '00000000-0000-0000-0000-000000000003', '10000000-0000-0000-0000-000000000003', 315, 'https://test.example.com/tracks/test8.mp3', 3, ARRAY['test', 'electronic'])
-ON CONFLICT (id) DO NOTHING;
-
--- Create test playlists
-INSERT INTO prettygood.playlists (
-  id, name, description, user_id, is_public, collaborative
-) VALUES
-  ('30000000-0000-0000-0000-000000000001', 'Test Playlist 1', 'A test playlist for development', '00000000-0000-0000-0000-000000000004', TRUE, FALSE),
-  ('30000000-0000-0000-0000-000000000002', 'Test Playlist 2', 'Another test playlist', '00000000-0000-0000-0000-000000000005', TRUE, FALSE),
-  ('30000000-0000-0000-0000-000000000003', 'Collaborative Test Playlist', 'A collaborative test playlist', '00000000-0000-0000-0000-000000000004', TRUE, TRUE)
-ON CONFLICT (id) DO NOTHING;
-
--- Add tracks to test playlists
-INSERT INTO prettygood.playlist_tracks (
-  playlist_id, track_id, added_by, position
-) VALUES
-  -- Tracks in Test Playlist 1
-  ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004', 1),
-  ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000004', 2),
-  ('30000000-0000-0000-0000-000000000001', '20000000-0000-0000-0000-000000000006', '00000000-0000-0000-0000-000000000004', 3),
+  -- Tracks for Nostalgic Frequencies (Vintage Echoes)
+  (
+    '20000000-0000-0000-0000-000000000003',
+    'Retro Recall',
+    '00000000-0000-0000-0000-000000000003',
+    '10000000-0000-0000-0000-000000000002',
+    248,
+    'https://example.com/audio/retro-recall.mp3',
+    'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=300&dpr=2&q=80',
+    1,
+    'Lo-fi beats with vinyl crackle and nostalgic samples.',
+    ARRAY ['Lo-Fi', 'Chillwave'],
+    FALSE,
+    '2023-11-03'
+  ),
   
-  -- Tracks in Test Playlist 2
-  ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000005', 1),
-  ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000005', 2),
-  ('30000000-0000-0000-0000-000000000002', '20000000-0000-0000-0000-000000000007', '00000000-0000-0000-0000-000000000005', 3),
+  (
+    '20000000-0000-0000-0000-000000000004',
+    'Analog Dreams',
+    '00000000-0000-0000-0000-000000000003',
+    '10000000-0000-0000-0000-000000000002',
+    312,
+    'https://example.com/audio/analog-dreams.mp3',
+    'https://images.unsplash.com/photo-1571330735066-03aaa9429d89?w=300&dpr=2&q=80',
+    2,
+    'Downtempo beats with analog synthesizer melodies.',
+    ARRAY ['Lo-Fi', 'Downtempo'],
+    FALSE,
+    '2023-11-03'
+  ),
   
-  -- Tracks in Collaborative Test Playlist
-  ('30000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000004', 1),
-  ('30000000-0000-0000-0000-000000000003', '20000000-0000-0000-0000-000000000008', '00000000-0000-0000-0000-000000000005', 2)
-ON CONFLICT (playlist_id, track_id) DO NOTHING;
-
--- Add collaborators to the collaborative playlist
-INSERT INTO prettygood.playlist_collaborators (
-  playlist_id, user_id, added_by
-) VALUES
-  ('30000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000004')
-ON CONFLICT (playlist_id, user_id) DO NOTHING;
-
--- Set up some likes and follows for testing
--- User 1 likes tracks and albums
-INSERT INTO prettygood.track_likes (track_id, user_id)
-VALUES
-  ('20000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004'),
-  ('20000000-0000-0000-0000-000000000006', '00000000-0000-0000-0000-000000000004')
-ON CONFLICT (track_id, user_id) DO NOTHING;
-
-INSERT INTO prettygood.album_likes (album_id, user_id)
-VALUES
-  ('10000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004'),
-  ('10000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000004')
-ON CONFLICT (album_id, user_id) DO NOTHING;
-
--- User 2 likes tracks and albums
-INSERT INTO prettygood.track_likes (track_id, user_id)
-VALUES
-  ('20000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000005'),
-  ('20000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000005')
-ON CONFLICT (track_id, user_id) DO NOTHING;
-
-INSERT INTO prettygood.album_likes (album_id, user_id)
-VALUES
-  ('10000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000005')
-ON CONFLICT (album_id, user_id) DO NOTHING;
-
--- Users follow artists
-INSERT INTO prettygood.artist_followers (artist_id, user_id)
-VALUES
-  ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000004'),
-  ('00000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000004'),
-  ('00000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000005')
-ON CONFLICT (artist_id, user_id) DO NOTHING;
-
--- Add some play history
-INSERT INTO prettygood.play_history (
-  track_id, user_id, played_at, play_duration, completed, source
-) VALUES
-  -- User 1 play history
-  ('20000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004', NOW() - INTERVAL '3 days', 180, TRUE, 'album'),
-  ('20000000-0000-0000-0000-000000000002', '00000000-0000-0000-0000-000000000004', NOW() - INTERVAL '3 days', 210, TRUE, 'album'),
-  ('20000000-0000-0000-0000-000000000003', '00000000-0000-0000-0000-000000000004', NOW() - INTERVAL '3 days', 195, TRUE, 'album'),
-  ('20000000-0000-0000-0000-000000000006', '00000000-0000-0000-0000-000000000004', NOW() - INTERVAL '2 days', 300, TRUE, 'search'),
-  ('20000000-0000-0000-0000-000000000001', '00000000-0000-0000-0000-000000000004', NOW() - INTERVAL '1 day', 180, TRUE, 'playlist'),
+  -- Tracks for Experimental Soundscapes (Sonic Wanderer)
+  (
+    '20000000-0000-0000-0000-000000000005',
+    'Sonic Exploration IV',
+    '00000000-0000-0000-0000-000000000006',
+    '10000000-0000-0000-0000-000000000003',
+    432,
+    'https://example.com/audio/sonic-exploration-iv.mp3',
+    'https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?w=300&dpr=2&q=80',
+    1,
+    'Experimental sound design with field recordings.',
+    ARRAY ['Experimental', 'Ambient'],
+    FALSE,
+    '2023-09-22'
+  ),
   
-  -- User 2 play history
-  ('20000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000005', NOW() - INTERVAL '4 days', 240, TRUE, 'album'),
-  ('20000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000005', NOW() - INTERVAL '4 days', 220, TRUE, 'album'),
-  ('20000000-0000-0000-0000-000000000006', '00000000-0000-0000-0000-000000000005', NOW() - INTERVAL '2 days', 300, FALSE, 'search'),
-  ('20000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000005', NOW() - INTERVAL '1 day', 240, TRUE, 'playlist')
-;
-
--- Add library items for users
-INSERT INTO prettygood.user_library_tracks (user_id, track_id)
-VALUES
-  ('00000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000001'),
-  ('00000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000002'),
-  ('00000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000003'),
-  ('00000000-0000-0000-0000-000000000004', '20000000-0000-0000-0000-000000000006'),
-  ('00000000-0000-0000-0000-000000000005', '20000000-0000-0000-0000-000000000004'),
-  ('00000000-0000-0000-0000-000000000005', '20000000-0000-0000-0000-000000000005')
-ON CONFLICT (user_id, track_id) DO NOTHING;
-
-INSERT INTO prettygood.user_library_albums (user_id, album_id)
-VALUES
-  ('00000000-0000-0000-0000-000000000004', '10000000-0000-0000-0000-000000000001'),
-  ('00000000-0000-0000-0000-000000000004', '10000000-0000-0000-0000-000000000003'),
-  ('00000000-0000-0000-0000-000000000005', '10000000-0000-0000-0000-000000000002')
-ON CONFLICT (user_id, album_id) DO NOTHING;
-
-INSERT INTO prettygood.user_library_artists (user_id, artist_id)
-VALUES
-  ('00000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000002'),
-  ('00000000-0000-0000-0000-000000000004', '00000000-0000-0000-0000-000000000003'),
-  ('00000000-0000-0000-0000-000000000005', '00000000-0000-0000-0000-000000000002')
-ON CONFLICT (user_id, artist_id) DO NOTHING;
-
--- Create a test payment
-INSERT INTO prettygood.payments (
-  id, sender_id, recipient_id, amount, currency, transaction_hash, status, payment_type, track_id, message
-) VALUES
-  ('40000000-0000-0000-0000-000000000001', 
-   '00000000-0000-0000-0000-000000000004', 
-   '00000000-0000-0000-0000-000000000002', 
-   10.5, 'SUI', 
-   '0x0000000000000000000000000000000000000000000000000000000000000001', 
-   'completed', 'tip', 
-   '20000000-0000-0000-0000-000000000001', 
-   'Great track!')
+  (
+    '20000000-0000-0000-0000-000000000006',
+    'Dissonant Harmony',
+    '00000000-0000-0000-0000-000000000006',
+    '10000000-0000-0000-0000-000000000003',
+    378,
+    'https://example.com/audio/dissonant-harmony.mp3',
+    'https://images.unsplash.com/photo-1593697821252-0c9137d9fc45?w=300&dpr=2&q=80',
+    2,
+    'Layers of noise that create unexpected harmonies.',
+    ARRAY ['Experimental', 'Noise'],
+    FALSE,
+    '2023-09-22'
+  ),
+  
+  -- Tracks for Emotional Journeys (Melodic Journey)
+  (
+    '20000000-0000-0000-0000-000000000007',
+    'Emotional Voyage',
+    '00000000-0000-0000-0000-000000000007',
+    '10000000-0000-0000-0000-000000000004',
+    287,
+    'https://example.com/audio/emotional-voyage.mp3',
+    'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&dpr=2&q=80',
+    1,
+    'Cinematic ambient composition with piano and strings.',
+    ARRAY ['Ambient', 'Cinematic'],
+    FALSE,
+    '2023-12-01'
+  ),
+  
+  (
+    '20000000-0000-0000-0000-000000000008',
+    'Melodic Sunset',
+    '00000000-0000-0000-0000-000000000007',
+    '10000000-0000-0000-0000-000000000004',
+    255,
+    'https://example.com/audio/melodic-sunset.mp3',
+    'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=300&dpr=2&q=80',
+    2,
+    'Ambient melody that evokes the feeling of a sunset.',
+    ARRAY ['Ambient', 'Melodic'],
+    FALSE,
+    '2023-12-01'
+  ),
+  
+  -- Tracks for Bass Architecture (Bass Architect)
+  (
+    '20000000-0000-0000-0000-000000000009',
+    'Deep Foundations',
+    '00000000-0000-0000-0000-000000000008',
+    '10000000-0000-0000-0000-000000000005',
+    342,
+    'https://example.com/audio/deep-foundations.mp3',
+    'https://images.unsplash.com/photo-1503455637927-730bce8583c0?w=300&dpr=2&q=80',
+    1,
+    'Deep sub-bass explorations with minimal percussion.',
+    ARRAY ['Bass', 'Electronic'],
+    FALSE,
+    '2023-08-15'
+  ),
+  
+  (
+    '20000000-0000-0000-0000-000000000010',
+    'Structural Bass',
+    '00000000-0000-0000-0000-000000000008',
+    '10000000-0000-0000-0000-000000000005',
+    298,
+    'https://example.com/audio/structural-bass.mp3',
+    'https://images.unsplash.com/photo-1503455637927-730bce8583c0?w=300&dpr=2&q=80',
+    2,
+    'Dubstep-influenced track with complex bass design.',
+    ARRAY ['Bass', 'Dubstep'],
+    TRUE,
+    '2023-08-15'
+  ) 
 ON CONFLICT (id) DO NOTHING;
 
 -- Print a message
 DO $$
 BEGIN
-  RAISE NOTICE 'Test content created successfully';
-  RAISE NOTICE '- 3 Albums added with IDs starting with 100000...';
-  RAISE NOTICE '- 8 Tracks added with IDs starting with 200000...';
-  RAISE NOTICE '- 3 Playlists added with IDs starting with 300000...';
-  RAISE NOTICE '- 1 Test payment added with ID 400000...';
+  RAISE NOTICE 'Albums and tracks created successfully';
+  RAISE NOTICE '- 5 Albums added with full metadata';
+  RAISE NOTICE '- 10 Tracks added with full metadata';
 END $$;

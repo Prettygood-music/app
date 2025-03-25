@@ -130,12 +130,32 @@ services:
     command: pnpm run test
     working_dir: /app/common
 
+  db-test:
+    build:
+      context: ./database/docker
+      dockerfile: Dockerfile
+    volumes:
+      - ./database/tests:/app/tests
+      - ./database/migrations:/app/migrations
+    command: >
+      bash -c "
+        echo 'Running database migrations...' &&
+        psql -U postgres -d prettygood_test -f /app/migrations/*.sql &&
+        echo 'Running database tests...' &&
+        psql -U postgres -d prettygood_test -f /app/tests/**/*.sql
+      "
+    depends_on:
+      - postgres
+
   postgres:
-    image: postgres:16-alpine
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=prettygood_test
+    build:
+      context: ./database/docker
+      dockerfile: Dockerfile
+    volumes:
+      - ./database/tests:/app/tests
+      - ./database/migrations:/app/migrations
+    ports:
+      - "5432:5432"
     tmpfs:
       - /var/lib/postgresql/data
 

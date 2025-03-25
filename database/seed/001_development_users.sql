@@ -3,44 +3,53 @@
 
 -- Development admin user
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, created_at
+  id, wallet_address, username, display_name, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000001', '0x0000000000000000000000000000000000000000000000000000000000000001', 'admin', 'System Admin', NOW())
+  ('00000000-0000-0000-0000-000000000001', '0x0000000000000000000000000000000000000000000000000000000000000001', 'admin', 'System Admin', 'https://example.com/images/admin-profile.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Development artist users with fixed IDs for testing
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, created_at
+  id, wallet_address, username, display_name, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000002', '0x0000000000000000000000000000000000000000000000000000000000000002', 'testartist1', 'Test Artist 1', NOW()),
-  ('00000000-0000-0000-0000-000000000003', '0x0000000000000000000000000000000000000000000000000000000000000003', 'testartist2', 'Test Artist 2', NOW())
+  ('00000000-0000-0000-0000-000000000002', '0x0000000000000000000000000000000000000000000000000000000000000002', 'electric_symphony', 'Electric Symphony', 'https://example.com/images/electric-symphony.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000003', '0x0000000000000000000000000000000000000000000000000000000000000003', 'vintage_echoes', 'Vintage Echoes', 'https://example.com/images/vintage-echoes.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000006', '0x0000000000000000000000000000000000000000000000000000000000000006', 'sonic_wanderer', 'Sonic Wanderer', 'https://example.com/images/sonic-wanderer.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000007', '0x0000000000000000000000000000000000000000000000000000000000000007', 'melodic_journey', 'Melodic Journey', 'https://example.com/images/melodic-journey.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000008', '0x0000000000000000000000000000000000000000000000000000000000000008', 'bass_architect', 'Bass Architect', 'https://example.com/images/bass-architect.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
--- Create artist profiles for the test artists
+-- Create artist profiles for our artists
 INSERT INTO prettygood.artists (
-  id, artist_name, bio, genre, location, verified
+  id, artist_name, bio, genre, location, website, social_links, verified
 ) VALUES
-  ('00000000-0000-0000-0000-000000000002', 'Test Artist 1', 'This is a test artist for development.', ARRAY['test', 'development'], 'Testland', TRUE),
-  ('00000000-0000-0000-0000-000000000003', 'Test Artist 2', 'Another test artist for development.', ARRAY['test', 'development'], 'Testville', TRUE)
+  ('00000000-0000-0000-0000-000000000002', 'Electric Symphony', 'Electronic music producer creating futuristic soundscapes.', ARRAY['Electronic', 'Ambient'], 'New York, USA', 'https://www.electricsymphony.com', '{"twitter":"@electric_symphony", "instagram":"@electric_symphony", "website":"https://www.electricsymphony.com"}', TRUE),
+  ('00000000-0000-0000-0000-000000000003', 'Vintage Echoes', 'Nostalgic lo-fi beats and chillwave melodies.', ARRAY['Lo-Fi', 'Chillwave', 'Downtempo'], 'Los Angeles, USA', 'https://www.vintage-echoes.com', '{"twitter":"@vintage_echoes", "instagram":"@vintage_echoes", "website":"https://www.vintage-echoes.com"}', TRUE),
+  ('00000000-0000-0000-0000-000000000006', 'Sonic Wanderer', 'Experimental sound artist pushing the boundaries of music.', ARRAY['Experimental', 'Ambient', 'Noise'], 'Berlin, Germany', 'https://www.sonicwanderer.com', '{"twitter":"@sonic_wanderer", "instagram":"@sonic_wanderer", "website":"https://www.sonicwanderer.com"}', TRUE),
+  ('00000000-0000-0000-0000-000000000007', 'Melodic Journey', 'Emotive ambient compositions that tell a story.', ARRAY['Ambient', 'Cinematic', 'Melodic'], 'Tokyo, Japan', 'https://www.melodicjourney.com', '{"twitter":"@melodic_journey", "instagram":"@melodic_journey", "website":"https://www.melodicjourney.com"}', TRUE),
+  ('00000000-0000-0000-0000-000000000008', 'Bass Architect', 'Deep bass explorations and innovative electronic structures.', ARRAY['Bass', 'Electronic', 'Dubstep'], 'London, UK', 'https://www.bassarchitect.com', '{"twitter":"@bass_architect", "instagram":"@bass_architect", "website":"https://www.bassarchitect.com"}', TRUE)
 ON CONFLICT (id) DO NOTHING;
 
 -- Development regular users with fixed IDs for testing
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, created_at
+  id, wallet_address, username, display_name, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000004', '0x0000000000000000000000000000000000000000000000000000000000000004', 'testuser1', 'Test User 1', NOW()),
-  ('00000000-0000-0000-0000-000000000005', '0x0000000000000000000000000000000000000000000000000000000000000005', 'testuser2', 'Test User 2', NOW())
+  ('00000000-0000-0000-0000-000000000004', '0x0000000000000000000000000000000000000000000000000000000000000004', 'music_lover42', 'Music Lover', NULL, NOW()),
+  ('00000000-0000-0000-0000-000000000005', '0x0000000000000000000000000000000000000000000000000000000000000005', 'beat_enthusiast', 'Beat Enthusiast', 'https://example.com/images/beat-enthusiast.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Create user settings for all users
 INSERT INTO prettygood.user_settings (
-  user_id, theme, audio_quality
+  user_id, theme, audio_quality, volume_level, enable_equalizer, enable_gapless_playback
 ) VALUES
-  ('00000000-0000-0000-0000-000000000001', 'dark', 'high'),
-  ('00000000-0000-0000-0000-000000000002', 'dark', 'high'),
-  ('00000000-0000-0000-0000-000000000003', 'light', 'high'),
-  ('00000000-0000-0000-0000-000000000004', 'dark', 'medium'),
-  ('00000000-0000-0000-0000-000000000005', 'auto', 'medium')
+  ('00000000-0000-0000-0000-000000000001', 'dark', 'high', 80, TRUE, TRUE),
+  ('00000000-0000-0000-0000-000000000002', 'dark', 'high', 75, TRUE, TRUE),
+  ('00000000-0000-0000-0000-000000000003', 'light', 'high', 70, FALSE, TRUE),
+  ('00000000-0000-0000-0000-000000000004', 'dark', 'medium', 65, FALSE, TRUE),
+  ('00000000-0000-0000-0000-000000000005', 'auto', 'medium', 60, TRUE, TRUE),
+  ('00000000-0000-0000-0000-000000000006', 'dark', 'high', 85, TRUE, TRUE),
+  ('00000000-0000-0000-0000-000000000007', 'light', 'high', 75, FALSE, TRUE),
+  ('00000000-0000-0000-0000-000000000008', 'dark', 'high', 90, TRUE, TRUE)
 ON CONFLICT (user_id) DO NOTHING;
 
 -- Insert authentication data for easy testing
@@ -49,33 +58,31 @@ INSERT INTO prettygood_private.user_auth (
   user_id, nonce, nonce_created_at
 ) VALUES
   ('00000000-0000-0000-0000-000000000001', 'development_nonce_admin', NOW()),
-  ('00000000-0000-0000-0000-000000000002', 'development_nonce_artist1', NOW()),
-  ('00000000-0000-0000-0000-000000000003', 'development_nonce_artist2', NOW()),
-  ('00000000-0000-0000-0000-000000000004', 'development_nonce_user1', NOW()),
-  ('00000000-0000-0000-0000-000000000005', 'development_nonce_user2', NOW())
+  ('00000000-0000-0000-0000-000000000002', 'development_nonce_electric', NOW()),
+  ('00000000-0000-0000-0000-000000000003', 'development_nonce_vintage', NOW()),
+  ('00000000-0000-0000-0000-000000000004', 'development_nonce_musiclover', NOW()),
+  ('00000000-0000-0000-0000-000000000005', 'development_nonce_enthusiast', NOW()),
+  ('00000000-0000-0000-0000-000000000006', 'development_nonce_sonic', NOW()),
+  ('00000000-0000-0000-0000-000000000007', 'development_nonce_melodic', NOW()),
+  ('00000000-0000-0000-0000-000000000008', 'development_nonce_bass', NOW())
 ON CONFLICT (user_id) DO NOTHING;
 
 -- Make the admin user a superuser
 -- Note: In a real system, you'd want to have proper role-based permissions
 -- This is just for development/testing purposes
 DO $$
+DECLARE
+    role_exists BOOLEAN;
 BEGIN
-  -- Create a function to set admin privileges if it doesn't exist
-  IF NOT EXISTS (SELECT 1 FROM pg_proc WHERE proname = 'set_admin_role') THEN
-    CREATE OR REPLACE FUNCTION auth.set_admin_role()
-    RETURNS VOID AS $$
-    BEGIN
-      -- Create a special admin role if it doesn't exist
-      IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'admin') THEN
+    -- Check if admin role exists
+    SELECT EXISTS(SELECT 1 FROM pg_roles WHERE rolname = 'admin') INTO role_exists;
+    
+    -- Create admin role if it doesn't exist
+    IF NOT role_exists THEN
         CREATE ROLE admin NOLOGIN;
+        -- Grant authenticated role to admin
         GRANT authenticated TO admin;
-      END IF;
-    END;
-    $$ LANGUAGE plpgsql SECURITY DEFINER;
-  END IF;
-
-  -- Execute the function
-  PERFORM auth.set_admin_role();
+    END IF;
 END $$;
 
 -- Print a message
@@ -83,8 +90,11 @@ DO $$
 BEGIN
   RAISE NOTICE 'Development users created with the following credentials:';
   RAISE NOTICE '- Admin: wallet_address=0x0000...0001, username=admin, nonce=development_nonce_admin';
-  RAISE NOTICE '- Artist 1: wallet_address=0x0000...0002, username=testartist1, nonce=development_nonce_artist1';
-  RAISE NOTICE '- Artist 2: wallet_address=0x0000...0003, username=testartist2, nonce=development_nonce_artist2';
-  RAISE NOTICE '- User 1: wallet_address=0x0000...0004, username=testuser1, nonce=development_nonce_user1';
-  RAISE NOTICE '- User 2: wallet_address=0x0000...0005, username=testuser2, nonce=development_nonce_user2';
+  RAISE NOTICE '- Electric Symphony: wallet_address=0x0000...0002, username=electric_symphony, nonce=development_nonce_electric';
+  RAISE NOTICE '- Vintage Echoes: wallet_address=0x0000...0003, username=vintage_echoes, nonce=development_nonce_vintage';
+  RAISE NOTICE '- Music Lover: wallet_address=0x0000...0004, username=music_lover42, nonce=development_nonce_musiclover';
+  RAISE NOTICE '- Beat Enthusiast: wallet_address=0x0000...0005, username=beat_enthusiast, nonce=development_nonce_enthusiast';
+  RAISE NOTICE '- Sonic Wanderer: wallet_address=0x0000...0006, username=sonic_wanderer, nonce=development_nonce_sonic';
+  RAISE NOTICE '- Melodic Journey: wallet_address=0x0000...0007, username=melodic_journey, nonce=development_nonce_melodic';
+  RAISE NOTICE '- Bass Architect: wallet_address=0x0000...0008, username=bass_architect, nonce=development_nonce_bass';
 END $$;

@@ -15,7 +15,6 @@
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import { getPlayerContext } from '$lib/state/player.svelte.js';
-	import type { Album, Artist, Track } from '$lib/types/index.js';
 
 	// Page data from load function
 	let { data } = $props();
@@ -69,14 +68,20 @@
 		console.log(`Showing more options for track: ${data.track.title}`);
 	}
 
-	console.log(data.track.id);
+	let recommendedTracks = $derived.by(() => {
+		if (data.recommendedTracks && data.recommendedTracks.length > 0) {
+			return data.recommendedTracks;
+		} else {
+			return data.track.album?.tracks || null;
+		}
+	});
 </script>
 
 <svelte:head>
-	<title>{data.track.title} by {data.artist.display_name} | prettygood.music</title>
+	<title>{data.track.title} by {data.track.artist.artist_name} | prettygood.music</title>
 	<meta
 		name="description"
-		content="Listen to {data.track.title} by {data.artist.display_name} on prettygood.music"
+		content="Listen to {data.track.title} by {data.track.artist.artist_name} on prettygood.music"
 	/>
 </svelte:head>
 
@@ -133,8 +138,8 @@
 					<div class="space-y-1">
 						<h1 class="text-3xl font-bold md:text-4xl">{data.track.title}</h1>
 						<div class="flex items-center">
-							<a href="/artist/{data.artist.id}" class="text-primary text-lg hover:underline">
-								{data.artist.display_name}
+							<a href="/artist/{data.track.artist.id}" class="text-primary text-lg hover:underline">
+								{data.track.artist.display_name}
 							</a>
 						</div>
 					</div>
@@ -148,45 +153,46 @@
 
 						<div class="flex items-center gap-2">
 							<CalendarIcon class="text-muted-foreground h-4 w-4" />
-							<span>{formatDate(data.track.published_at)}</span>
+							<span>{formatDate(data.track.release_date)}</span>
 						</div>
 
 						<div class="flex items-center gap-2">
 							<MusicIcon class="text-muted-foreground h-4 w-4" />
-							<span>{data.track.play_count.toLocaleString()} plays</span>
+							<span>{(data.track.play_count || 0).toLocaleString()} plays</span>
 						</div>
 					</div>
 
 					<!-- Genre Tags -->
-					{#if data.track.genres && data.track.genres.length > 0}
+					{#if data.track.genre && data.track.genre.length > 0}
 						<div class="mt-4 flex flex-wrap gap-2">
-							{#each data.track.genres as genre}
+							{#each data.track.genre as genre}
 								<Badge variant="secondary">{genre}</Badge>
 							{/each}
 						</div>
 					{/if}
 
 					<!-- Album Section (if track belongs to an album) -->
-					{#if data.album}
+					{#if data.track.album}
+						{@const album = data.track.album}
 						<div class="mt-6">
 							<h3 class="mb-3 text-lg font-medium">From the album</h3>
 							<a
-								href="/album/{data.album.id}"
+								href="/album/{album.id}"
 								class="hover:bg-muted/50 group flex items-start gap-4 rounded-md p-2 transition-colors"
 							>
 								<div class="h-16 w-16 overflow-hidden rounded-md">
 									<img
-										src={data.album.cover_url || '/images/default-album.jpg'}
-										alt={data.album.title}
+										src={album.cover_url || '/images/default-album.jpg'}
+										alt={album.title}
 										class="h-full w-full object-cover"
 									/>
 								</div>
 								<div>
 									<h4 class="group-hover:text-primary font-medium group-hover:underline">
-										{data.album.title}
+										{album.title}
 									</h4>
 									<p class="text-muted-foreground text-sm">
-										{formatDate(data.album.release_date)} • {data.album.track_count} tracks
+										{formatDate(album.release_date)} • {album.tracks.length} tracks
 									</p>
 								</div>
 							</a>
@@ -199,20 +205,23 @@
 					<div>
 						<h3 class="mb-4 text-lg font-medium">Artist</h3>
 						<a
-							href="/artist/{data.artist.id}"
+							href="/artist/{data.track.artist.id}"
 							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 						>
 							<Avatar class="h-16 w-16">
-								<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
-								<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
+								<AvatarImage
+									src={data.track.artist.avatar_url || ''}
+									alt={data.track.artist.artist_name}
+								/>
+								<AvatarFallback>{data.track.artist.artist_name.substring(0, 2)}</AvatarFallback>
 							</Avatar>
 							<div>
 								<h4 class="group-hover:text-primary font-medium group-hover:underline">
-									{data.artist.display_name}
+									{data.track.artist.artist_name}
 								</h4>
-								{#if data.artist.bio}
+								{#if data.track.artist.bio}
 									<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
-										{data.artist.bio}
+										{data.track.artist.bio}
 									</p>
 								{/if}
 							</div>
@@ -223,11 +232,11 @@
 		</div>
 
 		<!-- Recommended Tracks Section -->
-		{#if data.recommendedTracks && data.recommendedTracks.length > 0}
+		{#if recommendedTracks}
 			<div class="mt-12">
 				<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
 				<div class="space-y-1">
-					{#each data.recommendedTracks as recTrack}
+					{#each recommendedTracks as recTrack}
 						<TrackItem track={recTrack} />
 					{/each}
 				</div>

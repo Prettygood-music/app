@@ -172,13 +172,10 @@ CREATE POLICY playlist_tracks_insert ON prettygood.playlist_tracks
       WHERE id = prettygood.playlist_tracks.playlist_id
       AND (
         user_id = prettygood_private.current_user_id() OR
-        (
-          collaborative = TRUE AND
-          EXISTS (
-            SELECT 1 FROM prettygood.playlist_collaborators
-            WHERE playlist_id = prettygood.playlists.id
-            AND user_id = prettygood_private.current_user_id()
-          )
+        EXISTS (
+          SELECT 1 FROM prettygood.playlist_collaborators
+          WHERE playlist_id = prettygood.playlists.id
+          AND user_id = prettygood_private.current_user_id()
         )
       )
     )
@@ -191,13 +188,10 @@ CREATE POLICY playlist_tracks_delete ON prettygood.playlist_tracks
       WHERE id = prettygood.playlist_tracks.playlist_id
       AND (
         user_id = prettygood_private.current_user_id() OR
-        (
-          collaborative = TRUE AND
-          EXISTS (
-            SELECT 1 FROM prettygood.playlist_collaborators
-            WHERE playlist_id = prettygood.playlists.id
-            AND user_id = prettygood_private.current_user_id()
-          )
+        EXISTS (
+          SELECT 1 FROM prettygood.playlist_collaborators
+          WHERE playlist_id = prettygood.playlists.id
+          AND user_id = prettygood_private.current_user_id()
         )
       )
     )

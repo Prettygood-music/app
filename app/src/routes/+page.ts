@@ -13,10 +13,6 @@ export const load = (async ({ fetch }) => {
 	// FIXME: We'll need a way to discriminate between success and failure.
 	const json = await recommendedTracksResponse.json();
 
-	/*
-	const albums = await client.api.albums.$get({query:{}});
-	console.dir(await albums.json());
-*/
 	const recommendedAlbumsResponse = await client.api.recommendations.albums.$get({
 		query: {
 			type: 'for-you'

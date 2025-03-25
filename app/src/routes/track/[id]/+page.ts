@@ -1,8 +1,9 @@
+import { databaseClient } from '$lib/databaseClient';
 import type { Album } from '$lib/types';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ params,  parent }) => {
+export const load: PageLoad = async ({ params, parent }) => {
 	const { apiClient } = await parent();
 	const trackResponse = await apiClient.api.tracks[':id'].$get({
 		param: {
@@ -43,6 +44,7 @@ export const load: PageLoad = async ({ params,  parent }) => {
 		album = albumJson.album;
 	}
 
+	/*
 	const recommendedTracksResponse = await apiClient.api.recommendations.tracks.$get({
 		query: {
 			type: 'similar',
@@ -51,15 +53,27 @@ export const load: PageLoad = async ({ params,  parent }) => {
 	});
 	const recommendedTracksJson = await recommendedTracksResponse.json();
 	const recommendedTracks = 'tracks' in recommendedTracksJson ? recommendedTracksJson.tracks : [];
+	*/
 
-	// TODO: maybe we'd also want recommended songs by artist
-	// TODO: we also want to show the other songs in the album
+	const { data: trackDB } = await databaseClient
+		.from('tracks')
+		.select('*, artist: artists(*), album: albums(*, tracks(*))')
+		.eq('id', params.id)
+		.single();
+
+	if (!trackDB) {
+		error(404, 'Track not found');
+	}
+	return {
+		track: trackDB
+	};
+	/*
 	return {
 		track: trackJson.track,
 		artist: artistJson.artist,
 		album,
-		recommendedTracks
-	};
+		recommendedTracks: []
+	};*/
 };
 
 /*
