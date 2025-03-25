@@ -30,7 +30,7 @@ export class ArtistRepository {
 	/**
 	 * Get artist by ID with detailed information
 	 */
-	async getById(id: string): Promise<Artist | null> {
+	async getById(id: string) {
 		//const artist = mockUsers.find((user) => user.id === id && user.is_artist);
 		const { data: artist } = await databaseClient
 			.from('artists')

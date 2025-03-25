@@ -31,15 +31,15 @@
 	}
 
 	function share() {
-		alert(`Sharing artist: ${data.artist.display_name}`);
+		alert(`Sharing artist: ${data.artist.artist_name}`);
 	}
 </script>
 
 <svelte:head>
-	<title>{data.artist.display_name} | prettygood.music</title>
+	<title>{data.artist.artist_name} | prettygood.music</title>
 	<meta
 		name="description"
-		content={data.artist.bio?.substring(0, 160) || `Music by ${data.artist.display_name}`}
+		content={data.artist.bio?.substring(0, 160) || `Music by ${data.artist.artist_name}`}
 	/>
 </svelte:head>
 
@@ -49,7 +49,7 @@
 		{#if data.artist.cover_url}
 			<img
 				src={data.artist.cover_url}
-				alt={`${data.artist.display_name} cover image`}
+				alt={`${data.artist.artist_name} cover image`}
 				class="h-full w-full object-cover"
 			/>
 		{:else}
@@ -58,19 +58,20 @@
 
 		<div class="from-background absolute inset-0 bg-gradient-to-t to-transparent"></div>
 
-		<div class="absolute bottom-0 inset-x-0">
+		<div class="absolute inset-x-0 bottom-0">
 			<div class="container flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center">
 				<Avatar class="border-background h-24 w-24 border-4 md:h-36 md:w-36">
-					<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
-					<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
+					<AvatarImage src={data.artist?.avatar_url || ''} alt={data.artist.artist_name} />
+					<AvatarFallback>{data.artist.artist_name.substring(0, 2)}</AvatarFallback>
 				</Avatar>
 
 				<div class="flex-1">
 					<h1 class="text-3xl font-bold text-white drop-shadow-md md:text-5xl">
-						{data.artist.display_name}
+						{data.artist.artist_name}
 					</h1>
 					<div class="mt-2 flex items-center gap-2">
 						<Badge variant="secondary" class="text-xs">ARTIST</Badge>
+						<!-- TODO: fix listeners count -->
 						<span class="text-sm text-white/80">25.4M monthly listeners</span>
 					</div>
 				</div>
@@ -115,7 +116,7 @@
 					</div>
 
 					<div class="space-y-2">
-						{#each data.topTracks as track, i}
+						{#each data.artist.tracks as track, i}
 							<TrackItem {track} index={i} />
 						{/each}
 					</div>
@@ -131,7 +132,7 @@
 					<div class="relative">
 						<ScrollArea orientation="both">
 							<div class="flex space-x-4 pb-4">
-								{#each data.albums as album}
+								{#each data.artist.albums as album}
 									<AlbumCard {album} size="default" />
 								{/each}
 							</div>
@@ -167,7 +168,7 @@
 				<h2 class="mb-4 text-2xl font-bold">Albums</h2>
 
 				<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-					{#each data.albums as album}
+					{#each data.artist.albums as album}
 						<AlbumCard {album} />
 					{/each}
 				</div>
@@ -197,43 +198,44 @@
 
 				<Separator />
 
-				{#if data.artist.socials}
+				{#if data.artist.social_links}
+					{@const socials = data.artist.social_links as Record<string, string>}
 					<section>
 						<h2 class="mb-4 text-xl font-bold">Social Links</h2>
 						<div class="space-y-2">
-							{#if data.artist.socials.website}
+							{#if 'website' in socials}
 								<a
-									href={data.artist.socials.website}
+									href={socials.website}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
 								>
 									<GlobeIcon class="h-5 w-5" />
-									<span>{data.artist.socials.website}</span>
+									<span>{socials.website}</span>
 								</a>
 							{/if}
 
-							{#if data.artist.socials.twitter}
+							{#if socials.twitter}
 								<a
-									href={`https://twitter.com/${data.artist.socials.twitter}`}
+									href={`https://twitter.com/${socials.twitter}`}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
 								>
 									<TwitterIcon class="h-5 w-5" />
-									<span>@{data.artist.socials.twitter}</span>
+									<span>@{socials.twitter}</span>
 								</a>
 							{/if}
 
-							{#if data.artist.socials.instagram}
+							{#if socials.instagram}
 								<a
-									href={`https://instagram.com/${data.artist.socials.instagram}`}
+									href={`https://instagram.com/${socials.instagram}`}
 									target="_blank"
 									rel="noopener noreferrer"
 									class="text-muted-foreground hover:text-foreground flex items-center gap-2 transition-colors"
 								>
 									<InstagramIcon class="h-5 w-5" />
-									<span>@{data.artist.socials.instagram}</span>
+									<span>@{socials.instagram}</span>
 								</a>
 							{/if}
 						</div>
