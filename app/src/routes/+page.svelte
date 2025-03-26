@@ -14,8 +14,8 @@
 	let { data } = $props();
 </script>
 
-<div class="grid lg:grid-cols-5 h-full">
-	<Sidebar {playlists} class="hidden lg:block overflow-y-auto" />
+<div class="grid h-full lg:grid-cols-5">
+	<Sidebar {playlists} class="hidden overflow-y-auto lg:block" />
 	<div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l">
 		<div class="h-full py-6 pl-4 lg:pl-8">
 			<div class="flex items-center justify-between">
@@ -77,17 +77,19 @@
 					<div class="flex space-x-4 pb-4">
 						<!-- {#each listenNowAlbums as album} -->
 						{#each data.recommendations.albums as album}
-							<AlbumArtwork
-								album={{
-									artist: album.artist_name,
-									cover: album.cover_url,
-									name: album.title
-								}}
-								class="w-[250px]"
-								aspectRatio="portrait"
-								width={250}
-								height={330}
-							/>
+							<a href="/album/{album.id}">
+								<AlbumArtwork
+									album={{
+										artist: album.artist_name,
+										cover: album.cover_url,
+										name: album.title
+									}}
+									class="w-[250px]"
+									aspectRatio="portrait"
+									width={250}
+									height={330}
+								/>
+							</a>
 						{/each}
 					</div>
 				</ScrollArea>
