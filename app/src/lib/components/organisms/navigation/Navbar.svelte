@@ -37,13 +37,14 @@
 </script>
 
 <header class="bg-background w-full border-b" style="view-transition-name: none;">
-	<div class="container flex h-14 items-center">
+	<div class="container flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
 			<span class="text-primary text-xl font-bold">prettygood.music</span>
 		</a>
 
 		<!-- Main Navigation -->
+		<!-- 
 		<nav class="flex items-center space-x-4 lg:space-x-6">
 			<a
 				href="/"
@@ -64,15 +65,13 @@
 				Artists
 			</a>
 		</nav>
-
+ -->
 		<!-- Search -->
-		<div class="ml-auto mr-4 flex-1">
-			<div class="md:w-auto md:max-w-sm md:flex-1">
-				<!-- 
+		<div class="w-full md:max-w-sm md:flex-1">
+			<!-- 
 					<CompactSearchBar placeholder="Search for music..." />
 					-->
-					<EnhancedSearchBar></EnhancedSearchBar>
-			</div>
+			<EnhancedSearchBar showButton={false} fullWidth={true}></EnhancedSearchBar>
 		</div>
 
 		<!-- User Section -->

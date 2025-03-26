@@ -46,7 +46,7 @@
         <!-- Direct search suggestion -->
         <button 
           class="w-full flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-          on:click={() => handleSelectSuggestion(query)}
+          onclick={() => handleSelectSuggestion(query)}
         >
           <Search class="h-4 w-4 flex-shrink-0 text-muted-foreground" />
           <span>Search for "<strong>{query}</strong>"</span>
@@ -59,7 +59,7 @@
             {#each suggestionTracks as track}
               <button 
                 class="w-full flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-                on:click={() => handleNavigate(`/track/${track.id}`)}
+                onclick={() => handleNavigate(`/track/${track.id}`)}
               >
                 <Music class="h-4 w-4 flex-shrink-0 text-muted-foreground" />
                 <div class="overflow-hidden">
@@ -82,7 +82,7 @@
             {#each suggestionArtists as artist}
               <button 
                 class="w-full flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-                on:click={() => handleNavigate(`/artist/${artist.id}`)}
+                onclick={() => handleNavigate(`/artist/${artist.id}`)}
               >
                 <Mic class="h-4 w-4 flex-shrink-0 text-muted-foreground" />
                 <div class="overflow-hidden">
@@ -100,7 +100,7 @@
             {#each suggestionAlbums as album}
               <button 
                 class="w-full flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-                on:click={() => handleNavigate(`/album/${album.id}`)}
+                onclick={() => handleNavigate(`/album/${album.id}`)}
               >
                 <Disc class="h-4 w-4 flex-shrink-0 text-muted-foreground" />
                 <div class="overflow-hidden">
@@ -123,7 +123,7 @@
             {#each recentSearches as search}
               <button 
                 class="w-full flex items-center gap-2 p-2 hover:bg-muted rounded-md text-left"
-                on:click={() => handleSelectSuggestion(search)}
+                onclick={() => handleSelectSuggestion(search)}
               >
                 <Search class="h-4 w-4 flex-shrink-0 text-muted-foreground" />
                 <span>{search}</span>

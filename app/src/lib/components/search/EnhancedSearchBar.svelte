@@ -75,12 +75,15 @@
 
 		// Add click outside listener
 		document.addEventListener('click', handleClickOutside);
+
+		return () => {
+			document.removeEventListener('click', handleClickOutside);
+		};
 	});
 
 	onDestroy(() => {
 		clearTimeout(searchTimeout);
 		abortController.abort();
-		document.removeEventListener('click', handleClickOutside);
 	});
 
 	async function fetchSuggestions(query: string) {

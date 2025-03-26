@@ -15,8 +15,9 @@
 </script>
 
 <div class="grid h-full lg:grid-cols-5">
-	<Sidebar {playlists} class="hidden overflow-y-auto lg:block" />
-	<div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l">
+	<!-- <Sidebar {playlists} class="hidden overflow-y-auto lg:block" /> -->
+	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
+	<div class="lg:col-span-5">
 		<div class="h-full py-6 pl-4 lg:pl-8">
 			<div class="flex items-center justify-between">
 				<div class="space-y-1">
