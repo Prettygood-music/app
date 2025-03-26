@@ -4,7 +4,6 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Separator } from '$lib/components/ui/separator';
-	import type { Album, Artist, Track } from '$lib/types';
 
 	import PlayIcon from 'lucide-svelte/icons/play';
 	import PauseIcon from 'lucide-svelte/icons/pause';
@@ -77,10 +76,10 @@
 </script>
 
 <svelte:head>
-	<title>{data.album.title} by {data.artist?.display_name} | prettygood.music</title>
+	<title>{data.album.title} by {data.artist?.artist_name} | prettygood.music</title>
 	<meta
 		name="description"
-		content="Listen to {data.album.title} by {data.artist.display_name} on prettygood.music"
+		content="Listen to {data.album.title} by {data.artist.artist_name} on prettygood.music"
 	/>
 </svelte:head>
 
@@ -101,7 +100,7 @@
 					<h1 class="mb-1 text-2xl font-bold md:text-3xl">{data.album.title}</h1>
 					<div class="flex flex-col items-center lg:flex-row lg:items-center lg:gap-2">
 						<a href="/artist/{data.artist.id}" class="text-primary text-lg hover:underline">
-							{data.artist.display_name}
+							{data.artist.artist_name}
 						</a>
 						<div class="text-muted-foreground hidden lg:block">•</div>
 						<div class="text-muted-foreground mt-1 flex items-center gap-2 text-sm lg:mt-0">
@@ -115,7 +114,7 @@
 					>
 						<div class="flex items-center gap-1">
 							<MusicIcon class="h-4 w-4" />
-							<span>{data.album.track_count} tracks</span>
+							<span>{data.album.tracks.length} tracks</span>
 						</div>
 						<div>•</div>
 						<div class="flex items-center gap-1">
@@ -173,7 +172,7 @@
 
 						<div class="flex items-center justify-between">
 							<span class="text-muted-foreground">Tracks</span>
-							<span>{data.album.track_count}</span>
+							<span>{data.album.tracks.length}</span>
 						</div>
 
 						<div class="flex items-center justify-between">
@@ -186,9 +185,9 @@
 							<span>Bytecode Records</span>
 						</div>
 
-						{#if data.album.genres && data.album.genres.length > 0}
+						{#if data.album.genre && data.album.genre.length > 0}
 							<div class="mt-2 flex flex-wrap gap-2">
-								{#each data.album.genres as genre}
+								{#each data.album.genre as genre}
 									<Badge variant="secondary" class="text-xs">{genre}</Badge>
 								{/each}
 							</div>
@@ -219,12 +218,12 @@
 						class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 					>
 						<Avatar class="h-16 w-16">
-							<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.display_name} />
-							<AvatarFallback>{data.artist.display_name.substring(0, 2)}</AvatarFallback>
+							<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.artist_name} />
+							<AvatarFallback>{data.artist.artist_name.substring(0, 2)}</AvatarFallback>
 						</Avatar>
 						<div>
 							<h4 class="group-hover:text-primary font-medium group-hover:underline">
-								{data.artist.display_name}
+								{data.artist.artist_name}
 							</h4>
 							{#if data.artist.bio}
 								<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
@@ -238,7 +237,7 @@
 				<!-- More Albums by Artist -->
 				{#if data.relatedAlbums && data.relatedAlbums.length > 0}
 					<div class="mt-8">
-						<h2 class="mb-4 text-xl font-bold">More from {data.artist.display_name}</h2>
+						<h2 class="mb-4 text-xl font-bold">More from {data.artist.artist_name}</h2>
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
 							{#each data.relatedAlbums as relatedAlbum}
 								<a href="/album/{relatedAlbum.id}" class="group">
@@ -254,7 +253,7 @@
 											{relatedAlbum.title}
 										</h3>
 										<p class="text-muted-foreground text-xs">
-											{new Date(relatedAlbum.release_date).getFullYear()} • {relatedAlbum.track_count}
+											{new Date(relatedAlbum.release_date).getFullYear()} • {relatedAlbum.tracks.length}
 											tracks
 										</p>
 									</div>
