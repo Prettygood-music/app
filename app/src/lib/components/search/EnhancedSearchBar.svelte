@@ -159,7 +159,7 @@
 </script>
 
 <div class={fullWidth ? 'w-full' : ''} bind:this={searchInput}>
-	<form onsubmit={handleSearch} class="w-full">
+	<form onsubmit={handleSearch} class="w-full ">
 		<div class="relative flex gap-2">
 			<div class="relative flex-1">
 				<Search

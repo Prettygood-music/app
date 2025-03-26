@@ -6,17 +6,23 @@
 	import { browser } from '$app/environment';
 	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
 	import PlayerBar from '$lib/components/app/organisms/player-bar/player-bar.svelte';
+	import ConnectionStatus from '$lib/components/app/molecules/connection-status/connection-status.svelte';
+	import InstallPrompt from '$lib/components/app/molecules/install-prompt/install-prompt.svelte';
 	import { PlayerState, setPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
 	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
 	import { makeClient } from '$lib/api';
 	import { onNavigate } from '$app/navigation';
+	import { page } from '$app/state';
 
 	// TODO: we'll want a context for this
 	const client = browser ? makeClient(window.fetch) : null!;
 
 	let { children } = $props();
+
+	// Don't show install prompt on the install page itself
+	const showInstallPrompt = $derived(browser && page.route.id !== '/install');
 
 	if (browser) {
 		const playerState = new PlayerState();
@@ -56,30 +62,24 @@
 </script>
 
 <ParaglideJS {i18n}>
-	<!-- 
-	<div class="mb-24 flex min-h-screen flex-col" id="content">
+	<div class="bg-background flex h-screen flex-col" id="content">
 		<Navbar />
-		<main class="flex-1">
+		<main class="flex flex-1 flex-col overflow-y-hidden">
 			{@render children()}
 		</main>
-		<PlayerBar></PlayerBar>
-		<MobilePlayerBar></MobilePlayerBar>
-	</div>
-	 -->
-
-	<div class="bg-background flex h-screen  flex-col" id="content">
-		<Navbar />
-		<main class="flex-1 overflow-y-hidden flex flex-col">
-			{@render children()}
-		</main>
-		<div class=" bg-blue-500 shrink-0">
+		<div class="shrink-0">
 			<PlayerBar></PlayerBar>
-			<!-- 
-				<div class="h-[60px]">wooow</div>
-				<MobilePlayerBar></MobilePlayerBar>
-				-->
 		</div>
 	</div>
+
+	{#if browser}
+		<ConnectionStatus />
+		<!-- 
+			{#if showInstallPrompt}
+			<InstallPrompt variant="floating" />
+			{/if}
+			-->
+	{/if}
 </ParaglideJS>
 
 <style global>
