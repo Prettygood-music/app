@@ -34,12 +34,15 @@ export const load = (async ({ fetch }) => {
 		.from('artists')
 		.select('*')
 		.in('id', relevantArtistsID);
-		
+
 	const { data: recommendedAlbums } = await databaseClient
 		.from('albums')
 		.select('*')
 		.in('id', relevantAlbumsIDs);
 
+	// TODO: we need the user's ID to provide his play history
+	const { data: play_history } = await databaseClient.from('play_history').select('*').limit(20);
+	console.dir(play_history);
 	/*
 	const recommendedTracksResponse = await client.api.recommendations.tracks.$get({
 		query: {
