@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { CompactSearchBar } from '$lib/components/search';
+	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
 
 	// Define state for user
 	let isDropdownOpen = $state(false);
@@ -67,7 +68,10 @@
 		<!-- Search -->
 		<div class="ml-auto mr-4 flex-1">
 			<div class="md:w-auto md:max-w-sm md:flex-1">
-				<CompactSearchBar placeholder="Search for music..." />
+				<!-- 
+					<CompactSearchBar placeholder="Search for music..." />
+					-->
+					<EnhancedSearchBar></EnhancedSearchBar>
 			</div>
 		</div>
 
