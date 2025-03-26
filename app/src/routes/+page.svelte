@@ -14,7 +14,7 @@
 	let { data } = $props();
 </script>
 
-<div class="grid h-full lg:grid-cols-5">
+<div class="grid h-full lg:grid-cols-5 overflow-y-auto">
 	<!-- <Sidebar {playlists} class="hidden overflow-y-auto lg:block" /> -->
 	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
 	<div class="lg:col-span-5">

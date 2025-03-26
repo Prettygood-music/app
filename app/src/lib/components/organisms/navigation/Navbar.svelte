@@ -4,6 +4,8 @@
 	import { page } from '$app/stores';
 	import { CompactSearchBar } from '$lib/components/search';
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { HomeIcon } from 'lucide-svelte';
 
 	// Define state for user
 	let isDropdownOpen = $state(false);
@@ -40,7 +42,8 @@
 	<div class="container flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
-			<span class="text-primary text-xl font-bold">prettygood.music</span>
+			<img src="/favicon.svg" width="32" height="32" alt="prettygood.music logo" />
+			<!-- <span class="text-primary text-xl font-bold">prettygood.music</span> -->
 		</a>
 
 		<!-- Main Navigation -->
@@ -67,10 +70,13 @@
 		</nav>
  -->
 		<!-- Search -->
-		<div class="w-full md:max-w-sm md:flex-1">
+		<div class="w-full md:max-w-sm md:flex-1 flex items-center">
 			<!-- 
 					<CompactSearchBar placeholder="Search for music..." />
 					-->
+			<Button size="icon" href="/" variant="ghost" class="text-muted-foreground">
+				<HomeIcon></HomeIcon>
+			</Button>
 			<EnhancedSearchBar showButton={false} fullWidth={true}></EnhancedSearchBar>
 		</div>
 
