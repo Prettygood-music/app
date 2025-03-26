@@ -2,23 +2,17 @@
 <script>
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import SearchBar from '$lib/components/molecules/SearchBar.svelte';
+	import { CompactSearchBar } from '$lib/components/search';
 
 	// Define state for user
 	let isDropdownOpen = $state(false);
 	let walletConnected = $state(false);
 	let userInitials = $state('');
-	let searchValue = $state('');
 
 	// Mock function for wallet connection - would be replaced with actual Sui wallet implementation
 	function handleConnectWallet() {
 		walletConnected = true;
 		userInitials = 'PG'; // Example value - would be derived from actual user data
-	}
-
-	function handleSearch(query) {
-		// Navigate to search page with query
-		window.location.href = `/search?q=${encodeURIComponent(query)}`;
 	}
 
 	function toggleDropdown() {
@@ -73,11 +67,7 @@
 		<!-- Search -->
 		<div class="ml-auto mr-4 flex-1">
 			<div class="md:w-auto md:max-w-sm md:flex-1">
-				<SearchBar
-					placeholder="Search for music..."
-					bind:value={searchValue}
-					onSubmit={handleSearch}
-				/>
+				<CompactSearchBar placeholder="Search for music..." />
 			</div>
 		</div>
 
