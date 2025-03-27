@@ -12,18 +12,14 @@
 	import type { Track } from '$lib/types';
 	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
-	import { makeClient } from '$lib/api';
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
-
-	// TODO: we'll want a context for this
-	const client = browser ? makeClient(window.fetch) : null!;
+	import { onMount } from 'svelte';
 
 	let { children } = $props();
 
 	// Don't show install prompt on the install page itself
 	const showInstallPrompt = $derived(browser && page.route.id !== '/install');
-
 	if (browser) {
 		const playerState = new PlayerState();
 		const track: Track = {
@@ -76,7 +72,7 @@
 		<ConnectionStatus />
 		<!-- 
 			{#if showInstallPrompt}
-			<InstallPrompt variant="floating" />
+			<InstallPrompt variant="banner" />
 			{/if}
 			-->
 	{/if}

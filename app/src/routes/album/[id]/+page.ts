@@ -65,7 +65,6 @@ export const load: PageLoad = async ({ params, parent }) => {
 		.neq('artist.albums.id', params.id)
 		.single();
 
-	console.dir(album);
 	if (!album) {
 		error(404, 'Album not found');
 	}

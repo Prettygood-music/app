@@ -5,8 +5,8 @@
 	import { CompactSearchBar } from '$lib/components/search';
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { HomeIcon, Download } from 'lucide-svelte';
-	import { useInstallPrompt } from "$lib/hooks/use-install-prompt.svelte";
+	import { HomeIcon, Download, DownloadIcon } from 'lucide-svelte';
+	import { useInstallPrompt } from '$lib/hooks/use-install-prompt.svelte';
 
 	// Define state for user
 	let isDropdownOpen = $state(false);
@@ -57,7 +57,7 @@
 		</a>
 
 		<!-- Search -->
-		<div class="w-full md:max-w-sm md:flex-1 flex items-center">
+		<div class="flex w-full items-center md:max-w-sm md:flex-1">
 			<Button size="icon" href="/" variant="ghost" class="text-muted-foreground">
 				<HomeIcon></HomeIcon>
 			</Button>
@@ -66,17 +66,17 @@
 
 		<!-- User Section -->
 		<div class="flex items-center space-x-4">
+			<!-- TODO: don't show if already installed -->
+			<Button href="/install" size="sm" variant="ghost" class="text-muted-foreground">
+				<DownloadIcon></DownloadIcon>
+				Install App</Button
+			>
 			{#if !isInstalled && isInstallable}
-				<Button 
-					variant="outline" 
-					size="sm" 
-					class="hidden md:flex" 
-					on:click={handleInstallClick}
-				>
+				<Button variant="outline" size="sm" class="hidden md:flex" on:click={handleInstallClick}>
 					<Download size={16} class="mr-2" /> Install App
 				</Button>
 			{/if}
-			
+
 			{#if walletConnected}
 				<!-- User Avatar -->
 				<div class="user-dropdown relative">
@@ -104,7 +104,7 @@
 								>
 									Settings
 								</a>
-								
+
 								{#if !isInstalled}
 									<a
 										href="/install"
@@ -113,7 +113,7 @@
 										<Download size={16} class="mr-2" /> Install App
 									</a>
 								{/if}
-								
+
 								<div class="border-border my-1 border-t"></div>
 								<button
 									class="hover:bg-accent hover:text-accent-foreground block w-full px-4 py-2 text-left text-sm"
