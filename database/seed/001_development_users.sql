@@ -3,20 +3,20 @@
 
 -- Development admin user
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, profile_url, created_at
+  id, wallet_address, username, display_name, email, email_verified, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000001', '0x0000000000000000000000000000000000000000000000000000000000000001', 'admin', 'System Admin', 'https://example.com/images/admin-profile.jpg', NOW())
+  ('00000000-0000-0000-0000-000000000001', '0x0000000000000000000000000000000000000000000000000000000000000001', 'admin', 'System Admin', 'admin@prettygood.music', TRUE, 'https://example.com/images/admin-profile.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Development artist users with fixed IDs for testing
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, profile_url, created_at
+  id, wallet_address, username, display_name, email, email_verified, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000002', '0x0000000000000000000000000000000000000000000000000000000000000002', 'electric_symphony', 'Electric Symphony', 'https://example.com/images/electric-symphony.jpg', NOW()),
-  ('00000000-0000-0000-0000-000000000003', '0x0000000000000000000000000000000000000000000000000000000000000003', 'vintage_echoes', 'Vintage Echoes', 'https://example.com/images/vintage-echoes.jpg', NOW()),
-  ('00000000-0000-0000-0000-000000000006', '0x0000000000000000000000000000000000000000000000000000000000000006', 'sonic_wanderer', 'Sonic Wanderer', 'https://example.com/images/sonic-wanderer.jpg', NOW()),
-  ('00000000-0000-0000-0000-000000000007', '0x0000000000000000000000000000000000000000000000000000000000000007', 'melodic_journey', 'Melodic Journey', 'https://example.com/images/melodic-journey.jpg', NOW()),
-  ('00000000-0000-0000-0000-000000000008', '0x0000000000000000000000000000000000000000000000000000000000000008', 'bass_architect', 'Bass Architect', 'https://example.com/images/bass-architect.jpg', NOW())
+  ('00000000-0000-0000-0000-000000000002', '0x0000000000000000000000000000000000000000000000000000000000000002', 'electric_symphony', 'Electric Symphony', 'electric@prettygood.music', TRUE, 'https://example.com/images/electric-symphony.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000003', '0x0000000000000000000000000000000000000000000000000000000000000003', 'vintage_echoes', 'Vintage Echoes', 'vintage@prettygood.music', TRUE, 'https://example.com/images/vintage-echoes.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000006', '0x0000000000000000000000000000000000000000000000000000000000000006', 'sonic_wanderer', 'Sonic Wanderer', 'sonic@prettygood.music', TRUE, 'https://example.com/images/sonic-wanderer.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000007', '0x0000000000000000000000000000000000000000000000000000000000000007', 'melodic_journey', 'Melodic Journey', 'melodic@prettygood.music', TRUE, 'https://example.com/images/melodic-journey.jpg', NOW()),
+  ('00000000-0000-0000-0000-000000000008', '0x0000000000000000000000000000000000000000000000000000000000000008', 'bass_architect', 'Bass Architect', 'bass@prettygood.music', TRUE, 'https://example.com/images/bass-architect.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Create artist profiles for our artists
@@ -32,10 +32,10 @@ ON CONFLICT (id) DO NOTHING;
 
 -- Development regular users with fixed IDs for testing
 INSERT INTO prettygood.users (
-  id, wallet_address, username, display_name, profile_url, created_at
+  id, wallet_address, username, display_name, email, email_verified, profile_url, created_at
 ) VALUES
-  ('00000000-0000-0000-0000-000000000004', '0x0000000000000000000000000000000000000000000000000000000000000004', 'music_lover42', 'Music Lover', NULL, NOW()),
-  ('00000000-0000-0000-0000-000000000005', '0x0000000000000000000000000000000000000000000000000000000000000005', 'beat_enthusiast', 'Beat Enthusiast', 'https://example.com/images/beat-enthusiast.jpg', NOW())
+  ('00000000-0000-0000-0000-000000000004', '0x0000000000000000000000000000000000000000000000000000000000000004', 'music_lover42', 'Music Lover', 'musiclover@prettygood.music', FALSE, NULL, NOW()),
+  ('00000000-0000-0000-0000-000000000005', '0x0000000000000000000000000000000000000000000000000000000000000005', 'beat_enthusiast', 'Beat Enthusiast', 'beat@prettygood.music', TRUE, 'https://example.com/images/beat-enthusiast.jpg', NOW())
 ON CONFLICT (id) DO NOTHING;
 
 -- Create user settings for all users
@@ -54,18 +54,36 @@ ON CONFLICT (user_id) DO NOTHING;
 
 -- Insert authentication data for easy testing
 -- The nonce is set to a known value for development testing
+-- All passwords are set to 'Password123!' for development testing
 INSERT INTO prettygood_private.user_auth (
-  user_id, nonce, nonce_created_at
+  user_id, nonce, nonce_created_at, password_hash
 ) VALUES
-  ('00000000-0000-0000-0000-000000000001', 'development_nonce_admin', NOW()),
-  ('00000000-0000-0000-0000-000000000002', 'development_nonce_electric', NOW()),
-  ('00000000-0000-0000-0000-000000000003', 'development_nonce_vintage', NOW()),
-  ('00000000-0000-0000-0000-000000000004', 'development_nonce_musiclover', NOW()),
-  ('00000000-0000-0000-0000-000000000005', 'development_nonce_enthusiast', NOW()),
-  ('00000000-0000-0000-0000-000000000006', 'development_nonce_sonic', NOW()),
-  ('00000000-0000-0000-0000-000000000007', 'development_nonce_melodic', NOW()),
-  ('00000000-0000-0000-0000-000000000008', 'development_nonce_bass', NOW())
+  ('00000000-0000-0000-0000-000000000001', 'development_nonce_admin', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000002', 'development_nonce_electric', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000003', 'development_nonce_vintage', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000004', 'development_nonce_musiclover', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000005', 'development_nonce_enthusiast', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000006', 'development_nonce_sonic', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000007', 'development_nonce_melodic', NOW(), crypt('Password123!', gen_salt('bf'))),
+  ('00000000-0000-0000-0000-000000000008', 'development_nonce_bass', NOW(), crypt('Password123!', gen_salt('bf')))
 ON CONFLICT (user_id) DO NOTHING;
+
+-- Create a sample verification token for testing the verification flow
+INSERT INTO prettygood_private.email_verification_tokens (
+  user_id, token, created_at, expires_at
+) VALUES (
+  '00000000-0000-0000-0000-000000000004',
+  'test-verification-token-music-lover',
+  NOW(),
+  NOW() + INTERVAL '24 hours'
+) ON CONFLICT DO NOTHING;
+
+-- Create a sample reset token for testing the password reset flow
+UPDATE prettygood_private.user_auth
+SET 
+  reset_token = 'test-reset-token-beat-enthusiast',
+  reset_token_expires_at = NOW() + INTERVAL '1 hour'
+WHERE user_id = '00000000-0000-0000-0000-000000000005';
 
 -- Make the admin user a superuser
 -- Note: In a real system, you'd want to have proper role-based permissions
@@ -89,12 +107,15 @@ END $$;
 DO $$
 BEGIN
   RAISE NOTICE 'Development users created with the following credentials:';
-  RAISE NOTICE '- Admin: wallet_address=0x0000...0001, username=admin, nonce=development_nonce_admin';
-  RAISE NOTICE '- Electric Symphony: wallet_address=0x0000...0002, username=electric_symphony, nonce=development_nonce_electric';
-  RAISE NOTICE '- Vintage Echoes: wallet_address=0x0000...0003, username=vintage_echoes, nonce=development_nonce_vintage';
-  RAISE NOTICE '- Music Lover: wallet_address=0x0000...0004, username=music_lover42, nonce=development_nonce_musiclover';
-  RAISE NOTICE '- Beat Enthusiast: wallet_address=0x0000...0005, username=beat_enthusiast, nonce=development_nonce_enthusiast';
-  RAISE NOTICE '- Sonic Wanderer: wallet_address=0x0000...0006, username=sonic_wanderer, nonce=development_nonce_sonic';
-  RAISE NOTICE '- Melodic Journey: wallet_address=0x0000...0007, username=melodic_journey, nonce=development_nonce_melodic';
-  RAISE NOTICE '- Bass Architect: wallet_address=0x0000...0008, username=bass_architect, nonce=development_nonce_bass';
+  RAISE NOTICE '- Admin: wallet_address=0x0000...0001, username=admin, email=admin@prettygood.music, password=Password123!';
+  RAISE NOTICE '- Electric Symphony: wallet_address=0x0000...0002, username=electric_symphony, email=electric@prettygood.music, password=Password123!';
+  RAISE NOTICE '- Vintage Echoes: wallet_address=0x0000...0003, username=vintage_echoes, email=vintage@prettygood.music, password=Password123!';
+  RAISE NOTICE '- Music Lover: wallet_address=0x0000...0004, username=music_lover42, email=musiclover@prettygood.music, password=Password123! (email not verified)';
+  RAISE NOTICE '- Beat Enthusiast: wallet_address=0x0000...0005, username=beat_enthusiast, email=beat@prettygood.music, password=Password123! (has reset token)';
+  RAISE NOTICE '- Sonic Wanderer: wallet_address=0x0000...0006, username=sonic_wanderer, email=sonic@prettygood.music, password=Password123!';
+  RAISE NOTICE '- Melodic Journey: wallet_address=0x0000...0007, username=melodic_journey, email=melodic@prettygood.music, password=Password123!';
+  RAISE NOTICE '- Bass Architect: wallet_address=0x0000...0008, username=bass_architect, email=bass@prettygood.music, password=Password123!';
+  RAISE NOTICE '';
+  RAISE NOTICE 'Test verification token: test-verification-token-music-lover';
+  RAISE NOTICE 'Test password reset token: test-reset-token-beat-enthusiast';
 END $$;

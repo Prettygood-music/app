@@ -1966,7 +1966,8 @@ export declare const prettygoodUserSettingsRelationshipsSchemaSchema: z.ZodTuple
 export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
     created_at: z.ZodString;
     display_name: z.ZodNullable<z.ZodString>;
-    email: z.ZodNullable<z.ZodString>;
+    email: z.ZodString;
+    email_verified: z.ZodNullable<z.ZodBoolean>;
     id: z.ZodString;
     profile_url: z.ZodNullable<z.ZodString>;
     updated_at: z.ZodString;
@@ -1977,7 +1978,8 @@ export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
     created_at: string;
     updated_at: string;
     display_name: string | null;
-    email: string | null;
+    email: string;
+    email_verified: boolean | null;
     profile_url: string | null;
     username: string;
     wallet_address: string | null;
@@ -1986,7 +1988,8 @@ export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
     created_at: string;
     updated_at: string;
     display_name: string | null;
-    email: string | null;
+    email: string;
+    email_verified: boolean | null;
     profile_url: string | null;
     username: string;
     wallet_address: string | null;
@@ -1994,35 +1997,39 @@ export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
 export declare const prettygoodUsersInsertSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     display_name: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-    email: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    email: z.ZodString;
+    email_verified: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     id: z.ZodOptional<z.ZodString>;
     profile_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     updated_at: z.ZodOptional<z.ZodString>;
     username: z.ZodString;
     wallet_address: z.ZodNullable<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
+    email: string;
     username: string;
     id?: string | undefined;
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
-    email?: string | null | undefined;
+    email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
     wallet_address?: string | null | undefined;
 }, {
+    email: string;
     username: string;
     id?: string | undefined;
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
-    email?: string | null | undefined;
+    email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
     wallet_address?: string | null | undefined;
 }>;
 export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     display_name: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-    email: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    email: z.ZodOptional<z.ZodString>;
+    email_verified: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     id: z.ZodOptional<z.ZodString>;
     profile_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     updated_at: z.ZodOptional<z.ZodString>;
@@ -2033,7 +2040,8 @@ export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
-    email?: string | null | undefined;
+    email?: string | undefined;
+    email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
     username?: string | undefined;
     wallet_address?: string | null | undefined;
@@ -2042,7 +2050,8 @@ export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
-    email?: string | null | undefined;
+    email?: string | undefined;
+    email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
     username?: string | undefined;
     wallet_address?: string | null | undefined;
@@ -2198,6 +2207,17 @@ export declare const prettygoodAddTrackToPlaylistArgsSchemaSchema: z.ZodObject<{
     playlist_id: string;
 }>;
 export declare const prettygoodAddTrackToPlaylistReturnsSchemaSchema: z.ZodUndefined;
+export declare const prettygoodAuthenticateUserArgsSchemaSchema: z.ZodObject<{
+    email_or_username: z.ZodString;
+    password: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    email_or_username: string;
+    password: string;
+}, {
+    email_or_username: string;
+    password: string;
+}>;
+export declare const prettygoodAuthenticateUserReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodAuthenticateWalletArgsSchemaSchema: z.ZodObject<{
     wallet_address: z.ZodString;
     signature: z.ZodString;
@@ -2209,6 +2229,14 @@ export declare const prettygoodAuthenticateWalletArgsSchemaSchema: z.ZodObject<{
     signature: string;
 }>;
 export declare const prettygoodAuthenticateWalletReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodCreateEmailVerificationTokenArgsSchemaSchema: z.ZodObject<{
+    user_id: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    user_id: string;
+}, {
+    user_id: string;
+}>;
+export declare const prettygoodCreateEmailVerificationTokenReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodCreatePlaylistArgsSchemaSchema: z.ZodObject<{
     name: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
@@ -2464,47 +2492,25 @@ export declare const prettygoodRegisterAsArtistReturnsSchemaSchema: z.ZodObject<
     verified: boolean | null;
     website: string | null;
 }>;
-export declare const prettygoodRegisterUserArgsSchemaSchema: z.ZodObject<{
-    wallet_address: z.ZodString;
-    username: z.ZodString;
-    display_name: z.ZodOptional<z.ZodString>;
+export declare const prettygoodRequestPasswordResetArgsSchemaSchema: z.ZodObject<{
+    email: z.ZodString;
 }, "strip", z.ZodTypeAny, {
-    username: string;
-    wallet_address: string;
-    display_name?: string | undefined;
+    email: string;
 }, {
-    username: string;
-    wallet_address: string;
-    display_name?: string | undefined;
+    email: string;
 }>;
-export declare const prettygoodRegisterUserReturnsSchemaSchema: z.ZodObject<{
-    created_at: z.ZodString;
-    display_name: z.ZodNullable<z.ZodString>;
-    email: z.ZodNullable<z.ZodString>;
-    id: z.ZodString;
-    profile_url: z.ZodNullable<z.ZodString>;
-    updated_at: z.ZodString;
-    username: z.ZodString;
-    wallet_address: z.ZodNullable<z.ZodString>;
+export declare const prettygoodRequestPasswordResetReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodResetPasswordArgsSchemaSchema: z.ZodObject<{
+    reset_token: z.ZodString;
+    new_password: z.ZodString;
 }, "strip", z.ZodTypeAny, {
-    id: string;
-    created_at: string;
-    updated_at: string;
-    display_name: string | null;
-    email: string | null;
-    profile_url: string | null;
-    username: string;
-    wallet_address: string | null;
+    reset_token: string;
+    new_password: string;
 }, {
-    id: string;
-    created_at: string;
-    updated_at: string;
-    display_name: string | null;
-    email: string | null;
-    profile_url: string | null;
-    username: string;
-    wallet_address: string | null;
+    reset_token: string;
+    new_password: string;
 }>;
+export declare const prettygoodResetPasswordReturnsSchemaSchema: z.ZodBoolean;
 export declare const prettygoodTipArtistArgsSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     amount: z.ZodNumber;
@@ -2570,6 +2576,14 @@ export declare const prettygoodTipArtistReturnsSchemaSchema: z.ZodObject<{
     payment_type: string;
     transaction_hash: string | null;
 }>;
+export declare const prettygoodVerifyEmailArgsSchemaSchema: z.ZodObject<{
+    verification_token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    verification_token: string;
+}, {
+    verification_token: string;
+}>;
+export declare const prettygoodVerifyEmailReturnsSchemaSchema: z.ZodBoolean;
 export declare const prettygoodVerifySignatureArgsSchemaSchema: z.ZodObject<{
     wallet_address: z.ZodString;
     signature: z.ZodString;

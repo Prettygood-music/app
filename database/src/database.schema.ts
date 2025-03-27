@@ -851,7 +851,8 @@ export const prettygoodUserSettingsRelationshipsSchemaSchema = z.tuple([
 export const prettygoodUsersRowSchemaSchema = z.object({
   created_at: z.string(),
   display_name: z.string().nullable(),
-  email: z.string().nullable(),
+  email: z.string(),
+  email_verified: z.boolean().nullable(),
   id: z.string(),
   profile_url: z.string().nullable(),
   updated_at: z.string(),
@@ -862,7 +863,8 @@ export const prettygoodUsersRowSchemaSchema = z.object({
 export const prettygoodUsersInsertSchemaSchema = z.object({
   created_at: z.string().optional(),
   display_name: z.string().optional().nullable(),
-  email: z.string().optional().nullable(),
+  email: z.string(),
+  email_verified: z.boolean().optional().nullable(),
   id: z.string().optional(),
   profile_url: z.string().optional().nullable(),
   updated_at: z.string().optional(),
@@ -873,7 +875,8 @@ export const prettygoodUsersInsertSchemaSchema = z.object({
 export const prettygoodUsersUpdateSchemaSchema = z.object({
   created_at: z.string().optional(),
   display_name: z.string().optional().nullable(),
-  email: z.string().optional().nullable(),
+  email: z.string().optional(),
+  email_verified: z.boolean().optional().nullable(),
   id: z.string().optional(),
   profile_url: z.string().optional().nullable(),
   updated_at: z.string().optional(),
@@ -966,12 +969,26 @@ export const prettygoodAddTrackToPlaylistArgsSchemaSchema = z.object({
 
 export const prettygoodAddTrackToPlaylistReturnsSchemaSchema = z.undefined();
 
+export const prettygoodAuthenticateUserArgsSchemaSchema = z.object({
+  email_or_username: z.string(),
+  password: z.string(),
+});
+
+export const prettygoodAuthenticateUserReturnsSchemaSchema = z.string();
+
 export const prettygoodAuthenticateWalletArgsSchemaSchema = z.object({
   wallet_address: z.string(),
   signature: z.string(),
 });
 
 export const prettygoodAuthenticateWalletReturnsSchemaSchema = z.string();
+
+export const prettygoodCreateEmailVerificationTokenArgsSchemaSchema = z.object({
+  user_id: z.string(),
+});
+
+export const prettygoodCreateEmailVerificationTokenReturnsSchemaSchema =
+  z.string();
 
 export const prettygoodCreatePlaylistArgsSchemaSchema = z.object({
   name: z.string(),
@@ -1103,22 +1120,18 @@ export const prettygoodRegisterAsArtistReturnsSchemaSchema = z.object({
   website: z.string().nullable(),
 });
 
-export const prettygoodRegisterUserArgsSchemaSchema = z.object({
-  wallet_address: z.string(),
-  username: z.string(),
-  display_name: z.string().optional(),
+export const prettygoodRequestPasswordResetArgsSchemaSchema = z.object({
+  email: z.string(),
 });
 
-export const prettygoodRegisterUserReturnsSchemaSchema = z.object({
-  created_at: z.string(),
-  display_name: z.string().nullable(),
-  email: z.string().nullable(),
-  id: z.string(),
-  profile_url: z.string().nullable(),
-  updated_at: z.string(),
-  username: z.string(),
-  wallet_address: z.string().nullable(),
+export const prettygoodRequestPasswordResetReturnsSchemaSchema = z.string();
+
+export const prettygoodResetPasswordArgsSchemaSchema = z.object({
+  reset_token: z.string(),
+  new_password: z.string(),
 });
+
+export const prettygoodResetPasswordReturnsSchemaSchema = z.boolean();
 
 export const prettygoodTipArtistArgsSchemaSchema = z.object({
   artist_id: z.string(),
@@ -1144,6 +1157,12 @@ export const prettygoodTipArtistReturnsSchemaSchema = z.object({
   transaction_hash: z.string().nullable(),
   updated_at: z.string(),
 });
+
+export const prettygoodVerifyEmailArgsSchemaSchema = z.object({
+  verification_token: z.string(),
+});
+
+export const prettygoodVerifyEmailReturnsSchemaSchema = z.boolean();
 
 export const prettygoodVerifySignatureArgsSchemaSchema = z.object({
   wallet_address: z.string(),

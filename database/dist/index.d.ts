@@ -746,7 +746,8 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             Row: {
                 created_at: string;
                 display_name: string | null;
-                email: string | null;
+                email: string;
+                email_verified: boolean | null;
                 id: string;
                 profile_url: string | null;
                 updated_at: string;
@@ -756,7 +757,8 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             Insert: {
                 created_at?: string;
                 display_name?: string | null;
-                email?: string | null;
+                email: string;
+                email_verified?: boolean | null;
                 id?: string;
                 profile_url?: string | null;
                 updated_at?: string;
@@ -766,7 +768,8 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             Update: {
                 created_at?: string;
                 display_name?: string | null;
-                email?: string | null;
+                email?: string;
+                email_verified?: boolean | null;
                 id?: string;
                 profile_url?: string | null;
                 updated_at?: string;
@@ -856,10 +859,23 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: undefined;
         };
+        authenticate_user: {
+            Args: {
+                email_or_username: string;
+                password: string;
+            };
+            Returns: string;
+        };
         authenticate_wallet: {
             Args: {
                 wallet_address: string;
                 signature: string;
+            };
+            Returns: string;
+        };
+        create_email_verification_token: {
+            Args: {
+                user_id: string;
             };
             Returns: string;
         };
@@ -990,6 +1006,15 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
         };
         register_user: {
             Args: {
+                username: string;
+                email: string;
+                password: string;
+                display_name?: string;
+                wallet_address?: string;
+            };
+            Returns: string;
+        } | {
+            Args: {
                 wallet_address: string;
                 username: string;
                 display_name?: string;
@@ -997,13 +1022,27 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             Returns: {
                 created_at: string;
                 display_name: string | null;
-                email: string | null;
+                email: string;
+                email_verified: boolean | null;
                 id: string;
                 profile_url: string | null;
                 updated_at: string;
                 username: string;
                 wallet_address: string | null;
             };
+        };
+        request_password_reset: {
+            Args: {
+                email: string;
+            };
+            Returns: string;
+        };
+        reset_password: {
+            Args: {
+                reset_token: string;
+                new_password: string;
+            };
+            Returns: boolean;
         };
         tip_artist: {
             Args: {
@@ -1029,6 +1068,12 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 transaction_hash: string | null;
                 updated_at: string;
             };
+        };
+        verify_email: {
+            Args: {
+                verification_token: string;
+            };
+            Returns: boolean;
         };
         verify_signature: {
             Args: {

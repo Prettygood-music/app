@@ -6,13 +6,17 @@ import { databaseClient } from '$lib/databaseClient';
 export const load = (async ({ fetch }) => {
 	const client = makeClient(fetch);
 
-	const { data: recommendedTracks } = await databaseClient.rpc('get_recommendations', {
+	const { data: recommendedTracks, error } = await databaseClient.rpc('get_recommendations', {
 		limit_count: 10
 	});
+	if(error){
+		console.error(error)
+	}
+	console.log(recommendedTracks)
 
 	const relevantAlbumsIDs = [
 		...new Set(
-			recommendedTracks!
+			(recommendedTracks || [])
 				.map((r) => {
 					return r.album_id;
 				})
@@ -22,7 +26,7 @@ export const load = (async ({ fetch }) => {
 
 	const relevantArtistsID = [
 		...new Set(
-			recommendedTracks!
+			(recommendedTracks || [])
 				.map((r) => {
 					return r.artist_id;
 				})
