@@ -1,8 +1,6 @@
 <!-- Navbar.svelte -->
 <script>
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
-	import { CompactSearchBar } from '$lib/components/search';
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { HomeIcon, Download, DownloadIcon } from 'lucide-svelte';
