@@ -9,10 +9,9 @@ export const load = (async ({ fetch }) => {
 	const { data: recommendedTracks, error } = await databaseClient.rpc('get_recommendations', {
 		limit_count: 10
 	});
-	if(error){
-		console.error(error)
+	if (error) {
+		console.error(error);
 	}
-	console.log(recommendedTracks)
 
 	const relevantAlbumsIDs = [
 		...new Set(

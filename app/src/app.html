@@ -16,7 +16,6 @@
 	</head>
 	<script nonce="%sveltekit.nonce%">
 		window.addEventListener('beforeinstallprompt', (event) => {
-			console.log("prompt in html")
 			event.preventDefault();
 			window.deferredInstallPrompt = event;
 		});

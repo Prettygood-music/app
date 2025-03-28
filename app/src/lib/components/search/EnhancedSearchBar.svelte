@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { databaseClient } from '$lib/databaseClient';
-	import { onMount, onDestroy } from 'svelte';
+	import { onMount } from 'svelte';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 	import { Search } from 'lucide-svelte';
@@ -78,12 +78,9 @@
 
 		return () => {
 			document.removeEventListener('click', handleClickOutside);
+			clearTimeout(searchTimeout);
+			abortController.abort();
 		};
-	});
-
-	onDestroy(() => {
-		clearTimeout(searchTimeout);
-		abortController.abort();
 	});
 
 	async function fetchSuggestions(query: string) {
@@ -159,7 +156,7 @@
 </script>
 
 <div class={fullWidth ? 'w-full' : ''} bind:this={searchInput}>
-	<form onsubmit={handleSearch} class="w-full ">
+	<form onsubmit={handleSearch} class="w-full">
 		<div class="relative flex gap-2">
 			<div class="relative flex-1">
 				<Search

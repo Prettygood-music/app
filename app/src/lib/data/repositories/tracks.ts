@@ -31,16 +31,7 @@ export class TrackRepository {
 			.select('id, artist:artists(*)')
 			.eq('id', id)
 			.single();
-		/*
-		const { data: artist } = await databaseClient
-			.from('artists')
-			.select('*')
-			.eq('id', track?.artist_id)
-			.single();
 
-		console.log('artist', artist);*/
-		//const {} = await databaseClient.from("tracks").select("*, ")
-		//const track = mockTracks.find(t => t.id === id);
 		if (!track) return null;
 
 		return track;
@@ -60,7 +51,7 @@ export class TrackRepository {
 		const artistTracks = mockTracks.filter((track) => track.artist_id === artistId);
 		const offset = (page - 1) * limit;
 		const paginatedTracks = artistTracks
-			.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+			.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 			.slice(offset, offset + limit);
 
 		return {
