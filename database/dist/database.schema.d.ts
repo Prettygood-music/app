@@ -2501,6 +2501,14 @@ export declare const prettygoodAddTrackToPlaylistArgsSchemaSchema: z.ZodObject<{
     playlist_id: string;
 }>;
 export declare const prettygoodAddTrackToPlaylistReturnsSchemaSchema: z.ZodUndefined;
+export declare const prettygoodArmorArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    "": string;
+}, {
+    "": string;
+}>;
+export declare const prettygoodArmorReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodAuthenticateUserArgsSchemaSchema: z.ZodObject<{
     email_or_username: z.ZodString;
     password: z.ZodString;
@@ -2572,6 +2580,32 @@ export declare const prettygoodCreatePlaylistReturnsSchemaSchema: z.ZodObject<{
     name: string;
     is_public: boolean | null;
 }>;
+export declare const prettygoodDearmorArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    "": string;
+}, {
+    "": string;
+}>;
+export declare const prettygoodDearmorReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodGenRandomBytesArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    "": number;
+}, {
+    "": number;
+}>;
+export declare const prettygoodGenRandomBytesReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodGenRandomUuidArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+export declare const prettygoodGenRandomUuidReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodGenSaltArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    "": string;
+}, {
+    "": string;
+}>;
+export declare const prettygoodGenSaltReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodGenerateNonceArgsSchemaSchema: z.ZodObject<{
     wallet_address: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -3373,6 +3407,22 @@ export declare const prettygoodGetTracksPlayCountArgsSchemaSchema: z.ZodObject<{
     end_date?: string | undefined;
 }>;
 export declare const prettygoodGetTracksPlayCountReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodPgpArmorHeadersArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    "": string;
+}, {
+    "": string;
+}>;
+export declare const prettygoodPgpArmorHeadersReturnsSchemaSchema: z.ZodArray<z.ZodRecord<z.ZodString, z.ZodUnknown>, "many">;
+export declare const prettygoodPgpKeyIdArgsSchemaSchema: z.ZodObject<{
+    "": z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    "": string;
+}, {
+    "": string;
+}>;
+export declare const prettygoodPgpKeyIdReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodRecordPlayArgsSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
     play_duration: z.ZodOptional<z.ZodNumber>;
@@ -3459,6 +3509,26 @@ export declare const prettygoodRegisterAsArtistReturnsSchemaSchema: z.ZodObject<
     verified: boolean | null;
     website: string | null;
 }>;
+export declare const prettygoodRegisterUserArgsSchemaSchema: z.ZodObject<{
+    _username: z.ZodString;
+    _email: z.ZodString;
+    _password: z.ZodString;
+    _display_name: z.ZodOptional<z.ZodString>;
+    _wallet_address: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    _username: string;
+    _email: string;
+    _password: string;
+    _display_name?: string | undefined;
+    _wallet_address?: string | undefined;
+}, {
+    _username: string;
+    _email: string;
+    _password: string;
+    _display_name?: string | undefined;
+    _wallet_address?: string | undefined;
+}>;
+export declare const prettygoodRegisterUserReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
 export declare const prettygoodRequestPasswordResetArgsSchemaSchema: z.ZodObject<{
     email: z.ZodString;
 }, "strip", z.ZodTypeAny, {

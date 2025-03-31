@@ -95,14 +95,14 @@
 - [x] Design search API endpoint with filtering
 - [x] Connect search UI to real search API
 - [x] Implement search filters (artists, albums)
-- [ ] Implement genre-based search filters
+- [x] Implement genre-based search filters
 - [ ] Add search history and suggestions
 
 #### Content Discovery Improvements
 - [x] Create recommendation query functions
 - [x] Design recommendation API
 - [x] Connect recommendation UI to real data
-- [ ] Implement genre-based browsing with real data
+- [x] Implement genre-based browsing with real data
 - [x] Connect "New Releases" section to API
 
 ### 2. Authentication Flow (1 week)
@@ -241,7 +241,7 @@
    - ~~Connect search UI to real search API~~ (Completed)
    - ~~Connect recommendation UI to real data~~ (Completed)
    - ~~Connect "New Releases" section to API~~ (Completed)
-   - Implement genre-based search filters
+   - ~~Implement genre-based search filters~~ (Completed)
    - Connect library management to real storage
    - Implement playlist creation with real data
    - Replace any remaining mock data with real API calls

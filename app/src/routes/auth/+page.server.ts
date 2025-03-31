@@ -7,7 +7,39 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { superValidate } from 'sveltekit-superforms';
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	default: async (event) => {
+		const form = await superValidate(event, zod(registerSchema));
+
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
+		}
+
+		// Call the register_user RPC function
+		const { data, error } = await databaseClient.rpc('register_user', {
+			_username: form.data.username,
+			_email: form.data.email,
+			_password: form.data.password,
+			_display_name: form.data.displayName
+		});
+
+		console.dir(data);
+
+		// Extract data from the response
+		//const { user_id, verification_token } = data;
+		if (error) {
+			console.error(error);
+			return fail(500, {
+				form: { ...form, error: error }
+			});
+		}
+
+		return {
+			form
+		};
+		/*
+		const { request, cookies } = event;
 		const formData = await request.formData();
 		const formValues = Object.fromEntries(formData.entries());
 
@@ -27,7 +59,7 @@ export const actions: Actions = {
 				username: validatedData.username,
 				email: validatedData.email,
 				password: validatedData.password,
-				display_name: validatedData.displayName || null
+				display_name: validatedData.displayName
 			});
 
 			if (error) {
@@ -38,13 +70,15 @@ export const actions: Actions = {
 			const { user_id, verification_token } = data;
 
 			// In a real app, send an email with the verification token
-			console.log(`Verification link: http://localhost:5173/verify-email/${verification_token}`);
+			//console.log(`Verification link: http://localhost:5173/verify-email/${verification_token}`);
 
 			// Redirect to verification notice page
-			throw redirect(303, '/auth/verify-notice');
+			//redirect(303, '/auth/verify-notice');
+
+			return form
 		} catch (error) {
 			return handleRegistrationError(error);
-		}
+		}*/
 	}
 };
 

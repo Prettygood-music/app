@@ -1101,6 +1101,12 @@ export const prettygoodAddTrackToPlaylistArgsSchemaSchema = z.object({
 
 export const prettygoodAddTrackToPlaylistReturnsSchemaSchema = z.undefined();
 
+export const prettygoodArmorArgsSchemaSchema = z.object({
+  "": z.string(),
+});
+
+export const prettygoodArmorReturnsSchemaSchema = z.string();
+
 export const prettygoodAuthenticateUserArgsSchemaSchema = z.object({
   email_or_username: z.string(),
   password: z.string(),
@@ -1138,6 +1144,28 @@ export const prettygoodCreatePlaylistReturnsSchemaSchema = z.object({
   updated_at: z.string(),
   user_id: z.string(),
 });
+
+export const prettygoodDearmorArgsSchemaSchema = z.object({
+  "": z.string(),
+});
+
+export const prettygoodDearmorReturnsSchemaSchema = z.string();
+
+export const prettygoodGenRandomBytesArgsSchemaSchema = z.object({
+  "": z.number(),
+});
+
+export const prettygoodGenRandomBytesReturnsSchemaSchema = z.string();
+
+export const prettygoodGenRandomUuidArgsSchemaSchema = z.object({});
+
+export const prettygoodGenRandomUuidReturnsSchemaSchema = z.string();
+
+export const prettygoodGenSaltArgsSchemaSchema = z.object({
+  "": z.string(),
+});
+
+export const prettygoodGenSaltReturnsSchemaSchema = z.string();
 
 export const prettygoodGenerateNonceArgsSchemaSchema = z.object({
   wallet_address: z.string(),
@@ -1558,6 +1586,20 @@ export const prettygoodGetTracksPlayCountArgsSchemaSchema = z.object({
 
 export const prettygoodGetTracksPlayCountReturnsSchemaSchema = z.number();
 
+export const prettygoodPgpArmorHeadersArgsSchemaSchema = z.object({
+  "": z.string(),
+});
+
+export const prettygoodPgpArmorHeadersReturnsSchemaSchema = z.array(
+  z.record(z.unknown()),
+);
+
+export const prettygoodPgpKeyIdArgsSchemaSchema = z.object({
+  "": z.string(),
+});
+
+export const prettygoodPgpKeyIdReturnsSchemaSchema = z.string();
+
 export const prettygoodRecordPlayArgsSchemaSchema = z.object({
   track_id: z.string(),
   play_duration: z.number().optional(),
@@ -1599,6 +1641,16 @@ export const prettygoodRegisterAsArtistReturnsSchemaSchema = z.object({
   verified: z.boolean().nullable(),
   website: z.string().nullable(),
 });
+
+export const prettygoodRegisterUserArgsSchemaSchema = z.object({
+  _username: z.string(),
+  _email: z.string(),
+  _password: z.string(),
+  _display_name: z.string().optional(),
+  _wallet_address: z.string().optional(),
+});
+
+export const prettygoodRegisterUserReturnsSchemaSchema = jsonSchema;
 
 export const prettygoodRequestPasswordResetArgsSchemaSchema = z.object({
   email: z.string(),

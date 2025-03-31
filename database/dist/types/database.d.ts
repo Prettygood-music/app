@@ -1046,6 +1046,12 @@ export type Database = {
                 };
                 Returns: undefined;
             };
+            armor: {
+                Args: {
+                    "": string;
+                };
+                Returns: string;
+            };
             authenticate_user: {
                 Args: {
                     email_or_username: string;
@@ -1082,6 +1088,28 @@ export type Database = {
                     updated_at: string;
                     user_id: string;
                 };
+            };
+            dearmor: {
+                Args: {
+                    "": string;
+                };
+                Returns: string;
+            };
+            gen_random_bytes: {
+                Args: {
+                    "": number;
+                };
+                Returns: string;
+            };
+            gen_random_uuid: {
+                Args: Record<PropertyKey, never>;
+                Returns: string;
+            };
+            gen_salt: {
+                Args: {
+                    "": string;
+                };
+                Returns: string;
             };
             generate_nonce: {
                 Args: {
@@ -1460,6 +1488,18 @@ export type Database = {
                 };
                 Returns: number;
             };
+            pgp_armor_headers: {
+                Args: {
+                    "": string;
+                };
+                Returns: Record<string, unknown>[];
+            };
+            pgp_key_id: {
+                Args: {
+                    "": string;
+                };
+                Returns: string;
+            };
             record_play: {
                 Args: {
                     track_id: string;
@@ -1504,30 +1544,13 @@ export type Database = {
             };
             register_user: {
                 Args: {
-                    username: string;
-                    email: string;
-                    password: string;
-                    display_name?: string;
-                    wallet_address?: string;
+                    _username: string;
+                    _email: string;
+                    _password: string;
+                    _display_name?: string;
+                    _wallet_address?: string;
                 };
-                Returns: string;
-            } | {
-                Args: {
-                    wallet_address: string;
-                    username: string;
-                    display_name?: string;
-                };
-                Returns: {
-                    created_at: string;
-                    display_name: string | null;
-                    email: string;
-                    email_verified: boolean | null;
-                    id: string;
-                    profile_url: string | null;
-                    updated_at: string;
-                    username: string;
-                    wallet_address: string | null;
-                };
+                Returns: Json;
             };
             request_password_reset: {
                 Args: {
