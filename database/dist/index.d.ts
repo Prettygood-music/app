@@ -4,6 +4,33 @@ export * from './database.schema';
 export * from './types';
 export declare function createClient(url: string): PostgrestClient<Database, "prettygood", {
     Tables: {
+        album_genres: {
+            Row: {
+                album_id: string;
+                genre_id: string;
+            };
+            Insert: {
+                album_id: string;
+                genre_id: string;
+            };
+            Update: {
+                album_id?: string;
+                genre_id?: string;
+            };
+            Relationships: [{
+                foreignKeyName: "album_genres_album_id_fkey";
+                columns: ["album_id"];
+                isOneToOne: false;
+                referencedRelation: "albums";
+                referencedColumns: ["id"];
+            }, {
+                foreignKeyName: "album_genres_genre_id_fkey";
+                columns: ["genre_id"];
+                isOneToOne: false;
+                referencedRelation: "genres";
+                referencedColumns: ["id"];
+            }];
+        };
         album_likes: {
             Row: {
                 album_id: string;
@@ -109,6 +136,33 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 referencedColumns: ["id"];
             }];
         };
+        artist_genres: {
+            Row: {
+                artist_id: string;
+                genre_id: string;
+            };
+            Insert: {
+                artist_id: string;
+                genre_id: string;
+            };
+            Update: {
+                artist_id?: string;
+                genre_id?: string;
+            };
+            Relationships: [{
+                foreignKeyName: "artist_genres_artist_id_fkey";
+                columns: ["artist_id"];
+                isOneToOne: false;
+                referencedRelation: "artists";
+                referencedColumns: ["id"];
+            }, {
+                foreignKeyName: "artist_genres_genre_id_fkey";
+                columns: ["genre_id"];
+                isOneToOne: false;
+                referencedRelation: "genres";
+                referencedColumns: ["id"];
+            }];
+        };
         artists: {
             Row: {
                 artist_name: string;
@@ -153,6 +207,42 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 referencedRelation: "users";
                 referencedColumns: ["id"];
             }];
+        };
+        genres: {
+            Row: {
+                color: string | null;
+                created_at: string;
+                description: string | null;
+                id: string;
+                image_url: string | null;
+                name: string;
+                popularity: number | null;
+                slug: string | null;
+                updated_at: string;
+            };
+            Insert: {
+                color?: string | null;
+                created_at?: string;
+                description?: string | null;
+                id?: string;
+                image_url?: string | null;
+                name: string;
+                popularity?: number | null;
+                slug?: string | null;
+                updated_at?: string;
+            };
+            Update: {
+                color?: string | null;
+                created_at?: string;
+                description?: string | null;
+                id?: string;
+                image_url?: string | null;
+                name?: string;
+                popularity?: number | null;
+                slug?: string | null;
+                updated_at?: string;
+            };
+            Relationships: [];
         };
         payments: {
             Row: {
@@ -448,6 +538,33 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 columns: ["user_id"];
                 isOneToOne: false;
                 referencedRelation: "users";
+                referencedColumns: ["id"];
+            }];
+        };
+        track_genres: {
+            Row: {
+                genre_id: string;
+                track_id: string;
+            };
+            Insert: {
+                genre_id: string;
+                track_id: string;
+            };
+            Update: {
+                genre_id?: string;
+                track_id?: string;
+            };
+            Relationships: [{
+                foreignKeyName: "track_genres_genre_id_fkey";
+                columns: ["genre_id"];
+                isOneToOne: false;
+                referencedRelation: "genres";
+                referencedColumns: ["id"];
+            }, {
+                foreignKeyName: "track_genres_track_id_fkey";
+                columns: ["track_id"];
+                isOneToOne: false;
+                referencedRelation: "tracks";
                 referencedColumns: ["id"];
             }];
         };
@@ -908,6 +1025,25 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: number;
         };
+        get_albums_by_genre: {
+            Args: {
+                p_genre_id: string;
+                p_limit?: number;
+                p_offset?: number;
+            };
+            Returns: {
+                artist_id: string;
+                cover_url: string | null;
+                created_at: string;
+                description: string | null;
+                genre: string[] | null;
+                id: string;
+                release_date: string | null;
+                title: string;
+                type: string | null;
+                updated_at: string;
+            }[];
+        };
         get_artist_followers_count: {
             Args: {
                 artist_id: string;
@@ -937,6 +1073,25 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 artist_id: string;
             };
             Returns: number;
+        };
+        get_artists_by_genre: {
+            Args: {
+                p_genre_id: string;
+                p_limit?: number;
+                p_offset?: number;
+            };
+            Returns: {
+                artist_name: string;
+                bio: string | null;
+                created_at: string;
+                genre: string[] | null;
+                id: string;
+                location: string | null;
+                social_links: import('./types').Json | null;
+                updated_at: string;
+                verified: boolean | null;
+                website: string | null;
+            }[];
         };
         get_earnings_by_payment_type: {
             Args: {
@@ -1043,6 +1198,24 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: number;
         };
+        get_popular_genres: {
+            Args: {
+                p_start_date: string;
+                p_end_date: string;
+                p_limit?: number;
+            };
+            Returns: {
+                color: string | null;
+                created_at: string;
+                description: string | null;
+                id: string;
+                image_url: string | null;
+                name: string;
+                popularity: number | null;
+                slug: string | null;
+                updated_at: string;
+            }[];
+        };
         get_recent_followers: {
             Args: {
                 artist_id: string;
@@ -1116,6 +1289,23 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 updated_at: string;
             }[];
         };
+        get_related_genres: {
+            Args: {
+                p_genre_id: string;
+                p_limit?: number;
+            };
+            Returns: {
+                color: string | null;
+                created_at: string;
+                description: string | null;
+                id: string;
+                image_url: string | null;
+                name: string;
+                popularity: number | null;
+                slug: string | null;
+                updated_at: string;
+            }[];
+        };
         get_track_play_count: {
             Args: {
                 track_id: string;
@@ -1167,6 +1357,30 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 end_date: string;
             };
             Returns: number;
+        };
+        get_tracks_by_genre: {
+            Args: {
+                p_genre_id: string;
+                p_limit?: number;
+                p_offset?: number;
+            };
+            Returns: {
+                album_id: string | null;
+                artist_id: string;
+                audio_url: string;
+                cover_url: string | null;
+                created_at: string;
+                duration: number;
+                explicit: boolean | null;
+                genre: string[];
+                id: string;
+                isrc: string | null;
+                lyrics: string | null;
+                release_date: string | null;
+                title: string;
+                track_number: number | null;
+                updated_at: string;
+            }[];
         };
         get_tracks_play_count: {
             Args: {

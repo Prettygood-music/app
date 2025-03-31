@@ -322,3 +322,7 @@ GRANT INSERT, UPDATE ON TABLE prettygood.genres TO authenticated;
 GRANT INSERT, DELETE ON TABLE prettygood.track_genres TO authenticated;
 GRANT INSERT, DELETE ON TABLE prettygood.artist_genres TO authenticated;
 GRANT INSERT, DELETE ON TABLE prettygood.album_genres TO authenticated;
+
+-- Grant permissions on related views
+GRANT SELECT ON prettygood.track_play_counts TO anon, authenticated;
+GRANT SELECT ON ALL TABLES IN SCHEMA prettygood TO anon, authenticated;

@@ -1,9 +1,13 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import { TrackList } from '$lib/components/tracks';
+	/*
+  import { TrackList } from '$lib/components/tracks';
 	import { ArtistGrid } from '$lib/components/artists';
 	import { AlbumGrid } from '$lib/components/albums';
+*/
+	import { TrackItem } from '$lib/components/music';
+
 	import { GenreGrid } from '$lib/components/genres';
 	import { formatDuration } from '$lib/services/genres';
 	import { Play } from 'lucide-svelte';
@@ -20,6 +24,7 @@
 	// Derived data
 	let genre = $derived.by(() => data.genreWithContent?.genre);
 	let tracks = $derived.by(() => data.genreWithContent?.tracks || []);
+	$inspect(tracks);
 	let artists = $derived.by(() => data.genreWithContent?.artists || []);
 	let albums = $derived.by(() => data.genreWithContent?.albums || []);
 	let relatedGenres = $derived.by(() => data.genreWithContent?.relatedGenres || []);
@@ -127,14 +132,19 @@
 			</TabsList>
 
 			<TabsContent value="tracks" class="pt-6">
-				<TrackList
+				{#each tracks as track, index}
+					<!-- 
+        <TrackList
 					{tracks}
 					isLoading={isLoading && currentTab === 'tracks'}
 					showArtist={true}
 					showAlbum={true}
 				/>
+         -->
+					<TrackItem {track} {index}></TrackItem>
+				{/each}
 			</TabsContent>
-
+<!-- 
 			<TabsContent value="artists" class="pt-6">
 				<ArtistGrid
 					{artists}
@@ -150,6 +160,7 @@
 					columns="grid-cols-2 sm:grid-cols-3 md:grid-cols-4"
 				/>
 			</TabsContent>
+       -->
 
 			{#if relatedGenres.length > 0}
 				<TabsContent value="related" class="pt-6">
