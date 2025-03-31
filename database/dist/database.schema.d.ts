@@ -2294,6 +2294,14 @@ export declare const prettygoodGetAlbumPlayCountArgsSchemaSchema: z.ZodObject<{
     album_id: string;
 }>;
 export declare const prettygoodGetAlbumPlayCountReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetArtistFollowersCountArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+}, {
+    artist_id: string;
+}>;
+export declare const prettygoodGetArtistFollowersCountReturnsSchemaSchema: z.ZodNumber;
 export declare const prettygoodGetArtistPaymentStatsArgsSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -2328,6 +2336,342 @@ export declare const prettygoodGetArtistPlayCountArgsSchemaSchema: z.ZodObject<{
     artist_id: string;
 }>;
 export declare const prettygoodGetArtistPlayCountReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetArtistTotalEarningsArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+}, {
+    artist_id: string;
+}>;
+export declare const prettygoodGetArtistTotalEarningsReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetEarningsByPaymentTypeArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}>;
+export declare const prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    payment_type: z.ZodString;
+    amount: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    amount: number;
+    payment_type: string;
+}, {
+    amount: number;
+    payment_type: string;
+}>, "many">;
+export declare const prettygoodGetEarningsByPeriodArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+    time_format: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+    time_format: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+    time_format: string;
+}>;
+export declare const prettygoodGetEarningsByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    period: z.ZodString;
+    amount: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    amount: number;
+    period: string;
+}, {
+    amount: number;
+    period: string;
+}>, "many">;
+export declare const prettygoodGetEarningsForPeriodArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}>;
+export declare const prettygoodGetEarningsForPeriodReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetFollowersByPeriodArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+    time_format: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+    time_format: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+    time_format: string;
+}>;
+export declare const prettygoodGetFollowersByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    period: z.ZodString;
+    count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    period: string;
+    count: number;
+}, {
+    period: string;
+    count: number;
+}>, "many">;
+export declare const prettygoodGetFollowersCountForPeriodArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}>;
+export declare const prettygoodGetFollowersCountForPeriodReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetPlayDurationStatsArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetPlayDurationStatsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    avg_duration: z.ZodNumber;
+    completed_count: z.ZodNumber;
+    total_count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    avg_duration: number;
+    completed_count: number;
+    total_count: number;
+}, {
+    avg_duration: number;
+    completed_count: number;
+    total_count: number;
+}>, "many">;
+export declare const prettygoodGetPlaysByCountryArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetPlaysByCountryReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    country_code: z.ZodString;
+    play_count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    play_count: number;
+    country_code: string;
+}, {
+    play_count: number;
+    country_code: string;
+}>, "many">;
+export declare const prettygoodGetPlaysByPeriodArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+    time_format: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    time_format: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    time_format: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetPlaysByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    period: z.ZodString;
+    count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    period: string;
+    count: number;
+}, {
+    period: string;
+    count: number;
+}>, "many">;
+export declare const prettygoodGetPlaysBySourceArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetPlaysBySourceReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    source: z.ZodString;
+    count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    source: string;
+    count: number;
+}, {
+    source: string;
+    count: number;
+}>, "many">;
+export declare const prettygoodGetPlaysForPeriodArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}, {
+    artist_id: string;
+    start_date: string;
+    end_date: string;
+}>;
+export declare const prettygoodGetPlaysForPeriodReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetRecentFollowersArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodOptional<z.ZodString>;
+    limit_count: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}, {
+    artist_id: string;
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}>;
+export declare const prettygoodGetRecentFollowersReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    added_at: z.ZodString;
+    user_id: z.ZodString;
+    username: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    user_id: string;
+    added_at: string;
+    username: string;
+}, {
+    user_id: string;
+    added_at: string;
+    username: string;
+}>, "many">;
+export declare const prettygoodGetRecentPlaysArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodOptional<z.ZodString>;
+    limit_count: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}>;
+export declare const prettygoodGetRecentPlaysReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    played_at: z.ZodString;
+    track_id: z.ZodString;
+    track_title: z.ZodString;
+    username: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    track_id: string;
+    played_at: string;
+    username: string;
+    track_title: string;
+}, {
+    track_id: string;
+    played_at: string;
+    username: string;
+    track_title: string;
+}>, "many">;
+export declare const prettygoodGetRecentTipsArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    start_date: z.ZodOptional<z.ZodString>;
+    limit_count: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}, {
+    artist_id: string;
+    start_date?: string | undefined;
+    limit_count?: number | undefined;
+}>;
+export declare const prettygoodGetRecentTipsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    created_at: z.ZodString;
+    amount: z.ZodNumber;
+    username: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    created_at: string;
+    amount: number;
+    username: string;
+}, {
+    created_at: string;
+    amount: number;
+    username: string;
+}>, "many">;
+export declare const prettygoodGetRecentTransactionsArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    limit_count: z.ZodOptional<z.ZodNumber>;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    limit_count?: number | undefined;
+}, {
+    artist_id: string;
+    limit_count?: number | undefined;
+}>;
+export declare const prettygoodGetRecentTransactionsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    id: z.ZodString;
+    created_at: z.ZodString;
+    amount: z.ZodNumber;
+    payment_type: z.ZodString;
+    sender_id: z.ZodString;
+    username: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    id: string;
+    sender_id: string;
+    created_at: string;
+    amount: number;
+    payment_type: string;
+    username: string;
+}, {
+    id: string;
+    sender_id: string;
+    created_at: string;
+    amount: number;
+    payment_type: string;
+    username: string;
+}>, "many">;
 export declare const prettygoodGetRecommendationsArgsSchemaSchema: z.ZodObject<{
     limit_count: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
@@ -2406,6 +2750,94 @@ export declare const prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema: z.ZodO
     end_date: string;
 }>;
 export declare const prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetTrackPlayCountsArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodOptional<z.ZodString>;
+    end_date: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    end_date?: string | undefined;
+}, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    end_date?: string | undefined;
+}>;
+export declare const prettygoodGetTrackPlayCountsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    track_id: z.ZodString;
+    count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    track_id: string;
+    count: number;
+}, {
+    track_id: string;
+    count: number;
+}>, "many">;
+export declare const prettygoodGetTrackPlaylistsCountArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetTrackPlaylistsCountReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetTrackPlaysForPeriodArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    track_id: z.ZodString;
+    count: z.ZodNumber;
+}, "strip", z.ZodTypeAny, {
+    track_id: string;
+    count: number;
+}, {
+    track_id: string;
+    count: number;
+}>, "many">;
+export declare const prettygoodGetTrackSavesCountArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodString;
+    end_date: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}, {
+    start_date: string;
+    end_date: string;
+    track_ids: string[];
+}>;
+export declare const prettygoodGetTrackSavesCountReturnsSchemaSchema: z.ZodNumber;
+export declare const prettygoodGetTracksPlayCountArgsSchemaSchema: z.ZodObject<{
+    track_ids: z.ZodArray<z.ZodString, "many">;
+    start_date: z.ZodOptional<z.ZodString>;
+    end_date: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    end_date?: string | undefined;
+}, {
+    track_ids: string[];
+    start_date?: string | undefined;
+    end_date?: string | undefined;
+}>;
+export declare const prettygoodGetTracksPlayCountReturnsSchemaSchema: z.ZodNumber;
 export declare const prettygoodRecordPlayArgsSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
     play_duration: z.ZodOptional<z.ZodNumber>;

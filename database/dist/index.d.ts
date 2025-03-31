@@ -908,6 +908,12 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: number;
         };
+        get_artist_followers_count: {
+            Args: {
+                artist_id: string;
+            };
+            Returns: number;
+        };
         get_artist_payment_stats: {
             Args: {
                 artist_id: string;
@@ -925,6 +931,168 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 artist_id: string;
             };
             Returns: number;
+        };
+        get_artist_total_earnings: {
+            Args: {
+                artist_id: string;
+            };
+            Returns: number;
+        };
+        get_earnings_by_payment_type: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+            };
+            Returns: {
+                payment_type: string;
+                amount: number;
+            }[];
+        };
+        get_earnings_by_period: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+                time_format: string;
+            };
+            Returns: {
+                period: string;
+                amount: number;
+            }[];
+        };
+        get_earnings_for_period: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+            };
+            Returns: number;
+        };
+        get_followers_by_period: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+                time_format: string;
+            };
+            Returns: {
+                period: string;
+                count: number;
+            }[];
+        };
+        get_followers_count_for_period: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+            };
+            Returns: number;
+        };
+        get_play_duration_stats: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: {
+                avg_duration: number;
+                completed_count: number;
+                total_count: number;
+            }[];
+        };
+        get_plays_by_country: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: {
+                country_code: string;
+                play_count: number;
+            }[];
+        };
+        get_plays_by_period: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+                time_format: string;
+            };
+            Returns: {
+                period: string;
+                count: number;
+            }[];
+        };
+        get_plays_by_source: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: {
+                source: string;
+                count: number;
+            }[];
+        };
+        get_plays_for_period: {
+            Args: {
+                artist_id: string;
+                start_date: string;
+                end_date: string;
+            };
+            Returns: number;
+        };
+        get_recent_followers: {
+            Args: {
+                artist_id: string;
+                start_date?: string;
+                limit_count?: number;
+            };
+            Returns: {
+                added_at: string;
+                user_id: string;
+                username: string;
+            }[];
+        };
+        get_recent_plays: {
+            Args: {
+                track_ids: string[];
+                start_date?: string;
+                limit_count?: number;
+            };
+            Returns: {
+                played_at: string;
+                track_id: string;
+                track_title: string;
+                username: string;
+            }[];
+        };
+        get_recent_tips: {
+            Args: {
+                artist_id: string;
+                start_date?: string;
+                limit_count?: number;
+            };
+            Returns: {
+                created_at: string;
+                amount: number;
+                username: string;
+            }[];
+        };
+        get_recent_transactions: {
+            Args: {
+                artist_id: string;
+                limit_count?: number;
+            };
+            Returns: {
+                id: string;
+                created_at: string;
+                amount: number;
+                payment_type: string;
+                sender_id: string;
+                username: string;
+            }[];
         };
         get_recommendations: {
             Args: {
@@ -959,6 +1127,52 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 track_id: string;
                 start_date: string;
                 end_date: string;
+            };
+            Returns: number;
+        };
+        get_track_play_counts: {
+            Args: {
+                track_ids: string[];
+                start_date?: string;
+                end_date?: string;
+            };
+            Returns: {
+                track_id: string;
+                count: number;
+            }[];
+        };
+        get_track_playlists_count: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: number;
+        };
+        get_track_plays_for_period: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: {
+                track_id: string;
+                count: number;
+            }[];
+        };
+        get_track_saves_count: {
+            Args: {
+                track_ids: string[];
+                start_date: string;
+                end_date: string;
+            };
+            Returns: number;
+        };
+        get_tracks_play_count: {
+            Args: {
+                track_ids: string[];
+                start_date?: string;
+                end_date?: string;
             };
             Returns: number;
         };

@@ -1019,6 +1019,12 @@ export const prettygoodGetAlbumPlayCountArgsSchemaSchema = z.object({
 
 export const prettygoodGetAlbumPlayCountReturnsSchemaSchema = z.number();
 
+export const prettygoodGetArtistFollowersCountArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+});
+
+export const prettygoodGetArtistFollowersCountReturnsSchemaSchema = z.number();
+
 export const prettygoodGetArtistPaymentStatsArgsSchemaSchema = z.object({
   artist_id: z.string(),
 });
@@ -1038,6 +1044,191 @@ export const prettygoodGetArtistPlayCountArgsSchemaSchema = z.object({
 });
 
 export const prettygoodGetArtistPlayCountReturnsSchemaSchema = z.number();
+
+export const prettygoodGetArtistTotalEarningsArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+});
+
+export const prettygoodGetArtistTotalEarningsReturnsSchemaSchema = z.number();
+
+export const prettygoodGetEarningsByPaymentTypeArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema = z.array(
+  z.object({
+    payment_type: z.string(),
+    amount: z.number(),
+  }),
+);
+
+export const prettygoodGetEarningsByPeriodArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+  time_format: z.string(),
+});
+
+export const prettygoodGetEarningsByPeriodReturnsSchemaSchema = z.array(
+  z.object({
+    period: z.string(),
+    amount: z.number(),
+  }),
+);
+
+export const prettygoodGetEarningsForPeriodArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetEarningsForPeriodReturnsSchemaSchema = z.number();
+
+export const prettygoodGetFollowersByPeriodArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+  time_format: z.string(),
+});
+
+export const prettygoodGetFollowersByPeriodReturnsSchemaSchema = z.array(
+  z.object({
+    period: z.string(),
+    count: z.number(),
+  }),
+);
+
+export const prettygoodGetFollowersCountForPeriodArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetFollowersCountForPeriodReturnsSchemaSchema =
+  z.number();
+
+export const prettygoodGetPlayDurationStatsArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetPlayDurationStatsReturnsSchemaSchema = z.array(
+  z.object({
+    avg_duration: z.number(),
+    completed_count: z.number(),
+    total_count: z.number(),
+  }),
+);
+
+export const prettygoodGetPlaysByCountryArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetPlaysByCountryReturnsSchemaSchema = z.array(
+  z.object({
+    country_code: z.string(),
+    play_count: z.number(),
+  }),
+);
+
+export const prettygoodGetPlaysByPeriodArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+  time_format: z.string(),
+});
+
+export const prettygoodGetPlaysByPeriodReturnsSchemaSchema = z.array(
+  z.object({
+    period: z.string(),
+    count: z.number(),
+  }),
+);
+
+export const prettygoodGetPlaysBySourceArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetPlaysBySourceReturnsSchemaSchema = z.array(
+  z.object({
+    source: z.string(),
+    count: z.number(),
+  }),
+);
+
+export const prettygoodGetPlaysForPeriodArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetPlaysForPeriodReturnsSchemaSchema = z.number();
+
+export const prettygoodGetRecentFollowersArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string().optional(),
+  limit_count: z.number().optional(),
+});
+
+export const prettygoodGetRecentFollowersReturnsSchemaSchema = z.array(
+  z.object({
+    added_at: z.string(),
+    user_id: z.string(),
+    username: z.string(),
+  }),
+);
+
+export const prettygoodGetRecentPlaysArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string().optional(),
+  limit_count: z.number().optional(),
+});
+
+export const prettygoodGetRecentPlaysReturnsSchemaSchema = z.array(
+  z.object({
+    played_at: z.string(),
+    track_id: z.string(),
+    track_title: z.string(),
+    username: z.string(),
+  }),
+);
+
+export const prettygoodGetRecentTipsArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  start_date: z.string().optional(),
+  limit_count: z.number().optional(),
+});
+
+export const prettygoodGetRecentTipsReturnsSchemaSchema = z.array(
+  z.object({
+    created_at: z.string(),
+    amount: z.number(),
+    username: z.string(),
+  }),
+);
+
+export const prettygoodGetRecentTransactionsArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  limit_count: z.number().optional(),
+});
+
+export const prettygoodGetRecentTransactionsReturnsSchemaSchema = z.array(
+  z.object({
+    id: z.string(),
+    created_at: z.string(),
+    amount: z.number(),
+    payment_type: z.string(),
+    sender_id: z.string(),
+    username: z.string(),
+  }),
+);
 
 export const prettygoodGetRecommendationsArgsSchemaSchema = z.object({
   limit_count: z.number().optional(),
@@ -1077,6 +1268,56 @@ export const prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema = z.object({
 
 export const prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema =
   z.number();
+
+export const prettygoodGetTrackPlayCountsArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string().optional(),
+  end_date: z.string().optional(),
+});
+
+export const prettygoodGetTrackPlayCountsReturnsSchemaSchema = z.array(
+  z.object({
+    track_id: z.string(),
+    count: z.number(),
+  }),
+);
+
+export const prettygoodGetTrackPlaylistsCountArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetTrackPlaylistsCountReturnsSchemaSchema = z.number();
+
+export const prettygoodGetTrackPlaysForPeriodArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema = z.array(
+  z.object({
+    track_id: z.string(),
+    count: z.number(),
+  }),
+);
+
+export const prettygoodGetTrackSavesCountArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string(),
+  end_date: z.string(),
+});
+
+export const prettygoodGetTrackSavesCountReturnsSchemaSchema = z.number();
+
+export const prettygoodGetTracksPlayCountArgsSchemaSchema = z.object({
+  track_ids: z.array(z.string()),
+  start_date: z.string().optional(),
+  end_date: z.string().optional(),
+});
+
+export const prettygoodGetTracksPlayCountReturnsSchemaSchema = z.number();
 
 export const prettygoodRecordPlayArgsSchemaSchema = z.object({
   track_id: z.string(),
