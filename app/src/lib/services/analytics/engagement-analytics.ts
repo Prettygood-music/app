@@ -84,16 +84,19 @@ export const getEngagementMetrics = async (
     const saveRate = totalPlays > 0 ? Math.round((saves / totalPlays) * 100) : 0;
     
     // Extract values from duration data
-    const avgDuration = durationData?.avg_duration 
-      ? parseFloat(durationData.avg_duration.toString()) 
+    // durationData is expected to be an array with a single row
+    const durationRow = durationData && durationData.length > 0 ? durationData[0] : null;
+    
+    const avgDuration = durationRow?.avg_duration 
+      ? parseFloat(durationRow.avg_duration.toString()) 
       : 0;
       
-    const completedCount = durationData?.completed_count 
-      ? parseInt(durationData.completed_count.toString()) 
+    const completedCount = durationRow?.completed_count 
+      ? parseInt(durationRow.completed_count.toString()) 
       : 0;
       
-    const totalCount = durationData?.total_count 
-      ? parseInt(durationData.total_count.toString()) 
+    const totalCount = durationRow?.total_count 
+      ? parseInt(durationRow.total_count.toString()) 
       : 0;
       
     const completionRate = totalCount > 0 
