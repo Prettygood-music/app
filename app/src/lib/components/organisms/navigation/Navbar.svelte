@@ -1,5 +1,5 @@
 <!-- Navbar.svelte -->
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -32,8 +32,8 @@
 
 	// Close dropdown when clicking outside
 	onMount(() => {
-		const handleClickOutside = (event) => {
-			if (isDropdownOpen && !event.target.closest('.user-dropdown')) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (isDropdownOpen && !(event.target as HTMLElement).closest('.user-dropdown')) {
 				isDropdownOpen = false;
 			}
 		};
@@ -59,7 +59,7 @@
 			<Button size="icon" href="/" variant="ghost" class="text-muted-foreground">
 				<HomeIcon></HomeIcon>
 			</Button>
-			<EnhancedSearchBar showButton={false} fullWidth={true}></EnhancedSearchBar>
+			<EnhancedSearchBar showButton={false}></EnhancedSearchBar>
 		</div>
 
 		<!-- User Section -->
@@ -70,7 +70,7 @@
 				Install App</Button
 			>
 			{#if !isInstalled && isInstallable}
-				<Button variant="outline" size="sm" class="hidden md:flex" on:click={handleInstallClick}>
+				<Button variant="outline" size="sm" class="hidden md:flex" onclick={handleInstallClick}>
 					<Download size={16} class="mr-2" /> Install App
 				</Button>
 			{/if}

@@ -1,98 +1,103 @@
 # Services
 
-This directory contains service modules that handle data fetching, processing, and business logic for the application.
+This directory contains service modules for interfacing with various data sources and APIs in the prettygood.music application.
 
 ## Available Services
 
 ### Analytics Service
 
-The Analytics Service (`analytics/`) provides functions to fetch and analyze data for the artist dashboard, including play counts, follower stats, earnings data, and aggregated metrics.
+Located in: `/app/src/lib/services/analytics/`
 
-#### Structure
+Provides functions for retrieving and analyzing artist performance data, including play counts, follower growth, engagement metrics, and earnings analytics. Used primarily in the artist dashboard.
 
-The analytics service is split into modular files:
+**Key Features:**
+- Play count analytics by time period
+- Follower growth tracking
+- Revenue and earnings analysis
+- User engagement metrics
+- Traffic source analysis
 
-- `types.ts` - Type definitions and interfaces
-- `utils.ts` - Utility functions and helpers
-- `play-analytics.ts` - Functions for track play data
-- `follower-analytics.ts` - Functions for follower statistics
-- `earnings-analytics.ts` - Functions for earnings and financial data
-- `engagement-analytics.ts` - Functions for engagement and audience metrics
-- `dashboard-analytics.ts` - Functions for the dashboard overview
-- `index.ts` - Main export file
+### Genres Service
 
-#### Usage
+Located in: `/app/src/lib/services/genres/`
+
+Provides functions for retrieving and filtering music content by genre categories. Supports genre browsing, content discovery, and search filtering by genre.
+
+**Key Features:**
+- Genre listing and details
+- Genre-specific content (tracks, artists, albums)
+- Related genres discovery
+- Popular genres by play count
+- Genre search and filtering
+
+## Usage Guidelines
+
+### Database Access
+
+All services use the `@prettygood/database` package for database access:
 
 ```typescript
-import { 
-  getPlayCounts, 
-  getFollowerStats, 
-  getEarningsData, 
-  getDashboardData,
-  getTracksPerformance,
-  getGeoDistribution,
-  getTrafficSources,
-  getEngagementMetrics,
-  getPeriodComparison,
-  type AnalyticsPeriod
-} from '$lib/services';
+import { createClient } from '@prettygood/database';
 
-// Example: Get dashboard overview data
-const artistId = 'your-artist-id';
-const period: AnalyticsPeriod = 'week'; // 'day', 'week', 'month', 'year', or 'all'
+// Create a client instance
+const db = createClient(import.meta.env.VITE_POSTGREST_URL);
 
-try {
-  const dashboardData = await getDashboardData(artistId, period);
-  
-  // Use the data in your component
-  console.log('Total plays:', dashboardData.totalPlays);
-  console.log('Total followers:', dashboardData.followers);
-  console.log('Recent activity:', dashboardData.recentActivity);
-} catch (error) {
-  console.error('Error fetching dashboard data:', error);
-}
+// Use the client for database operations
+const { data, error } = await db
+  .from('table_name')
+  .select('*')
+  .limit(10);
 ```
 
-#### Available Functions
+### Error Handling
 
-| Function | Description |
-|----------|-------------|
-| `getPlayCounts` | Get play count data for an artist within a date range |
-| `getFollowerStats` | Get follower statistics for an artist |
-| `getEarningsData` | Get earnings data for an artist within a date range |
-| `getDashboardData` | Get aggregated data for the dashboard overview page |
-| `getTracksPerformance` | Get performance data for an artist's tracks |
-| `getGeoDistribution` | Get geographic distribution of listeners |
-| `getTrafficSources` | Get sources of traffic (where plays originate from) |
-| `getEngagementMetrics` | Get engagement metrics for artist content |
-| `getPeriodComparison` | Compare current period with previous period |
+Services should implement consistent error handling:
 
-#### Data Interfaces
+1. Use try/catch blocks to handle potential errors
+2. Log errors with appropriate context
+3. Return structured error responses when possible
+4. Provide fallback data when appropriate
 
-The service exports several TypeScript interfaces that define the shape of the data:
+### State Management Integration
 
-- `PlayCountData` - Play count statistics
-- `FollowerStats` - Follower statistics
-- `EarningsData` - Earnings and financial data
-- `DashboardData` - Aggregated dashboard overview data
-- `TrackPerformanceData` - Track performance statistics
-- `GeoData` - Geographic distribution data
-- `TrafficSourceData` - Traffic source statistics
-- `EngagementData` - Engagement metrics
-- `ComparisonData` - Period comparison data
+Services work well with Svelte 5 runes for state management:
 
-#### Period Parameter
+```typescript
+// Component using a service
+import { getGenreById } from '$lib/services/genres';
 
-All functions accept an optional `period` parameter that determines the time range for the data:
+// State
+let genre = $state(null);
+let isLoading = $state(true);
+let error = $state(null);
 
-- `'day'` - Past 24 hours
-- `'week'` - Past 7 days
-- `'month'` - Past 30 days
-- `'year'` - Past 12 months
-- `'all'` - All time (default for most functions)
+// Effect to load data
+$effect(async () => {
+  try {
+    isLoading = true;
+    genre = await getGenreById('some-genre-id');
+  } catch (err) {
+    error = err;
+    console.error('Error loading genre:', err);
+  } finally {
+    isLoading = false;
+  }
+});
+```
 
-## Future Services
+## Adding a New Service
 
-- Content Management Service - For managing tracks, albums, and uploads
-- Wallet Service - For blockchain and wallet functionality
-- User Service - For user profile and settings management
+When creating a new service:
+
+1. Create a new directory in `/app/src/lib/services/` for your service
+2. Implement a clear API with well-defined function signatures
+3. Create a proper type system for your service
+4. Document your service in this README.md file
+5. Add appropriate exports to the service's `index.ts`
+6. Consider adding the service to the global services index if it's widely used
+
+## Related Documentation
+
+- [Database Implementation](/documentation/Database-Implementation.md)
+- [Authentication Implementation Plan](/documentation/Authentication-implementation-plan.md)
+- [Genres Implementation Summary](/documentation/Genres-Implementation-Summary.md)

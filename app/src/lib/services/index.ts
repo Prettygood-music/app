@@ -5,7 +5,4 @@
  */
 
 export * from './analytics';
-// Future services will be exported here as they are implemented
-// export * from './content.service';
-// export * from './wallet.service';
-// etc.
+export * from './genres';

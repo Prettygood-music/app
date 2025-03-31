@@ -6,12 +6,13 @@
 
 import { createClient } from '@prettygood/database';
 import type { AnalyticsPeriod } from './types';
+import { PUBLIC_POSTGREST_URL } from '$env/static/public';
 
 /**
  * Gets a PostgREST client instance
  */
 export const getClient = () => {
-  const postgrestUrl = import.meta.env.VITE_POSTGREST_URL;
+   const postgrestUrl = PUBLIC_POSTGREST_URL;
   if (!postgrestUrl) {
     throw new Error('PostgREST URL not defined in environment variables');
   }
