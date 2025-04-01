@@ -25,6 +25,11 @@ export const actions: Actions = {
 		});
 
 		console.dir(data);
+		/*
+		{
+  user_id: '550456ab-c3be-4fec-bda9-b48d52f9fc28',
+  verification_token: '6e3d707d40955e1e4e1fa36192d295ddd74b27a9aafc1b87'
+}*/
 
 		// Extract data from the response
 		//const { user_id, verification_token } = data;

@@ -984,8 +984,8 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
         };
         authenticate_user: {
             Args: {
-                email_or_username: string;
-                password: string;
+                _email_or_username: string;
+                _password: string;
             };
             Returns: string;
         };
@@ -998,7 +998,7 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
         };
         create_email_verification_token: {
             Args: {
-                user_id: string;
+                _user_id: string;
             };
             Returns: string;
         };
@@ -1484,14 +1484,14 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
         };
         request_password_reset: {
             Args: {
-                email: string;
+                _email: string;
             };
             Returns: string;
         };
         reset_password: {
             Args: {
-                reset_token: string;
-                new_password: string;
+                _reset_token: string;
+                _new_password: string;
             };
             Returns: boolean;
         };
@@ -1522,7 +1522,7 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
         };
         verify_email: {
             Args: {
-                verification_token: string;
+                _verification_token: string;
             };
             Returns: boolean;
         };

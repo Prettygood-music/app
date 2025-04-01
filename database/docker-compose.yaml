@@ -11,6 +11,9 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: prettygood
       POSTGRES_TEST_DB: "true"
+      PGSETTINGS_APP.JWT_SECRET: your_actual_secret_here
+
+
     ports:
       - "5432:5432"
     volumes:

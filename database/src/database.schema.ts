@@ -1108,8 +1108,8 @@ export const prettygoodArmorArgsSchemaSchema = z.object({
 export const prettygoodArmorReturnsSchemaSchema = z.string();
 
 export const prettygoodAuthenticateUserArgsSchemaSchema = z.object({
-  email_or_username: z.string(),
-  password: z.string(),
+  _email_or_username: z.string(),
+  _password: z.string(),
 });
 
 export const prettygoodAuthenticateUserReturnsSchemaSchema = z.string();
@@ -1122,7 +1122,7 @@ export const prettygoodAuthenticateWalletArgsSchemaSchema = z.object({
 export const prettygoodAuthenticateWalletReturnsSchemaSchema = z.string();
 
 export const prettygoodCreateEmailVerificationTokenArgsSchemaSchema = z.object({
-  user_id: z.string(),
+  _user_id: z.string(),
 });
 
 export const prettygoodCreateEmailVerificationTokenReturnsSchemaSchema =
@@ -1653,14 +1653,14 @@ export const prettygoodRegisterUserArgsSchemaSchema = z.object({
 export const prettygoodRegisterUserReturnsSchemaSchema = jsonSchema;
 
 export const prettygoodRequestPasswordResetArgsSchemaSchema = z.object({
-  email: z.string(),
+  _email: z.string(),
 });
 
 export const prettygoodRequestPasswordResetReturnsSchemaSchema = z.string();
 
 export const prettygoodResetPasswordArgsSchemaSchema = z.object({
-  reset_token: z.string(),
-  new_password: z.string(),
+  _reset_token: z.string(),
+  _new_password: z.string(),
 });
 
 export const prettygoodResetPasswordReturnsSchemaSchema = z.boolean();
@@ -1691,7 +1691,7 @@ export const prettygoodTipArtistReturnsSchemaSchema = z.object({
 });
 
 export const prettygoodVerifyEmailArgsSchemaSchema = z.object({
-  verification_token: z.string(),
+  _verification_token: z.string(),
 });
 
 export const prettygoodVerifyEmailReturnsSchemaSchema = z.boolean();

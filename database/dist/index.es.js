@@ -881,13 +881,13 @@ const t = e.lazy(
 }), at = e.undefined(), nt = e.object({
   "": e.string()
 }), lt = e.string(), it = e.object({
-  email_or_username: e.string(),
-  password: e.string()
+  _email_or_username: e.string(),
+  _password: e.string()
 }), ot = e.string(), st = e.object({
   wallet_address: e.string(),
   signature: e.string()
 }), ct = e.string(), dt = e.object({
-  user_id: e.string()
+  _user_id: e.string()
 }), gt = e.string(), ut = e.object({
   name: e.string(),
   description: e.string().optional(),
@@ -1231,10 +1231,10 @@ const t = e.lazy(
   _display_name: e.string().optional(),
   _wallet_address: e.string().optional()
 }), Jr = t, Mr = e.object({
-  email: e.string()
+  _email: e.string()
 }), Qr = e.string(), Xr = e.object({
-  reset_token: e.string(),
-  new_password: e.string()
+  _reset_token: e.string(),
+  _new_password: e.string()
 }), Yr = e.boolean(), Zr = e.object({
   artist_id: e.string(),
   amount: e.number(),
@@ -1257,7 +1257,7 @@ const t = e.lazy(
   transaction_hash: e.string().nullable(),
   updated_at: e.string()
 }), ea = e.object({
-  verification_token: e.string()
+  _verification_token: e.string()
 }), ta = e.boolean(), ra = e.object({
   wallet_address: e.string(),
   signature: e.string()

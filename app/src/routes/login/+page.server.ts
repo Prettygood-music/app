@@ -7,7 +7,41 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { loginSchema } from './schemas';
 
 export const actions: Actions = {
-	default: async ({ request, cookies, url }) => {
+	default: async (event) => {
+		const form = await superValidate(event, zod(loginSchema));
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
+		}
+
+		// Call authenticate_user RPC function
+		const { data, error } = await databaseClient.rpc('authenticate_user', {
+			_email_or_username: form.data.emailOrUsername,
+			_password: form.data.password
+		});
+
+		if (error) {
+			console.log(error);
+			return handlePostgrestError(error);
+		}
+
+		// Extract JWT token from response
+		const token = data;
+
+		// Set JWT in cookie
+		const cookieOptions = {
+			httpOnly: true,
+			path: '/',
+			secure: process.env.NODE_ENV === 'production',
+			sameSite: 'strict',
+			maxAge: form.data.rememberMe ? 30 * 24 * 60 * 60 : 24 * 60 * 60 // 30 days or 24 hours
+		};
+
+		event.cookies.set('auth_token', token, cookieOptions);
+		return { form };
+		/*
+		const { request, cookies, url } = event;
 		const formData = await request.formData();
 
 		try {
@@ -48,6 +82,7 @@ export const actions: Actions = {
 		} catch (error) {
 			return handleLoginError(error);
 		}
+			*/
 	}
 };
 
