@@ -1100,6 +1100,16 @@ export type Database = {
         }
         Returns: string
       }
+      debug_get_jwt_info: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      debug_verify_token: {
+        Args: {
+          token: string
+        }
+        Returns: Json
+      }
       gen_random_bytes: {
         Args: {
           "": number
@@ -1527,6 +1537,18 @@ export type Database = {
         }
         Returns: string
       }
+      refresh_token_robust: {
+        Args: {
+          current_token: string
+        }
+        Returns: string
+      }
+      refresh_token_v2: {
+        Args: {
+          current_token: string
+        }
+        Returns: string
+      }
       register_as_artist: {
         Args: {
           artist_name: string
@@ -1596,6 +1618,12 @@ export type Database = {
           transaction_hash: string | null
           updated_at: string
         }
+      }
+      trace_token_verification: {
+        Args: {
+          token: string
+        }
+        Returns: Json
       }
       verify_email: {
         Args: {

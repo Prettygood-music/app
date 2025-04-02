@@ -1,57 +1,58 @@
 {
-    "name": "prettygood-music",
-    "version": "0.1.0",
-    "private": true,
-    "description": "Music streaming platform with minimal blockchain integration",
-    "scripts": {
-      "dev": "pnpm -r --parallel run dev",
-      "dev:app": "pnpm --filter @prettygood/app run dev",
-      "dev:server": "pnpm --filter @prettygood/server run dev",
-      "build": "pnpm --filter @prettygood/common run build && pnpm -r --parallel run build",
-      "build:app": "pnpm --filter @prettygood/app run build",
-      "build:server": "pnpm --filter @prettygood/server run build",
-      "build:common": "pnpm --filter @prettygood/common run build",
-      "test": "pnpm -r run test",
-      "test:app": "pnpm --filter @prettygood/app run test",
-      "test:server": "pnpm --filter @prettygood/server run test",
-      "test:common": "pnpm --filter @prettygood/common run test",
-      "test:e2e": "pnpm --filter @prettygood/app run test:e2e",
-      "storybook": "pnpm --filter @prettygood/app run storybook",
-      "build-storybook": "pnpm --filter @prettygood/app run build-storybook",
-      "lint": "pnpm -r run lint",
-      "format": "pnpm -r run format",
-      "check-types": "pnpm -r run check",
-      "db:migrate": "pnpm --filter @prettygood/server run db:migrate",
-      "db:seed": "pnpm --filter @prettygood/server run db:seed",
-      "db:reset": "pnpm --filter @prettygood/server run db:reset",
-      "clean": "rimraf node_modules **/node_modules **/.svelte-kit **/build **/dist",
-      "prepare": "husky install"
-    },
-    "keywords": [
-      "music",
-      "streaming",
-      "blockchain",
-      "sui",
-      "svelte",
-      "hono"
+  "name": "prettygood-music",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Music streaming platform with minimal blockchain integration",
+  "scripts": {
+    "dev": "pnpm -r --parallel run dev",
+    "dev:app": "pnpm --filter @prettygood/app run dev",
+    "dev:server": "pnpm --filter @prettygood/server run dev",
+    "build": "pnpm --filter @prettygood/common run build && pnpm -r --parallel run build",
+    "build:app": "pnpm --filter @prettygood/app run build",
+    "build:server": "pnpm --filter @prettygood/server run build",
+    "build:common": "pnpm --filter @prettygood/common run build",
+    "test": "pnpm -r run test",
+    "test:app": "pnpm --filter @prettygood/app run test",
+    "test:server": "pnpm --filter @prettygood/server run test",
+    "test:common": "pnpm --filter @prettygood/common run test",
+    "test:e2e": "pnpm --filter @prettygood/app run test:e2e",
+    "storybook": "pnpm --filter @prettygood/app run storybook",
+    "build-storybook": "pnpm --filter @prettygood/app run build-storybook",
+    "lint": "pnpm -r run lint",
+    "format": "pnpm -r run format",
+    "check-types": "pnpm -r run check",
+    "db:migrate": "pnpm --filter @prettygood/server run db:migrate",
+    "db:seed": "pnpm --filter @prettygood/server run db:seed",
+    "db:reset": "pnpm --filter @prettygood/server run db:reset",
+    "clean": "rimraf node_modules **/node_modules **/.svelte-kit **/build **/dist",
+    "prepare": "husky install"
+  },
+  "keywords": [
+    "music",
+    "streaming",
+    "blockchain",
+    "sui",
+    "svelte",
+    "hono"
+  ],
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.10.0",
+  "devDependencies": {
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "pg": "^8.14.1",
+    "rimraf": "^5.0.1"
+  },
+  "lint-staged": {
+    "*.{js,ts,svelte}": [
+      "prettier --write",
+      "eslint --fix"
     ],
-    "engines": {
-      "node": ">=20.0.0",
-      "pnpm": ">=8.0.0"
-    },
-    "packageManager": "pnpm@8.10.0",
-    "devDependencies": {
-      "husky": "^8.0.3",
-      "lint-staged": "^14.0.1",
-      "rimraf": "^5.0.1"
-    },
-    "lint-staged": {
-      "*.{js,ts,svelte}": [
-        "prettier --write",
-        "eslint --fix"
-      ],
-      "*.{json,yml,yaml,md}": [
-        "prettier --write"
-      ]
-    }
+    "*.{json,yml,yaml,md}": [
+      "prettier --write"
+    ]
   }
+}

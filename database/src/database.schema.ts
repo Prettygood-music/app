@@ -1151,6 +1151,16 @@ export const prettygoodDearmorArgsSchemaSchema = z.object({
 
 export const prettygoodDearmorReturnsSchemaSchema = z.string();
 
+export const prettygoodDebugGetJwtInfoArgsSchemaSchema = z.object({});
+
+export const prettygoodDebugGetJwtInfoReturnsSchemaSchema = jsonSchema;
+
+export const prettygoodDebugVerifyTokenArgsSchemaSchema = z.object({
+  token: z.string(),
+});
+
+export const prettygoodDebugVerifyTokenReturnsSchemaSchema = jsonSchema;
+
 export const prettygoodGenRandomBytesArgsSchemaSchema = z.object({
   "": z.number(),
 });
@@ -1622,6 +1632,18 @@ export const prettygoodRefreshTokenArgsSchemaSchema = z.object({
 
 export const prettygoodRefreshTokenReturnsSchemaSchema = z.string();
 
+export const prettygoodRefreshTokenRobustArgsSchemaSchema = z.object({
+  current_token: z.string(),
+});
+
+export const prettygoodRefreshTokenRobustReturnsSchemaSchema = z.string();
+
+export const prettygoodRefreshTokenV2ArgsSchemaSchema = z.object({
+  current_token: z.string(),
+});
+
+export const prettygoodRefreshTokenV2ReturnsSchemaSchema = z.string();
+
 export const prettygoodRegisterAsArtistArgsSchemaSchema = z.object({
   artist_name: z.string(),
   bio: z.string().optional(),
@@ -1691,6 +1713,12 @@ export const prettygoodTipArtistReturnsSchemaSchema = z.object({
   transaction_hash: z.string().nullable(),
   updated_at: z.string(),
 });
+
+export const prettygoodTraceTokenVerificationArgsSchemaSchema = z.object({
+  token: z.string(),
+});
+
+export const prettygoodTraceTokenVerificationReturnsSchemaSchema = jsonSchema;
 
 export const prettygoodVerifyEmailArgsSchemaSchema = z.object({
   _verification_token: z.string(),

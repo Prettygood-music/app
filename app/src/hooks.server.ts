@@ -14,36 +14,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 			event.locals.token = token;
 		}
 	}
-	/*
-	if (token) {
-
-		console.log('got token', token);
-		try {
-			// Setup the auth token for the database client
-			//databaseClient.auth(token);
-      
-
-			// Get user data
-			const { data, error } = await databaseClient
-				.from('users')
-				.select('id, username, display_name, email, email_verified, wallet_address')
-				.single();
-			console.dir(data);
-
-			if (data && !error) {
-				// Set user info in locals for use in routes
-				event.locals.user = data;
-				event.locals.token = token;
-			} else {
-				// Invalid token, clear it
-				event.cookies.delete('auth_token', { path: '/' });
-			}
-		} catch (error) {
-			console.error('Auth error:', error);
-			// Clear invalid token
-			event.cookies.delete('auth_token', { path: '/' });
-		}
-	}*/
 
 	// Continue with the request
 	const response = await resolve(event);

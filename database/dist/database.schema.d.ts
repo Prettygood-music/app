@@ -2588,6 +2588,16 @@ export declare const prettygoodDearmorArgsSchemaSchema: z.ZodObject<{
     "": string;
 }>;
 export declare const prettygoodDearmorReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodDebugGetJwtInfoArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+export declare const prettygoodDebugGetJwtInfoReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
+export declare const prettygoodDebugVerifyTokenArgsSchemaSchema: z.ZodObject<{
+    token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    token: string;
+}, {
+    token: string;
+}>;
+export declare const prettygoodDebugVerifyTokenReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
 export declare const prettygoodGenRandomBytesArgsSchemaSchema: z.ZodObject<{
     "": z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
@@ -3459,6 +3469,22 @@ export declare const prettygoodRefreshTokenArgsSchemaSchema: z.ZodObject<{
     current_token: string;
 }>;
 export declare const prettygoodRefreshTokenReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodRefreshTokenRobustArgsSchemaSchema: z.ZodObject<{
+    current_token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    current_token: string;
+}, {
+    current_token: string;
+}>;
+export declare const prettygoodRefreshTokenRobustReturnsSchemaSchema: z.ZodString;
+export declare const prettygoodRefreshTokenV2ArgsSchemaSchema: z.ZodObject<{
+    current_token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    current_token: string;
+}, {
+    current_token: string;
+}>;
+export declare const prettygoodRefreshTokenV2ReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodRegisterAsArtistArgsSchemaSchema: z.ZodObject<{
     artist_name: z.ZodString;
     bio: z.ZodOptional<z.ZodString>;
@@ -3619,6 +3645,14 @@ export declare const prettygoodTipArtistReturnsSchemaSchema: z.ZodObject<{
     payment_type: string;
     transaction_hash: string | null;
 }>;
+export declare const prettygoodTraceTokenVerificationArgsSchemaSchema: z.ZodObject<{
+    token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    token: string;
+}, {
+    token: string;
+}>;
+export declare const prettygoodTraceTokenVerificationReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
 export declare const prettygoodVerifyEmailArgsSchemaSchema: z.ZodObject<{
     _verification_token: z.ZodString;
 }, "strip", z.ZodTypeAny, {

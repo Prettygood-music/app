@@ -27,7 +27,9 @@ export const actions: Actions = {
 		}
 
 		// Extract JWT token from response
-		const token = data;
+		//const token = data.token;
+		const token = data.replaceAll(/\s+/g, '');;
+		console.log(token);
 
 		// Set JWT in cookie
 		const cookieOptions = {

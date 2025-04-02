@@ -1025,6 +1025,16 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: string;
         };
+        debug_get_jwt_info: {
+            Args: Record<PropertyKey, never>;
+            Returns: import('./types').Json;
+        };
+        debug_verify_token: {
+            Args: {
+                token: string;
+            };
+            Returns: import('./types').Json;
+        };
         gen_random_bytes: {
             Args: {
                 "": number;
@@ -1452,6 +1462,18 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
             };
             Returns: string;
         };
+        refresh_token_robust: {
+            Args: {
+                current_token: string;
+            };
+            Returns: string;
+        };
+        refresh_token_v2: {
+            Args: {
+                current_token: string;
+            };
+            Returns: string;
+        };
         register_as_artist: {
             Args: {
                 artist_name: string;
@@ -1521,6 +1543,12 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 transaction_hash: string | null;
                 updated_at: string;
             };
+        };
+        trace_token_verification: {
+            Args: {
+                token: string;
+            };
+            Returns: import('./types').Json;
         };
         verify_email: {
             Args: {
