@@ -10,7 +10,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 		if (decodedJWT) {
 			const user = extractUserFromJwt(decodedJWT);
-			console.dir(user);
 			event.locals.user = user;
 			event.locals.token = token;
 		}

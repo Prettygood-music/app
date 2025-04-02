@@ -1522,7 +1522,9 @@ export type Database = {
         Returns: undefined
       }
       refresh_token: {
-        Args: Record<PropertyKey, never>
+        Args: {
+          current_token: string
+        }
         Returns: string
       }
       register_as_artist: {

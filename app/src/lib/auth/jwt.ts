@@ -5,14 +5,14 @@ import type { User } from '$lib/types/user';
  * JWT structure for the application
  */
 export interface JwtPayload {
-  sub: string;         // User ID
-  email: string;       // User email
-  username: string;    // Username
-  role: string;        // User role (user, artist, admin)
-  email_verified: boolean; // Email verification status
-  wallet_address?: string; // Optional wallet address
-  exp: number;         // Expiration timestamp
-  iat: number;         // Issued at timestamp
+	sub: string; // User ID
+	email: string; // User email
+	username: string; // Username
+	role: string; // User role (user, artist, admin)
+	email_verified: boolean; // Email verification status
+	wallet_address?: string; // Optional wallet address
+	exp: number; // Expiration timestamp
+	iat: number; // Issued at timestamp
 }
 
 /**
@@ -21,14 +21,14 @@ export interface JwtPayload {
  * @returns The decoded payload or null if the token is invalid
  */
 export async function decodeJwt(token: string): Promise<JwtPayload | null> {
-  try {
-    // This is a simple decode without verification since we're client-side
-    const decoded = jose.decodeJwt(token);
-    return decoded as JwtPayload;
-  } catch (error) {
-    console.error('Error decoding JWT:', error);
-    return null;
-  }
+	try {
+		// This is a simple decode without verification since we're client-side
+		const decoded = jose.decodeJwt(token);
+		return decoded as JwtPayload;
+	} catch (error) {
+		console.error('Error decoding JWT:', error);
+		return null;
+	}
 }
 
 /**
@@ -37,18 +37,18 @@ export async function decodeJwt(token: string): Promise<JwtPayload | null> {
  * @returns True if the token is valid, false otherwise
  */
 export async function validateJwt(token: string): Promise<boolean> {
-  try {
-    const payload = await decodeJwt(token);
-    
-    if (!payload) return false;
-    
-    // Check if the token has expired
-    const now = Math.floor(Date.now() / 1000);
-    return payload.exp > now;
-  } catch (error) {
-    console.error('Error validating JWT:', error);
-    return false;
-  }
+	try {
+		const payload = await decodeJwt(token);
+
+		if (!payload) return false;
+
+		// Check if the token has expired
+		const now = Math.floor(Date.now() / 1000);
+		return payload.exp > now;
+	} catch (error) {
+		console.error('Error validating JWT:', error);
+		return false;
+	}
 }
 
 /**
@@ -57,14 +57,14 @@ export async function validateJwt(token: string): Promise<boolean> {
  * @returns The user profile information
  */
 export function extractUserFromJwt(payload: JwtPayload): User {
-  return {
-    id: payload.sub,
-    email: payload.email,
-    username: payload.username,
-    role: payload.role,
-    emailVerified: payload.email_verified,
-    walletAddress: payload.wallet_address,
-  };
+	return {
+		id: payload.sub,
+		email: payload.email,
+		username: payload.username,
+		role: payload.role,
+		emailVerified: payload.email_verified,
+		walletAddress: payload.wallet_address
+	};
 }
 
 /**
@@ -73,19 +73,19 @@ export function extractUserFromJwt(payload: JwtPayload): User {
  * @returns The remaining time in milliseconds, or 0 if expired/invalid
  */
 export async function getTokenRemainingTime(token: string): Promise<number> {
-  try {
-    const payload = await decodeJwt(token);
-    
-    if (!payload) return 0;
-    
-    const now = Math.floor(Date.now() / 1000);
-    const remainingSeconds = Math.max(0, payload.exp - now);
-    
-    return remainingSeconds * 1000; // Convert to milliseconds
-  } catch (error) {
-    console.error('Error calculating token remaining time:', error);
-    return 0;
-  }
+	try {
+		const payload = await decodeJwt(token);
+
+		if (!payload) return 0;
+
+		const now = Math.floor(Date.now() / 1000);
+		const remainingSeconds = Math.max(0, payload.exp - now);
+
+		return remainingSeconds * 1000; // Convert to milliseconds
+	} catch (error) {
+		console.error('Error calculating token remaining time:', error);
+		return 0;
+	}
 }
 
 /**
@@ -94,10 +94,10 @@ export async function getTokenRemainingTime(token: string): Promise<number> {
  * @returns True if token needs refresh, false otherwise
  */
 export async function tokenNeedsRefresh(token: string): Promise<boolean> {
-  const remainingMs = await getTokenRemainingTime(token);
-  const fifteenMinutesMs = 15 * 60 * 1000;
-  
-  return remainingMs < fifteenMinutesMs && remainingMs > 0;
+	const remainingMs = await getTokenRemainingTime(token);
+	const fifteenMinutesMs = 15 * 60 * 1000;
+
+	return remainingMs < fifteenMinutesMs && remainingMs > 0;
 }
 
 /**
@@ -105,20 +105,21 @@ export async function tokenNeedsRefresh(token: string): Promise<boolean> {
  * @returns The JWT token or null if not found
  */
 export function getAuthCookie(): string | null {
-  // Only run in browser environment
-  if (typeof document === 'undefined') return null;
-  
-  const cookies = document.cookie.split(';');
-  
-  for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
-    
-    if (name === 'auth_token') {
-      return value;
-    }
-  }
-  
-  return null;
+	// Only run in browser environment
+	if (typeof document === 'undefined') return null;
+
+	const cookies = document.cookie.split(';');
+	console.dir(cookies);
+
+	for (const cookie of cookies) {
+		const [name, value] = cookie.trim().split('=');
+
+		if (name === 'auth_token') {
+			return value;
+		}
+	}
+
+	return null;
 }
 
 /**
@@ -128,26 +129,26 @@ export function getAuthCookie(): string | null {
  * @param token - The JWT token to store
  */
 export function setAuthCookie(token: string): void {
-  // Only run in browser environment
-  if (typeof document === 'undefined') return;
-  
-  // For development, use a regular cookie that expires in 24 hours
-  const expiresIn = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
-  const expirationDate = new Date(Date.now() + expiresIn);
-  
-  document.cookie = `auth_token=${token}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict`;
-  
-  // Note: In production, you would set this cookie from the server with HttpOnly and Secure flags
+	// Only run in browser environment
+	if (typeof document === 'undefined') return;
+
+	// For development, use a regular cookie that expires in 24 hours
+	const expiresIn = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+	const expirationDate = new Date(Date.now() + expiresIn);
+
+	document.cookie = `auth_token=${token}; expires=${expirationDate.toUTCString()}; path=/; SameSite=Strict`;
+
+	// Note: In production, you would set this cookie from the server with HttpOnly and Secure flags
 }
 
 /**
  * Removes the authentication cookie
  */
 export function removeAuthCookie(): void {
-  // Only run in browser environment
-  if (typeof document === 'undefined') return;
-  
-  document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict';
+	// Only run in browser environment
+	if (typeof document === 'undefined') return;
+
+	document.cookie = 'auth_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; SameSite=Strict';
 }
 
 /**
@@ -155,28 +156,28 @@ export function removeAuthCookie(): void {
  * @returns True if token was refreshed, false otherwise
  */
 export async function refreshTokenIfNeeded(): Promise<boolean> {
-  const token = getAuthCookie();
-  
-  if (!token) return false;
-  
-  if (await tokenNeedsRefresh(token)) {
-    try {
-      const response = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-      });
-      
-      if (response.ok) {
-        // The server will set the new cookie with HttpOnly flag
-        return true;
-      }
-    } catch (error) {
-      console.error('Error refreshing token:', error);
-    }
-  }
-  
-  return false;
+	//const token = getAuthCookie();
+
+	//if (!token) return false;
+
+	//if (await tokenNeedsRefresh(token)) {
+	try {
+		const response = await fetch('/api/auth/refresh', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			credentials: 'include'
+		});
+
+		if (response.ok) {
+			// The server will set the new cookie with HttpOnly flag
+			return true;
+		}
+	} catch (error) {
+		console.error('Error refreshing token:', error);
+	}
+	// }
+
+	return false;
 }

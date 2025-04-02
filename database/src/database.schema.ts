@@ -1616,7 +1616,9 @@ export const prettygoodRecordSearchArgsSchemaSchema = z.object({
 
 export const prettygoodRecordSearchReturnsSchemaSchema = z.undefined();
 
-export const prettygoodRefreshTokenArgsSchemaSchema = z.object({});
+export const prettygoodRefreshTokenArgsSchemaSchema = z.object({
+  current_token: z.string(),
+});
 
 export const prettygoodRefreshTokenReturnsSchemaSchema = z.string();
 

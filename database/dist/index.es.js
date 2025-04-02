@@ -1206,7 +1206,9 @@ const t = e.lazy(
   context_id: e.string().optional()
 }), xr = e.undefined(), qr = e.object({
   query: e.string()
-}), Er = e.undefined(), Hr = e.object({}), zr = e.string(), Vr = e.object({
+}), Er = e.undefined(), Hr = e.object({
+  current_token: e.string()
+}), zr = e.string(), Vr = e.object({
   artist_name: e.string(),
   bio: e.string().optional(),
   genre: e.array(e.string()).optional(),

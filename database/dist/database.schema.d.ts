@@ -3451,7 +3451,13 @@ export declare const prettygoodRecordSearchArgsSchemaSchema: z.ZodObject<{
     query: string;
 }>;
 export declare const prettygoodRecordSearchReturnsSchemaSchema: z.ZodUndefined;
-export declare const prettygoodRefreshTokenArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+export declare const prettygoodRefreshTokenArgsSchemaSchema: z.ZodObject<{
+    current_token: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    current_token: string;
+}, {
+    current_token: string;
+}>;
 export declare const prettygoodRefreshTokenReturnsSchemaSchema: z.ZodString;
 export declare const prettygoodRegisterAsArtistArgsSchemaSchema: z.ZodObject<{
     artist_name: z.ZodString;

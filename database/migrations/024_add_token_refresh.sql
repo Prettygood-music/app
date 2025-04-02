@@ -5,7 +5,9 @@
 SET search_path TO prettygood_private, prettygood, public;
 
 -- Create function to refresh a JWT token
-CREATE OR REPLACE FUNCTION refresh_token(current_token TEXT)
+DROP FUNCTION IF EXISTS prettygood.refresh_token();
+
+CREATE OR REPLACE FUNCTION prettygood.refresh_token(current_token TEXT)
 RETURNS TEXT AS $$
 DECLARE
   _user_id UUID;

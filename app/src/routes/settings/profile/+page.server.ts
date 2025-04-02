@@ -9,6 +9,7 @@ export const load: PageServerLoad = async ({ locals }) => {
   
   // Return the user data
   return {
-    user: locals.user
+    user: locals.user,
+    token: locals.token
   };
 };
