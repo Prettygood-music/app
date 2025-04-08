@@ -1027,62 +1027,39 @@ export type Database = {
     }
     Functions: {
       add_album_to_library: {
-        Args: {
-          album_id: string
-        }
+        Args: { album_id: string }
         Returns: boolean
       }
       add_artist_to_library: {
-        Args: {
-          artist_id: string
-        }
+        Args: { artist_id: string }
         Returns: boolean
       }
       add_track_to_library: {
-        Args: {
-          track_id: string
-        }
+        Args: { track_id: string }
         Returns: boolean
       }
       add_track_to_playlist: {
-        Args: {
-          playlist_id: string
-          track_id: string
-        }
+        Args: { playlist_id: string; track_id: string }
         Returns: undefined
       }
       armor: {
-        Args: {
-          "": string
-        }
+        Args: { "": string }
         Returns: string
       }
       authenticate_user: {
-        Args: {
-          _email_or_username: string
-          _password: string
-        }
+        Args: { _email_or_username: string; _password: string }
         Returns: string
       }
       authenticate_wallet: {
-        Args: {
-          wallet_address: string
-          signature: string
-        }
+        Args: { wallet_address: string; signature: string }
         Returns: string
       }
       create_email_verification_token: {
-        Args: {
-          _user_id: string
-        }
+        Args: { _user_id: string }
         Returns: string
       }
       create_playlist: {
-        Args: {
-          name: string
-          description?: string
-          is_public?: boolean
-        }
+        Args: { name: string; description?: string; is_public?: boolean }
         Returns: {
           cover_url: string | null
           created_at: string
@@ -1095,9 +1072,7 @@ export type Database = {
         }
       }
       dearmor: {
-        Args: {
-          "": string
-        }
+        Args: { "": string }
         Returns: string
       }
       debug_get_jwt_info: {
@@ -1105,15 +1080,11 @@ export type Database = {
         Returns: Json
       }
       debug_verify_token: {
-        Args: {
-          token: string
-        }
+        Args: { token: string }
         Returns: Json
       }
       gen_random_bytes: {
-        Args: {
-          "": number
-        }
+        Args: { "": number }
         Returns: string
       }
       gen_random_uuid: {
@@ -1121,29 +1092,19 @@ export type Database = {
         Returns: string
       }
       gen_salt: {
-        Args: {
-          "": string
-        }
+        Args: { "": string }
         Returns: string
       }
       generate_nonce: {
-        Args: {
-          wallet_address: string
-        }
+        Args: { wallet_address: string }
         Returns: string
       }
       get_album_play_count: {
-        Args: {
-          album_id: string
-        }
+        Args: { album_id: string }
         Returns: number
       }
       get_albums_by_genre: {
-        Args: {
-          p_genre_id: string
-          p_limit?: number
-          p_offset?: number
-        }
+        Args: { p_genre_id: string; p_limit?: number; p_offset?: number }
         Returns: {
           artist_id: string
           cover_url: string | null
@@ -1158,15 +1119,11 @@ export type Database = {
         }[]
       }
       get_artist_followers_count: {
-        Args: {
-          artist_id: string
-        }
+        Args: { artist_id: string }
         Returns: number
       }
       get_artist_payment_stats: {
-        Args: {
-          artist_id: string
-        }
+        Args: { artist_id: string }
         Returns: {
           total_payments: number
           total_amount: number
@@ -1176,23 +1133,15 @@ export type Database = {
         }[]
       }
       get_artist_play_count: {
-        Args: {
-          artist_id: string
-        }
+        Args: { artist_id: string }
         Returns: number
       }
       get_artist_total_earnings: {
-        Args: {
-          artist_id: string
-        }
+        Args: { artist_id: string }
         Returns: number
       }
       get_artists_by_genre: {
-        Args: {
-          p_genre_id: string
-          p_limit?: number
-          p_offset?: number
-        }
+        Args: { p_genre_id: string; p_limit?: number; p_offset?: number }
         Returns: {
           artist_name: string
           bio: string | null
@@ -1207,11 +1156,7 @@ export type Database = {
         }[]
       }
       get_earnings_by_payment_type: {
-        Args: {
-          artist_id: string
-          start_date: string
-          end_date: string
-        }
+        Args: { artist_id: string; start_date: string; end_date: string }
         Returns: {
           payment_type: string
           amount: number
@@ -1230,11 +1175,7 @@ export type Database = {
         }[]
       }
       get_earnings_for_period: {
-        Args: {
-          artist_id: string
-          start_date: string
-          end_date: string
-        }
+        Args: { artist_id: string; start_date: string; end_date: string }
         Returns: number
       }
       get_followers_by_period: {
@@ -1250,19 +1191,11 @@ export type Database = {
         }[]
       }
       get_followers_count_for_period: {
-        Args: {
-          artist_id: string
-          start_date: string
-          end_date: string
-        }
+        Args: { artist_id: string; start_date: string; end_date: string }
         Returns: number
       }
       get_play_duration_stats: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: {
           avg_duration: number
           completed_count: number
@@ -1270,11 +1203,7 @@ export type Database = {
         }[]
       }
       get_plays_by_country: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: {
           country_code: string
           play_count: number
@@ -1293,30 +1222,18 @@ export type Database = {
         }[]
       }
       get_plays_by_source: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: {
           source: string
           count: number
         }[]
       }
       get_plays_for_period: {
-        Args: {
-          artist_id: string
-          start_date: string
-          end_date: string
-        }
+        Args: { artist_id: string; start_date: string; end_date: string }
         Returns: number
       }
       get_popular_genres: {
-        Args: {
-          p_start_date: string
-          p_end_date: string
-          p_limit?: number
-        }
+        Args: { p_start_date: string; p_end_date: string; p_limit?: number }
         Returns: {
           color: string | null
           created_at: string
@@ -1330,11 +1247,7 @@ export type Database = {
         }[]
       }
       get_recent_followers: {
-        Args: {
-          artist_id: string
-          start_date?: string
-          limit_count?: number
-        }
+        Args: { artist_id: string; start_date?: string; limit_count?: number }
         Returns: {
           added_at: string
           user_id: string
@@ -1342,11 +1255,7 @@ export type Database = {
         }[]
       }
       get_recent_plays: {
-        Args: {
-          track_ids: string[]
-          start_date?: string
-          limit_count?: number
-        }
+        Args: { track_ids: string[]; start_date?: string; limit_count?: number }
         Returns: {
           played_at: string
           track_id: string
@@ -1355,11 +1264,7 @@ export type Database = {
         }[]
       }
       get_recent_tips: {
-        Args: {
-          artist_id: string
-          start_date?: string
-          limit_count?: number
-        }
+        Args: { artist_id: string; start_date?: string; limit_count?: number }
         Returns: {
           created_at: string
           amount: number
@@ -1367,10 +1272,7 @@ export type Database = {
         }[]
       }
       get_recent_transactions: {
-        Args: {
-          artist_id: string
-          limit_count?: number
-        }
+        Args: { artist_id: string; limit_count?: number }
         Returns: {
           id: string
           created_at: string
@@ -1381,9 +1283,7 @@ export type Database = {
         }[]
       }
       get_recommendations: {
-        Args: {
-          limit_count?: number
-        }
+        Args: { limit_count?: number }
         Returns: {
           album_id: string | null
           artist_id: string
@@ -1403,10 +1303,7 @@ export type Database = {
         }[]
       }
       get_related_genres: {
-        Args: {
-          p_genre_id: string
-          p_limit?: number
-        }
+        Args: { p_genre_id: string; p_limit?: number }
         Returns: {
           color: string | null
           created_at: string
@@ -1420,63 +1317,37 @@ export type Database = {
         }[]
       }
       get_track_play_count: {
-        Args: {
-          track_id: string
-        }
+        Args: { track_id: string }
         Returns: number
       }
       get_track_play_count_by_period: {
-        Args: {
-          track_id: string
-          start_date: string
-          end_date: string
-        }
+        Args: { track_id: string; start_date: string; end_date: string }
         Returns: number
       }
       get_track_play_counts: {
-        Args: {
-          track_ids: string[]
-          start_date?: string
-          end_date?: string
-        }
+        Args: { track_ids: string[]; start_date?: string; end_date?: string }
         Returns: {
           track_id: string
           count: number
         }[]
       }
       get_track_playlists_count: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: number
       }
       get_track_plays_for_period: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: {
           track_id: string
           count: number
         }[]
       }
       get_track_saves_count: {
-        Args: {
-          track_ids: string[]
-          start_date: string
-          end_date: string
-        }
+        Args: { track_ids: string[]; start_date: string; end_date: string }
         Returns: number
       }
       get_tracks_by_genre: {
-        Args: {
-          p_genre_id: string
-          p_limit?: number
-          p_offset?: number
-        }
+        Args: { p_genre_id: string; p_limit?: number; p_offset?: number }
         Returns: {
           album_id: string | null
           artist_id: string
@@ -1496,23 +1367,15 @@ export type Database = {
         }[]
       }
       get_tracks_play_count: {
-        Args: {
-          track_ids: string[]
-          start_date?: string
-          end_date?: string
-        }
+        Args: { track_ids: string[]; start_date?: string; end_date?: string }
         Returns: number
       }
       pgp_armor_headers: {
-        Args: {
-          "": string
-        }
+        Args: { "": string }
         Returns: Record<string, unknown>[]
       }
       pgp_key_id: {
-        Args: {
-          "": string
-        }
+        Args: { "": string }
         Returns: string
       }
       record_play: {
@@ -1526,31 +1389,46 @@ export type Database = {
         Returns: undefined
       }
       record_search: {
-        Args: {
-          query: string
-        }
+        Args: { query: string }
         Returns: undefined
       }
       refresh_token: {
-        Args: {
-          current_token: string
-        }
+        Args: { current_token: string }
         Returns: string
       }
       refresh_token_robust: {
-        Args: {
-          current_token: string
-        }
+        Args: { current_token: string }
         Returns: string
       }
       refresh_token_v2: {
-        Args: {
-          current_token: string
-        }
+        Args: { current_token: string }
         Returns: string
       }
       register_as_artist: {
         Args: {
+          artist_name: string
+          bio?: string
+          genre?: string[]
+          location?: string
+          website?: string
+          social_links?: Json
+        }
+        Returns: {
+          artist_name: string
+          bio: string | null
+          created_at: string
+          genre: string[] | null
+          id: string
+          location: string | null
+          social_links: Json | null
+          updated_at: string
+          verified: boolean | null
+          website: string | null
+        }
+      }
+      register_as_artist_with_id: {
+        Args: {
+          user_id: string
           artist_name: string
           bio?: string
           genre?: string[]
@@ -1582,16 +1460,11 @@ export type Database = {
         Returns: Json
       }
       request_password_reset: {
-        Args: {
-          _email: string
-        }
+        Args: { _email: string }
         Returns: string
       }
       reset_password: {
-        Args: {
-          _reset_token: string
-          _new_password: string
-        }
+        Args: { _reset_token: string; _new_password: string }
         Returns: boolean
       }
       tip_artist: {
@@ -1620,22 +1493,38 @@ export type Database = {
         }
       }
       trace_token_verification: {
-        Args: {
-          token: string
-        }
+        Args: { token: string }
         Returns: Json
       }
-      verify_email: {
+      update_artist_with_id: {
         Args: {
-          _verification_token: string
+          user_id: string
+          artist_name?: string
+          bio?: string
+          genre?: string[]
+          location?: string
+          website?: string
+          social_links?: Json
         }
+        Returns: {
+          artist_name: string
+          bio: string | null
+          created_at: string
+          genre: string[] | null
+          id: string
+          location: string | null
+          social_links: Json | null
+          updated_at: string
+          verified: boolean | null
+          website: string | null
+        }
+      }
+      verify_email: {
+        Args: { _verification_token: string }
         Returns: boolean
       }
       verify_signature: {
-        Args: {
-          wallet_address: string
-          signature: string
-        }
+        Args: { wallet_address: string; signature: string }
         Returns: string
       }
     }

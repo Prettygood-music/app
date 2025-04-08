@@ -179,20 +179,7 @@
 				<section>
 					<h2 class="mb-4 text-2xl font-bold">Biography</h2>
 					<div class="prose prose-sm md:prose-base dark:prose-invert">
-						<p>{data.artist?.bio || 'bio'}</p>
-
-						<p class="mt-4">
-							Nina's journey began in the underground clubs of Berlin, where she honed her craft as
-							both a DJ and producer. Her breakthrough album "Async Awakenings" topped electronic
-							charts worldwide, establishing her as a pioneer in the audio-visual electronic scene.
-						</p>
-
-						<p class="mt-4">
-							When not producing music, Nina teaches sound design at the Berlin University of the
-							Arts and contributes to open-source audio software projects. Her performances are
-							known for their immersive visualizations that synchronize with her music to create
-							multisensory experiences.
-						</p>
+						<p>{data.artist?.bio || "Artist doesn't have a biography yet"}</p>
 					</div>
 				</section>
 

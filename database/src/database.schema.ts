@@ -1666,6 +1666,29 @@ export const prettygoodRegisterAsArtistReturnsSchemaSchema = z.object({
   website: z.string().nullable(),
 });
 
+export const prettygoodRegisterAsArtistWithIdArgsSchemaSchema = z.object({
+  user_id: z.string(),
+  artist_name: z.string(),
+  bio: z.string().optional(),
+  genre: z.array(z.string()).optional(),
+  location: z.string().optional(),
+  website: z.string().optional(),
+  social_links: jsonSchema.optional(),
+});
+
+export const prettygoodRegisterAsArtistWithIdReturnsSchemaSchema = z.object({
+  artist_name: z.string(),
+  bio: z.string().nullable(),
+  created_at: z.string(),
+  genre: z.array(z.string()).nullable(),
+  id: z.string(),
+  location: z.string().nullable(),
+  social_links: jsonSchema.nullable(),
+  updated_at: z.string(),
+  verified: z.boolean().nullable(),
+  website: z.string().nullable(),
+});
+
 export const prettygoodRegisterUserArgsSchemaSchema = z.object({
   _username: z.string(),
   _email: z.string(),
@@ -1719,6 +1742,29 @@ export const prettygoodTraceTokenVerificationArgsSchemaSchema = z.object({
 });
 
 export const prettygoodTraceTokenVerificationReturnsSchemaSchema = jsonSchema;
+
+export const prettygoodUpdateArtistWithIdArgsSchemaSchema = z.object({
+  user_id: z.string(),
+  artist_name: z.string().optional(),
+  bio: z.string().optional(),
+  genre: z.array(z.string()).optional(),
+  location: z.string().optional(),
+  website: z.string().optional(),
+  social_links: jsonSchema.optional(),
+});
+
+export const prettygoodUpdateArtistWithIdReturnsSchemaSchema = z.object({
+  artist_name: z.string(),
+  bio: z.string().nullable(),
+  created_at: z.string(),
+  genre: z.array(z.string()).nullable(),
+  id: z.string(),
+  location: z.string().nullable(),
+  social_links: jsonSchema.nullable(),
+  updated_at: z.string(),
+  verified: z.boolean().nullable(),
+  website: z.string().nullable(),
+});
 
 export const prettygoodVerifyEmailArgsSchemaSchema = z.object({
   _verification_token: z.string(),

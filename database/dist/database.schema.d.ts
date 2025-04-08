@@ -3541,6 +3541,65 @@ export declare const prettygoodRegisterAsArtistReturnsSchemaSchema: z.ZodObject<
     verified: boolean | null;
     website: string | null;
 }>;
+export declare const prettygoodRegisterAsArtistWithIdArgsSchemaSchema: z.ZodObject<{
+    user_id: z.ZodString;
+    artist_name: z.ZodString;
+    bio: z.ZodOptional<z.ZodString>;
+    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    location: z.ZodOptional<z.ZodString>;
+    website: z.ZodOptional<z.ZodString>;
+    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
+}, "strip", z.ZodTypeAny, {
+    user_id: string;
+    artist_name: string;
+    genre?: string[] | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
+}, {
+    user_id: string;
+    artist_name: string;
+    genre?: string[] | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
+}>;
+export declare const prettygoodRegisterAsArtistWithIdReturnsSchemaSchema: z.ZodObject<{
+    artist_name: z.ZodString;
+    bio: z.ZodNullable<z.ZodString>;
+    created_at: z.ZodString;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
+    id: z.ZodString;
+    location: z.ZodNullable<z.ZodString>;
+    social_links: z.ZodNullable<z.ZodType<Json, z.ZodTypeDef, Json>>;
+    updated_at: z.ZodString;
+    verified: z.ZodNullable<z.ZodBoolean>;
+    website: z.ZodNullable<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    id: string;
+    created_at: string;
+    genre: string[] | null;
+    updated_at: string;
+    artist_name: string;
+    bio: string | null;
+    location: string | null;
+    social_links: Json;
+    verified: boolean | null;
+    website: string | null;
+}, {
+    id: string;
+    created_at: string;
+    genre: string[] | null;
+    updated_at: string;
+    artist_name: string;
+    bio: string | null;
+    location: string | null;
+    social_links: Json;
+    verified: boolean | null;
+    website: string | null;
+}>;
 export declare const prettygoodRegisterUserArgsSchemaSchema: z.ZodObject<{
     _username: z.ZodString;
     _email: z.ZodString;
@@ -3653,6 +3712,65 @@ export declare const prettygoodTraceTokenVerificationArgsSchemaSchema: z.ZodObje
     token: string;
 }>;
 export declare const prettygoodTraceTokenVerificationReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
+export declare const prettygoodUpdateArtistWithIdArgsSchemaSchema: z.ZodObject<{
+    user_id: z.ZodString;
+    artist_name: z.ZodOptional<z.ZodString>;
+    bio: z.ZodOptional<z.ZodString>;
+    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    location: z.ZodOptional<z.ZodString>;
+    website: z.ZodOptional<z.ZodString>;
+    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
+}, "strip", z.ZodTypeAny, {
+    user_id: string;
+    genre?: string[] | undefined;
+    artist_name?: string | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
+}, {
+    user_id: string;
+    genre?: string[] | undefined;
+    artist_name?: string | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
+}>;
+export declare const prettygoodUpdateArtistWithIdReturnsSchemaSchema: z.ZodObject<{
+    artist_name: z.ZodString;
+    bio: z.ZodNullable<z.ZodString>;
+    created_at: z.ZodString;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
+    id: z.ZodString;
+    location: z.ZodNullable<z.ZodString>;
+    social_links: z.ZodNullable<z.ZodType<Json, z.ZodTypeDef, Json>>;
+    updated_at: z.ZodString;
+    verified: z.ZodNullable<z.ZodBoolean>;
+    website: z.ZodNullable<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    id: string;
+    created_at: string;
+    genre: string[] | null;
+    updated_at: string;
+    artist_name: string;
+    bio: string | null;
+    location: string | null;
+    social_links: Json;
+    verified: boolean | null;
+    website: string | null;
+}, {
+    id: string;
+    created_at: string;
+    genre: string[] | null;
+    updated_at: string;
+    artist_name: string;
+    bio: string | null;
+    location: string | null;
+    social_links: Json;
+    verified: boolean | null;
+    website: string | null;
+}>;
 export declare const prettygoodVerifyEmailArgsSchemaSchema: z.ZodObject<{
     _verification_token: z.ZodString;
 }, "strip", z.ZodTypeAny, {

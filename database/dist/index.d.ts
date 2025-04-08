@@ -2,7 +2,7 @@ import { PostgrestClient } from '@supabase/postgrest-js';
 import { Database } from './types';
 export * from './database.schema';
 export * from './types';
-export declare function createClient(url: string): PostgrestClient<Database, "prettygood", {
+export declare function createClient(url: string, headers?: Record<string, string>): PostgrestClient<Database, "prettygood", {
     Tables: {
         album_genres: {
             Row: {
@@ -1496,6 +1496,29 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 website: string | null;
             };
         };
+        register_as_artist_with_id: {
+            Args: {
+                user_id: string;
+                artist_name: string;
+                bio?: string;
+                genre?: string[];
+                location?: string;
+                website?: string;
+                social_links?: import('./types').Json;
+            };
+            Returns: {
+                artist_name: string;
+                bio: string | null;
+                created_at: string;
+                genre: string[] | null;
+                id: string;
+                location: string | null;
+                social_links: import('./types').Json | null;
+                updated_at: string;
+                verified: boolean | null;
+                website: string | null;
+            };
+        };
         register_user: {
             Args: {
                 _username: string;
@@ -1549,6 +1572,29 @@ export declare function createClient(url: string): PostgrestClient<Database, "pr
                 token: string;
             };
             Returns: import('./types').Json;
+        };
+        update_artist_with_id: {
+            Args: {
+                user_id: string;
+                artist_name?: string;
+                bio?: string;
+                genre?: string[];
+                location?: string;
+                website?: string;
+                social_links?: import('./types').Json;
+            };
+            Returns: {
+                artist_name: string;
+                bio: string | null;
+                created_at: string;
+                genre: string[] | null;
+                id: string;
+                location: string | null;
+                social_links: import('./types').Json | null;
+                updated_at: string;
+                verified: boolean | null;
+                website: string | null;
+            };
         };
         verify_email: {
             Args: {

@@ -1566,6 +1566,29 @@ export type Database = {
                     website: string | null;
                 };
             };
+            register_as_artist_with_id: {
+                Args: {
+                    user_id: string;
+                    artist_name: string;
+                    bio?: string;
+                    genre?: string[];
+                    location?: string;
+                    website?: string;
+                    social_links?: Json;
+                };
+                Returns: {
+                    artist_name: string;
+                    bio: string | null;
+                    created_at: string;
+                    genre: string[] | null;
+                    id: string;
+                    location: string | null;
+                    social_links: Json | null;
+                    updated_at: string;
+                    verified: boolean | null;
+                    website: string | null;
+                };
+            };
             register_user: {
                 Args: {
                     _username: string;
@@ -1619,6 +1642,29 @@ export type Database = {
                     token: string;
                 };
                 Returns: Json;
+            };
+            update_artist_with_id: {
+                Args: {
+                    user_id: string;
+                    artist_name?: string;
+                    bio?: string;
+                    genre?: string[];
+                    location?: string;
+                    website?: string;
+                    social_links?: Json;
+                };
+                Returns: {
+                    artist_name: string;
+                    bio: string | null;
+                    created_at: string;
+                    genre: string[] | null;
+                    id: string;
+                    location: string | null;
+                    social_links: Json | null;
+                    updated_at: string;
+                    verified: boolean | null;
+                    website: string | null;
+                };
             };
             verify_email: {
                 Args: {

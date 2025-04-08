@@ -4,6 +4,8 @@ import { Database } from "./types";
 export * from "./database.schema";
 export * from "./types";
 
-export function createClient(url: string) {
-  return new PostgrestClient<Database>(url);
+export function createClient(url: string, headers?: Record<string, string>) {
+  return new PostgrestClient<Database>(url, {
+    headers,
+  });
 }
