@@ -30,9 +30,9 @@
 	}
 </script>
 
-<div class="bg-background flex min-h-screen">
+<div class=" flex overflow-y-hidden">
 	<!-- Sidebar (desktop) -->
-	<aside class="bg-card hidden w-64 flex-col border-r md:flex">
+	<aside class="bg-card hidden w-64 h-screen flex-col border-r md:flex">
 		<div class="p-4">
 			<h1 class="text-xl font-semibold">Artist Dashboard</h1>
 		</div>
@@ -105,14 +105,11 @@
 
 		<!-- Mobile navigation drawer -->
 		{#if isMobileNavOpen}
-			<div
+			<button
 				class="bg-background/80 fixed inset-0 z-50 backdrop-blur-sm md:hidden"
-				on:click={toggleMobileNav}
+				onclick={toggleMobileNav}
 			>
-				<div
-					class="bg-card fixed inset-y-0 left-0 w-3/4 max-w-sm p-6 shadow-lg"
-					on:click|stopPropagation
-				>
+				<div class="bg-card fixed inset-y-0 left-0 w-3/4 max-w-sm p-6 shadow-lg">
 					<nav class="space-y-2">
 						{#each navItems as item}
 							<a
@@ -124,18 +121,18 @@
 										: 'hover:bg-muted'
 								)}
 								aria-current={isActive(item.href, item.exact) ? 'page' : undefined}
-								on:click={toggleMobileNav}
+								onclick={toggleMobileNav}
 							>
 								{item.label}
 							</a>
 						{/each}
 					</nav>
 				</div>
-			</div>
+			</button>
 		{/if}
 
 		<!-- Page content -->
-		<main class="flex-1 overflow-auto p-4 md:p-6">
+		<main class="flex-1 overflow-y-auto p-4 md:p-6">
 			{@render children()}
 		</main>
 	</div>

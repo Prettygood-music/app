@@ -108,7 +108,7 @@
     </div>
   </div>
   
-  <Tabs defaultValue="tracks" class="space-y-4">
+  <Tabs value="tracks" class="space-y-4">
     <TabsList>
       <TabsTrigger value="tracks">Tracks</TabsTrigger>
       <TabsTrigger value="albums">Albums</TabsTrigger>

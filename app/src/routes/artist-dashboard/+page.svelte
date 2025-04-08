@@ -10,7 +10,7 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { Button } from '$lib/components/ui/button';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import StatCard from './(components)/StatCard.svelte';
+	import StatCard from '$lib/components/app/molecules/StatCard/StatCard.svelte';
 
 	// This will come from the load function in +page.ts later
 	let artistData = $state({
@@ -38,7 +38,7 @@
 	let selectedPeriod = $state('week');
 </script>
 
-<div class="space-y-6 overflow-y-auto">
+<div class="space-y-6">
 	<div>
 		<h1 class="text-3xl font-bold tracking-tight">Dashboard</h1>
 		<p class="text-muted-foreground">Welcome to your artist dashboard, {artistData.name}.</p>

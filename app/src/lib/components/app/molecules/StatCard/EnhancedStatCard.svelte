@@ -1,13 +1,28 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 
-	let { title, value, trend }: { title: string; value: number | string; trend: string } = $props();
+	let { 
+		title, 
+		value, 
+		trend, 
+		icon = undefined,
+		subtitle = undefined,
+		showDetails = false
+	} = $props();
+	
 	const isPositive = trend.startsWith('+');
 </script>
 
-<Card.Root>
+<Card.Root class={showDetails ? "min-h-[160px]" : ""}>
 	<Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
-		<Card.Title class="text-sm font-medium">{title}</Card.Title>
+		<div class="flex items-center gap-2">
+			{#if icon}
+				<div class="text-muted-foreground">
+					{@html icon}
+				</div>
+			{/if}
+			<Card.Title class="text-sm font-medium">{title}</Card.Title>
+		</div>
 		<div
 			class={`rounded-full p-1 ${isPositive ? 'bg-emerald-100 text-emerald-700' : 'bg-rose-100 text-rose-700'}`}
 		>
@@ -45,5 +60,22 @@
 		<p class="text-muted-foreground text-xs">
 			{trend} from last period
 		</p>
+		
+		{#if subtitle}
+			<p class="text-muted-foreground text-xs mt-1">{subtitle}</p>
+		{/if}
+		
+		{#if showDetails}
+			<div class="mt-4 pt-4 border-t border-border">
+				<div class="flex justify-between text-xs">
+					<span class="text-muted-foreground">Last week</span>
+					<span>1,087</span>
+				</div>
+				<div class="flex justify-between text-xs mt-1">
+					<span class="text-muted-foreground">Last month</span>
+					<span>4,352</span>
+				</div>
+			</div>
+		{/if}
 	</Card.Content>
 </Card.Root>
