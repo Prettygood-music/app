@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import TrackCreationForm from '$lib/components/organisms/forms/track-creation/TrackCreationForm.svelte';
+	import TrackCreationForm from '$lib/components/app/organisms/track-creation-form/TrackCreationForm.svelte';
 	import { Card } from '$lib/components/ui/card';
 
 	//export let data;

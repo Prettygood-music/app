@@ -91,7 +91,8 @@
 		if (!input.files?.length) return;
 
 		const file = input.files[0];
-		$formData.cover_image = file;
+		console.dir(file)
+		//$formData.cover_image = file;
 
 		// Create image preview
 		const reader = new FileReader();
@@ -99,6 +100,7 @@
 			imagePreview = e.target?.result as string;
 		};
 		reader.readAsDataURL(file);
+		// imagePreview = 
 	}
 
 	// Add genre to the list
@@ -146,7 +148,7 @@
 					required
 					/>
 					-->
-						<Input {...props} type="file" accept="audio/*" />
+						<Input {...props} bind:value={$formData.audio_file} type="file" accept="audio/*" />
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
@@ -189,7 +191,7 @@
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label>Cover Image</Form.Label>
-						<Input {...props} type="file" bind:value={$formData.cover_image} accept="image/*" />
+						<Input onchange={handleImageChange} {...props} type="file" bind:value={$formData.cover_image} accept="image/*" />
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
