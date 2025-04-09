@@ -77,6 +77,7 @@ This document mirrors the development priorities and progress outlined in the pr
    - ~~Implement genre-based search filters~~ (Completed)
    - ~~Create artist dashboard UI components~~ (Completed: Created stat cards and story components)
    - ~~Convert artist dashboard to template based on Atomic Design~~ (Completed: Created reusable template with stories)
+   - ~~Convert artist profile page to template based on Atomic Design~~ (Completed: Created ArtistProfileTemplate with stories)
    - Connect library management to real storage
    - Implement playlist creation with real data
    - Replace any remaining mock data with real API calls
@@ -157,6 +158,7 @@ This document mirrors the development priorities and progress outlined in the pr
 
 10. **Atomic Design Implementation**
    - ~~Begin conversion of pages to templates~~ (Completed: Converted artist dashboard)
+   - ~~Convert artist profile page to template~~ (Completed: Implemented ArtistProfileTemplate)
    - Continue organizing components by atomic design methodology
    - Ensure all new components follow atomic design folder structure
    - Add proper colocated stories for all components
