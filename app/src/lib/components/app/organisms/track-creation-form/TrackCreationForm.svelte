@@ -6,11 +6,12 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Switch } from '$lib/components/ui/switch';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import { superForm, type SuperValidated } from 'sveltekit-superforms';
+	import SuperDebug, { fileProxy, superForm, type SuperValidated } from 'sveltekit-superforms';
 
 	import { trackCreationSchema, type TrackCreationSchema } from '$lib/schemas/trackSchema';
 	import { X } from 'lucide-svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import * as Select from '$lib/components/ui/select';
 
 	let {
 		albums,
@@ -24,6 +25,9 @@
 		validators: zodClient(trackCreationSchema)
 	});
 	const { form: formData, enhance } = form;
+
+	const audioFile = fileProxy(formData, 'audio_file');
+	const coverFile = fileProxy(formData, 'cover_image');
 
 	// Available genres
 	const availableGenres = [
@@ -69,7 +73,7 @@
 		if (!input.files?.length) return;
 
 		const file = input.files[0];
-		$formData.audio_file = file;
+		//$formData.audio_file = file;
 
 		// Create audio preview and extract duration
 		isAudioLoading = true;
@@ -86,6 +90,7 @@
 				isAudioLoading = false;
 			};
 		};
+
 		reader.readAsDataURL(file);
 	}
 
@@ -96,7 +101,7 @@
 
 		const file = input.files[0];
 		console.dir(file);
-		//$formData.cover_image = file;
+		$formData.cover_image = file;
 
 		// Create image preview
 		const reader = new FileReader();
@@ -128,7 +133,7 @@
 	}
 </script>
 
-<form method="POST" use:enhance class="space-y-6">
+<form method="POST" use:enhance class="space-y-6" enctype="multipart/form-data">
 	<div class="space-y-6">
 		<div>
 			<h2 class="mb-4 text-xl font-semibold">Upload Track</h2>
@@ -143,25 +148,22 @@
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label>Audio File <span class="text-destructive">*</span></Form.Label>
-						<!-- 
-					<FileInput
-					id="audio_file"
-					name="audio_file"
-					accept="audio/*"
-					error={$errors.audio_file}
-					required
-					/>
-					-->
-						<Input {...props} bind:value={$formData.audio_file} type="file" accept="audio/*" />
+
+						<Input
+							{...props}
+							bind:files={$audioFile}
+							onchange={handleAudioChange}
+							type="file"
+							accept="audio/*"
+						/>
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
 			</Form.Field>
-			<!-- on:change={handleAudioChange} -->
 
 			{#if isAudioLoading}
 				<div class="text-muted-foreground mt-2 text-sm">Loading audio...</div>
-			{:else if audioPreview}
+			{:else if $formData.audio_file}
 				<Card class="mt-2">
 					<CardContent class="p-4">
 						<audio controls src={audioPreview} class="w-full"></audio>
@@ -191,17 +193,20 @@
 
 		<!-- Cover Image -->
 		<div class="space-y-2">
-			<Form.Field {form} name="audio_file">
+			<Form.Field {form} name="cover_image">
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label>Cover Image</Form.Label>
 						<Input
 							onchange={handleImageChange}
+							placeholder="Select an image"
 							{...props}
 							type="file"
-							bind:value={$formData.cover_image}
 							accept="image/*"
+							bind:files={$coverFile}
 						/>
+						<!-- value={$formData.cover_image} -->
+						<!-- bind:value={$formData.cover_image} -->
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
@@ -220,17 +225,18 @@
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
-						<select
-							id="album_id"
-							name="album_id"
-							bind:value={$formData.album_id}
-							class="bg-background border-input w-full rounded-md border px-3 py-2"
-						>
-							<option value="">Select Album</option>
-							{#each albums as album}
-								<option value={album.id}>{album.title}</option>
-							{/each}
-						</select>
+
+						<Select.Root type="single" disabled={albums.length === 0} bind:value={$formData.album_id} name={props.name}>
+							<Select.Trigger {...props}>
+								{$formData.album_id ? $formData.album_id : 'Select Album'}
+							</Select.Trigger>
+							<Select.Content>
+								{#each albums as album}
+									<Select.Item value={album.id}>{album.title}</Select.Item>
+								{/each}
+							</Select.Content>
+						</Select.Root>
+						
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
@@ -376,3 +382,4 @@
 		<Button type="submit" disabled={isAudioLoading || !$formData.audio_file}>Save Track</Button>
 	</div>
 </form>
+<SuperDebug data={$formData}></SuperDebug>

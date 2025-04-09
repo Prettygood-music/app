@@ -31,6 +31,8 @@ export const actions: Actions = {
 				form
 			});
 		}
+
+		console.dir(form.data);
 		// TODO: implement saving track to database
 	}
 };
