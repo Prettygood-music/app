@@ -15,7 +15,7 @@
 		name,
 		accept,
 		required,
-		disabled,
+		disabled = false,
 		error,
 		className
 	}: {
@@ -23,9 +23,9 @@
 		name: string;
 		accept: string;
 		required: boolean;
-		disabled: boolean;
+		disabled?: boolean;
 		error: string | null;
-		className: string;
+		className?: string;
 	} = $props();
 
 	let inputElement: HTMLInputElement;

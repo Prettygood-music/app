@@ -2,22 +2,25 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
-	import { Label } from '$lib/components/ui/label';
 	import { Switch } from '$lib/components/ui/switch';
 	import { FileInput } from '$lib/components/ui/file-input';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Card, CardContent } from '$lib/components/ui/card';
-	import { createForm, superForm } from 'superforms/client';
-	import { trackCreationSchema, type TrackCreationData } from '$lib/schemas/trackSchema';
-	import { X } from 'lucide-svelte';
+	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
+	import * as Form from '$lib/components/ui/form';
 
-	// Form event
-	/*
-  export let onSubmit: (data: TrackCreationData) => Promise<void>;
-  export let initialValues: Partial<TrackCreationData> = {};
-  export let albums: { id: string; title: string }[] = [];
-  */
-	let { onSubmit, initialValues, albums } = $props();
+	import { trackCreationSchema, type TrackCreationSchema } from '$lib/schemas/trackSchema';
+	import { X } from 'lucide-svelte';
+	import { zodClient } from 'sveltekit-superforms/adapters';
+
+	let { albums, data }: { data: { form: SuperValidated<TrackCreationSchema> }; albums: [] } =
+		$props();
+
+	const form = superForm(data.form, {
+		validators: zodClient(trackCreationSchema)
+	});
+	const { form: formData, enhance } = form;
+
 	// Available genres
 	const availableGenres = [
 		'Pop',
@@ -44,44 +47,6 @@
 		'Alternative',
 		'Experimental'
 	];
-
-	// Form state
-	const defaultValues: TrackCreationData = {
-		title: '',
-		album_id: null,
-		track_number: null,
-		genre: [],
-		explicit: false,
-		release_date: null,
-		isrc: null,
-		lyrics: null,
-		audio_file: null as any, // This will be set via the file input
-		cover_image: null
-	};
-
-	// Create the form with initial values merged with defaults
-	const form = createForm(trackCreationSchema, {
-		id: 'track-creation-form',
-		dataDefaults: { ...defaultValues, ...initialValues }
-	});
-
-	const {
-		form: formData,
-		errors,
-		enhance
-	} = superForm(form, {
-		onSubmit: async ({ formData, cancel }) => {
-			// Cancel the default superForm submission
-			cancel();
-
-			// Submit the form data through the provided callback
-			try {
-				await onSubmit(formData);
-			} catch (error) {
-				console.error('Error submitting form:', error);
-			}
-		}
-	});
 
 	// Audio file preview state
 	let audioPreview = $state<string | null>(null);
@@ -157,7 +122,7 @@
 	}
 </script>
 
-<form method="POST" on:submit|preventDefault use:enhance class="space-y-6">
+<form method="POST" use:enhance class="space-y-6">
 	<div class="space-y-6">
 		<div>
 			<h2 class="mb-4 text-xl font-semibold">Upload Track</h2>
@@ -168,17 +133,25 @@
 
 		<!-- Audio File Upload -->
 		<div class="space-y-2">
-			<Label for="audio_file" class="block"
-				>Audio File <span class="text-destructive">*</span></Label
-			>
-			<FileInput
-				id="audio_file"
-				name="audio_file"
-				accept="audio/*"
-				on:change={handleAudioChange}
-				error={$errors.audio_file}
-				required
-			/>
+			<Form.Field {form} name="audio_file">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Audio File <span class="text-destructive">*</span></Form.Label>
+						<!-- 
+					<FileInput
+					id="audio_file"
+					name="audio_file"
+					accept="audio/*"
+					error={$errors.audio_file}
+					required
+					/>
+					-->
+						<Input {...props} type="file" accept="audio/*" />
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
+			<!-- on:change={handleAudioChange} -->
 
 			{#if isAudioLoading}
 				<div class="text-muted-foreground mt-2 text-sm">Loading audio...</div>
@@ -194,30 +167,33 @@
 
 		<!-- Track Title -->
 		<div class="space-y-2">
-			<Label for="title" class="block">Title <span class="text-destructive">*</span></Label>
-			<Input
-				id="title"
-				name="title"
-				bind:value={$formData.title}
-				placeholder="Enter track title"
-				class={$errors.title ? 'border-destructive' : ''}
-				required
-			/>
-			{#if $errors.title}
-				<p class="text-destructive text-sm">{$errors.title}</p>
-			{/if}
+			<Form.Field {form} name="title">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Title <span class="text-destructive">*</span></Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.title}
+							placeholder="Enter track title"
+							required
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 		</div>
 
 		<!-- Cover Image -->
 		<div class="space-y-2">
-			<Label for="cover_image" class="block">Cover Image</Label>
-			<FileInput
-				id="cover_image"
-				name="cover_image"
-				accept="image/*"
-				on:change={handleImageChange}
-				error={$errors.cover_image}
-			/>
+			<Form.Field {form} name="audio_file">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Cover Image</Form.Label>
+						<Input {...props} type="file" bind:value={$formData.cover_image} accept="image/*" />
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 
 			{#if imagePreview}
 				<div class="border-border mt-2 h-40 w-40 overflow-hidden rounded border">
@@ -228,55 +204,75 @@
 
 		<!-- Album & Track Number (if part of an album) -->
 		<div class="space-y-2">
-			<Label for="album_id" class="block">Album (Optional)</Label>
-			<select
-				id="album_id"
-				name="album_id"
-				bind:value={$formData.album_id}
-				class="bg-background border-input w-full rounded-md border px-3 py-2"
-			>
-				<option value="">Select Album</option>
-				{#each albums as album}
-					<option value={album.id}>{album.title}</option>
-				{/each}
-			</select>
+			<Form.Field {form} name="album_id">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
+						<select
+							id="album_id"
+							name="album_id"
+							bind:value={$formData.album_id}
+							class="bg-background border-input w-full rounded-md border px-3 py-2"
+						>
+							<option value="">Select Album</option>
+							{#each albums as album}
+								<option value={album.id}>{album.title}</option>
+							{/each}
+						</select>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 
 			{#if $formData.album_id}
 				<div class="mt-2">
-					<Label for="track_number" class="block">Track Number</Label>
-					<Input
-						id="track_number"
-						name="track_number"
-						type="number"
-						bind:value={$formData.track_number}
-						min="1"
-						placeholder="Track position in album"
-					/>
+					<Form.Field {form} name="track_number">
+						<Form.Control>
+							{#snippet children({ props })}
+								<Form.Label>Track Number</Form.Label>
+								<Input
+									{...props}
+									type="number"
+									bind:value={$formData.track_number}
+									min="1"
+									placeholder="Track position in album"
+								/>
+							{/snippet}
+						</Form.Control>
+						<Form.FieldErrors />
+					</Form.Field>
 				</div>
 			{/if}
 		</div>
 
 		<!-- Genre Tags -->
 		<div class="space-y-2">
-			<Label class="block">Genre</Label>
-			<div class="mb-2 flex flex-wrap gap-2">
-				{#each $formData.genre as genre}
-					<Badge variant="secondary" class="gap-1 pr-1">
-						{genre}
-						<button
-							type="button"
-							class="hover:bg-muted ml-1 rounded-full p-1"
-							on:click={() => removeGenre(genre)}
-						>
-							<X class="h-3 w-3" />
-						</button>
-					</Badge>
-				{/each}
+			<Form.Field {form} name="track_number">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label class="block">Genre</Form.Label>
+						<div class="mb-2 flex flex-wrap gap-2">
+							{#each $formData.genre as genre}
+								<Badge variant="secondary" class="gap-1 pr-1">
+									{genre}
+									<button
+										type="button"
+										class="hover:bg-muted ml-1 rounded-full p-1"
+										onclick={() => removeGenre(genre)}
+									>
+										<X class="h-3 w-3" />
+									</button>
+								</Badge>
+							{/each}
 
-				{#if $formData.genre.length === 0}
-					<p class="text-muted-foreground text-sm">No genres selected</p>
-				{/if}
-			</div>
+							{#if $formData.genre.length === 0}
+								<p class="text-muted-foreground text-sm">No genres selected</p>
+							{/if}
+						</div>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 
 			<div class="flex gap-2">
 				<select
@@ -288,7 +284,7 @@
 						<option value={genre}>{genre}</option>
 					{/each}
 				</select>
-				<Button type="button" variant="outline" on:click={addGenre} disabled={!selectedGenre}
+				<Button type="button" variant="outline" onclick={addGenre} disabled={!selectedGenre}
 					>Add</Button
 				>
 			</div>
@@ -296,50 +292,70 @@
 
 		<!-- Explicit Content -->
 		<div class="flex items-center space-x-2">
-			<Switch
-				id="explicit"
-				name="explicit"
-				checked={$formData.explicit}
-				onCheckedChange={(checked) => ($formData.explicit = checked)}
-			/>
-			<Label for="explicit">Explicit Content</Label>
+			<Form.Field {form} name="explicit">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Switch
+							{...props}
+							checked={$formData.explicit}
+							onCheckedChange={(checked) => ($formData.explicit = checked)}
+						/>
+						<Form.Label>Explicit Content</Form.Label>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 		</div>
 
 		<!-- Release Date -->
 		<div class="space-y-2">
-			<Label for="release_date" class="block">Release Date</Label>
-			<Input
-				id="release_date"
-				name="release_date"
-				type="date"
-				bind:value={$formData.release_date}
-			/>
+			<Form.Field {form} name="release_date">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label for="release_date" class="block">Release Date</Form.Label>
+						<Input {...props} type="date" bind:value={$formData.release_date} />
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 		</div>
 
 		<!-- ISRC -->
 		<div class="space-y-2">
-			<Label for="isrc" class="block">ISRC (Optional)</Label>
-			<Input
-				id="isrc"
-				name="isrc"
-				bind:value={$formData.isrc}
-				placeholder="International Standard Recording Code"
-			/>
-			<p class="text-muted-foreground text-xs">
-				The International Standard Recording Code (ISRC) uniquely identifies recordings
-			</p>
+			<Form.Field {form} name="isrc">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>ISRC (Optional)</Form.Label>
+						<Input
+							{...props}
+							bind:value={$formData.isrc}
+							placeholder="International Standard Recording Code"
+						/>
+						<p class="text-muted-foreground text-xs">
+							The International Standard Recording Code (ISRC) uniquely identifies recordings
+						</p>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 		</div>
 
 		<!-- Lyrics -->
 		<div class="space-y-2">
-			<Label for="lyrics" class="block">Lyrics (Optional)</Label>
-			<Textarea
-				id="lyrics"
-				name="lyrics"
-				bind:value={$formData.lyrics}
-				placeholder="Enter lyrics"
-				rows="6"
-			/>
+			<Form.Field {form} name="lyrics">
+				<Form.Control>
+					{#snippet children({ props })}
+						<Form.Label>Lyrics (Optional)</Form.Label>
+						<Textarea
+							{...props}
+							bind:value={$formData.lyrics}
+							placeholder="Enter lyrics"
+							rows={6}
+						/>
+					{/snippet}
+				</Form.Control>
+				<Form.FieldErrors />
+			</Form.Field>
 		</div>
 	</div>
 

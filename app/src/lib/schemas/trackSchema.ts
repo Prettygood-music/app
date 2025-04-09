@@ -15,4 +15,4 @@ export const trackCreationSchema = z.object({
   cover_image: z.instanceof(File).optional().nullable(),
 });
 
-export type TrackCreationData = z.infer<typeof trackCreationSchema>;
+export type TrackCreationSchema = z.infer<typeof trackCreationSchema>;
