@@ -1,20 +1,24 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
-	import { Input } from '$lib/components/ui/input';
-	import { Textarea } from '$lib/components/ui/textarea';
-	import { Switch } from '$lib/components/ui/switch';
-	import { FileInput } from '$lib/components/ui/file-input';
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import { Card, CardContent } from '$lib/components/ui/card';
-	import { superForm, type Infer, type SuperValidated } from 'sveltekit-superforms';
 	import * as Form from '$lib/components/ui/form';
+	import { Input } from '$lib/components/ui/input';
+	import { Switch } from '$lib/components/ui/switch';
+	import { Textarea } from '$lib/components/ui/textarea';
+	import { superForm, type SuperValidated } from 'sveltekit-superforms';
 
 	import { trackCreationSchema, type TrackCreationSchema } from '$lib/schemas/trackSchema';
 	import { X } from 'lucide-svelte';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 
-	let { albums, data }: { data: { form: SuperValidated<TrackCreationSchema> }; albums: [] } =
-		$props();
+	let {
+		albums,
+		data
+	}: {
+		data: { form: SuperValidated<TrackCreationSchema> };
+		albums: { id: string; title: string }[];
+	} = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(trackCreationSchema)
@@ -91,7 +95,7 @@
 		if (!input.files?.length) return;
 
 		const file = input.files[0];
-		console.dir(file)
+		console.dir(file);
 		//$formData.cover_image = file;
 
 		// Create image preview
@@ -100,7 +104,7 @@
 			imagePreview = e.target?.result as string;
 		};
 		reader.readAsDataURL(file);
-		// imagePreview = 
+		// imagePreview =
 	}
 
 	// Add genre to the list
@@ -191,7 +195,13 @@
 				<Form.Control>
 					{#snippet children({ props })}
 						<Form.Label>Cover Image</Form.Label>
-						<Input onchange={handleImageChange} {...props} type="file" bind:value={$formData.cover_image} accept="image/*" />
+						<Input
+							onchange={handleImageChange}
+							{...props}
+							type="file"
+							bind:value={$formData.cover_image}
+							accept="image/*"
+						/>
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />
