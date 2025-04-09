@@ -102,7 +102,7 @@
 
 <svelte:window on:load={onMount} />
 
-<form class="message-input" on:submit={handleSubmit}>
+<form class="message-input" onsubmit={handleSubmit}>
 	{#if $attachments.length > 0}
 		<div class="attachments-preview">
 			{#each $attachments as file, index}

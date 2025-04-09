@@ -15,7 +15,7 @@
   }
 </script>
 
-<form class="relative w-full" on:submit={handleSubmit}>
+<form class="relative w-full" onsubmit={handleSubmit}>
   <div class="relative">
     <svg 
       xmlns="http://www.w3.org/2000/svg" 

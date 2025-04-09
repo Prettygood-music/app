@@ -21,7 +21,7 @@
   }
 </script>
 
-<form on:submit={handleSearch} class="w-full max-w-xs">
+<form onsubmit={handleSearch} class="w-full max-w-xs">
   <div class="relative">
     <Search class="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground h-4 w-4" />
     <Input 

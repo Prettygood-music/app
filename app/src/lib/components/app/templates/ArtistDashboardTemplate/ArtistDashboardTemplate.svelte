@@ -11,8 +11,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import StatCard from '$lib/components/app/molecules/StatCard/StatCard.svelte';
-	
-	let { 
+
+	let {
 		artistName = 'Your Artist Name',
 		stats = {
 			day: {
@@ -50,7 +50,7 @@
 				playsTrend: '+120%',
 				followers: 9944,
 				followersTrend: '+85%',
-				totalEarnings: 15473.40,
+				totalEarnings: 15473.4,
 				earningsTrend: '+215%',
 				recentTips: 105,
 				tipsTrend: '+150%'
@@ -91,21 +91,13 @@
 		<TabsContent value="day" class="space-y-4">
 			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
 				<StatCard title="Total Plays" value={stats.day.totalPlays} trend={stats.day.playsTrend} />
-				<StatCard
-					title="Followers"
-					value={stats.day.followers}
-					trend={stats.day.followersTrend}
-				/>
+				<StatCard title="Followers" value={stats.day.followers} trend={stats.day.followersTrend} />
 				<StatCard
 					title="Earnings"
 					value={`$${stats.day.totalEarnings.toFixed(2)}`}
 					trend={stats.day.earningsTrend}
 				/>
-				<StatCard
-					title="Tips Received"
-					value={stats.day.recentTips}
-					trend={stats.day.tipsTrend}
-				/>
+				<StatCard title="Tips Received" value={stats.day.recentTips} trend={stats.day.tipsTrend} />
 			</div>
 		</TabsContent>
 
@@ -132,7 +124,11 @@
 
 		<TabsContent value="month" class="space-y-4">
 			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<StatCard title="Total Plays" value={stats.month.totalPlays} trend={stats.month.playsTrend} />
+				<StatCard
+					title="Total Plays"
+					value={stats.month.totalPlays}
+					trend={stats.month.playsTrend}
+				/>
 				<StatCard
 					title="Followers"
 					value={stats.month.followers}
@@ -244,7 +240,9 @@
 				</div>
 			</CardContent>
 			<CardFooter>
-				<Button variant="outline" class="w-full" onclick={onViewAllActivity}>View All Activity</Button>
+				<Button variant="outline" class="w-full" onclick={onViewAllActivity}
+					>View All Activity</Button
+				>
 			</CardFooter>
 		</Card>
 
