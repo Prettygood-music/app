@@ -105,13 +105,13 @@
 	on:mouseleave={() => ($isHovered = false)}
 >
 	<div class="comment-container">
-		<button class="commenter-avatar" on:click={handleUserClick}>
+		<button class="commenter-avatar" onclick={handleUserClick}>
 			<img src={comment.avatar} alt={`${comment.username}'s avatar`} />
 		</button>
 
 		<div class="comment-content">
 			<div class="commenter-info">
-				<button class="commenter-name" on:click={handleUserClick}>{comment.username}</button>
+				<button class="commenter-name" onclick={handleUserClick}>{comment.username}</button>
 				<span class="comment-time">{formatTimestamp(comment.timestamp)}</span>
 			</div>
 
@@ -121,7 +121,7 @@
 				<button
 					class="action-button like-comment"
 					class:liked={comment.isLiked}
-					on:click={handleLike}
+					onclick={handleLike}
 				>
 					<svg viewBox="0 0 24 24" width="16" height="16">
 						<path
@@ -135,7 +135,7 @@
 				</button>
 
 				{#if level < maxLevel}
-					<button class="action-button reply-comment" on:click={handleReplyClick}>
+					<button class="action-button reply-comment" onclick={handleReplyClick}>
 						<svg viewBox="0 0 24 24" width="16" height="16">
 							<path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z" />
 						</svg>
@@ -153,7 +153,7 @@
 					</button>
 
 					<div class="comment-menu">
-						<button class="menu-item" on:click={handleReport}>
+						<button class="menu-item" onclick={handleReport}>
 							<svg viewBox="0 0 24 24" width="16" height="16">
 								<path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6z" />
 							</svg>
@@ -162,7 +162,7 @@
 
 						{#if comment.userId === 'current-user-id'}
 							<!-- Replace with actual current user check -->
-							<button class="menu-item delete" on:click={handleDelete}>
+							<button class="menu-item delete" onclick={handleDelete}>
 								<svg viewBox="0 0 24 24" width="16" height="16">
 									<path
 										d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
@@ -179,8 +179,8 @@
 				<div class="reply-form">
 					<textarea bind:value={$replyText} placeholder="Write a reply..." rows="2"></textarea>
 					<div class="reply-actions">
-						<button class="cancel-reply" on:click={handleReplyClick}>Cancel</button>
-						<button class="submit-reply" on:click={handleReplySubmit} disabled={!$replyText.trim()}>
+						<button class="cancel-reply" onclick={handleReplyClick}>Cancel</button>
+						<button class="submit-reply" onclick={handleReplySubmit} disabled={!$replyText.trim()}>
 							Reply
 						</button>
 					</div>
@@ -192,7 +192,7 @@
 	{#if showReplies && comment.replies && comment.replies.length > 0}
 		<div class="replies-section">
 			{#if comment.replies.length > 3 && !$showRepliesList}
-				<button class="show-replies" on:click={toggleReplies}>
+				<button class="show-replies" onclick={toggleReplies}>
 					<svg viewBox="0 0 24 24" width="16" height="16">
 						<path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" />
 					</svg>
@@ -205,7 +205,7 @@
 					{/each}
 
 					{#if comment.replies.length > 3 && $showRepliesList}
-						<button class="hide-replies" on:click={toggleReplies}>
+						<button class="hide-replies" onclick={toggleReplies}>
 							<svg viewBox="0 0 24 24" width="16" height="16">
 								<path d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" />
 							</svg>

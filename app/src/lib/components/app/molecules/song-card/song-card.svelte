@@ -79,7 +79,7 @@
     class:playing={isPlaying}
     class:hovered={$isHovered}
     style="--card-width: {sizeMap[size].card}; --image-size: {sizeMap[size].image}; --title-size: {sizeMap[size].title};"
-    on:click={handleClick}
+    onclick={handleClick}
     on:mouseenter={() => $isHovered = true}
     on:mouseleave={() => $isHovered = false}
   >
@@ -90,7 +90,7 @@
         <button 
           class="play-button" 
           class:playing={isPlaying}
-          on:click={handlePlay}
+          onclick={handlePlay}
         >
           {#if isPlaying}
             <svg viewBox="0 0 24 24">
@@ -110,7 +110,7 @@
       <div class="song-title" title={song.title}>{song.title}</div>
       
       {#if showArtist}
-        <button class="song-artist" on:click={handleArtistClick}>
+        <button class="song-artist" onclick={handleArtistClick}>
           {song.artist}
         </button>
       {/if}
@@ -120,7 +120,7 @@
       <button 
         class="add-button" 
         class:saved={isSaved}
-        on:click={handleSave}
+        onclick={handleSave}
         title={isSaved ? 'Remove from Library' : 'Add to Library'}
       >
         {#if isSaved}

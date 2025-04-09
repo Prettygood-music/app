@@ -116,7 +116,7 @@
 	  <span 
 		class="star {getStarType(i + 1)}" 
 		on:mousemove={(e) => handleMouseMove(i, e)}
-		on:click={(e) => handleClick(i, e)}
+		onclick={(e) => handleClick(i, e)}
 	  ></span>
 	{/each}
 	

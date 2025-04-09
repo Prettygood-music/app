@@ -75,7 +75,7 @@
 			markAsRead();
 		}}
 		on:mouseleave={() => ($isHovered = false)}
-		on:click={handleClick}
+		onclick={handleClick}
 	>
 		<img class="notification-image" src={image} alt="Notification" />
 
@@ -85,12 +85,12 @@
 		</div>
 
 		{#if action}
-			<button class="notification-action" on:click|stopPropagation={handleActionClick}>
+			<button class="notification-action" onclick|stopPropagation={handleActionClick}>
 				{action.label}
 			</button>
 		{/if}
 
-		<button class="notification-dismiss" on:click|stopPropagation={dismiss}>
+		<button class="notification-dismiss" onclick|stopPropagation={dismiss}>
 			<svg viewBox="0 0 24 24" width="16" height="16">
 				<path
 					d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"

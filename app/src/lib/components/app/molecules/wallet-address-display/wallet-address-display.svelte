@@ -53,7 +53,7 @@
   }
 </script>
 
-<div class="wallet-address" on:click={handleClick}>
+<div class="wallet-address" onclick={handleClick}>
   {#if showIcon}
     <svg class="wallet-icon" viewBox="0 0 24 24">
       <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
@@ -67,7 +67,7 @@
   <span class="address-text">{truncateAddress(address)}</span>
   
   {#if copyEnabled}
-    <button class="copy-button" on:click|stopPropagation={copyAddress}>
+    <button class="copy-button" onclick|stopPropagation={copyAddress}>
       {#if $isCopied}
         <svg class="check-icon" viewBox="0 0 24 24">
           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>

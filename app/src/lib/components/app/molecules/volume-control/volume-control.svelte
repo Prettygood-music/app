@@ -48,7 +48,7 @@
 <div class="volume-control" style="max-width: {maxWidth};">
 	<button
 		class="volume-icon"
-		on:click={toggleMute}
+		onclick={toggleMute}
 		on:mouseenter={() => ($showVolumeTooltip = true)}
 		on:mouseleave={() => ($showVolumeTooltip = false)}
 	>

@@ -25,7 +25,7 @@
           <Button 
             variant="outline" 
             class="h-auto py-3 text-left justify-start"
-            on:click={() => goto(`/search/${encodeURIComponent(genre)}`)}
+            onclick={() => goto(`/search/${encodeURIComponent(genre)}`)}
           >
             {genre}
           </Button>
@@ -48,7 +48,7 @@
         ] as category}
           <div 
             class="bg-card p-4 rounded-lg shadow-sm hover:shadow transition cursor-pointer"
-            on:click={() => goto(`/search/${encodeURIComponent(category.name)}`)}
+            onclick={() => goto(`/search/${encodeURIComponent(category.name)}`)}
           >
             <div class="text-3xl mb-2">{category.icon}</div>
             <div class="font-medium">{category.name}</div>

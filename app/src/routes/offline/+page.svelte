@@ -24,10 +24,10 @@
       </p>
       
       <div class="flex flex-col gap-2">
-        <Button on:click={() => window.location.href = '/library'}>
+        <Button onclick={() => window.location.href = '/library'}>
           Go to Your Library
         </Button>
-        <Button variant="outline" on:click={() => window.location.reload()}>
+        <Button variant="outline" onclick={() => window.location.reload()}>
           Try Again
         </Button>
       </div>

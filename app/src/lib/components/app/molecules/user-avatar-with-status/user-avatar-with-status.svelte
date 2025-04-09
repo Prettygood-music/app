@@ -57,7 +57,7 @@
 	style="--status-color: {statusColors[status]}"
 	on:mouseenter={() => $isHovered = true}
 	on:mouseleave={() => $isHovered = false}
-	on:click={handleClick}
+	onclick={handleClick}
 	on:keydown={(e) => { if (e.key === 'Enter' && interactive) handleClick(); }}
 	tabindex={interactive ? 0 : undefined}
 	role={interactive ? 'button' : undefined}

@@ -96,7 +96,7 @@
 				type="button"
 				class="preset-amount"
 				class:active={!$isCustomActive && value === preset}
-				on:click={() => selectPreset(preset)}
+				onclick={() => selectPreset(preset)}
 				{disabled}
 			>
 				{formatAmount(preset)}
@@ -121,7 +121,7 @@
 					placeholder="Custom amount"
 				/>
 			{:else}
-				<button type="button" class="custom-amount-button" on:click={enableCustomAmount} {disabled}>
+				<button type="button" class="custom-amount-button" onclick={enableCustomAmount} {disabled}>
 					Custom amount
 				</button>
 			{/if}

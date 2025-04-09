@@ -129,7 +129,7 @@
         </form>
       </CardContent>
       <CardFooter>
-        <Button class="w-full" disabled={isSubmitting} on:click={handleSubmit}>
+        <Button class="w-full" disabled={isSubmitting} onclick={handleSubmit}>
           {#if isSubmitting}
             <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
               <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -187,7 +187,7 @@
       </div>
     </CardContent>
     <CardFooter>
-      <Button variant="outline" class="w-full" on:click={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+      <Button variant="outline" class="w-full" onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
         Get Notified About Launch
       </Button>
     </CardFooter>

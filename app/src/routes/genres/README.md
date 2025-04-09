@@ -160,7 +160,7 @@ The genres service in `/lib/services/genres/` provides:
 </script>
 
 <GenreFilter bind:selectedGenres />
-<button on:click={handleSearch}>Search</button>
+<button onclick={handleSearch}>Search</button>
 ```
 
 ## Future Enhancements

@@ -132,7 +132,7 @@
 	<div
 		class="waveform-container"
 		bind:this={$containerElement}
-		on:click={handleWaveformClick}
+		onclick={handleWaveformClick}
 		on:mousemove={handleMouseMove}
 		on:mouseenter={() => ($isHovered = true)}
 		on:mouseleave={() => ($isHovered = false)}

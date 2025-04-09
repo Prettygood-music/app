@@ -46,13 +46,13 @@
 	  <button 
 		class="like-button" 
 		class:liked={isLiked} 
-		on:click={() => onLike(track.id, !isLiked)}
+		onclick={() => onLike(track.id, !isLiked)}
 	  >
 		<svg class="heart-icon" viewBox="0 0 24 24">
 		  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
 		</svg>
 	  </button>
-	  <button class="more-button" on:click={() => onOptions(track.id)}>
+	  <button class="more-button" onclick={() => onOptions(track.id)}>
 		<svg class="more-icon" viewBox="0 0 24 24">
 		  <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
 		</svg>

@@ -57,7 +57,7 @@
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-semibold">Tracks</h2>
 							{#if data.results.tracks.length > 5}
-								<Button variant="ghost" on:click={() => (activeTab = 'tracks')}>View All</Button>
+								<Button variant="ghost" onclick={() => (activeTab = 'tracks')}>View All</Button>
 							{/if}
 						</div>
 
@@ -131,7 +131,7 @@
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-semibold">Artists</h2>
 							{#if data.results.artists.length > 4}
-								<Button variant="ghost" on:click={() => (activeTab = 'artists')}>View All</Button>
+								<Button variant="ghost" onclick={() => (activeTab = 'artists')}>View All</Button>
 							{/if}
 						</div>
 
@@ -172,7 +172,7 @@
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-semibold">Albums</h2>
 							{#if data.results.albums.length > 4}
-								<Button variant="ghost" on:click={() => (activeTab = 'albums')}>View All</Button>
+								<Button variant="ghost" onclick={() => (activeTab = 'albums')}>View All</Button>
 							{/if}
 						</div>
 
