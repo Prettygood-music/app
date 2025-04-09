@@ -75,6 +75,7 @@
     "@inlang/paraglide-sveltekit": "^0.15.5",
     "@mysten/sui": "^1.24.0",
     "@prettygood/database": "workspace:*",
+    "@storybook/addon-themes": "^8.6.12",
     "@supabase/postgrest-js": "^1.19.3",
     "hono": "^4.7.2",
     "jose": "^6.0.10",

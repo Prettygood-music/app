@@ -1,24 +1,32 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
+	import type { Snippet } from 'svelte';
 
-	let { 
-		title, 
-		value, 
-		trend, 
-		icon = undefined,
-		subtitle = undefined,
+	let {
+		title,
+		value,
+		trend,
+		icon,
+		subtitle,
 		showDetails = false
+	}: {
+		icon: Snippet;
+		title: string;
+		value: number | string;
+		trend: string;
+		subtitle: string;
+		showDetails: boolean;
 	} = $props();
-	
+
 	const isPositive = trend.startsWith('+');
 </script>
 
-<Card.Root class={showDetails ? "min-h-[160px]" : ""}>
+<Card.Root class={showDetails ? 'min-h-[160px]' : ''}>
 	<Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
 		<div class="flex items-center gap-2">
 			{#if icon}
 				<div class="text-muted-foreground">
-					{@html icon}
+					{@render icon()}
 				</div>
 			{/if}
 			<Card.Title class="text-sm font-medium">{title}</Card.Title>
@@ -60,18 +68,18 @@
 		<p class="text-muted-foreground text-xs">
 			{trend} from last period
 		</p>
-		
+
 		{#if subtitle}
-			<p class="text-muted-foreground text-xs mt-1">{subtitle}</p>
+			<p class="text-muted-foreground mt-1 text-xs">{subtitle}</p>
 		{/if}
-		
+
 		{#if showDetails}
-			<div class="mt-4 pt-4 border-t border-border">
+			<div class="border-border mt-4 border-t pt-4">
 				<div class="flex justify-between text-xs">
 					<span class="text-muted-foreground">Last week</span>
 					<span>1,087</span>
 				</div>
-				<div class="flex justify-between text-xs mt-1">
+				<div class="mt-1 flex justify-between text-xs">
 					<span class="text-muted-foreground">Last month</span>
 					<span>4,352</span>
 				</div>

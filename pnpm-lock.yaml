@@ -35,6 +35,9 @@ importers:
       '@prettygood/database':
         specifier: workspace:*
         version: link:../database
+      '@storybook/addon-themes':
+        specifier: ^8.6.12
+        version: 8.6.12(storybook@8.6.12(prettier@3.5.2))
       '@supabase/postgrest-js':
         specifier: ^1.19.3
         version: 1.19.3
@@ -1113,6 +1116,11 @@ packages:
       storybook: ^0.0.0-0 || ^8.2.0 || ^9.0.0-0
       svelte: ^5.0.0
       vite: ^5.0.0 || ^6.0.0
+
+  '@storybook/addon-themes@8.6.12':
+    resolution: {integrity: sha512-eqE40MUKTz9lLEOusXjRuDC7DwCSIwlgEnlbvhhEEme8IeKf2di6yvlhenY4nn5QfkUwY1POnZxfJ2OpXj0gqQ==}
+    peerDependencies:
+      storybook: ^8.6.12
 
   '@storybook/addon-toolbars@8.6.12':
     resolution: {integrity: sha512-HEcSzo1DyFtIu5/ikVOmh5h85C1IvK9iFKSzBR6ice33zBOaehVJK+Z5f487MOXxPsZ63uvWUytwPyViGInj+g==}
@@ -5425,6 +5433,11 @@ snapshots:
       zimmerframe: 1.1.2
     transitivePeerDependencies:
       - babel-plugin-macros
+
+  '@storybook/addon-themes@8.6.12(storybook@8.6.12(prettier@3.5.2))':
+    dependencies:
+      storybook: 8.6.12(prettier@3.5.2)
+      ts-dedent: 2.2.0
 
   '@storybook/addon-toolbars@8.6.12(storybook@8.6.12(prettier@3.5.2))':
     dependencies:
