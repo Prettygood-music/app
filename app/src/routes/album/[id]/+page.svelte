@@ -1,268 +1,52 @@
 <script lang="ts">
-	import { TrackItem } from '$lib/components/music';
-	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
-	import { Button } from '$lib/components/ui/button';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Separator } from '$lib/components/ui/separator';
-
-	import PlayIcon from 'lucide-svelte/icons/play';
-	import PauseIcon from 'lucide-svelte/icons/pause';
-	import HeartIcon from 'lucide-svelte/icons/heart';
-	import ShareIcon from 'lucide-svelte/icons/share-2';
-	import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
-	import CalendarIcon from 'lucide-svelte/icons/calendar';
-	import MusicIcon from 'lucide-svelte/icons/music';
-	import ClockIcon from 'lucide-svelte/icons/clock';
-	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
-
+	import AlbumDetailTemplate from '$lib/components/app/templates/AlbumDetailTemplate/AlbumDetailTemplate.svelte';
+	
 	// Page data from load function
 	let { data } = $props();
-
-	// Using Svelte 5 runes for state management
+	
+	// Initial state
 	let isPlaying = $state(false);
 	let isLiked = $state(false);
-	let totalDuration = $derived(data.tracks.reduce((total, track) => total + track.duration, 0));
-
-	// Function to format date in human-readable format
-	function formatDate(dateString: string): string {
-		const date = new Date(dateString);
-		return new Intl.DateTimeFormat('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		}).format(date);
-	}
-
-	// Function to format total duration in hours and minutes
-	function formatTotalDuration(seconds: number): string {
-		const hours = Math.floor(seconds / 3600);
-		const minutes = Math.floor((seconds % 3600) / 60);
-
-		if (hours > 0) {
-			return `${hours} hr ${minutes} min`;
-		} else {
-			return `${minutes} min`;
-		}
-	}
-
-	// Handle play/pause for the whole album
-	function togglePlay() {
-		isPlaying = !isPlaying;
+	
+	// Event handlers
+	function handleTogglePlay(playing, album) {
+		console.log(`${playing ? 'Playing' : 'Paused'} album: ${album.title}`);
 		// In a real app, this would trigger the audio player
-		console.log(`${isPlaying ? 'Playing' : 'Paused'} album: ${data.album.title}`);
 	}
-
-	// Handle shuffle play
-	function shufflePlay() {
-		console.log(`Shuffle playing album: ${data.album.title}`);
+	
+	function handleShufflePlay(album) {
+		console.log(`Shuffle playing album: ${album.title}`);
 		isPlaying = true;
 	}
-
-	// Handle like
-	function toggleLike() {
-		isLiked = !isLiked;
-		console.log(`${isLiked ? 'Liked' : 'Unliked'} album: ${data.album.title}`);
+	
+	function handleToggleLike(liked, album) {
+		console.log(`${liked ? 'Liked' : 'Unliked'} album: ${album.title}`);
+		// In a real app, this would update the database
 	}
-
-	// Handle share
-	function shareAlbum() {
-		console.log(`Sharing album: ${data.album.title}`);
+	
+	function handleShare(album) {
+		console.log(`Sharing album: ${album.title}`);
+		// Implement share functionality, e.g., using Web Share API
 	}
-
-	// Handle more options
-	function showMoreOptions() {
-		console.log(`Showing more options for album: ${data.album.title}`);
+	
+	function handleMoreOptions(album) {
+		console.log(`Showing more options for album: ${album.title}`);
+		// In a real app, this would open a context menu or modal
 	}
 </script>
 
-<svelte:head>
-	<title>{data.album.title} by {data.artist?.artist_name} | prettygood.music</title>
-	<meta
-		name="description"
-		content="Listen to {data.album.title} by {data.artist.artist_name} on prettygood.music"
-	/>
-</svelte:head>
-
-<div class=" overflow-y-auto">
-	<div class="container mx-auto px-4 py-8">
-		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
-			<!-- Album Artwork and Primary Actions -->
-			<div class="flex flex-col items-center lg:items-start">
-				<div class="mb-6 overflow-hidden rounded-lg shadow-xl">
-					<img
-						src={data.album.cover_url || '/images/default-album.jpg'}
-						alt={data.album.title}
-						class="aspect-square h-64 w-64 object-cover sm:h-80 sm:w-80"
-					/>
-				</div>
-
-				<div class="mb-6 w-full text-center lg:text-left">
-					<h1 class="mb-1 text-2xl font-bold md:text-3xl">{data.album.title}</h1>
-					<div class="flex flex-col items-center lg:flex-row lg:items-center lg:gap-2">
-						<a href="/artist/{data.artist.id}" class="text-primary text-lg hover:underline">
-							{data.artist.artist_name}
-						</a>
-						<div class="text-muted-foreground hidden lg:block">•</div>
-						<div class="text-muted-foreground mt-1 flex items-center gap-2 text-sm lg:mt-0">
-							<CalendarIcon class="h-4 w-4" />
-							<span>{formatDate(data.album.release_date)}</span>
-						</div>
-					</div>
-
-					<div
-						class="text-muted-foreground mt-2 flex items-center justify-center gap-3 text-sm lg:justify-start"
-					>
-						<div class="flex items-center gap-1">
-							<MusicIcon class="h-4 w-4" />
-							<span>{data.album.tracks.length} tracks</span>
-						</div>
-						<div>•</div>
-						<div class="flex items-center gap-1">
-							<ClockIcon class="h-4 w-4" />
-							<span>{formatTotalDuration(totalDuration)}</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="mb-8 flex w-full items-center justify-center space-x-4 lg:justify-start">
-					<Button
-						variant="default"
-						size="lg"
-						class="flex h-14 w-14 items-center justify-center rounded-full p-0"
-						onclick={togglePlay}
-					>
-						{#if isPlaying}
-							<PauseIcon class="h-6 w-6" />
-						{:else}
-							<PlayIcon class="ml-1 h-6 w-6" />
-						{/if}
-					</Button>
-
-					<Button variant="outline" size="sm" class="gap-2" onclick={shufflePlay}>
-						<ShuffleIcon class="h-4 w-4" />
-						Shuffle
-					</Button>
-
-					<Button
-						variant={isLiked ? 'default' : 'ghost'}
-						size="icon"
-						class="rounded-full"
-						onclick={toggleLike}
-					>
-						<HeartIcon class="h-5 w-5" />
-					</Button>
-
-					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareAlbum}>
-						<ShareIcon class="h-5 w-5" />
-					</Button>
-
-					<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
-						<MoreHorizontalIcon class="h-5 w-5" />
-					</Button>
-				</div>
-
-				<!-- Album Release Information -->
-				<div class="bg-muted/30 w-full rounded-md p-4">
-					<h3 class="mb-2 font-medium">About this album</h3>
-					<div class="grid gap-2 text-sm">
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Released</span>
-							<span>{formatDate(data.album.release_date)}</span>
-						</div>
-
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Tracks</span>
-							<span>{data.album.tracks.length}</span>
-						</div>
-
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Duration</span>
-							<span>{formatTotalDuration(totalDuration)}</span>
-						</div>
-
-						<div class="flex items-center justify-between">
-							<span class="text-muted-foreground">Label</span>
-							<span>Bytecode Records</span>
-						</div>
-
-						{#if data.album.genre && data.album.genre.length > 0}
-							<div class="mt-2 flex flex-wrap gap-2">
-								{#each data.album.genre as genre}
-									<Badge variant="secondary" class="text-xs">{genre}</Badge>
-								{/each}
-							</div>
-						{/if}
-					</div>
-				</div>
-			</div>
-
-			<!-- Track List and Artist Info -->
-			<div class="lg:col-span-2">
-				<!-- Track List -->
-				<div class="mb-8">
-					<h2 class="mb-4 text-xl font-bold">Tracks</h2>
-					<div class="space-y-1">
-						{#each data.tracks as track, i}
-							<TrackItem {track} index={i} />
-						{/each}
-					</div>
-				</div>
-
-				<Separator class="my-8" />
-
-				<!-- Artist Section -->
-				<div>
-					<h2 class="mb-4 text-xl font-bold">Artist</h2>
-					<a
-						href="/artist/{data.artist.id}"
-						class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
-					>
-						<Avatar class="h-16 w-16">
-							<AvatarImage src={data.artist.avatar_url || ''} alt={data.artist.artist_name} />
-							<AvatarFallback>{data.artist.artist_name.substring(0, 2)}</AvatarFallback>
-						</Avatar>
-						<div>
-							<h4 class="group-hover:text-primary font-medium group-hover:underline">
-								{data.artist.artist_name}
-							</h4>
-							{#if data.artist.bio}
-								<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
-									{data.artist.bio}
-								</p>
-							{/if}
-						</div>
-					</a>
-				</div>
-
-				<!-- More Albums by Artist -->
-				{#if data.relatedAlbums && data.relatedAlbums.length > 0}
-					<div class="mt-8">
-						<h2 class="mb-4 text-xl font-bold">More from {data.artist.artist_name}</h2>
-						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-							{#each data.relatedAlbums as relatedAlbum}
-								<a href="/album/{relatedAlbum.id}" class="group">
-									<div class="overflow-hidden rounded-md">
-										<img
-											src={relatedAlbum.cover_url || '/images/default-album.jpg'}
-											alt={relatedAlbum.title}
-											class="aspect-square w-full object-cover transition-transform group-hover:scale-105"
-										/>
-									</div>
-									<div class="mt-2">
-										<h3 class="group-hover:text-primary font-medium group-hover:underline">
-											{relatedAlbum.title}
-										</h3>
-										<p class="text-muted-foreground text-xs">
-											{new Date(relatedAlbum.release_date).getFullYear()} • {relatedAlbum.tracks.length}
-											tracks
-										</p>
-									</div>
-								</a>
-							{/each}
-						</div>
-					</div>
-				{/if}
-			</div>
-		</div>
-	</div>
-</div>
+<AlbumDetailTemplate 
+	album={data.album}
+	artist={data.artist}
+	tracks={data.tracks}
+	relatedAlbums={data.relatedAlbums}
+	initialIsPlaying={isPlaying}
+	initialIsLiked={isLiked}
+	onTogglePlay={handleTogglePlay}
+	onShufflePlay={handleShufflePlay}
+	onToggleLike={handleToggleLike}
+	onShare={handleShare}
+	onMoreOptions={handleMoreOptions}
+	pageTitle={`${data.album.title} by ${data.artist?.artist_name} | prettygood.music`}
+	pageDescription={`Listen to ${data.album.title} by ${data.artist.artist_name} on prettygood.music`}
+/>
