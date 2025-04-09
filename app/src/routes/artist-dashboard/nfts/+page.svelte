@@ -3,21 +3,21 @@
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { Label } from "$lib/components/ui/label";
-  import { toast } from "$lib/components/ui/sonner";
+  import {  Toaster } from "$lib/components/ui/sonner";
   
   let email = $state('');
   let isSubmitting = $state(false);
   
   async function handleSubmit() {
     if (!email) {
-      toast.error("Please enter your email address");
+      Toaster.error("Please enter your email address");
       return;
     }
     
     // Simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      toast.error("Please enter a valid email address");
+      Toaster.error("Please enter a valid email address");
       return;
     }
     
@@ -28,10 +28,10 @@
       // Simulating API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      toast.success("You'll be notified when NFT features are available!");
+      Toaster.success("You'll be notified when NFT features are available!");
       email = '';
     } catch (error) {
-      toast.error("Something went wrong. Please try again.");
+      Toaster.error("Something went wrong. Please try again.");
       console.error(error);
     } finally {
       isSubmitting = false;
