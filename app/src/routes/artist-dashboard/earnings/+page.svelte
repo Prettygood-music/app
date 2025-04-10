@@ -9,7 +9,6 @@
 	} from '$lib/components/ui/card';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import { Button } from '$lib/components/ui/button';
-	//import { Select, SelectContent, Select.Item, SelectTrigger, SelectValue } from "$lib/components/ui/select";
 	import * as Select from '$lib/components/ui/select';
 
 	import EarningsOverview from './components/EarningsOverview.svelte';
@@ -34,20 +33,6 @@
 		</div>
 
 		<div class="flex flex-col gap-2 sm:flex-row">
-			<!-- 
-			<Select value={timeFrame} onValueChange={(value) => (timeFrame = value)}>
-				<SelectTrigger class="w-[180px]">
-					<SelectValue placeholder="Select timeframe" />
-				</SelectTrigger>
-				<SelectContent>
-					<Select.Item value="week">Last 7 days</Select.Item>
-					<Select.Item value="month">Last 30 days</Select.Item>
-					<Select.Item value="quarter">Last 90 days</Select.Item>
-					<Select.Item value="year">Last year</Select.Item>
-					<Select.Item value="alltime">All time</Select.Item>
-				</SelectContent>
-			</Select>
- -->
 			<Select.Root type="single" value={timeFrame} onValueChange={(value) => (timeFrame = value)}>
 				<Select.Trigger class="w-[180px]">Select timeframe</Select.Trigger>
 				<Select.Content>

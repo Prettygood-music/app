@@ -2,6 +2,7 @@
 	import { i18n } from '$lib/i18n';
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
+	import { Toaster } from '$lib/components/ui/sonner';
 
 	import { browser } from '$app/environment';
 	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
@@ -33,8 +34,7 @@
 			duration: 200,
 			genre: ['electronic', 'heavy metal'],
 			album_id: null,
-			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b',
-
+			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b'
 		};
 
 		//playerState.currentTrack = track;
@@ -55,9 +55,12 @@
 		});
 	});
 </script>
+
 <Seo></Seo>
 
 <ParaglideJS {i18n}>
+	<Toaster />
+
 	<div class="bg-background flex h-screen flex-col" id="content">
 		<Navbar />
 		<main class="flex flex-1 flex-col overflow-y-hidden">
