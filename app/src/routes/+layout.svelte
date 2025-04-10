@@ -32,10 +32,11 @@
 			duration: 200,
 			genre: ['electronic', 'heavy metal'],
 			album_id: null,
-			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b'
+			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b',
+
 		};
 
-		playerState.currentTrack = track;
+		//playerState.currentTrack = track;
 		//playerState.playTrack(track);
 		setPlayerContext(playerState);
 	}

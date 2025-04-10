@@ -31,7 +31,7 @@ export class PlayerState {
 
 	// Player settings
 	settings = $state<PlayerSettings>({
-		volume: 0.8,
+		volume: 0.2,
 		muted: false,
 		repeat: 'off',
 		shuffle: false,
@@ -49,6 +49,10 @@ export class PlayerState {
 	constructor() {
 		const audio = new Audio();
 		this.setAudioElement(audio);
+
+		$effect(() => {
+			audio.volume = this.settings.volume;
+		});
 	}
 
 	setAudioElement(element: HTMLAudioElement) {
