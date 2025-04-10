@@ -40,5 +40,5 @@ jobs:
             pnpm --version
             nvm use || nvm install $(cat .nvmrc)
             pnpm install --frozen-lockfile
-            pnpm run build
+            pnpm run build:app
             pm2 reload prettygood || pm2 start server.js --name prettygood
