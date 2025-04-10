@@ -26,15 +26,12 @@
 			id: '1',
 			title: 'Song name desu',
 			artist_id: 'john-fella',
-			artist_name: 'John Fella',
-			playback_url: '/media/audio/placeholder.mp3',
+			//artist_name: 'John Fella',
+			audio_url: '/media/audio/placeholder.mp3',
 			// TODO: we need to store the actual duration of the song somewhere
 			duration: 200,
-			genres: ['electronic', 'heavy metal'],
-			play_count: 10,
-			published_at: '2023-01-01T00:00:00Z',
+			genre: ['electronic', 'heavy metal'],
 			album_id: null,
-			album_name: 'Meteora',
 			cover_url: 'https://i.scdn.co/image/ab67616d000048515f1f51d14e8bea89484ecd1b'
 		};
 

@@ -32,7 +32,8 @@
 						href="/artist/{currentTrack.artist_id}"
 						class="text-muted-foreground mt-0.5 text-xs hover:underline"
 					>
-						{currentTrack.artist_name}
+						{currentTrack.artist_id}
+						 <!-- {currentTrack.audio_url} -->
 					</a>
 				</div>
 			</div>
