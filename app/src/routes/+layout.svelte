@@ -15,6 +15,7 @@
 	import { onNavigate } from '$app/navigation';
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
+	import Seo from '$lib/components/app/organisms/player-bar/seo.svelte';
 
 	let { children } = $props();
 
@@ -54,6 +55,7 @@
 		});
 	});
 </script>
+<Seo></Seo>
 
 <ParaglideJS {i18n}>
 	<div class="bg-background flex h-screen flex-col" id="content">
