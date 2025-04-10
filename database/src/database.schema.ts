@@ -1145,6 +1145,39 @@ export const prettygoodCreatePlaylistReturnsSchemaSchema = z.object({
   user_id: z.string(),
 });
 
+export const prettygoodCreateTrackArgsSchemaSchema = z.object({
+  title: z.string(),
+  artist_id: z.string(),
+  duration: z.number(),
+  audio_url: z.string(),
+  album_id: z.string().optional(),
+  cover_url: z.string().optional(),
+  track_number: z.number().optional(),
+  lyrics: z.string().optional(),
+  genre: z.array(z.string()).optional(),
+  explicit: z.boolean().optional(),
+  release_date: z.string().optional(),
+  isrc: z.string().optional(),
+});
+
+export const prettygoodCreateTrackReturnsSchemaSchema = z.object({
+  album_id: z.string().nullable(),
+  artist_id: z.string(),
+  audio_url: z.string(),
+  cover_url: z.string().nullable(),
+  created_at: z.string(),
+  duration: z.number(),
+  explicit: z.boolean().nullable(),
+  genre: z.array(z.string()),
+  id: z.string(),
+  isrc: z.string().nullable(),
+  lyrics: z.string().nullable(),
+  release_date: z.string().nullable(),
+  title: z.string(),
+  track_number: z.number().nullable(),
+  updated_at: z.string(),
+});
+
 export const prettygoodDearmorArgsSchemaSchema = z.object({
   "": z.string(),
 });

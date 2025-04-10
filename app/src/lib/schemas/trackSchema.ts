@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const trackCreationSchema = z.object({
   title: z.string().min(1, "Title is required"),
   // Duration will be extracted from the file itself
-  album_id: z.string().uuid().optional(),
+  album_id: z.string().optional().nullable(),
   track_number: z.number().int().positive().optional().nullable(),
   genre: z.array(z.string()).default([]),
   explicit: z.boolean().default(false),

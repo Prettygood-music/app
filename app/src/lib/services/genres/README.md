@@ -77,7 +77,7 @@ Data is fetched using the `@prettygood/database` package which provides a client
 import { createClient } from '@prettygood/database';
 
 // Create client instance
-const db = getClient();
+const db = createClient();
 
 // Fetch all genres
 const getAllGenres = async () => {

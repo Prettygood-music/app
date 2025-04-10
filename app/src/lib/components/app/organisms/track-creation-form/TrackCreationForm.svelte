@@ -226,7 +226,12 @@
 					{#snippet children({ props })}
 						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
 
-						<Select.Root type="single" disabled={albums.length === 0} bind:value={$formData.album_id} name={props.name}>
+						<Select.Root
+							type="single"
+							disabled={albums.length === 0}
+							bind:value={$formData.album_id}
+							name={props.name}
+						>
 							<Select.Trigger {...props}>
 								{$formData.album_id ? $formData.album_id : 'Select Album'}
 							</Select.Trigger>
@@ -236,7 +241,6 @@
 								{/each}
 							</Select.Content>
 						</Select.Root>
-						
 					{/snippet}
 				</Form.Control>
 				<Form.FieldErrors />

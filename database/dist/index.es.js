@@ -902,22 +902,51 @@ const t = e.lazy(
   updated_at: e.string(),
   user_id: e.string()
 }), _t = e.object({
+  title: e.string(),
+  artist_id: e.string(),
+  duration: e.number(),
+  audio_url: e.string(),
+  album_id: e.string().optional(),
+  cover_url: e.string().optional(),
+  track_number: e.number().optional(),
+  lyrics: e.string().optional(),
+  genre: e.array(e.string()).optional(),
+  explicit: e.boolean().optional(),
+  release_date: e.string().optional(),
+  isrc: e.string().optional()
+}), bt = e.object({
+  album_id: e.string().nullable(),
+  artist_id: e.string(),
+  audio_url: e.string(),
+  cover_url: e.string().nullable(),
+  created_at: e.string(),
+  duration: e.number(),
+  explicit: e.boolean().nullable(),
+  genre: e.array(e.string()),
+  id: e.string(),
+  isrc: e.string().nullable(),
+  lyrics: e.string().nullable(),
+  release_date: e.string().nullable(),
+  title: e.string(),
+  track_number: e.number().nullable(),
+  updated_at: e.string()
+}), yt = e.object({
   "": e.string()
-}), bt = e.string(), yt = e.object({}), ht = t, St = e.object({
+}), ht = e.string(), St = e.object({}), ft = t, kt = e.object({
   token: e.string()
-}), ft = t, kt = e.object({
+}), jt = t, Rt = e.object({
   "": e.number()
-}), jt = e.string(), Rt = e.object({}), At = e.string(), Tt = e.object({
+}), At = e.string(), Tt = e.object({}), Pt = e.string(), Gt = e.object({
   "": e.string()
-}), Pt = e.string(), Gt = e.object({
-  wallet_address: e.string()
 }), Ot = e.string(), Ct = e.object({
+  wallet_address: e.string()
+}), wt = e.string(), Ut = e.object({
   album_id: e.string()
-}), wt = e.number(), Ut = e.object({
+}), Kt = e.number(), Nt = e.object({
   p_genre_id: e.string(),
   p_limit: e.number().optional(),
   p_offset: e.number().optional()
-}), Kt = e.array(
+}), vt = e.array(
   e.object({
     artist_id: e.string(),
     cover_url: e.string().nullable(),
@@ -930,11 +959,11 @@ const t = e.lazy(
     type: e.string().nullable(),
     updated_at: e.string()
   })
-), Nt = e.object({
+), It = e.object({
   artist_id: e.string()
-}), vt = e.number(), It = e.object({
+}), Lt = e.number(), Bt = e.object({
   artist_id: e.string()
-}), Lt = e.array(
+}), Ft = e.array(
   e.object({
     total_payments: e.number(),
     total_amount: e.number(),
@@ -942,15 +971,15 @@ const t = e.lazy(
     payment_type: e.string(),
     month_year: e.string()
   })
-), Bt = e.object({
-  artist_id: e.string()
-}), Ft = e.number(), xt = e.object({
+), xt = e.object({
   artist_id: e.string()
 }), qt = e.number(), Et = e.object({
+  artist_id: e.string()
+}), Vt = e.number(), Ht = e.object({
   p_genre_id: e.string(),
   p_limit: e.number().optional(),
   p_offset: e.number().optional()
-}), Vt = e.array(
+}), zt = e.array(
   e.object({
     artist_name: e.string(),
     bio: e.string().nullable(),
@@ -963,90 +992,90 @@ const t = e.lazy(
     verified: e.boolean().nullable(),
     website: e.string().nullable()
   })
-), Ht = e.object({
-  artist_id: e.string(),
-  start_date: e.string(),
-  end_date: e.string()
-}), zt = e.array(
-  e.object({
-    payment_type: e.string(),
-    amount: e.number()
-  })
 ), Dt = e.object({
   artist_id: e.string(),
   start_date: e.string(),
-  end_date: e.string(),
-  time_format: e.string()
+  end_date: e.string()
 }), Wt = e.array(
   e.object({
-    period: e.string(),
+    payment_type: e.string(),
     amount: e.number()
   })
 ), Jt = e.object({
   artist_id: e.string(),
   start_date: e.string(),
+  end_date: e.string(),
+  time_format: e.string()
+}), Mt = e.array(
+  e.object({
+    period: e.string(),
+    amount: e.number()
+  })
+), Qt = e.object({
+  artist_id: e.string(),
+  start_date: e.string(),
   end_date: e.string()
-}), Mt = e.number(), Qt = e.object({
+}), Xt = e.number(), Yt = e.object({
   artist_id: e.string(),
   start_date: e.string(),
   end_date: e.string(),
   time_format: e.string()
-}), Xt = e.array(
+}), Zt = e.array(
   e.object({
     period: e.string(),
     count: e.number()
   })
-), Yt = e.object({
+), $t = e.object({
   artist_id: e.string(),
   start_date: e.string(),
   end_date: e.string()
-}), Zt = e.number(), $t = e.object({
-  track_ids: e.array(e.string()),
-  start_date: e.string(),
-  end_date: e.string()
-}), er = e.array(
-  e.object({
-    avg_duration: e.number(),
-    completed_count: e.number(),
-    total_count: e.number()
-  })
-), tr = e.object({
+}), er = e.number(), tr = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
   end_date: e.string()
 }), rr = e.array(
   e.object({
-    country_code: e.string(),
-    play_count: e.number()
+    avg_duration: e.number(),
+    completed_count: e.number(),
+    total_count: e.number()
   })
 ), ar = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
-  end_date: e.string(),
-  time_format: e.string()
+  end_date: e.string()
 }), nr = e.array(
   e.object({
-    period: e.string(),
-    count: e.number()
+    country_code: e.string(),
+    play_count: e.number()
   })
 ), lr = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
-  end_date: e.string()
+  end_date: e.string(),
+  time_format: e.string()
 }), ir = e.array(
+  e.object({
+    period: e.string(),
+    count: e.number()
+  })
+), or = e.object({
+  track_ids: e.array(e.string()),
+  start_date: e.string(),
+  end_date: e.string()
+}), sr = e.array(
   e.object({
     source: e.string(),
     count: e.number()
   })
-), or = e.object({
+), cr = e.object({
   artist_id: e.string(),
   start_date: e.string(),
   end_date: e.string()
-}), sr = e.number(), cr = e.object({
+}), dr = e.number(), gr = e.object({
   p_start_date: e.string(),
   p_end_date: e.string(),
   p_limit: e.number().optional()
-}), dr = e.array(
+}), ur = e.array(
   e.object({
     color: e.string().nullable(),
     created_at: e.string(),
@@ -1058,41 +1087,41 @@ const t = e.lazy(
     slug: e.string().nullable(),
     updated_at: e.string()
   })
-), gr = e.object({
+), pr = e.object({
   artist_id: e.string(),
   start_date: e.string().optional(),
   limit_count: e.number().optional()
-}), ur = e.array(
+}), mr = e.array(
   e.object({
     added_at: e.string(),
     user_id: e.string(),
     username: e.string()
   })
-), pr = e.object({
+), _r = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string().optional(),
   limit_count: e.number().optional()
-}), mr = e.array(
+}), br = e.array(
   e.object({
     played_at: e.string(),
     track_id: e.string(),
     track_title: e.string(),
     username: e.string()
   })
-), _r = e.object({
+), yr = e.object({
   artist_id: e.string(),
   start_date: e.string().optional(),
   limit_count: e.number().optional()
-}), br = e.array(
+}), hr = e.array(
   e.object({
     created_at: e.string(),
     amount: e.number(),
     username: e.string()
   })
-), yr = e.object({
+), Sr = e.object({
   artist_id: e.string(),
   limit_count: e.number().optional()
-}), hr = e.array(
+}), fr = e.array(
   e.object({
     id: e.string(),
     created_at: e.string(),
@@ -1101,9 +1130,9 @@ const t = e.lazy(
     sender_id: e.string(),
     username: e.string()
   })
-), Sr = e.object({
+), kr = e.object({
   limit_count: e.number().optional()
-}), fr = e.array(
+}), jr = e.array(
   e.object({
     album_id: e.string().nullable(),
     artist_id: e.string(),
@@ -1121,10 +1150,10 @@ const t = e.lazy(
     track_number: e.number().nullable(),
     updated_at: e.string()
   })
-), kr = e.object({
+), Rr = e.object({
   p_genre_id: e.string(),
   p_limit: e.number().optional()
-}), jr = e.array(
+}), Ar = e.array(
   e.object({
     color: e.string().nullable(),
     created_at: e.string(),
@@ -1136,43 +1165,43 @@ const t = e.lazy(
     slug: e.string().nullable(),
     updated_at: e.string()
   })
-), Rr = e.object({
+), Tr = e.object({
   track_id: e.string()
-}), Ar = e.number(), Tr = e.object({
+}), Pr = e.number(), Gr = e.object({
   track_id: e.string(),
   start_date: e.string(),
   end_date: e.string()
-}), Pr = e.number(), Gr = e.object({
+}), Or = e.number(), Cr = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string().optional(),
   end_date: e.string().optional()
-}), Or = e.array(
+}), wr = e.array(
   e.object({
     track_id: e.string(),
     count: e.number()
   })
-), Cr = e.object({
+), Ur = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
   end_date: e.string()
-}), wr = e.number(), Ur = e.object({
+}), Kr = e.number(), Nr = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
   end_date: e.string()
-}), Kr = e.array(
+}), vr = e.array(
   e.object({
     track_id: e.string(),
     count: e.number()
   })
-), Nr = e.object({
+), Ir = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string(),
   end_date: e.string()
-}), vr = e.number(), Ir = e.object({
+}), Lr = e.number(), Br = e.object({
   p_genre_id: e.string(),
   p_limit: e.number().optional(),
   p_offset: e.number().optional()
-}), Lr = e.array(
+}), Fr = e.array(
   e.object({
     album_id: e.string().nullable(),
     artist_id: e.string(),
@@ -1190,50 +1219,31 @@ const t = e.lazy(
     track_number: e.number().nullable(),
     updated_at: e.string()
   })
-), Br = e.object({
+), xr = e.object({
   track_ids: e.array(e.string()),
   start_date: e.string().optional(),
   end_date: e.string().optional()
-}), Fr = e.number(), xr = e.object({
+}), qr = e.number(), Er = e.object({
   "": e.string()
-}), qr = e.array(
+}), Vr = e.array(
   e.record(e.unknown())
-), Er = e.object({
+), Hr = e.object({
   "": e.string()
-}), Vr = e.string(), Hr = e.object({
+}), zr = e.string(), Dr = e.object({
   track_id: e.string(),
   play_duration: e.number().optional(),
   completed: e.boolean().optional(),
   source: e.string().optional(),
   context_id: e.string().optional()
-}), zr = e.undefined(), Dr = e.object({
-  query: e.string()
 }), Wr = e.undefined(), Jr = e.object({
-  current_token: e.string()
-}), Mr = e.string(), Qr = e.object({
+  query: e.string()
+}), Mr = e.undefined(), Qr = e.object({
   current_token: e.string()
 }), Xr = e.string(), Yr = e.object({
   current_token: e.string()
 }), Zr = e.string(), $r = e.object({
-  artist_name: e.string(),
-  bio: e.string().optional(),
-  genre: e.array(e.string()).optional(),
-  location: e.string().optional(),
-  website: e.string().optional(),
-  social_links: t.optional()
-}), ea = e.object({
-  artist_name: e.string(),
-  bio: e.string().nullable(),
-  created_at: e.string(),
-  genre: e.array(e.string()).nullable(),
-  id: e.string(),
-  location: e.string().nullable(),
-  social_links: t.nullable(),
-  updated_at: e.string(),
-  verified: e.boolean().nullable(),
-  website: e.string().nullable()
-}), ta = e.object({
-  user_id: e.string(),
+  current_token: e.string()
+}), ea = e.string(), ta = e.object({
   artist_name: e.string(),
   bio: e.string().optional(),
   genre: e.array(e.string()).optional(),
@@ -1252,24 +1262,43 @@ const t = e.lazy(
   verified: e.boolean().nullable(),
   website: e.string().nullable()
 }), aa = e.object({
+  user_id: e.string(),
+  artist_name: e.string(),
+  bio: e.string().optional(),
+  genre: e.array(e.string()).optional(),
+  location: e.string().optional(),
+  website: e.string().optional(),
+  social_links: t.optional()
+}), na = e.object({
+  artist_name: e.string(),
+  bio: e.string().nullable(),
+  created_at: e.string(),
+  genre: e.array(e.string()).nullable(),
+  id: e.string(),
+  location: e.string().nullable(),
+  social_links: t.nullable(),
+  updated_at: e.string(),
+  verified: e.boolean().nullable(),
+  website: e.string().nullable()
+}), la = e.object({
   _username: e.string(),
   _email: e.string(),
   _password: e.string(),
   _display_name: e.string().optional(),
   _wallet_address: e.string().optional()
-}), na = t, la = e.object({
+}), ia = t, oa = e.object({
   _email: e.string()
-}), ia = e.string(), oa = e.object({
+}), sa = e.string(), ca = e.object({
   _reset_token: e.string(),
   _new_password: e.string()
-}), sa = e.boolean(), ca = e.object({
+}), da = e.boolean(), ga = e.object({
   artist_id: e.string(),
   amount: e.number(),
   transaction_hash: e.string(),
   track_id: e.string().optional(),
   album_id: e.string().optional(),
   message: e.string().optional()
-}), da = e.object({
+}), ua = e.object({
   album_id: e.string().nullable(),
   amount: e.number(),
   created_at: e.string(),
@@ -1283,9 +1312,9 @@ const t = e.lazy(
   track_id: e.string().nullable(),
   transaction_hash: e.string().nullable(),
   updated_at: e.string()
-}), ga = e.object({
+}), pa = e.object({
   token: e.string()
-}), ua = t, pa = e.object({
+}), ma = t, _a = e.object({
   user_id: e.string(),
   artist_name: e.string().optional(),
   bio: e.string().optional(),
@@ -1293,7 +1322,7 @@ const t = e.lazy(
   location: e.string().optional(),
   website: e.string().optional(),
   social_links: t.optional()
-}), ma = e.object({
+}), ba = e.object({
   artist_name: e.string(),
   bio: e.string().nullable(),
   created_at: e.string(),
@@ -1304,24 +1333,24 @@ const t = e.lazy(
   updated_at: e.string(),
   verified: e.boolean().nullable(),
   website: e.string().nullable()
-}), _a = e.object({
+}), ya = e.object({
   _verification_token: e.string()
-}), ba = e.boolean(), ya = e.object({
+}), ha = e.boolean(), Sa = e.object({
   wallet_address: e.string(),
   signature: e.string()
-}), ha = e.string(), Sa = {
+}), fa = e.string(), ka = {
   prettygood: {
     Enums: {}
   }
 };
-function fa(r, a) {
+function ja(r, a) {
   return new n(r, {
     headers: a
   });
 }
 export {
-  Sa as Constants,
-  fa as createClient,
+  ka as Constants,
+  ja as createClient,
   t as jsonSchema,
   Ye as prettygoodAddAlbumToLibraryArgsSchemaSchema,
   Ze as prettygoodAddAlbumToLibraryReturnsSchemaSchema,
@@ -1369,95 +1398,97 @@ export {
   ut as prettygoodCreateEmailVerificationTokenReturnsSchemaSchema,
   pt as prettygoodCreatePlaylistArgsSchemaSchema,
   mt as prettygoodCreatePlaylistReturnsSchemaSchema,
-  _t as prettygoodDearmorArgsSchemaSchema,
-  bt as prettygoodDearmorReturnsSchemaSchema,
-  yt as prettygoodDebugGetJwtInfoArgsSchemaSchema,
-  ht as prettygoodDebugGetJwtInfoReturnsSchemaSchema,
-  St as prettygoodDebugVerifyTokenArgsSchemaSchema,
-  ft as prettygoodDebugVerifyTokenReturnsSchemaSchema,
-  kt as prettygoodGenRandomBytesArgsSchemaSchema,
-  jt as prettygoodGenRandomBytesReturnsSchemaSchema,
-  Rt as prettygoodGenRandomUuidArgsSchemaSchema,
-  At as prettygoodGenRandomUuidReturnsSchemaSchema,
-  Tt as prettygoodGenSaltArgsSchemaSchema,
-  Pt as prettygoodGenSaltReturnsSchemaSchema,
-  Gt as prettygoodGenerateNonceArgsSchemaSchema,
-  Ot as prettygoodGenerateNonceReturnsSchemaSchema,
+  _t as prettygoodCreateTrackArgsSchemaSchema,
+  bt as prettygoodCreateTrackReturnsSchemaSchema,
+  yt as prettygoodDearmorArgsSchemaSchema,
+  ht as prettygoodDearmorReturnsSchemaSchema,
+  St as prettygoodDebugGetJwtInfoArgsSchemaSchema,
+  ft as prettygoodDebugGetJwtInfoReturnsSchemaSchema,
+  kt as prettygoodDebugVerifyTokenArgsSchemaSchema,
+  jt as prettygoodDebugVerifyTokenReturnsSchemaSchema,
+  Rt as prettygoodGenRandomBytesArgsSchemaSchema,
+  At as prettygoodGenRandomBytesReturnsSchemaSchema,
+  Tt as prettygoodGenRandomUuidArgsSchemaSchema,
+  Pt as prettygoodGenRandomUuidReturnsSchemaSchema,
+  Gt as prettygoodGenSaltArgsSchemaSchema,
+  Ot as prettygoodGenSaltReturnsSchemaSchema,
+  Ct as prettygoodGenerateNonceArgsSchemaSchema,
+  wt as prettygoodGenerateNonceReturnsSchemaSchema,
   K as prettygoodGenresInsertSchemaSchema,
   U as prettygoodGenresRowSchemaSchema,
   N as prettygoodGenresUpdateSchemaSchema,
-  Ct as prettygoodGetAlbumPlayCountArgsSchemaSchema,
-  wt as prettygoodGetAlbumPlayCountReturnsSchemaSchema,
-  Ut as prettygoodGetAlbumsByGenreArgsSchemaSchema,
-  Kt as prettygoodGetAlbumsByGenreReturnsSchemaSchema,
-  Nt as prettygoodGetArtistFollowersCountArgsSchemaSchema,
-  vt as prettygoodGetArtistFollowersCountReturnsSchemaSchema,
-  It as prettygoodGetArtistPaymentStatsArgsSchemaSchema,
-  Lt as prettygoodGetArtistPaymentStatsReturnsSchemaSchema,
-  Bt as prettygoodGetArtistPlayCountArgsSchemaSchema,
-  Ft as prettygoodGetArtistPlayCountReturnsSchemaSchema,
-  xt as prettygoodGetArtistTotalEarningsArgsSchemaSchema,
-  qt as prettygoodGetArtistTotalEarningsReturnsSchemaSchema,
-  Et as prettygoodGetArtistsByGenreArgsSchemaSchema,
-  Vt as prettygoodGetArtistsByGenreReturnsSchemaSchema,
-  Ht as prettygoodGetEarningsByPaymentTypeArgsSchemaSchema,
-  zt as prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema,
-  Dt as prettygoodGetEarningsByPeriodArgsSchemaSchema,
-  Wt as prettygoodGetEarningsByPeriodReturnsSchemaSchema,
-  Jt as prettygoodGetEarningsForPeriodArgsSchemaSchema,
-  Mt as prettygoodGetEarningsForPeriodReturnsSchemaSchema,
-  Qt as prettygoodGetFollowersByPeriodArgsSchemaSchema,
-  Xt as prettygoodGetFollowersByPeriodReturnsSchemaSchema,
-  Yt as prettygoodGetFollowersCountForPeriodArgsSchemaSchema,
-  Zt as prettygoodGetFollowersCountForPeriodReturnsSchemaSchema,
-  $t as prettygoodGetPlayDurationStatsArgsSchemaSchema,
-  er as prettygoodGetPlayDurationStatsReturnsSchemaSchema,
-  tr as prettygoodGetPlaysByCountryArgsSchemaSchema,
-  rr as prettygoodGetPlaysByCountryReturnsSchemaSchema,
-  ar as prettygoodGetPlaysByPeriodArgsSchemaSchema,
-  nr as prettygoodGetPlaysByPeriodReturnsSchemaSchema,
-  lr as prettygoodGetPlaysBySourceArgsSchemaSchema,
-  ir as prettygoodGetPlaysBySourceReturnsSchemaSchema,
-  or as prettygoodGetPlaysForPeriodArgsSchemaSchema,
-  sr as prettygoodGetPlaysForPeriodReturnsSchemaSchema,
-  cr as prettygoodGetPopularGenresArgsSchemaSchema,
-  dr as prettygoodGetPopularGenresReturnsSchemaSchema,
-  gr as prettygoodGetRecentFollowersArgsSchemaSchema,
-  ur as prettygoodGetRecentFollowersReturnsSchemaSchema,
-  pr as prettygoodGetRecentPlaysArgsSchemaSchema,
-  mr as prettygoodGetRecentPlaysReturnsSchemaSchema,
-  _r as prettygoodGetRecentTipsArgsSchemaSchema,
-  br as prettygoodGetRecentTipsReturnsSchemaSchema,
-  yr as prettygoodGetRecentTransactionsArgsSchemaSchema,
-  hr as prettygoodGetRecentTransactionsReturnsSchemaSchema,
-  Sr as prettygoodGetRecommendationsArgsSchemaSchema,
-  fr as prettygoodGetRecommendationsReturnsSchemaSchema,
-  kr as prettygoodGetRelatedGenresArgsSchemaSchema,
-  jr as prettygoodGetRelatedGenresReturnsSchemaSchema,
-  Rr as prettygoodGetTrackPlayCountArgsSchemaSchema,
-  Tr as prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema,
-  Pr as prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema,
-  Ar as prettygoodGetTrackPlayCountReturnsSchemaSchema,
-  Gr as prettygoodGetTrackPlayCountsArgsSchemaSchema,
-  Or as prettygoodGetTrackPlayCountsReturnsSchemaSchema,
-  Cr as prettygoodGetTrackPlaylistsCountArgsSchemaSchema,
-  wr as prettygoodGetTrackPlaylistsCountReturnsSchemaSchema,
-  Ur as prettygoodGetTrackPlaysForPeriodArgsSchemaSchema,
-  Kr as prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema,
-  Nr as prettygoodGetTrackSavesCountArgsSchemaSchema,
-  vr as prettygoodGetTrackSavesCountReturnsSchemaSchema,
-  Ir as prettygoodGetTracksByGenreArgsSchemaSchema,
-  Lr as prettygoodGetTracksByGenreReturnsSchemaSchema,
-  Br as prettygoodGetTracksPlayCountArgsSchemaSchema,
-  Fr as prettygoodGetTracksPlayCountReturnsSchemaSchema,
+  Ut as prettygoodGetAlbumPlayCountArgsSchemaSchema,
+  Kt as prettygoodGetAlbumPlayCountReturnsSchemaSchema,
+  Nt as prettygoodGetAlbumsByGenreArgsSchemaSchema,
+  vt as prettygoodGetAlbumsByGenreReturnsSchemaSchema,
+  It as prettygoodGetArtistFollowersCountArgsSchemaSchema,
+  Lt as prettygoodGetArtistFollowersCountReturnsSchemaSchema,
+  Bt as prettygoodGetArtistPaymentStatsArgsSchemaSchema,
+  Ft as prettygoodGetArtistPaymentStatsReturnsSchemaSchema,
+  xt as prettygoodGetArtistPlayCountArgsSchemaSchema,
+  qt as prettygoodGetArtistPlayCountReturnsSchemaSchema,
+  Et as prettygoodGetArtistTotalEarningsArgsSchemaSchema,
+  Vt as prettygoodGetArtistTotalEarningsReturnsSchemaSchema,
+  Ht as prettygoodGetArtistsByGenreArgsSchemaSchema,
+  zt as prettygoodGetArtistsByGenreReturnsSchemaSchema,
+  Dt as prettygoodGetEarningsByPaymentTypeArgsSchemaSchema,
+  Wt as prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema,
+  Jt as prettygoodGetEarningsByPeriodArgsSchemaSchema,
+  Mt as prettygoodGetEarningsByPeriodReturnsSchemaSchema,
+  Qt as prettygoodGetEarningsForPeriodArgsSchemaSchema,
+  Xt as prettygoodGetEarningsForPeriodReturnsSchemaSchema,
+  Yt as prettygoodGetFollowersByPeriodArgsSchemaSchema,
+  Zt as prettygoodGetFollowersByPeriodReturnsSchemaSchema,
+  $t as prettygoodGetFollowersCountForPeriodArgsSchemaSchema,
+  er as prettygoodGetFollowersCountForPeriodReturnsSchemaSchema,
+  tr as prettygoodGetPlayDurationStatsArgsSchemaSchema,
+  rr as prettygoodGetPlayDurationStatsReturnsSchemaSchema,
+  ar as prettygoodGetPlaysByCountryArgsSchemaSchema,
+  nr as prettygoodGetPlaysByCountryReturnsSchemaSchema,
+  lr as prettygoodGetPlaysByPeriodArgsSchemaSchema,
+  ir as prettygoodGetPlaysByPeriodReturnsSchemaSchema,
+  or as prettygoodGetPlaysBySourceArgsSchemaSchema,
+  sr as prettygoodGetPlaysBySourceReturnsSchemaSchema,
+  cr as prettygoodGetPlaysForPeriodArgsSchemaSchema,
+  dr as prettygoodGetPlaysForPeriodReturnsSchemaSchema,
+  gr as prettygoodGetPopularGenresArgsSchemaSchema,
+  ur as prettygoodGetPopularGenresReturnsSchemaSchema,
+  pr as prettygoodGetRecentFollowersArgsSchemaSchema,
+  mr as prettygoodGetRecentFollowersReturnsSchemaSchema,
+  _r as prettygoodGetRecentPlaysArgsSchemaSchema,
+  br as prettygoodGetRecentPlaysReturnsSchemaSchema,
+  yr as prettygoodGetRecentTipsArgsSchemaSchema,
+  hr as prettygoodGetRecentTipsReturnsSchemaSchema,
+  Sr as prettygoodGetRecentTransactionsArgsSchemaSchema,
+  fr as prettygoodGetRecentTransactionsReturnsSchemaSchema,
+  kr as prettygoodGetRecommendationsArgsSchemaSchema,
+  jr as prettygoodGetRecommendationsReturnsSchemaSchema,
+  Rr as prettygoodGetRelatedGenresArgsSchemaSchema,
+  Ar as prettygoodGetRelatedGenresReturnsSchemaSchema,
+  Tr as prettygoodGetTrackPlayCountArgsSchemaSchema,
+  Gr as prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema,
+  Or as prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema,
+  Pr as prettygoodGetTrackPlayCountReturnsSchemaSchema,
+  Cr as prettygoodGetTrackPlayCountsArgsSchemaSchema,
+  wr as prettygoodGetTrackPlayCountsReturnsSchemaSchema,
+  Ur as prettygoodGetTrackPlaylistsCountArgsSchemaSchema,
+  Kr as prettygoodGetTrackPlaylistsCountReturnsSchemaSchema,
+  Nr as prettygoodGetTrackPlaysForPeriodArgsSchemaSchema,
+  vr as prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema,
+  Ir as prettygoodGetTrackSavesCountArgsSchemaSchema,
+  Lr as prettygoodGetTrackSavesCountReturnsSchemaSchema,
+  Br as prettygoodGetTracksByGenreArgsSchemaSchema,
+  Fr as prettygoodGetTracksByGenreReturnsSchemaSchema,
+  xr as prettygoodGetTracksPlayCountArgsSchemaSchema,
+  qr as prettygoodGetTracksPlayCountReturnsSchemaSchema,
   I as prettygoodPaymentsInsertSchemaSchema,
   B as prettygoodPaymentsRelationshipsSchemaSchema,
   v as prettygoodPaymentsRowSchemaSchema,
   L as prettygoodPaymentsUpdateSchemaSchema,
-  xr as prettygoodPgpArmorHeadersArgsSchemaSchema,
-  qr as prettygoodPgpArmorHeadersReturnsSchemaSchema,
-  Er as prettygoodPgpKeyIdArgsSchemaSchema,
-  Vr as prettygoodPgpKeyIdReturnsSchemaSchema,
+  Er as prettygoodPgpArmorHeadersArgsSchemaSchema,
+  Vr as prettygoodPgpArmorHeadersReturnsSchemaSchema,
+  Hr as prettygoodPgpKeyIdArgsSchemaSchema,
+  zr as prettygoodPgpKeyIdReturnsSchemaSchema,
   x as prettygoodPlayHistoryInsertSchemaSchema,
   E as prettygoodPlayHistoryRelationshipsSchemaSchema,
   F as prettygoodPlayHistoryRowSchemaSchema,
@@ -1478,34 +1509,34 @@ export {
   ae as prettygoodPlaylistsRelationshipsSchemaSchema,
   ee as prettygoodPlaylistsRowSchemaSchema,
   re as prettygoodPlaylistsUpdateSchemaSchema,
-  Hr as prettygoodRecordPlayArgsSchemaSchema,
-  zr as prettygoodRecordPlayReturnsSchemaSchema,
-  Dr as prettygoodRecordSearchArgsSchemaSchema,
-  Wr as prettygoodRecordSearchReturnsSchemaSchema,
-  Jr as prettygoodRefreshTokenArgsSchemaSchema,
-  Mr as prettygoodRefreshTokenReturnsSchemaSchema,
-  Qr as prettygoodRefreshTokenRobustArgsSchemaSchema,
-  Xr as prettygoodRefreshTokenRobustReturnsSchemaSchema,
-  Yr as prettygoodRefreshTokenV2ArgsSchemaSchema,
-  Zr as prettygoodRefreshTokenV2ReturnsSchemaSchema,
-  $r as prettygoodRegisterAsArtistArgsSchemaSchema,
-  ea as prettygoodRegisterAsArtistReturnsSchemaSchema,
-  ta as prettygoodRegisterAsArtistWithIdArgsSchemaSchema,
-  ra as prettygoodRegisterAsArtistWithIdReturnsSchemaSchema,
-  aa as prettygoodRegisterUserArgsSchemaSchema,
-  na as prettygoodRegisterUserReturnsSchemaSchema,
-  la as prettygoodRequestPasswordResetArgsSchemaSchema,
-  ia as prettygoodRequestPasswordResetReturnsSchemaSchema,
-  oa as prettygoodResetPasswordArgsSchemaSchema,
-  sa as prettygoodResetPasswordReturnsSchemaSchema,
+  Dr as prettygoodRecordPlayArgsSchemaSchema,
+  Wr as prettygoodRecordPlayReturnsSchemaSchema,
+  Jr as prettygoodRecordSearchArgsSchemaSchema,
+  Mr as prettygoodRecordSearchReturnsSchemaSchema,
+  Qr as prettygoodRefreshTokenArgsSchemaSchema,
+  Xr as prettygoodRefreshTokenReturnsSchemaSchema,
+  Yr as prettygoodRefreshTokenRobustArgsSchemaSchema,
+  Zr as prettygoodRefreshTokenRobustReturnsSchemaSchema,
+  $r as prettygoodRefreshTokenV2ArgsSchemaSchema,
+  ea as prettygoodRefreshTokenV2ReturnsSchemaSchema,
+  ta as prettygoodRegisterAsArtistArgsSchemaSchema,
+  ra as prettygoodRegisterAsArtistReturnsSchemaSchema,
+  aa as prettygoodRegisterAsArtistWithIdArgsSchemaSchema,
+  na as prettygoodRegisterAsArtistWithIdReturnsSchemaSchema,
+  la as prettygoodRegisterUserArgsSchemaSchema,
+  ia as prettygoodRegisterUserReturnsSchemaSchema,
+  oa as prettygoodRequestPasswordResetArgsSchemaSchema,
+  sa as prettygoodRequestPasswordResetReturnsSchemaSchema,
+  ca as prettygoodResetPasswordArgsSchemaSchema,
+  da as prettygoodResetPasswordReturnsSchemaSchema,
   le as prettygoodSearchHistoryInsertSchemaSchema,
   oe as prettygoodSearchHistoryRelationshipsSchemaSchema,
   ne as prettygoodSearchHistoryRowSchemaSchema,
   ie as prettygoodSearchHistoryUpdateSchemaSchema,
-  ca as prettygoodTipArtistArgsSchemaSchema,
-  da as prettygoodTipArtistReturnsSchemaSchema,
-  ga as prettygoodTraceTokenVerificationArgsSchemaSchema,
-  ua as prettygoodTraceTokenVerificationReturnsSchemaSchema,
+  ga as prettygoodTipArtistArgsSchemaSchema,
+  ua as prettygoodTipArtistReturnsSchemaSchema,
+  pa as prettygoodTraceTokenVerificationArgsSchemaSchema,
+  ma as prettygoodTraceTokenVerificationReturnsSchemaSchema,
   ce as prettygoodTrackGenresInsertSchemaSchema,
   ge as prettygoodTrackGenresRelationshipsSchemaSchema,
   se as prettygoodTrackGenresRowSchemaSchema,
@@ -1520,8 +1551,8 @@ export {
   Se as prettygoodTracksRelationshipsSchemaSchema,
   be as prettygoodTracksRowSchemaSchema,
   he as prettygoodTracksUpdateSchemaSchema,
-  pa as prettygoodUpdateArtistWithIdArgsSchemaSchema,
-  ma as prettygoodUpdateArtistWithIdReturnsSchemaSchema,
+  _a as prettygoodUpdateArtistWithIdArgsSchemaSchema,
+  ba as prettygoodUpdateArtistWithIdReturnsSchemaSchema,
   ke as prettygoodUserLibraryAlbumsInsertSchemaSchema,
   Re as prettygoodUserLibraryAlbumsRelationshipsSchemaSchema,
   fe as prettygoodUserLibraryAlbumsRowSchemaSchema,
@@ -1547,8 +1578,8 @@ export {
   Ee as prettygoodUsersInsertSchemaSchema,
   qe as prettygoodUsersRowSchemaSchema,
   Ve as prettygoodUsersUpdateSchemaSchema,
-  _a as prettygoodVerifyEmailArgsSchemaSchema,
-  ba as prettygoodVerifyEmailReturnsSchemaSchema,
-  ya as prettygoodVerifySignatureArgsSchemaSchema,
-  ha as prettygoodVerifySignatureReturnsSchemaSchema
+  ya as prettygoodVerifyEmailArgsSchemaSchema,
+  ha as prettygoodVerifyEmailReturnsSchemaSchema,
+  Sa as prettygoodVerifySignatureArgsSchemaSchema,
+  fa as prettygoodVerifySignatureReturnsSchemaSchema
 };

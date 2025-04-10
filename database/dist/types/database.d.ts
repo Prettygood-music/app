@@ -1089,6 +1089,39 @@ export type Database = {
                     user_id: string;
                 };
             };
+            create_track: {
+                Args: {
+                    title: string;
+                    artist_id: string;
+                    duration: number;
+                    audio_url: string;
+                    album_id?: string;
+                    cover_url?: string;
+                    track_number?: number;
+                    lyrics?: string;
+                    genre?: string[];
+                    explicit?: boolean;
+                    release_date?: string;
+                    isrc?: string;
+                };
+                Returns: {
+                    album_id: string | null;
+                    artist_id: string;
+                    audio_url: string;
+                    cover_url: string | null;
+                    created_at: string;
+                    duration: number;
+                    explicit: boolean | null;
+                    genre: string[];
+                    id: string;
+                    isrc: string | null;
+                    lyrics: string | null;
+                    release_date: string | null;
+                    title: string;
+                    track_number: number | null;
+                    updated_at: string;
+                };
+            };
             dearmor: {
                 Args: {
                     "": string;

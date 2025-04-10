@@ -2580,6 +2580,95 @@ export declare const prettygoodCreatePlaylistReturnsSchemaSchema: z.ZodObject<{
     name: string;
     is_public: boolean | null;
 }>;
+export declare const prettygoodCreateTrackArgsSchemaSchema: z.ZodObject<{
+    title: z.ZodString;
+    artist_id: z.ZodString;
+    duration: z.ZodNumber;
+    audio_url: z.ZodString;
+    album_id: z.ZodOptional<z.ZodString>;
+    cover_url: z.ZodOptional<z.ZodString>;
+    track_number: z.ZodOptional<z.ZodNumber>;
+    lyrics: z.ZodOptional<z.ZodString>;
+    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    explicit: z.ZodOptional<z.ZodBoolean>;
+    release_date: z.ZodOptional<z.ZodString>;
+    isrc: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    artist_id: string;
+    title: string;
+    audio_url: string;
+    duration: number;
+    album_id?: string | undefined;
+    cover_url?: string | undefined;
+    genre?: string[] | undefined;
+    release_date?: string | undefined;
+    explicit?: boolean | undefined;
+    isrc?: string | undefined;
+    lyrics?: string | undefined;
+    track_number?: number | undefined;
+}, {
+    artist_id: string;
+    title: string;
+    audio_url: string;
+    duration: number;
+    album_id?: string | undefined;
+    cover_url?: string | undefined;
+    genre?: string[] | undefined;
+    release_date?: string | undefined;
+    explicit?: boolean | undefined;
+    isrc?: string | undefined;
+    lyrics?: string | undefined;
+    track_number?: number | undefined;
+}>;
+export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
+    album_id: z.ZodNullable<z.ZodString>;
+    artist_id: z.ZodString;
+    audio_url: z.ZodString;
+    cover_url: z.ZodNullable<z.ZodString>;
+    created_at: z.ZodString;
+    duration: z.ZodNumber;
+    explicit: z.ZodNullable<z.ZodBoolean>;
+    genre: z.ZodArray<z.ZodString, "many">;
+    id: z.ZodString;
+    isrc: z.ZodNullable<z.ZodString>;
+    lyrics: z.ZodNullable<z.ZodString>;
+    release_date: z.ZodNullable<z.ZodString>;
+    title: z.ZodString;
+    track_number: z.ZodNullable<z.ZodNumber>;
+    updated_at: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    album_id: string | null;
+    id: string;
+    artist_id: string;
+    cover_url: string | null;
+    created_at: string;
+    genre: string[];
+    release_date: string | null;
+    title: string;
+    updated_at: string;
+    audio_url: string;
+    duration: number;
+    explicit: boolean | null;
+    isrc: string | null;
+    lyrics: string | null;
+    track_number: number | null;
+}, {
+    album_id: string | null;
+    id: string;
+    artist_id: string;
+    cover_url: string | null;
+    created_at: string;
+    genre: string[];
+    release_date: string | null;
+    title: string;
+    updated_at: string;
+    audio_url: string;
+    duration: number;
+    explicit: boolean | null;
+    isrc: string | null;
+    lyrics: string | null;
+    track_number: number | null;
+}>;
 export declare const prettygoodDearmorArgsSchemaSchema: z.ZodObject<{
     "": z.ZodString;
 }, "strip", z.ZodTypeAny, {

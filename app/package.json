@@ -80,6 +80,7 @@
     "@supabase/postgrest-js": "^1.19.3",
     "hono": "^4.7.2",
     "jose": "^6.0.10",
+    "nanoid": "^5.1.5",
     "uuid": "^11.1.0"
   }
 }
