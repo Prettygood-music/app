@@ -10,7 +10,7 @@
 
 	import { GenreGrid } from '$lib/components/genres';
 	import { formatDuration } from '$lib/services/genres';
-	import { Play } from 'lucide-svelte';
+	import Play from 'lucide-svelte/icons/play';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
 
@@ -144,7 +144,7 @@
 					<TrackItem {track} {index}></TrackItem>
 				{/each}
 			</TabsContent>
-<!-- 
+			<!-- 
 			<TabsContent value="artists" class="pt-6">
 				<ArtistGrid
 					{artists}

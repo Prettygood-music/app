@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
-	import { Search } from 'lucide-svelte';
+	import Search from 'lucide-svelte/icons/search';
 
 	let {
 		initialValue = '',

@@ -9,7 +9,10 @@
 	} from '$lib/components/ui/card';
 	import { Button } from '$lib/components/ui/button';
 	import { browser } from '$app/environment';
-	import { Download, Music, Zap, Laptop, WifiOff } from 'lucide-svelte';
+	import Music from 'lucide-svelte/icons/music';
+	import Zap from 'lucide-svelte/icons/zap';
+	import Laptop from 'lucide-svelte/icons/laptop';
+	import WifiOff from 'lucide-svelte/icons/wifi-off';
 
 	// State for installation
 	let deferredPrompt = $state<any>(null);

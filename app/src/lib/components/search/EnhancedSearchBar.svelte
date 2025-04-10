@@ -1,5 +1,7 @@
 <script lang="ts">
-	import { Search, X, SlidersHorizontal } from 'lucide-svelte';
+	import SlidersHorizontal from 'lucide-svelte/icons/sliders-horizontal';
+	import X from 'lucide-svelte/icons/x';
+
 	import { Input } from '$lib/components/ui/input';
 	import { Button } from '$lib/components/ui/button';
 	import { goto } from '$app/navigation';
@@ -82,7 +84,7 @@
 <div class="flex w-full flex-col gap-4">
 	<form class="flex w-full items-center gap-2" onsubmit={handleSearch}>
 		<div class="relative flex-1">
-      <!-- 
+			<!-- 
         <Search class="text-muted-foreground absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2" />
         -->
 

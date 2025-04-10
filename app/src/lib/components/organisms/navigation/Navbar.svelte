@@ -3,7 +3,9 @@
 	import { onMount } from 'svelte';
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { HomeIcon, Download, DownloadIcon } from 'lucide-svelte';
+	import HomeIcon from 'lucide-svelte/icons/home';
+	import DownloadIcon from 'lucide-svelte/icons/download';
+
 	import { useInstallPrompt } from '$lib/hooks/use-install-prompt.svelte';
 
 	// Define state for user
@@ -71,7 +73,7 @@
 			>
 			{#if !isInstalled && isInstallable}
 				<Button variant="outline" size="sm" class="hidden md:flex" onclick={handleInstallClick}>
-					<Download size={16} class="mr-2" /> Install App
+					<DownloadIcon size={16} class="mr-2" /> Install App
 				</Button>
 			{/if}
 
@@ -108,7 +110,7 @@
 										href="/install"
 										class="hover:bg-accent hover:text-accent-foreground flex items-center px-4 py-2 text-sm"
 									>
-										<Download size={16} class="mr-2" /> Install App
+										<DownloadIcon size={16} class="mr-2" /> Install App
 									</a>
 								{/if}
 

@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { Button } from '$lib/components/ui/button';
 	import { EnhancedSearchBar } from '$lib/components/search';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import { Search, Music, Mic, Disc, Play } from 'lucide-svelte';
-	import type { PageData } from './$types';
+	import Search from 'lucide-svelte/icons/search';
+	import Music from 'lucide-svelte/icons/music';
+	import Mic from 'lucide-svelte/icons/mic';
+	import Disc from 'lucide-svelte/icons/disc';
+	import Play from 'lucide-svelte/icons/play';
 
-	export let data: PageData;
-
-	let activeTab = 'all';
+	let { data } = $props();
+	let activeTab = $state('all');
 
 	function formatDuration(seconds: number): string {
 		const minutes = Math.floor(seconds / 60);
