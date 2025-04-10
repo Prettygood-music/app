@@ -28,10 +28,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 		// In production, add stricter security headers
 		if (process.env.NODE_ENV === 'production') {
 			response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+			/*
 			response.headers.set(
 				'Content-Security-Policy',
 				"default-src 'self'; script-src 'self'; object-src 'none';"
-			);
+			);*/
 		}
 	}
 

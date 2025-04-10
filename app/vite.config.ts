@@ -1,6 +1,7 @@
 import { paraglide } from '@inlang/paraglide-sveltekit/vite';
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
+import { analyzer } from 'vite-bundle-analyzer';
 
 export default defineConfig(({ mode }) => ({
 	plugins: [
@@ -9,7 +10,9 @@ export default defineConfig(({ mode }) => ({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide'
 		})
+		//analyzer()
 	],
+
 	server: {
 		allowedHosts: ['93e2-2a01-e0a-80d-2240-4404-4cf-9fbc-7088.ngrok-free.app']
 	},

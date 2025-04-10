@@ -1,0 +1,86 @@
+name: Build & Deploy
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'  # Or whatever version you're using
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.8.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build application
+        run: pnpm run build
+
+      - name: Create .env file
+        run: |
+          echo "DATABASE_URL=${{ vars.DATABASE_URL }}" > .env
+      
+      - name: Create deployment package
+        run: |
+          # Create a directory with just what we need
+          mkdir -p deployment
+          
+          # Copy only what's needed to run the app
+          cp -r build/* deployment/  # Adjust this path based on your build output
+          cp -r node_modules deployment/  # Only if needed for runtime
+          cp package.json deployment/
+          cp .env deployment/
+          cp server.js deployment/  # If you have a custom server
+          
+          # Create a tarball (much faster to transfer)
+          tar -czf deployment.tar.gz -C deployment .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: deployment-package
+          path: deployment.tar.gz
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: deployment-package
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: "unnecessary"
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          # Transfer the tar file
+          scp deployment.tar.gz ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:~/app.tar.gz
+          
+          # Extract and reload the application
+          ssh ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }} "
+            mkdir -p ~/app
+            tar -xzf ~/app.tar.gz -C ~/app
+            cd ~/app
+            pm2 reload app || pm2 start server.js --name website
+            rm ~/app.tar.gz
+          "
