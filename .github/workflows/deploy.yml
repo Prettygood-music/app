@@ -32,11 +32,10 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          postgrest_url: ${{ secrets.POSTGREST_URL}}
           script: |
             cd ~/prettygood
             cd app
-            
+
             # Create .env file from GitHub secrets
             cat > .env << EOL
             PUBLIC_POSTGREST_URL=${{ vars.POSTGREST_URL }}   
