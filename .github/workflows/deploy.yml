@@ -36,7 +36,9 @@ jobs:
             cd ~/prettygood
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load NVM
+            which pnpm
+            pnpm --version
             nvm use || nvm install $(cat .nvmrc)
             pnpm install --frozen-lockfile
             pnpm run build
-            pm2 reload prettygood || pm2 start server.js --name website
+            pm2 reload prettygood || pm2 start server.js --name prettygood
