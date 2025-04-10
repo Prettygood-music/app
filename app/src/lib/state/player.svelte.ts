@@ -31,7 +31,7 @@ export class PlayerState {
 
 	// Player settings
 	settings = $state<PlayerSettings>({
-		volume: 0.8,
+		volume: 0.2,
 		muted: false,
 		repeat: 'off',
 		shuffle: false,
@@ -49,8 +49,11 @@ export class PlayerState {
 	constructor() {
 		const audio = new Audio();
 		this.setAudioElement(audio);
+
+		$effect(() => {
+			audio.volume = this.settings.volume;
+		});
 	}
-	
 
 	setAudioElement(element: HTMLAudioElement) {
 		this.audioElement = element;
@@ -60,7 +63,7 @@ export class PlayerState {
 	play() {
 		if (this.audioElement && this.currentTrack) {
 			if (!this.audioElement.src) {
-				this.audioElement.src = this.currentTrack.playback_url;
+				this.audioElement.src = this.currentTrack.audio_url;
 			}
 
 			this.audioElement.play().catch((error) => {
@@ -110,7 +113,7 @@ export class PlayerState {
 		this.currentTime = 0;
 
 		if (this.audioElement) {
-			this.audioElement.src = track.playback_url;
+			this.audioElement.src = track.audio_url;
 			this.play();
 		}
 	}

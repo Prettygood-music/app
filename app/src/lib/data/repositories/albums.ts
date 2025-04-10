@@ -2,6 +2,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import type { Album, Track } from '$lib/types';
 import { mockAlbums, mockTracks } from '$lib/data/mocks';
+// import { createClient as createApiClient } from '@prettygood/database';
 
 /**
  * Album repository using mock data for development
@@ -13,9 +14,10 @@ export class AlbumRepository {
 	async getAll(page = 1, limit = 20): Promise<{ albums: Album[]; total: number }> {
 		const offset = (page - 1) * limit;
 		const paginatedAlbums = mockAlbums.slice(offset, offset + limit);
-
+		//const client = createApiClient('http://localhost:3000');
+		//const albums = await client.from('albums').select('*');
 		return {
-			albums: paginatedAlbums,
+			albums: paginatedAlbums, //albums.data || [], // ,
 			total: mockAlbums.length
 		};
 	}

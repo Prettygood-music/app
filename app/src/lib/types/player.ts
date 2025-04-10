@@ -1,4 +1,6 @@
+import type { Database } from "@prettygood/database";
 
+export type Track = Database["prettygood"]["Tables"]["tracks"]["Row"];
 // Types
 export interface User {
     id: string;
@@ -9,7 +11,7 @@ export interface User {
     is_artist: boolean;
   }
   
-  
+  /*
   export interface Track {
     id: string;
     title: string;
@@ -23,7 +25,8 @@ export interface User {
     published_at: string; // ISO date
     genres: string[];
     play_count: number;
-  }
+  }*/
+
   
   export interface Album {
     id: string;

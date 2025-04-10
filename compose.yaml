@@ -12,6 +12,7 @@ services:
     volumes:
       - ./app:/app/app
       - ./common:/app/common
+      - ./database:/app/database
       - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
       - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
       - ./package.json:/app/package.json
@@ -57,12 +58,13 @@ services:
     volumes:
       - ./server:/app/server
       - ./common:/app/common
+      - ./database:/app/database
       - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
       - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
       - ./package.json:/app/package.json
     environment:
       - NODE_ENV=development
-      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/prettygood_dev
+      - DATABASE_URL=postgres://postgres:postgres@postgres:5432/prettygood
       - REDIS_URL=redis://redis:6379
       - JWT_SECRET=dev_secret_do_not_use_in_production
       - CORS_ORIGIN=http://localhost:5173
@@ -72,15 +74,19 @@ services:
     working_dir: /app/server
 
   postgres:
-    image: postgres:16-alpine
+    build:
+      context: ./database/docker
+      dockerfile: Dockerfile
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database:/app:ro  # Mount database directory as read-only
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=prettygood_dev
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: prettygood
+      POSTGRES_TEST_DB: "true"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
@@ -88,18 +94,33 @@ services:
       retries: 5
 
   postgrest:
-    image: postgrest/postgrest
+    image: postgrest/postgrest:latest
     ports:
       - "3000:3000"
     environment:
-      - PGRST_DB_URI=postgres://postgres:postgres@postgres:5432/prettygood_dev
-      - PGRST_DB_SCHEMA=public,prettygood
-      - PGRST_DB_ANON_ROLE=anon
-      - PGRST_JWT_SECRET=dev_secret_do_not_use_in_production
-      - PGRST_OPENAPI_SERVER_PROXY_URI=http://localhost:3000
+      PGRST_DB_URI: postgres://postgres:postgres@postgres:5432/prettygood
+      PGRST_DB_SCHEMA: prettygood
+      PGRST_DB_ANON_ROLE: anon
+      PGRST_JWT_SECRET: "dev_secret_do_not_use_in_production"
+      PGRST_DB_POOL: 10
+      PGRST_SERVER_PROXY_URI: "http://localhost:3000"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
 
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@prettygood.music
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+      
   redis:
     image: redis:7-alpine
     ports:
@@ -112,16 +133,29 @@ services:
       timeout: 5s
       retries: 5
 
-  adminer:
-    image: adminer
-    ports:
-      - "8080:8080"
+  database:
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+      target: development
+    volumes:
+      - ./database:/app/database
+      - ./pnpm-lock.yaml:/app/pnpm-lock.yaml
+      - ./pnpm-workspace.yaml:/app/pnpm-workspace.yaml
+      - ./package.json:/app/package.json
     environment:
-      - ADMINER_DEFAULT_SERVER=postgres
-      - ADMINER_DESIGN=dracula
+      - NODE_ENV=development
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_NAME=prettygood
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
+    working_dir: /app/database
 
 volumes:
   postgres_data:
   redis_data:
+  pgadmin:

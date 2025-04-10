@@ -1,0 +1,56 @@
+{
+  "name": "prettygood.music",
+  "short_name": "pgmusic",
+  "description": "Music streaming platform with minimal blockchain integration for artist payments",
+  "icons": [
+    {
+      "src": "/web-app-manifest-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/web-app-manifest-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/",
+  "scope": "/",
+  "theme_color": "#e11d48",
+  "background_color": "#1c1917",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "shortcuts": [
+    {
+      "name": "Your Library",
+      "url": "/library",
+      "description": "View your saved music"
+    },
+    {
+      "name": "Search",
+      "url": "/search",
+      "description": "Find artists, albums, and tracks"
+    },
+    {
+      "name": "Home",
+      "url": "/home",
+      "description": "Discover new music"
+    }
+  ],
+  "categories": ["music", "entertainment", "streaming"],
+  "lang": "en",
+  "prefer_related_applications": false,
+  "handle_links": "preferred"
+}

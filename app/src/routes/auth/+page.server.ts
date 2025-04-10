@@ -1,0 +1,145 @@
+import { fail, redirect } from '@sveltejs/kit';
+import { z } from 'zod';
+import { databaseClient } from '$lib/databaseClient';
+import type { Actions } from './$types';
+import { registerSchema } from './schema';
+import { zod } from 'sveltekit-superforms/adapters';
+import { superValidate } from 'sveltekit-superforms';
+
+export const actions: Actions = {
+	default: async (event) => {
+		const form = await superValidate(event, zod(registerSchema));
+
+		if (!form.valid) {
+			return fail(400, {
+				form
+			});
+		}
+
+		// Call the register_user RPC function
+		const { data, error } = await databaseClient.rpc('register_user', {
+			_username: form.data.username,
+			_email: form.data.email,
+			_password: form.data.password,
+			_display_name: form.data.displayName
+		});
+
+		console.dir(data);
+		/*
+		{
+  user_id: '550456ab-c3be-4fec-bda9-b48d52f9fc28',
+  verification_token: '6e3d707d40955e1e4e1fa36192d295ddd74b27a9aafc1b87'
+}*/
+
+		// Extract data from the response
+		//const { user_id, verification_token } = data;
+		if (error) {
+			console.error(error);
+			return fail(500, {
+				form: { ...form, error: error }
+			});
+		}
+
+		return {
+			form
+		};
+		/*
+		const { request, cookies } = event;
+		const formData = await request.formData();
+		const formValues = Object.fromEntries(formData.entries());
+
+		try {
+			// Validate form data
+			const validatedData = registerSchema.parse({
+				email: formValues.email,
+				username: formValues.username,
+				password: formValues.password,
+				confirmPassword: formValues.confirmPassword,
+				displayName: formValues.displayName || undefined,
+				terms: formValues.terms
+			});
+
+			// Call the register_user RPC function
+			const { data, error } = await databaseClient.rpc('register_user', {
+				username: validatedData.username,
+				email: validatedData.email,
+				password: validatedData.password,
+				display_name: validatedData.displayName
+			});
+
+			if (error) {
+				return handlePostgrestError(error);
+			}
+
+			// Extract data from the response
+			const { user_id, verification_token } = data;
+
+			// In a real app, send an email with the verification token
+			//console.log(`Verification link: http://localhost:5173/verify-email/${verification_token}`);
+
+			// Redirect to verification notice page
+			//redirect(303, '/auth/verify-notice');
+
+			return form
+		} catch (error) {
+			return handleRegistrationError(error);
+		}*/
+	}
+};
+
+function handleRegistrationError(error: unknown) {
+	// Handle zod validation errors
+	if (error instanceof z.ZodError) {
+		const fieldErrors = error.flatten().fieldErrors;
+		return fail(400, {
+			error: true,
+			message: 'Validation failed',
+			fieldErrors,
+			values: error.input // Return the input values for form repopulation
+		});
+	}
+
+	// Generic error
+	console.error('Registration error:', error);
+	return fail(500, {
+		error: true,
+		message: 'An unexpected error occurred during registration. Please try again.'
+	});
+}
+
+function handlePostgrestError(error: any) {
+	// Handle specific database errors
+	if (error.message?.includes('Username already exists')) {
+		return fail(400, {
+			error: true,
+			message: 'Username already exists',
+			fieldErrors: { username: ['This username is already taken'] }
+		});
+	}
+
+	if (error.message?.includes('Email already exists')) {
+		return fail(400, {
+			error: true,
+			message: 'Email already exists',
+			fieldErrors: { email: ['This email address is already registered'] }
+		});
+	}
+
+	// Generic database error
+	return fail(500, {
+		error: true,
+		message: error.message || 'An error occurred during registration'
+	});
+}
+
+// Provide any page data needed
+export async function load({ locals }) {
+	// If user is already logged in, redirect to dashboard
+	if (locals.user) {
+		throw redirect(302, '/dashboard');
+	}
+
+	const form = await superValidate(zod(registerSchema));
+
+	return { form };
+}

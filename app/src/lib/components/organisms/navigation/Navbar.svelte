@@ -1,14 +1,18 @@
 <!-- Navbar.svelte -->
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
-	import { page } from '$app/stores';
-	import SearchBar from '$lib/components/molecules/SearchBar.svelte';
+	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
+	import Button from '$lib/components/ui/button/button.svelte';
+	import { HomeIcon, Download, DownloadIcon } from 'lucide-svelte';
+	import { useInstallPrompt } from '$lib/hooks/use-install-prompt.svelte';
 
 	// Define state for user
 	let isDropdownOpen = $state(false);
 	let walletConnected = $state(false);
 	let userInitials = $state('');
-	let searchValue = $state('');
+
+	// Get installation hook
+	const { isInstallable, isInstalled, promptInstall } = useInstallPrompt();
 
 	// Mock function for wallet connection - would be replaced with actual Sui wallet implementation
 	function handleConnectWallet() {
@@ -16,19 +20,20 @@
 		userInitials = 'PG'; // Example value - would be derived from actual user data
 	}
 
-	function handleSearch(query) {
-		// Navigate to search page with query
-		window.location.href = `/search?q=${encodeURIComponent(query)}`;
-	}
-
 	function toggleDropdown() {
 		isDropdownOpen = !isDropdownOpen;
 	}
 
+	// Handle install click from dropdown
+	async function handleInstallClick() {
+		isDropdownOpen = false;
+		await promptInstall();
+	}
+
 	// Close dropdown when clicking outside
 	onMount(() => {
-		const handleClickOutside = (event) => {
-			if (isDropdownOpen && !event.target.closest('.user-dropdown')) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (isDropdownOpen && !(event.target as HTMLElement).closest('.user-dropdown')) {
 				isDropdownOpen = false;
 			}
 		};
@@ -41,56 +46,41 @@
 	});
 </script>
 
-<header
-	class="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur"
->
-	<div class="container flex h-14 items-center">
+<header class="bg-background w-full border-b" style="view-transition-name: none;">
+	<div class="container flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
-			<span class="text-primary text-xl font-bold">prettygood.music</span>
+			<img src="/favicon.svg" width="32" height="32" alt="prettygood.music logo" />
+			<!-- <span class="text-primary text-xl font-bold">prettygood.music</span> -->
 		</a>
 
-		<!-- Main Navigation -->
-		<nav class="flex items-center space-x-4 lg:space-x-6">
-			<a
-				href="/"
-				class={`hover:text-primary text-sm font-medium transition-colors ${$page?.url?.pathname === '/home' ? 'text-primary' : 'text-muted-foreground'}`}
-			>
-				Home
-			</a>
-			<a
-				href="/library"
-				class={`hover:text-primary text-sm font-medium transition-colors ${$page?.url?.pathname.startsWith('/library') ? 'text-primary' : 'text-muted-foreground'}`}
-			>
-				Library
-			</a>
-			<a
-				href="/artists"
-				class={`hover:text-primary text-sm font-medium transition-colors ${$page?.url?.pathname.startsWith('/artists') ? 'text-primary' : 'text-muted-foreground'}`}
-			>
-				Artists
-			</a>
-		</nav>
-
 		<!-- Search -->
-		<div class="ml-auto mr-4 flex-1">
-			<div class="md:w-auto md:max-w-sm md:flex-1">
-				<SearchBar
-					placeholder="Search for music..."
-					bind:value={searchValue}
-					onSubmit={handleSearch}
-				/>
-			</div>
+		<div class="flex w-full items-center md:max-w-sm md:flex-1">
+			<Button size="icon" href="/" variant="ghost" class="text-muted-foreground">
+				<HomeIcon></HomeIcon>
+			</Button>
+			<EnhancedSearchBar showButton={false}></EnhancedSearchBar>
 		</div>
 
 		<!-- User Section -->
 		<div class="flex items-center space-x-4">
+			<!-- TODO: don't show if already installed -->
+			<Button href="/install" size="sm" variant="ghost" class="text-muted-foreground">
+				<DownloadIcon></DownloadIcon>
+				Install App</Button
+			>
+			{#if !isInstalled && isInstallable}
+				<Button variant="outline" size="sm" class="hidden md:flex" onclick={handleInstallClick}>
+					<Download size={16} class="mr-2" /> Install App
+				</Button>
+			{/if}
+
 			{#if walletConnected}
 				<!-- User Avatar -->
 				<div class="user-dropdown relative">
 					<button
 						class="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full"
-						onclick={() =>toggleDropdown()}
+						onclick={() => toggleDropdown()}
 					>
 						{userInitials}
 					</button>
@@ -112,6 +102,16 @@
 								>
 									Settings
 								</a>
+
+								{#if !isInstalled}
+									<a
+										href="/install"
+										class="hover:bg-accent hover:text-accent-foreground flex items-center px-4 py-2 text-sm"
+									>
+										<Download size={16} class="mr-2" /> Install App
+									</a>
+								{/if}
+
 								<div class="border-border my-1 border-t"></div>
 								<button
 									class="hover:bg-accent hover:text-accent-foreground block w-full px-4 py-2 text-left text-sm"

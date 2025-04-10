@@ -2,10 +2,25 @@
 <html lang="%paraglide.lang%" dir="%paraglide.textDirection%" class="dark">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="prettygood.music" />
+		<meta name="mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		<meta name="theme-color" content="#e11d48" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		%sveltekit.head%
 	</head>
+	<script nonce="%sveltekit.nonce%">
+		window.addEventListener('beforeinstallprompt', (event) => {
+			event.preventDefault();
+			window.deferredInstallPrompt = event;
+		});
+	</script>
+
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents" class="min-h-dvh">%sveltekit.body%</div>
 	</body>

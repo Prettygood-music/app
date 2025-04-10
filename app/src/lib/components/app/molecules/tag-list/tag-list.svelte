@@ -80,12 +80,12 @@
 	}
 </script>
 
-<div class="tag-list {variant}" on:click={focusInput}>
+<div class="tag-list {variant}" onclick={focusInput}>
 	{#each tags as tag, index}
 		<span class="tag">
 			{tag}
 			{#if editable && tags.length > minTags}
-				<button class="remove-tag" on:click|stopPropagation={() => removeTag(index)}>
+				<button class="remove-tag" onclick|stopPropagation={() => removeTag(index)}>
 					<svg viewBox="0 0 24 24" width="12" height="12">
 						<path
 							d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"
@@ -112,7 +112,7 @@
 			/>
 		</div>
 	{:else if editable && tags.length === 0}
-		<button class="add-tag" on:click={focusInput}>
+		<button class="add-tag" onclick={focusInput}>
 			<svg viewBox="0 0 24 24" width="12" height="12">
 				<path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
 			</svg>

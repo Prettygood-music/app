@@ -55,7 +55,7 @@
 >
 	<button
 		class="play-button"
-		on:click={togglePlayPause}
+		onclick={togglePlayPause}
 		{disabled}
 		style="--button-size: {sizeMap[size].button}; --icon-size: {sizeMap[size].icon};"
 	>

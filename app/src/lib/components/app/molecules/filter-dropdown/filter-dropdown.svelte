@@ -167,7 +167,7 @@
 		type="button"
 		class="filter-button"
 		class:active={$isOpen || $selectedOptions.length > 0}
-		on:click={toggleDropdown}
+		onclick={toggleDropdown}
 		{disabled}
 		aria-haspopup="true"
 		aria-expanded={$isOpen}
@@ -186,7 +186,7 @@
 			<div class="options-header">
 				<span class="options-title">{label}</span>
 				{#if showResetButton && $selectedOptions.length > 0}
-					<button type="button" class="reset-button" on:click={resetFilters}>
+					<button type="button" class="reset-button" onclick={resetFilters}>
 						{resetLabel}
 					</button>
 				{/if}
@@ -220,7 +220,7 @@
 						type="button"
 						class="apply-button"
 						disabled={!$hasPendingChanges}
-						on:click={applyChanges}
+						onclick={applyChanges}
 					>
 						{applyButtonLabel}
 					</button>

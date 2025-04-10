@@ -54,10 +54,13 @@
 		<Thumbnail coverURL={track.cover_url} />
 
 		<div>
-			<a href="/track/{track.id}" class="hover:text-primary hover:underline max-w-[200px] truncate font-medium md:max-w-md">
+			<a
+				href="/track/{track.id}"
+				class="hover:text-primary max-w-[200px] truncate font-medium hover:underline md:max-w-md"
+			>
 				{track.title}
 			</a>
-			<p class="text-muted-foreground text-sm">{formatNumber(track.play_count)} plays</p>
+			<p class="text-muted-foreground text-sm">{formatNumber(track?.play_count || 0)} plays</p>
 		</div>
 	</div>
 

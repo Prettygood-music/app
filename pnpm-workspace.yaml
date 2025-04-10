@@ -1,4 +1,3 @@
 packages:
   - "app"
-  - "server"
-  - "common"
+  - "database"
