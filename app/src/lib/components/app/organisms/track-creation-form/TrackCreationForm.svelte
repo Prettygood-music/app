@@ -9,7 +9,7 @@
 	import SuperDebug, { fileProxy, superForm, type SuperValidated } from 'sveltekit-superforms';
 
 	import { trackCreationSchema, type TrackCreationSchema } from '$lib/schemas/trackSchema';
-	import { X } from 'lucide-svelte';
+	import X from 'lucide-svelte/icons/x';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import * as Select from '$lib/components/ui/select';
 

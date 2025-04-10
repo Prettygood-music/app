@@ -4,7 +4,7 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Checkbox } from '$lib/components/ui/checkbox';
 	import { Alert, AlertDescription } from '$lib/components/ui/alert';
-	import { Loader2 } from 'lucide-svelte';
+	import Loader2 from 'lucide-svelte/icons/loader-circle';
 	import * as Form from '$lib/components/ui/form';
 	import { page } from '$app/stores';
 	import { loginSchema, type LoginSchema } from './schemas';

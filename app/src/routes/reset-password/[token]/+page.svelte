@@ -2,7 +2,7 @@
   import { enhance } from '$app/forms';
   import { Button } from '$lib/components/ui/button';
   import { Alert, AlertDescription } from '$lib/components/ui/alert';
-  import { Loader2 } from 'lucide-svelte';
+	import Loader2 from 'lucide-svelte/icons/loader-circle';
   import * as Form from '$lib/components/ui/form';
 
   let { form, data } = $props();

@@ -3,7 +3,9 @@
 	import { goto } from '$app/navigation';
 	import { Alert, AlertDescription, AlertTitle } from '$lib/components/ui/alert';
 	import { Button } from '$lib/components/ui/button';
-	import { Download, X } from 'lucide-svelte';
+	import { Download } from 'lucide-svelte';
+	import X from 'lucide-svelte/icons/x';
+
 
 	// Export props
 	let { variant = 'banner' } = $props<{

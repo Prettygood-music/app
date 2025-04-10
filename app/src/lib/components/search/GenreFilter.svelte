@@ -2,7 +2,9 @@
 	// Import dependencies
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import { Check, X } from 'lucide-svelte';
+	import { Check } from 'lucide-svelte';
+	import X from 'lucide-svelte/icons/x';
+
 	import type { Genre } from '$lib/services/genres';
 	import { searchGenres, getAllGenres } from '$lib/services/genres';
 	import { page } from '$app/stores';
