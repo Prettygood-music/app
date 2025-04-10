@@ -8,6 +8,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -22,7 +24,7 @@ jobs:
         run: ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy with rsync
-        run: rsync -avz --delete . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:app/
+        run: rsync -avz --delete . ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:prettygood/
 
       - name: Build site
         uses: appleboy/ssh-action@master
@@ -31,8 +33,10 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd ~/app
+            cd ~/prettygood
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load NVM
             nvm use || nvm install $(cat .nvmrc)
-            pnpm install
+            pnpm install --frozen-lockfile
             pnpm run build
-            pm2 reload app || pm2 start server.js --name website
+            pm2 reload prettygood || pm2 start server.js --name website
