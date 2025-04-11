@@ -35,7 +35,7 @@
 
 <div class={cn("space-y-3", thumbnailSizes[size], className)}>
     <div class="overflow-hidden rounded-md">
-        <div 
+        <button 
             class={cn(
                 "overflow-hidden rounded-md cursor-pointer relative group",
                 aspectRatio === "portrait" ? "aspect-[3/4]" : 
@@ -60,7 +60,7 @@
             <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                 <PlayCircle class="h-12 w-12 text-white" />
             </div>
-        </div>
+        </button>
     </div>
     
     <a href="/album/{album.id}" class="block group">
