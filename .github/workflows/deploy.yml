@@ -40,15 +40,14 @@ jobs:
           # Copy only what's needed to run the app
           cp -r app/build/* deployment/  # Adjust this path based on your build output
           cp -r app/node_modules deployment/  # Only if needed for runtime
-          cp package.json deployment/
-          cp .env deployment/
-          cp server.js deployment/  # If you have a custom server
+          cp app/package.json deployment/
+          cp app/.env deployment/
           
           # Create a tarball (much faster to transfer)
           tar -czf deployment.tar.gz -C deployment .
 
       - name: Upload artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: deployment-package
           path: deployment.tar.gz
@@ -58,7 +57,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: deployment-package
 
