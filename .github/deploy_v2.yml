@@ -15,7 +15,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '22'  # Or whatever version you're using
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
@@ -37,20 +37,11 @@ jobs:
           # Create a directory with just what we need
           mkdir -p deployment
           
-          cp -r app/build deployment/
-          
-          # Copy package.json files - necessary for dependency resolution
-          cp package.json deployment/
-          cp pnpm-workspace.yaml deployment/ # If you have this file
-          cp app/package.json deployment/app-package.json
-          
-          # Important: Copy the necessary node_modules
-          # This ensures all dependencies like 'jose' are included
-          cp -r node_modules deployment/node_modules
-          
-          # Copy environment file
+          # Copy only what's needed to run the app
+          cp -r app/build/* deployment/  # Adjust this path based on your build output
+          cp -r app/node_modules deployment/  # Only if needed for runtime
+          cp app/package.json deployment/
           cp app/.env deployment/
-          
           
           # Create a tarball (much faster to transfer)
           tar -czf deployment.tar.gz -C deployment .
@@ -89,10 +80,6 @@ jobs:
             mkdir -p ~/app
             tar -xzf ~/app.tar.gz -C ~/app
             cd ~/app
-            
-            # Start or reload using our start script
-            pm2 reload app || pm2 start start.sh --name app
-            
-            # Clean up
+            pm2 reload app || pm2 start server.js --name website
             rm ~/app.tar.gz
           "
