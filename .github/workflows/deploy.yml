@@ -25,13 +25,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
-      - name: Build application
-        run: pnpm run build:app
-
       - name: Create .env file
         run: |
           echo "DATABASE_URL=${{ vars.DATABASE_URL }}" > app/.env
       
+      - name: Build application
+        run: pnpm run build:app
+
       - name: Create deployment package
         run: |
           # Create a directory with just what we need
