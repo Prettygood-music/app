@@ -12,63 +12,100 @@
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import StatCard from '$lib/components/app/molecules/StatCard/StatCard.svelte';
 
+	// Define types for the stats
+	interface StatData {
+		totalPlays: number;
+		playsTrend: string;
+		followers: number;
+		followersTrend: string;
+		totalEarnings: number;
+		earningsTrend: string;
+		recentTips: number;
+		tipsTrend: string;
+	}
+
+	// Define the stats object structure
+	interface Stats {
+		day: StatData;
+		week: StatData;
+		month: StatData;
+		year: StatData;
+	}
+
+	// Define activity item types
+	type ActivityType = 'play' | 'follow' | 'tip' | 'comment' | 'share';
+
+	interface ActivityItem {
+		type: ActivityType;
+		content: string;
+		time: string;
+	}
+
+	// Define the complete props interface
+	interface ArtistDashboardProps {
+		artistName?: string;
+		stats?: Stats;
+		recentActivity?: ActivityItem[];
+		onViewAllActivity?: () => void;
+		onUploadTrack?: () => void;
+		onEditProfile?: () => void;
+		onCreateAnnouncement?: () => void;
+		onGetHelp?: () => void;
+	}
+
+	// Use the interface with $props, with simpler defaults
+	// TODO: We'll want a stat factory that will compute trends from values tbh
 	let {
-		artistName = 'Your Artist Name',
+		artistName,
 		stats = {
 			day: {
-				totalPlays: 24689,
-				playsTrend: '+12%',
-				followers: 1243,
-				followersTrend: '+5%',
-				totalEarnings: 1289.45,
-				earningsTrend: '+23%',
-				recentTips: 7,
-				tipsTrend: '+40%'
+				totalPlays: 0,
+				playsTrend: '+0%',
+				followers: 0,
+				followersTrend: '+0%',
+				totalEarnings: 0,
+				earningsTrend: '+0%',
+				recentTips: 0,
+				tipsTrend: '+0%'
 			},
 			week: {
-				totalPlays: 24689,
-				playsTrend: '+12%',
-				followers: 1243,
-				followersTrend: '+5%',
-				totalEarnings: 1289.45,
-				earningsTrend: '+23%',
-				recentTips: 7,
-				tipsTrend: '+40%'
+				totalPlays: 0,
+				playsTrend: '+0%',
+				followers: 0,
+				followersTrend: '+0%',
+				totalEarnings: 0,
+				earningsTrend: '+0%',
+				recentTips: 0,
+				tipsTrend: '+0%'
 			},
 			month: {
-				totalPlays: 74067,
-				playsTrend: '+15%',
-				followers: 2486,
-				followersTrend: '+8%',
-				totalEarnings: 3868.35,
-				earningsTrend: '+25%',
-				recentTips: 28,
-				tipsTrend: '+45%'
+				totalPlays: 0,
+				playsTrend: '+0%',
+				followers: 0,
+				followersTrend: '+0%',
+				totalEarnings: 0,
+				earningsTrend: '+0%',
+				recentTips: 0,
+				tipsTrend: '+0%'
 			},
 			year: {
-				totalPlays: 296268,
-				playsTrend: '+120%',
-				followers: 9944,
-				followersTrend: '+85%',
-				totalEarnings: 15473.4,
-				earningsTrend: '+215%',
-				recentTips: 105,
-				tipsTrend: '+150%'
+				totalPlays: 0,
+				playsTrend: '+0%',
+				followers: 0,
+				followersTrend: '+0%',
+				totalEarnings: 0,
+				earningsTrend: '+0%',
+				recentTips: 0,
+				tipsTrend: '+0%'
 			}
 		},
-		recentActivity = [
-			{ type: 'play', content: 'Someone played "Your Track Title"', time: '5 minutes ago' },
-			{ type: 'follow', content: 'New follower: User123', time: '20 minutes ago' },
-			{ type: 'tip', content: 'Received a 5 SUI tip from User456', time: '2 hours ago' },
-			{ type: 'play', content: 'Someone played "Another Track"', time: '3 hours ago' },
-			{ type: 'play', content: 'Someone played "Your Track Title"', time: '5 hours ago' }
-		],
+		recentActivity = [],
 		onViewAllActivity = () => {},
 		onUploadTrack = () => {},
 		onEditProfile = () => {},
 		onCreateAnnouncement = () => {},
 		onGetHelp = () => {}
-	} = $props();
+	}: ArtistDashboardProps = $props();
 
 	let selectedPeriod = $state('week');
 	let currentStats = $derived(stats[selectedPeriod]);
@@ -176,74 +213,82 @@
 				<CardTitle>Recent Activity</CardTitle>
 				<CardDescription>Latest plays, followers, and tips</CardDescription>
 			</CardHeader>
-			<CardContent>
-				<div class="space-y-4">
-					{#each recentActivity as activity}
-						<div class="flex items-start gap-4 py-2">
-							<!-- Icon based on activity type -->
-							<div class="bg-primary/10 text-primary mt-1 rounded-full p-2">
-								{#if activity.type === 'play'}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg
-									>
-								{:else if activity.type === 'follow'}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
-											cx="9"
-											cy="7"
-											r="4"
-										/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path
-											d="M16 3.13a4 4 0 0 1 0 7.75"
-										/></svg
-									>
-								{:else if activity.type === 'tip'}
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										width="16"
-										height="16"
-										viewBox="0 0 24 24"
-										fill="none"
-										stroke="currentColor"
-										stroke-width="2"
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg
-									>
-								{/if}
+			{#if recentActivity.length > 0}
+				<CardContent>
+					<div class="space-y-4">
+						{#each recentActivity as activity}
+							<div class="flex items-start gap-4 py-2">
+								<!-- Icon based on activity type -->
+								<div class="bg-primary/10 text-primary mt-1 rounded-full p-2">
+									{#if activity.type === 'play'}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3" /></svg
+										>
+									{:else if activity.type === 'follow'}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle
+												cx="9"
+												cy="7"
+												r="4"
+											/><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path
+												d="M16 3.13a4 4 0 0 1 0 7.75"
+											/></svg
+										>
+									{:else if activity.type === 'tip'}
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											width="16"
+											height="16"
+											viewBox="0 0 24 24"
+											fill="none"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></svg
+										>
+									{/if}
+								</div>
+								<div class="flex-1">
+									<p class="text-sm font-medium leading-none">{activity.content}</p>
+									<p class="text-muted-foreground text-sm">{activity.time}</p>
+								</div>
 							</div>
-							<div class="flex-1">
-								<p class="text-sm font-medium leading-none">{activity.content}</p>
-								<p class="text-muted-foreground text-sm">{activity.time}</p>
-							</div>
-						</div>
-						{#if activity !== recentActivity[recentActivity.length - 1]}
-							<Separator />
-						{/if}
-					{/each}
-				</div>
-			</CardContent>
-			<CardFooter>
-				<Button variant="outline" class="w-full" onclick={onViewAllActivity}
-					>View All Activity</Button
-				>
-			</CardFooter>
+							{#if activity !== recentActivity[recentActivity.length - 1]}
+								<Separator />
+							{/if}
+						{/each}
+					</div>
+				</CardContent>
+				<CardFooter>
+					<Button variant="outline" class="w-full" onclick={onViewAllActivity}
+						>View All Activity</Button
+					>
+				</CardFooter>
+			{:else}
+				<CardContent>
+					<div class="bg-muted flex h-[200px] items-center justify-center rounded-md text-muted-foreground">
+						No Recent activity found
+					</div>
+				</CardContent>
+			{/if}
 		</Card>
 
 		<!-- Quick Actions Card -->

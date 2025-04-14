@@ -12,6 +12,7 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
 		.select('*')
 		.eq('id', locals.user.id)
 		.single();
+
 	if (artistError) {
 		console.error(artistError);
 	}
@@ -21,7 +22,8 @@ export const load: LayoutServerLoad = async ({ locals, params }) => {
 		error(404, "Couldn't find artist info");
 	}
 
-	console.dir(data);
+	//const {} = databaseClient.from("")
+	//const {} =databaseClient.rpc("")
 
 	return {
 		artist: data

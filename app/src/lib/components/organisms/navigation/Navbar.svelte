@@ -73,7 +73,7 @@
 						<DropdownMenu.Group>
 							{#each dropdownContent as link}
 								<DropdownMenu.Item>
-									<a href={link.href} class="flex items-center">
+									<a href={link.href} class="flex items-center w-full">
 										<link.icon class="mr-2 size-4" />
 										<span>{link.title}</span>
 									</a>

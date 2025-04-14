@@ -4,14 +4,17 @@
 	import { Separator } from '$lib/components/ui/separator';
 	import { cn } from '$lib/utils';
 
+	const makeLink = (path: string) => {
+		return `/dashboard/artist/${path}`;
+	};
 	// Navigation items
 	const navItems = [
-		{ href: '/artist-dashboard', label: 'Overview', exact: true },
-		{ href: '/artist-dashboard/stats', label: 'Stats & Analytics' },
-		{ href: '/artist-dashboard/earnings', label: 'Earnings & Payments' },
-		{ href: '/artist-dashboard/uploads', label: 'Content Management' },
-		{ href: '/artist-dashboard/token', label: 'Wallet' },
-		{ href: '/artist-dashboard/nfts', label: 'NFTs (Coming Soon)' }
+		{ href: makeLink(''), label: 'Overview', exact: true },
+		{ href: makeLink('stats'), label: 'Stats & Analytics' },
+		{ href: makeLink('earnings'), label: 'Earnings & Payments' },
+		{ href: makeLink('uploads'), label: 'Content Management' },
+		{ href: makeLink('token'), label: 'Wallet' },
+		{ href: makeLink('nfts'), label: 'NFTs (Coming Soon)' }
 	];
 
 	// Check if current page matches nav item
@@ -31,8 +34,7 @@
 </script>
 
 <div class=" flex overflow-y-hidden">
-	<!-- Sidebar (desktop) -->
-	<aside class="bg-card hidden w-64 h-screen flex-col border-r md:flex">
+	<aside class="bg-card hidden h-screen w-64 flex-col border-r md:flex">
 		<div class="p-4">
 			<h1 class="text-xl font-semibold">Artist Dashboard</h1>
 		</div>
