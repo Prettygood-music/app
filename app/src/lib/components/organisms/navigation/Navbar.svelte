@@ -9,6 +9,7 @@
 	import { getUserContext } from '$lib/state/user/user.svelte';
 	import User from 'lucide-svelte/icons/user';
 	import { cn } from '$lib/utils';
+	import { LINKS } from '$lib/constants';
 
 	const user = getUserContext();
 
@@ -34,7 +35,7 @@
 		{
 			title: 'Profile',
 			icon: User,
-			href: '/profile'
+			href: LINKS.PROFILE
 		}
 	];
 </script>
@@ -49,7 +50,7 @@
 
 		<!-- Search -->
 		<div class="flex w-full items-center md:max-w-sm md:flex-1">
-			<Button size="icon" href="/" variant="ghost" class="text-muted-foreground">
+			<Button size="icon" href={LINKS.HOME} variant="ghost" class="text-muted-foreground">
 				<HomeIcon></HomeIcon>
 			</Button>
 			<EnhancedSearchBar showButton={false}></EnhancedSearchBar>
@@ -58,7 +59,7 @@
 		<!-- User Section -->
 		<div class="flex items-center space-x-4">
 			<!-- TODO: don't show if already installed -->
-			<Button href="/install" size="sm" variant="ghost" class="text-muted-foreground">
+			<Button href={LINKS.INSTALL} size="sm" variant="ghost" class="text-muted-foreground">
 				<DownloadIcon></DownloadIcon>
 				Install App</Button
 			>
@@ -88,7 +89,7 @@
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
 			{:else}
-				<Button href="/auth">Connect</Button>
+				<Button href={LINKS.LOGIN}>Connect</Button>
 			{/if}
 		</div>
 	</div>
