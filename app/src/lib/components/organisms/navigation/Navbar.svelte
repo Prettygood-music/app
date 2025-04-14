@@ -1,51 +1,42 @@
-<!-- Navbar.svelte -->
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu/index.js';
+
 	import EnhancedSearchBar from '$lib/components/search/EnhancedSearchBar.svelte';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import Button, { buttonVariants } from '$lib/components/ui/button/button.svelte';
 	import HomeIcon from 'lucide-svelte/icons/home';
 	import DownloadIcon from 'lucide-svelte/icons/download';
 
-	import { useInstallPrompt } from '$lib/hooks/use-install-prompt.svelte';
+	import { getUserContext } from '$lib/state/user/user.svelte';
+	import User from 'lucide-svelte/icons/user';
+	import { cn } from '$lib/utils';
 
-	// Define state for user
-	let isDropdownOpen = $state(false);
-	let walletConnected = $state(false);
-	let userInitials = $state('');
+	const user = getUserContext();
 
-	// Get installation hook
-	const { isInstallable, isInstalled, promptInstall } = useInstallPrompt();
+	let isConnected = $derived(user.user !== null);
+	let userInitials = $derived.by(() => {
+		if (user.user) {
+			const split = user.user.username.split(' ');
 
-	// Mock function for wallet connection - would be replaced with actual Sui wallet implementation
-	function handleConnectWallet() {
-		walletConnected = true;
-		userInitials = 'PG'; // Example value - would be derived from actual user data
-	}
-
-	function toggleDropdown() {
-		isDropdownOpen = !isDropdownOpen;
-	}
-
-	// Handle install click from dropdown
-	async function handleInstallClick() {
-		isDropdownOpen = false;
-		await promptInstall();
-	}
-
-	// Close dropdown when clicking outside
-	onMount(() => {
-		const handleClickOutside = (event: MouseEvent) => {
-			if (isDropdownOpen && !(event.target as HTMLElement).closest('.user-dropdown')) {
-				isDropdownOpen = false;
+			if (split.length > 1) {
+				return split
+					.slice(0, 1)
+					.map((s) => s[0])
+					.join();
+			} else {
+				return split[0].substring(0, 2);
 			}
-		};
-
-		document.addEventListener('click', handleClickOutside);
-
-		return () => {
-			document.removeEventListener('click', handleClickOutside);
-		};
+		} else {
+			return '';
+		}
 	});
+
+	const dropdownContent = [
+		{
+			title: 'Profile',
+			icon: User,
+			href: '/profile'
+		}
+	];
 </script>
 
 <header class="bg-background w-full border-b" style="view-transition-name: none;">
@@ -71,67 +62,33 @@
 				<DownloadIcon></DownloadIcon>
 				Install App</Button
 			>
-			{#if !isInstalled && isInstallable}
-				<Button variant="outline" size="sm" class="hidden md:flex" onclick={handleInstallClick}>
-					<DownloadIcon size={16} class="mr-2" /> Install App
-				</Button>
-			{/if}
 
-			{#if walletConnected}
-				<!-- User Avatar -->
-				<div class="user-dropdown relative">
-					<button
-						class="bg-primary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full"
-						onclick={() => toggleDropdown()}
-					>
+			{#if isConnected}
+				<DropdownMenu.Root>
+					<DropdownMenu.Trigger class={cn(buttonVariants({ size: 'icon' }), 'rounded-full')}>
 						{userInitials}
-					</button>
-
-					{#if isDropdownOpen}
-						<div
-							class="bg-popover border-border absolute right-0 mt-2 w-56 rounded-md border shadow-lg"
-						>
-							<div class="bg-popover text-popover-foreground rounded-md py-1">
-								<a
-									href="/profile"
-									class="hover:bg-accent hover:text-accent-foreground block px-4 py-2 text-sm"
-								>
-									Profile
-								</a>
-								<a
-									href="/settings"
-									class="hover:bg-accent hover:text-accent-foreground block px-4 py-2 text-sm"
-								>
-									Settings
-								</a>
-
-								{#if !isInstalled}
-									<a
-										href="/install"
-										class="hover:bg-accent hover:text-accent-foreground flex items-center px-4 py-2 text-sm"
-									>
-										<DownloadIcon size={16} class="mr-2" /> Install App
+					</DropdownMenu.Trigger>
+					<DropdownMenu.Content class="w-56" align="end">
+						<DropdownMenu.Group>
+							{#each dropdownContent as link}
+								<DropdownMenu.Item>
+									<a href={link.href} class="flex items-center">
+										<link.icon class="mr-2 size-4" />
+										<span>{link.title}</span>
 									</a>
-								{/if}
-
-								<div class="border-border my-1 border-t"></div>
-								<button
-									class="hover:bg-accent hover:text-accent-foreground block w-full px-4 py-2 text-left text-sm"
-								>
-									Disconnect Wallet
-								</button>
-							</div>
-						</div>
-					{/if}
-				</div>
+								</DropdownMenu.Item>
+							{/each}
+						</DropdownMenu.Group>
+						<DropdownMenu.Separator />
+						<DropdownMenu.Group>
+							<DropdownMenu.Item onclick={() => console.log('disconnect')}
+								>Disconnect</DropdownMenu.Item
+							>
+						</DropdownMenu.Group>
+					</DropdownMenu.Content>
+				</DropdownMenu.Root>
 			{:else}
-				<!-- Connect Wallet Button -->
-				<button
-					onclick={() => handleConnectWallet()}
-					class="focus-visible:ring-ring bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 items-center justify-center whitespace-nowrap rounded-md px-4 py-2 text-sm font-medium shadow transition-colors focus-visible:outline-none focus-visible:ring-1"
-				>
-					Connect Wallet
-				</button>
+				<Button href="/auth">Connect</Button>
 			{/if}
 		</div>
 	</div>

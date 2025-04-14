@@ -1,10 +1,12 @@
+import type { User } from '$lib/types/user';
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
 declare global {
-  namespace App {
-    // interface Error {}
-    interface Locals {
+	namespace App {
+		// interface Error {}
+		interface Locals {
+			/*
       user: {
         id: string;
         username: string;
@@ -12,13 +14,14 @@ declare global {
         email: string;
         email_verified: boolean;
         wallet_address: string | null;
-      } | null;
-      token: string | null;
-    }
-    // interface PageData {}
-    // interface PageState {}
-    // interface Platform {}
-  }
+      } | null;*/
+			user: User | null;
+			token: string | null;
+		}
+		// interface PageData {}
+		// interface PageState {}
+		// interface Platform {}
+	}
 }
 
 export {};
