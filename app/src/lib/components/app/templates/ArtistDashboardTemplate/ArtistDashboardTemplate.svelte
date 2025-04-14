@@ -107,14 +107,16 @@
 		onGetHelp = () => {}
 	}: ArtistDashboardProps = $props();
 
-	let selectedPeriod = $state('week');
+	let selectedPeriod = $state<keyof Stats>('week');
 	let currentStats = $derived(stats[selectedPeriod]);
 </script>
 
 <div class="space-y-6">
 	<div>
 		<h1 class="text-3xl font-bold tracking-tight">Dashboard</h1>
-		<p class="text-muted-foreground">Welcome to your artist dashboard, {artistName}.</p>
+		<p class="text-muted-foreground">
+			Welcome to your artist dashboard, <span class="text-foreground">{artistName}</span>.
+		</p>
 	</div>
 
 	<Tabs value={selectedPeriod} class="space-y-4">
@@ -284,7 +286,9 @@
 				</CardFooter>
 			{:else}
 				<CardContent>
-					<div class="bg-muted flex h-[200px] items-center justify-center rounded-md text-muted-foreground">
+					<div
+						class="bg-muted text-muted-foreground flex h-[200px] items-center justify-center rounded-md"
+					>
 						No Recent activity found
 					</div>
 				</CardContent>
