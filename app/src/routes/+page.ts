@@ -1,11 +1,8 @@
-import { makeClient } from '$lib/api';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import { databaseClient } from '$lib/databaseClient';
 
-export const load = (async ({ fetch }) => {
-	const client = makeClient(fetch);
-
+export const load = (async () => {
 	const { data: recommendedTracks, error } = await databaseClient.rpc('get_recommendations', {
 		limit_count: 10
 	});

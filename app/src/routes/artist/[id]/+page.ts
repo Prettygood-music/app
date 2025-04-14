@@ -2,7 +2,7 @@ import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ params, parent }) => {
+export const load: PageLoad = async ({ params }) => {
 	// NOTE: we'd want to have the actual top albums and tracks here
 	const { data: artist } = await databaseClient
 		.from('artists')
