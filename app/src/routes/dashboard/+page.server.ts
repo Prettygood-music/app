@@ -1,14 +1,26 @@
-import { databaseClient, getDatabaseClient } from '$lib/databaseClient.js';
-import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { LINKS } from '$lib/constants.js';
+import { databaseClient } from '$lib/databaseClient.js';
+import { error, fail, redirect, type Actions } from '@sveltejs/kit';
 
-export function load({ locals }) {
+export async function load({ locals }) {
 	// Redirect to login if user is not authenticated
 	if (!locals.user) {
-		throw redirect(302, '/login');
+		throw redirect(302, LINKS.LOGIN);
+	}
+
+	const { data: artist, error: err } = await databaseClient
+		.from('artists')
+		.select('*')
+		.eq('id', locals.user.id)
+		.single();
+
+	if (err) {
+		error(404, err);
 	}
 
 	return {
-		user: locals.user
+		user: locals.user,
+		artist
 	};
 }
 
@@ -19,13 +31,6 @@ export const actions: Actions = {
 		if (!user) {
 			return fail(404);
 		}
-		/*const form = await superValidate(event, zod(registerSchema));
-		if (!form.valid) {
-			return fail(400, {
-				form
-			});
-		}*/
-  
 
 		const { data: rpcArtistData, error: rpcError } = await databaseClient.rpc(
 			'register_as_artist_with_id',

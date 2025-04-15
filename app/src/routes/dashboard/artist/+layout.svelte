@@ -3,18 +3,19 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
 	import { cn } from '$lib/utils';
+	import ArrowLeft from 'lucide-svelte/icons/arrow-left';
 
 	const makeLink = (path: string) => {
-		return `/dashboard/artist/${path}`;
+		return `/dashboard/artist${path}`;
 	};
 	// Navigation items
 	const navItems = [
 		{ href: makeLink(''), label: 'Overview', exact: true },
-		{ href: makeLink('stats'), label: 'Stats & Analytics' },
-		{ href: makeLink('earnings'), label: 'Earnings & Payments' },
-		{ href: makeLink('uploads'), label: 'Content Management' },
-		{ href: makeLink('token'), label: 'Wallet' },
-		{ href: makeLink('nfts'), label: 'NFTs (Coming Soon)' }
+		{ href: makeLink('/stats'), label: 'Stats & Analytics' },
+		{ href: makeLink('/earnings'), label: 'Earnings & Payments' },
+		{ href: makeLink('/uploads'), label: 'Content Management' },
+		{ href: makeLink('/wallet'), label: 'Wallet' },
+		{ href: makeLink('/nfts'), label: 'NFTs (Coming Soon)' }
 	];
 
 	// Check if current page matches nav item
@@ -37,6 +38,10 @@
 	<aside class="bg-card hidden h-screen w-64 flex-col border-r md:flex">
 		<div class="p-4">
 			<h1 class="text-xl font-semibold">Artist Dashboard</h1>
+			<a href="/dashboard" class="flex mt-1 items-baseline text-muted-foreground hover:text-foreground text-xs">
+				<ArrowLeft size={14}></ArrowLeft>
+				Back to dashboard</a
+			>
 		</div>
 		<Separator />
 		<nav class="flex-1 space-y-1 p-4">

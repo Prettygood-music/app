@@ -10,6 +10,7 @@
 	import User from 'lucide-svelte/icons/user';
 	import { cn } from '$lib/utils';
 	import { LINKS } from '$lib/constants';
+	import { browser } from '$app/environment';
 
 	const user = getUserContext();
 
@@ -38,11 +39,11 @@
 			href: LINKS.PROFILE
 		}
 	];
-
-	const isStandalone =
-		window.matchMedia('(display-mode: standalone)').matches ||
-		window.matchMedia('(display-mode: fullscreen)').matches ||
-		(window.navigator as any).standalone === true;
+	const isStandalone = browser
+		? window.matchMedia('(display-mode: standalone)').matches ||
+			window.matchMedia('(display-mode: fullscreen)').matches ||
+			(window.navigator as any).standalone === true
+		: false;
 </script>
 
 <header class="bg-background w-full border-b" style="view-transition-name: none;">
