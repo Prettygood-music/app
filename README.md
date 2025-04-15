@@ -38,9 +38,8 @@ To install the app, visit the [Install Page](/install) or use your browser's ins
 - **Web3 Integration**: Sui TypeScript SDK (minimal integration)
 
 ### Backend
-- **Server Framework**: Hono.js
+- **Server Framework**: Custom backend (Hono.js and Redis removed)
 - **Database**: PostgreSQL with PostgREST
-- **Caching**: Redis
 - **Media Storage**: Cloud storage with CDN
 
 ## Development

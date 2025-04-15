@@ -38,6 +38,11 @@
 			href: LINKS.PROFILE
 		}
 	];
+
+	const isStandalone =
+		window.matchMedia('(display-mode: standalone)').matches ||
+		window.matchMedia('(display-mode: fullscreen)').matches ||
+		(window.navigator as any).standalone === true;
 </script>
 
 <header class="bg-background w-full border-b" style="view-transition-name: none;">
@@ -59,10 +64,12 @@
 		<!-- User Section -->
 		<div class="flex items-center space-x-4">
 			<!-- TODO: don't show if already installed -->
-			<Button href={LINKS.INSTALL} size="sm" variant="ghost" class="text-muted-foreground">
-				<DownloadIcon></DownloadIcon>
-				Install App</Button
-			>
+			{#if !isStandalone}
+				<Button href={LINKS.INSTALL} size="sm" variant="ghost" class="text-muted-foreground">
+					<DownloadIcon></DownloadIcon>
+					Install App</Button
+				>
+			{/if}
 
 			{#if isConnected}
 				<DropdownMenu.Root>
@@ -73,7 +80,7 @@
 						<DropdownMenu.Group>
 							{#each dropdownContent as link}
 								<DropdownMenu.Item>
-									<a href={link.href} class="flex items-center w-full">
+									<a href={link.href} class="flex w-full items-center">
 										<link.icon class="mr-2 size-4" />
 										<span>{link.title}</span>
 									</a>
