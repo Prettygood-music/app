@@ -224,16 +224,17 @@
 			<Form.Field {form} name="album_id">
 				<Form.Control>
 					{#snippet children({ props })}
+					{@const hasAlbums = albums.length > 0}
 						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
 
 						<Select.Root
 							type="single"
-							disabled={albums.length === 0}
+							disabled={!hasAlbums}
 							bind:value={$formData.album_id}
 							name={props.name}
 						>
 							<Select.Trigger {...props}>
-								{$formData.album_id ? $formData.album_id : 'Select Album'}
+								{$formData.album_id ? $formData.album_id : hasAlbums ? 'Select Album': 'No album found'}
 							</Select.Trigger>
 							<Select.Content>
 								{#each albums as album}
