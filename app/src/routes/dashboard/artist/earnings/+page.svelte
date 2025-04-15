@@ -15,6 +15,9 @@
 	import TransactionHistory from './components/TransactionHistory.svelte';
 	import TrackEarnings from './components/TrackEarnings.svelte';
 	import TopSupporters from './components/TopSupporters.svelte';
+	import Empty from './empty.svelte';
+
+	let {data} = $props();
 
 	// Placeholder data
 	let timeFrame = $state('month');
@@ -23,8 +26,10 @@
 	function formatCurrency(amount: number, currency: string = 'SUI') {
 		return `${amount.toFixed(2)} ${currency}`;
 	}
+	
 </script>
 
+{#if data.user && data.user.walletAddress}
 <div class="space-y-6">
 	<div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
 		<div>
@@ -133,3 +138,6 @@
 		</TabsContent>
 	</Tabs>
 </div>
+{:else}
+	<Empty></Empty>
+{/if}

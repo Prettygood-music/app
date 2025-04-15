@@ -2,7 +2,7 @@ import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ parent }) => {
-	const { artist } = await parent();
+	const { artist, user } = await parent();
 	const { data: payments, error: err } = await databaseClient
 		.from('payments')
 		.select('*')
@@ -13,6 +13,8 @@ export const load = (async ({ parent }) => {
 
 	console.dir(payments);
 	return {
-		payments
+		payments,
+		artist,
+		user: user!
 	};
 }) satisfies PageLoad;
