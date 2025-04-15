@@ -38,7 +38,7 @@
 	<aside class="bg-card hidden h-screen w-64 flex-col border-r md:flex">
 		<div class="p-4">
 			<h1 class="text-xl font-semibold">Artist Dashboard</h1>
-			<a href="/dashboard" class="flex mt-1 items-baseline text-muted-foreground hover:text-foreground text-xs">
+			<a href="/dashboard" class="flex mt-1 items-center text-muted-foreground hover:text-foreground text-xs">
 				<ArrowLeft size={14}></ArrowLeft>
 				Back to dashboard</a
 			>

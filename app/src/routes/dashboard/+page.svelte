@@ -8,6 +8,7 @@
 		CardHeader,
 		CardTitle
 	} from '$lib/components/ui/card';
+	import BadgeCheck from 'lucide-svelte/icons/badge-check';
 	import { LINKS } from '$lib/constants';
 
 	let { data } = $props();
@@ -65,22 +66,25 @@
 					</CardHeader>
 					{#if artist}
 						<CardContent>
-							<div>
-								{artist.artist_name}
+							<div class=" flex items-start space-x-1 text-xl font-medium">
+								<div>
+									{artist.artist_name}
+								</div>
+								<BadgeCheck
+									size={16}
+									class={artist.verified ? 'text-primary' : 'text-muted-foreground'}
+								></BadgeCheck>
 							</div>
-							<div>
-								verified? {artist.verified}
-							</div>
-							<div>Artist info:</div>
-							<CardFooter>
-								<Button variant="outline" href={LINKS.ARTIST_DASHBOARD} class="w-full">Manage Artist profile</Button>
-							</CardFooter>
 						</CardContent>
+						<CardFooter>
+							<Button variant="outline" href={LINKS.ARTIST_DASHBOARD} class="w-full"
+								>Manage Artist profile</Button
+							>
+						</CardFooter>
 					{:else}
 						<CardContent>
 							<div>
-								if user is artist, show info. Else we want to show a button to become artist, route
-								to a form and let user create
+								You are not currently registered as a an artist
 							</div>
 
 							<div>

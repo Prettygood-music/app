@@ -4,7 +4,9 @@
   import { Button } from "$lib/components/ui/button";
   import { Input } from "$lib/components/ui/input";
   import { goto } from "$app/navigation";
+	import { databaseClient } from "$lib/databaseClient";
   
+  let {data} = $props();
   // Placeholder data
   let tracks = $state([
     { 
@@ -147,7 +149,7 @@
                 </tr>
               </thead>
               <tbody>
-                {#each tracks as track}
+                {#each data.tracks as track}
                   <tr class="border-b">
                     <td class="px-4 py-3 font-medium">{track.title}</td>
                     <td class="px-4 py-3">{track.duration}</td>
