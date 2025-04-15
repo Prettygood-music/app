@@ -21,11 +21,6 @@
 	const { form: formData, enhance } = form;
 
 	let loading = $state(false);
-
-	// Check URL parameters for success messages
-	let verified = $derived($page.url.searchParams.get('verified') === 'true');
-	let reset = $derived($page.url.searchParams.get('reset') === 'true');
-	let loggedOut = $derived($page.url.searchParams.get('logged_out') === 'true');
 </script>
 
 <div class="flex justify-center px-4 py-8">
@@ -36,52 +31,6 @@
 		</div>
 
 		<div class="space-y-4">
-			{#if verified}
-				<Alert
-					variant="default"
-					class="border-green-600 bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-200"
-				>
-					<AlertDescription>Email verified successfully! You can now log in.</AlertDescription>
-				</Alert>
-			{/if}
-
-			{#if reset}
-				<Alert
-					variant="default"
-					class="border-green-600 bg-green-50 text-green-800 dark:bg-green-900/20 dark:text-green-200"
-				>
-					<AlertDescription
-						>Password reset successful! You can now log in with your new password.</AlertDescription
-					>
-				</Alert>
-			{/if}
-
-			{#if loggedOut}
-				<Alert
-					variant="default"
-					class="bg-blue-50 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200"
-				>
-					<AlertDescription>You have been successfully logged out.</AlertDescription>
-				</Alert>
-			{/if}
-
-			{#if form?.error}
-				<Alert variant="destructive">
-					<AlertDescription>{form.message}</AlertDescription>
-				</Alert>
-			{/if}
-
-			{#if form?.accountLocked}
-				<Alert variant="destructive">
-					<AlertDescription>
-						Your account has been temporarily locked due to multiple failed login attempts. Please
-						try again later or <a href="/auth/forgot-password" class="underline"
-							>reset your password</a
-						>.
-					</AlertDescription>
-				</Alert>
-			{/if}
-
 			<form method="POST" use:enhance class="space-y-4">
 				<!-- Email/Username Field -->
 				<Form.Field {form} name="emailOrUsername">

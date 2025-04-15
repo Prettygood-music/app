@@ -14,7 +14,7 @@
 
 	const user = getUserContext();
 
-	let isConnected = $derived(user.user !== null);
+	let isConnected = $derived.by(() => user.user);
 	let userInitials = $derived.by(() => {
 		if (user.user) {
 			const split = user.user.username.split(' ');

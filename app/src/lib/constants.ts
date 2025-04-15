@@ -6,8 +6,11 @@ export const DEPENDS = {
 export const LINKS = {
 	HOME: "/",
 	PROFILE: "/dashboard",
+	ARTIST_DASHBOARD: "/dashboard/artist",
 	INSTALL: "/install",
 
 	LOGIN: "/login",
-	REGISTER: "/auth"
+	REGISTER: "/auth",
+
+
 }

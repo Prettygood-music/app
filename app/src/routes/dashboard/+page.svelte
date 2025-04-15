@@ -8,6 +8,7 @@
 		CardHeader,
 		CardTitle
 	} from '$lib/components/ui/card';
+	import { LINKS } from '$lib/constants';
 
 	let { data } = $props();
 
@@ -22,13 +23,13 @@
 				<p class="text-muted-foreground">This is your dashboard.</p>
 			</div>
 
-			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+			<div class="grid gap-4 md:grid-cols-2">
 				<Card>
 					<CardHeader>
 						<CardTitle>Your Profile</CardTitle>
 						<CardDescription>Manage your account details</CardDescription>
 					</CardHeader>
-					<CardContent>
+					<CardContent class="">
 						<div class="space-y-2">
 							<div class="flex justify-between">
 								<span class="text-muted-foreground text-sm">Username:</span>
@@ -52,39 +53,45 @@
 						</div>
 					</CardContent>
 					<CardFooter>
+						<!-- TODO: link this button -->
 						<Button variant="outline" class="w-full">Edit Profile</Button>
 					</CardFooter>
 				</Card>
 
-				<!-- Add more dashboard cards here -->
-			</div>
-			<Card>
-				<CardHeader>
-					<CardTitle>Artist</CardTitle>
-					<CardDescription>Manage Artist profile</CardDescription>
-				</CardHeader>
-				<CardContent>
+				<Card>
+					<CardHeader>
+						<CardTitle>Artist</CardTitle>
+						<CardDescription>Manage Artist profile</CardDescription>
+					</CardHeader>
 					{#if artist}
-						<div>
-							Artist info:
-							<pre>
-						{JSON.stringify(artist, null, 2)}
-					</pre>
-						</div>
+						<CardContent>
+							<div>
+								{artist.artist_name}
+							</div>
+							<div>
+								verified? {artist.verified}
+							</div>
+							<div>Artist info:</div>
+							<CardFooter>
+								<Button variant="outline" href={LINKS.ARTIST_DASHBOARD} class="w-full">Manage Artist profile</Button>
+							</CardFooter>
+						</CardContent>
 					{:else}
-						<div>
-							if user is artist, show info. Else we want to show a button to become artist, route to
-							a form and let user create
-						</div>
+						<CardContent>
+							<div>
+								if user is artist, show info. Else we want to show a button to become artist, route
+								to a form and let user create
+							</div>
 
-						<div>
-							<form method="POST" action="?/registerArtist">
-								<Button type="submit">Become Artist</Button>
-							</form>
-						</div>
+							<div>
+								<form method="POST" action="?/registerArtist">
+									<Button type="submit">Become Artist</Button>
+								</form>
+							</div>
+						</CardContent>
 					{/if}
-				</CardContent>
-			</Card>
+				</Card>
+			</div>
 
 			<div class="flex justify-end">
 				<form action="/api/auth/logout" method="POST">
