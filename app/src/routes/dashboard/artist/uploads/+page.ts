@@ -30,12 +30,28 @@ export const load = (async ({ data, parent }) => {
 
 	console.dir(tracksPlayCount);
 
+	const { data: albumsData, error: albumsError } = await databaseClient
+		.from('albums')
+		.select('*, tracks(count)')
+		.eq('artist_id', artist.id);
+
 	const tracks = tracksData.map((t) => {
 		return {
 			...t,
 			plays: 0,
-            status: "published"
+			status: 'published'
 		};
 	});
-	return { tracks };
+
+    console.dir(albumsData)
+
+	return {
+		tracks,
+		albums: (albumsData || []).map((a) => {
+			return {
+				...a,
+				plays: 0
+			};
+		})
+	};
 }) satisfies PageLoad;

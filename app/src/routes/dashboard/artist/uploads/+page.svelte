@@ -155,6 +155,7 @@
                     <td class="px-4 py-3">{track.duration}</td>
                     <td class="px-4 py-3">{formatDate(track.release_date)}</td>
                     <td class="px-4 py-3">{track.plays.toLocaleString()}</td>
+                   
                     <td class="px-4 py-3">
                       <span class={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         track.status === 'published' 
@@ -199,8 +200,9 @@
           </div>
         </CardHeader>
         <CardContent>
+          <!-- TODO: handle no album -->
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {#each albums as album}
+            {#each data.albums as album}
               <Card>
                 <CardHeader class="pb-2">
                   <div class="aspect-square bg-muted rounded-md flex items-center justify-center">
