@@ -69,11 +69,9 @@ export const load = (async () => {
 
 	return {
 		recommendations: {
-			tracks: recommendedTracks,
-			albums: recommendedAlbums,
-			artists: recommendedArtists
+			tracks: recommendedTracks || [],
+			albums: recommendedAlbums || [],
+			artists: recommendedArtists || []
 		}
 	};
-
-	error(500, "Something went wrong, couldn't fetch recommended tracks");
 }) satisfies PageLoad;

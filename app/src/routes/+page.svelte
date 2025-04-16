@@ -51,7 +51,7 @@
 							>
 								<div class="aspect-square h-full w-full flex-1 overflow-hidden rounded-md">
 									<div
-										class="h-full w-full rounded-lg bg-cover bg-center duration-300 group-hover:scale-110"
+										class="h-full border w-full rounded-lg bg-cover bg-center duration-300 group-hover:scale-110"
 										style="background-image: url({track.cover_url}); --view-transition-tag:track-image-{track.id};"
 									></div>
 								</div>

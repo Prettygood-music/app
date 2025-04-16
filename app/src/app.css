@@ -59,5 +59,4 @@
 
 [style*='--view-transition-tag'] {
 	view-transition-name: var(--view-transition-tag);
-	@apply bg-red-500;
 }

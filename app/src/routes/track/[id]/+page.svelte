@@ -13,12 +13,14 @@
 	// Event handlers
 	function handleTogglePlay(playing, track) {
 		console.log(`${playing ? 'Playing' : 'Paused'} track: ${track.title}`);
+		playerState.togglePlayPause();
 		// In a real app, this would trigger the audio player
 	}
 	
 	function handleToggleLike(liked, track) {
 		console.log(`${liked ? 'Liked' : 'Unliked'} track: ${track.title}`);
 		// In a real app, this would update the database
+		// TODO: handle like track
 	}
 	
 	function handleShare(track) {

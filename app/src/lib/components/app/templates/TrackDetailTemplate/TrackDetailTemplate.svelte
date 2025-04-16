@@ -14,10 +14,11 @@
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
+	import { getPlayerContext } from '$lib/state/player.svelte';
+	import type { Track } from '$lib/types';
 
-	let {
-		// Track details
-		track = {
+	/*
+	{
 			id: 'track-1',
 			title: 'Track Title',
 			cover_url: undefined,
@@ -33,24 +34,43 @@
 				bio: undefined
 			},
 			album: undefined
-		},
-		
+		}*/
+
+	let {
+		// Track details
+		track,
+
 		// Recommended tracks
 		recommendedTracks = [],
-		
+
 		// Initial state
 		initialIsPlaying = false,
 		initialIsLiked = false,
-		
+
 		// Event handlers
 		onTogglePlay = () => {},
 		onToggleLike = () => {},
-		onShare = () => {},
-		onMoreOptions = () => {}
+		onShare = () => {}
+	}: {
+		track: Track;
+		recommendedTracks: Track[];
 	} = $props();
 
+	const playerState = getPlayerContext();
+
+	let isCurrentTrack = $derived.by(() => {
+		const playerTrack = playerState.currentTrack;
+		return playerTrack && playerTrack.id === track.id;
+	});
+	let isPlaying = $derived.by(() => {
+		if (isCurrentTrack) {
+			return playerState.isPlaying;
+		} else {
+			return false;
+		}
+	});
 	// Using Svelte 5 runes for state management
-	let isPlaying = $state(initialIsPlaying);
+	//let isPlaying = $state(initialIsPlaying);
 	let isLiked = $state(initialIsLiked);
 
 	// Function to format date in human-readable format
@@ -76,8 +96,14 @@
 
 	// Handle play/pause
 	function togglePlay() {
-		isPlaying = !isPlaying;
-		onTogglePlay(isPlaying, track);
+		//isPlaying = !isPlaying;
+		//onTogglePlay(isPlaying, track);
+
+		if (isCurrentTrack) {
+			playerState.togglePlayPause();
+		} else {
+			playerState.playTrack(track);
+		}
 	}
 
 	// Handle like
@@ -90,11 +116,6 @@
 	function shareTrack() {
 		onShare(track);
 	}
-
-	// Handle more options
-	function showMoreOptions() {
-		onMoreOptions(track);
-	}
 </script>
 
 <div class="overflow-y-auto">
@@ -106,7 +127,7 @@
 					<img
 						src={track.cover_url || '/images/default-track.jpg'}
 						alt={track.title}
-						class="aspect-square h-64 w-64 rounded-lg object-cover sm:h-80 sm:w-80"
+						class="aspect-square border h-64 w-64 rounded-lg object-cover sm:h-80 sm:w-80"
 						style="--view-transition-tag:track-image-{track.id};"
 					/>
 				</div>
@@ -138,9 +159,11 @@
 						<ShareIcon class="h-5 w-5" />
 					</Button>
 
-					<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
-						<MoreHorizontalIcon class="h-5 w-5" />
-					</Button>
+					<!-- 
+						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
+							<MoreHorizontalIcon class="h-5 w-5" />
+						</Button>
+						-->
 				</div>
 			</div>
 
@@ -221,10 +244,7 @@
 							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 						>
 							<Avatar class="h-16 w-16">
-								<AvatarImage
-									src={track.artist.avatar_url || ''}
-									alt={track.artist.artist_name}
-								/>
+								<AvatarImage src={track.artist.avatar_url || ''} alt={track.artist.artist_name} />
 								<AvatarFallback>{track.artist.artist_name.substring(0, 2)}</AvatarFallback>
 							</Avatar>
 							<div>

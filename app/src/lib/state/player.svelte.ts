@@ -1,3 +1,4 @@
+import { browser } from '$app/environment';
 import type { Track } from '$lib/types';
 import { getContext, setContext } from 'svelte';
 
@@ -47,12 +48,14 @@ export class PlayerState {
 	playHistory = $state<Track[]>([]);
 
 	constructor() {
-		const audio = new Audio();
-		this.setAudioElement(audio);
+		if (browser) {
+			const audio = new Audio();
+			this.setAudioElement(audio);
 
-		$effect(() => {
-			audio.volume = this.settings.volume;
-		});
+			$effect(() => {
+				audio.volume = this.settings.volume;
+			});
+		}
 	}
 
 	setAudioElement(element: HTMLAudioElement) {

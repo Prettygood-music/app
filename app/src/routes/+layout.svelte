@@ -21,12 +21,8 @@
 	const userState = new UserState(data.user);
 	setUserContext(userState);
 
-	// Don't show install prompt on the install page itself
-	if (browser) {
-		const playerState = new PlayerState();
-
-		setPlayerContext(playerState);
-	}
+	const playerState = new PlayerState();
+	setPlayerContext(playerState);
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) {
