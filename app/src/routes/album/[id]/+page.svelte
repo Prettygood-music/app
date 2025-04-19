@@ -35,18 +35,16 @@
 	}
 </script>
 
+
 <AlbumDetailTemplate 
 	album={data.album}
 	artist={data.artist}
 	tracks={data.tracks}
 	relatedAlbums={data.relatedAlbums}
-	initialIsPlaying={isPlaying}
 	initialIsLiked={isLiked}
 	onTogglePlay={handleTogglePlay}
 	onShufflePlay={handleShufflePlay}
 	onToggleLike={handleToggleLike}
 	onShare={handleShare}
 	onMoreOptions={handleMoreOptions}
-	pageTitle={`${data.album.title} by ${data.artist?.artist_name} | prettygood.music`}
-	pageDescription={`Listen to ${data.album.title} by ${data.artist.artist_name} on prettygood.music`}
 />

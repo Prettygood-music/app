@@ -145,11 +145,20 @@ export class PlayerState {
 	}
 
 	handleTrackEnd() {
-		if (this.settings.repeat === 'one') {
-			this.seek(0);
-			this.play();
-		} else {
-			this.playNextTrack();
+		switch (this.settings.repeat) {
+			case 'all':
+				if (this.hasNext) {
+					this.playNextTrack();
+				} else {
+					this.seek(0);
+				}
+				break;
+			case 'one':
+				this.seek(0);
+				this.play();
+				break;
+			case 'off':
+				break;
 		}
 	}
 
@@ -308,6 +317,21 @@ export class PlayerState {
 		}
 		return shuffled;
 	}
+
+	// Utils
+	// An album is pretty much "just a list"
+	playList(list: { tracks: Track[] }) {
+		const { tracks } = list;
+		tracks.forEach((t, i) => {
+			if (i === 0) {
+				this.playTrack(t);
+			} else {
+				this.addToQueue(t);
+			}
+		});
+	}
+
+	isListCurrentlyPlaying(list: { tracks: Track[]; id: string }) {}
 }
 
 const PLAYER_CONTEXT_KEY = Symbol('playerContext');

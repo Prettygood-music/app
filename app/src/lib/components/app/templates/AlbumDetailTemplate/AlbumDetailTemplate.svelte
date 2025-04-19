@@ -14,6 +14,7 @@
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
+	import { getPlayerContext } from '$lib/state/player.svelte';
 
 	let {
 		// Album details
@@ -43,7 +44,6 @@
 		relatedAlbums = [],
 
 		// Initial state
-		initialIsPlaying = false,
 		initialIsLiked = false,
 
 		// Event handlers
@@ -51,15 +51,14 @@
 		onShufflePlay = () => {},
 		onToggleLike = () => {},
 		onShare = () => {},
-		onMoreOptions = () => {},
-
-		// Page title and description
-		pageTitle = undefined,
-		pageDescription = undefined
+		onMoreOptions = () => {}
 	} = $props();
 
-	// Using Svelte 5 runes for state management
-	let isPlaying = $state(initialIsPlaying);
+	const playerState = getPlayerContext();
+
+	let isPlaying = $derived(playerState.isPlaying);
+
+	// TODO: wire up
 	let isLiked = $state(initialIsLiked);
 
 	// Calculate total duration of all tracks
@@ -89,14 +88,13 @@
 
 	// Handle play/pause for the whole album
 	function togglePlay() {
-		isPlaying = !isPlaying;
 		onTogglePlay(isPlaying, album);
 	}
 
 	// Handle shuffle play
 	function shufflePlay() {
+		playerState.toggleShuffle();
 		onShufflePlay(album);
-		isPlaying = true;
 	}
 
 	// Handle like
@@ -115,15 +113,6 @@
 		onMoreOptions(album);
 	}
 </script>
-
-<svelte:head>
-	{#if pageTitle}
-		<title>{pageTitle}</title>
-		{#if pageDescription}
-			<meta name="description" content={pageDescription} />
-		{/if}
-	{/if}
-</svelte:head>
 
 <div class="overflow-y-auto">
 	<div class="container mx-auto px-4 py-8">

@@ -1,7 +1,7 @@
 <script lang="ts">
+	import { getPlayerContext } from '$lib/state/player.svelte';
 	import type { Album } from '$lib/types/player';
 	import { cn } from '$lib/utils.js';
-	import Thumbnail from '$lib/components/app/atoms/thumbnail/thumbnail.svelte';
 	import PlayCircle from 'lucide-svelte/icons/play-circle';
 
 	// Props
@@ -17,6 +17,8 @@
 		className?: string;
 	} = $props();
 
+	const playerState = getPlayerContext();
+
 	// Size configuration
 	const thumbnailSizes = {
 		default: '',
@@ -31,6 +33,8 @@
 	// Handle play click
 	function onPlayClick() {
 		console.log(`Playing album: ${album.title}`);
+
+		playerState.playList(album)
 	}
 </script>
 
