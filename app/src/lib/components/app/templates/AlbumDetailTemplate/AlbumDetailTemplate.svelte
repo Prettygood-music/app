@@ -15,7 +15,18 @@
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
 	import { getPlayerContext } from '$lib/state/player.svelte';
+	import type { Track } from '$lib/types';
 
+	type Album = {
+		id: string;
+		title: string;
+		cover_url?: string;
+		release_date: string;
+		genre: string[];
+		tracks: Track[];
+		description?: string;
+		label?: string;
+	};
 	let {
 		// Album details
 		album = {
@@ -37,8 +48,6 @@
 			bio: undefined
 		},
 
-		// Tracks array
-		tracks = [],
 
 		// Related albums
 		relatedAlbums = [],
@@ -52,17 +61,20 @@
 		onToggleLike = () => {},
 		onShare = () => {},
 		onMoreOptions = () => {}
+	}: {
+		album: Album;
+		relatedAlbums: Album[];
 	} = $props();
 
 	const playerState = getPlayerContext();
 
-	let isPlaying = $derived(playerState.isPlaying);
+	let isPlaying = $derived(playerState.isListCurrentlyPlaying(album));
 
 	// TODO: wire up
 	let isLiked = $state(initialIsLiked);
 
 	// Calculate total duration of all tracks
-	let totalDuration = $derived(tracks.reduce((total, track) => total + track.duration, 0));
+	let totalDuration = $derived(album.tracks.reduce((total, track) => total + track.duration, 0));
 
 	// Function to format date in human-readable format
 	function formatDate(dateString: string): string {
@@ -145,7 +157,7 @@
 					>
 						<div class="flex items-center gap-1">
 							<MusicIcon class="h-4 w-4" />
-							<span>{tracks.length} tracks</span>
+							<span>{album.tracks.length} tracks</span>
 						</div>
 						<div>•</div>
 						<div class="flex items-center gap-1">
@@ -203,7 +215,7 @@
 
 						<div class="flex items-center justify-between">
 							<span class="text-muted-foreground">Tracks</span>
-							<span>{tracks.length}</span>
+							<span>{album.tracks.length}</span>
 						</div>
 
 						<div class="flex items-center justify-between">
@@ -239,7 +251,7 @@
 				<div class="mb-8">
 					<h2 class="mb-4 text-xl font-bold">Tracks</h2>
 					<div class="space-y-1">
-						{#each tracks as track, i}
+						{#each album.tracks as track, i}
 							<TrackItem {track} index={i} />
 						{/each}
 					</div>

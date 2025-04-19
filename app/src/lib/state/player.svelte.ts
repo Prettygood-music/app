@@ -22,6 +22,9 @@ export class PlayerState {
 	currentTime = $state(0);
 	duration = $state(0);
 
+	// List either an album or a playlist
+	currentListId = $state<null | string>(null);
+
 	// Computed values
 	progress = $derived(this.duration ? (this.currentTime / this.duration) * 100 : 0);
 	formattedCurrentTime = $derived(this.formatTime(this.currentTime));
@@ -159,6 +162,10 @@ export class PlayerState {
 				break;
 			case 'off':
 				break;
+		}
+
+		if (this.currentListId && !this.hasNext) {
+			this.currentListId = null;
 		}
 	}
 
@@ -320,8 +327,10 @@ export class PlayerState {
 
 	// Utils
 	// An album is pretty much "just a list"
-	playList(list: { tracks: Track[] }) {
-		const { tracks } = list;
+	playList(list: { tracks: Track[]; id: string }) {
+		const { tracks, id } = list;
+		this.currentListId = id;
+
 		tracks.forEach((t, i) => {
 			if (i === 0) {
 				this.playTrack(t);
@@ -331,7 +340,9 @@ export class PlayerState {
 		});
 	}
 
-	isListCurrentlyPlaying(list: { tracks: Track[]; id: string }) {}
+	isListCurrentlyPlaying(list: { tracks: Track[]; id: string }) {
+		return (this.currentListId === list.id && this.isPlaying);
+	}
 }
 
 const PLAYER_CONTEXT_KEY = Symbol('playerContext');
