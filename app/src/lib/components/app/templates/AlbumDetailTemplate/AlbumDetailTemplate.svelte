@@ -9,22 +9,22 @@
 	import PauseIcon from 'lucide-svelte/icons/pause';
 	import HeartIcon from 'lucide-svelte/icons/heart';
 	import ShareIcon from 'lucide-svelte/icons/share-2';
-	import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
 	import { getPlayerContext } from '$lib/state/player.svelte';
-	import type { Track } from '$lib/types';
+	import type { Artist, Track } from '$lib/types';
+	import { page } from '$app/state';
 
 	type Album = {
 		id: string;
 		title: string;
-		cover_url?: string;
-		release_date: string;
-		genre: string[];
+		cover_url: string | null;
+		release_date: string | null;
+		genre: string[] | null;
 		tracks: Track[];
-		description?: string;
+		description: string | null;
 		label?: string;
 	};
 	let {
@@ -32,38 +32,25 @@
 		album = {
 			id: 'album-1',
 			title: 'Album Title',
-			cover_url: undefined,
+			cover_url: null,
 			release_date: new Date().toISOString(),
 			genre: [],
 			tracks: [],
-			description: undefined,
+			description: null,
 			label: 'Record Label'
 		},
 
-		// Artist details
-		artist = {
-			id: 'artist-1',
-			artist_name: 'Artist Name',
-			avatar_url: undefined,
-			bio: undefined
-		},
-
+		artist,
 
 		// Related albums
 		relatedAlbums = [],
 
 		// Initial state
-		initialIsLiked = false,
-
-		// Event handlers
-		onTogglePlay = () => {},
-		onShufflePlay = () => {},
-		onToggleLike = () => {},
-		onShare = () => {},
-		onMoreOptions = () => {}
+		initialIsLiked = false
 	}: {
 		album: Album;
 		relatedAlbums: Album[];
+		artist: Artist;
 	} = $props();
 
 	const playerState = getPlayerContext();
@@ -100,29 +87,24 @@
 
 	// Handle play/pause for the whole album
 	function togglePlay() {
-		onTogglePlay(isPlaying, album);
-	}
-
-	// Handle shuffle play
-	function shufflePlay() {
-		playerState.toggleShuffle();
-		onShufflePlay(album);
-	}
-
-	// Handle like
-	function toggleLike() {
-		isLiked = !isLiked;
-		onToggleLike(isLiked, album);
+		if (isPlaying) {
+			playerState.pause();
+		} else {
+			if (playerState.currentListId === album.id) {
+				playerState.play();
+			} else {
+				playerState.playList(album);
+			}
+		}
 	}
 
 	// Handle share
-	function shareAlbum() {
-		onShare(album);
-	}
-
-	// Handle more options
-	function showMoreOptions() {
-		onMoreOptions(album);
+	async function shareAlbum() {
+		await navigator.share({
+			url: page.url.toString(),
+			title: page.state.title || undefined
+		});
+		//onShare(album);
 	}
 </script>
 
@@ -145,11 +127,13 @@
 						<a href="/artist/{artist.id}" class="text-primary text-lg hover:underline">
 							{artist.artist_name}
 						</a>
-						<div class="text-muted-foreground hidden lg:block">•</div>
-						<div class="text-muted-foreground mt-1 flex items-center gap-2 text-sm lg:mt-0">
-							<CalendarIcon class="h-4 w-4" />
-							<span>{formatDate(album.release_date)}</span>
-						</div>
+						{#if album.release_date}
+							<div class="text-muted-foreground hidden lg:block">•</div>
+							<div class="text-muted-foreground mt-1 flex items-center gap-2 text-sm lg:mt-0">
+								<CalendarIcon class="h-4 w-4" />
+								<span>{formatDate(album.release_date)}</span>
+							</div>
+						{/if}
 					</div>
 
 					<div
@@ -181,17 +165,12 @@
 						{/if}
 					</Button>
 
-					<Button variant="outline" size="sm" class="gap-2" onclick={shufflePlay}>
+					<Button variant="outline" size="sm" class="gap-2" disabled>
 						<ShuffleIcon class="h-4 w-4" />
 						Shuffle
 					</Button>
 
-					<Button
-						variant={isLiked ? 'default' : 'ghost'}
-						size="icon"
-						class="rounded-full"
-						onclick={toggleLike}
-					>
+					<Button variant={isLiked ? 'default' : 'ghost'} size="icon" class="rounded-full" disabled>
 						<HeartIcon class="h-5 w-5" />
 					</Button>
 
@@ -199,9 +178,11 @@
 						<ShareIcon class="h-5 w-5" />
 					</Button>
 
-					<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
-						<MoreHorizontalIcon class="h-5 w-5" />
-					</Button>
+					<!-- 
+						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
+							<MoreHorizontalIcon class="h-5 w-5" />
+						</Button>
+						-->
 				</div>
 
 				<!-- Album Release Information -->
@@ -210,7 +191,7 @@
 					<div class="grid gap-2 text-sm">
 						<div class="flex items-center justify-between">
 							<span class="text-muted-foreground">Released</span>
-							<span>{formatDate(album.release_date)}</span>
+							<span> {album.release_date ? formatDate(album.release_date) : 'Unknown'}</span>
 						</div>
 
 						<div class="flex items-center justify-between">

@@ -161,6 +161,9 @@ export class PlayerState {
 				this.play();
 				break;
 			case 'off':
+				if (this.hasNext) {
+					this.playNextTrack();
+				}
 				break;
 		}
 
@@ -341,7 +344,7 @@ export class PlayerState {
 	}
 
 	isListCurrentlyPlaying(list: { tracks: Track[]; id: string }) {
-		return (this.currentListId === list.id && this.isPlaying);
+		return this.currentListId === list.id && this.isPlaying;
 	}
 }
 
