@@ -15,6 +15,7 @@
 	import Seo from '$lib/components/app/organisms/player-bar/seo.svelte';
 	import { setContext } from 'svelte';
 	import { setUserContext, UserState } from '$lib/state/user/user.svelte';
+	import { setAnalyticsContext } from '$lib/services';
 
 	let { children, data } = $props();
 
@@ -23,6 +24,8 @@
 
 	const playerState = new PlayerState();
 	setPlayerContext(playerState);
+
+	const analytics = setAnalyticsContext(data.user?.id || null);
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) {
@@ -39,6 +42,9 @@
 
 	$effect(() => {
 		userState.onAuthChange(data.user);
+	});
+	$effect(() => {
+		analytics.changeUserId(data.user?.id || null);
 	});
 </script>
 
