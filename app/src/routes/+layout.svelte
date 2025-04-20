@@ -13,7 +13,6 @@
 
 	import { onNavigate } from '$app/navigation';
 	import Seo from '$lib/components/app/organisms/player-bar/seo.svelte';
-	import { setContext } from 'svelte';
 	import { setUserContext, UserState } from '$lib/state/user/user.svelte';
 	import { setAnalyticsContext } from '$lib/services';
 

@@ -4,5 +4,5 @@
  * Export all service modules for easier importing
  */
 
-export * from './analytics';
+export * from './analytics/analytics.svelte';
 export * from './genres';

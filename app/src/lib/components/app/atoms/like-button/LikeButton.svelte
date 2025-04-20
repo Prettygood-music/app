@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button';
+	import { getAnalyticsContext } from '$lib/services';
 	import HeartIcon from 'lucide-svelte/icons/heart';
 
 	// Props
@@ -14,6 +15,8 @@
 	function onShareClick() {
 		console.log('Album shared');
 	}
+
+	const analytics = getAnalyticsContext();
 </script>
 
 <Button variant={isLiked ? 'default' : 'ghost'} size="icon" class="rounded-full" disabled>

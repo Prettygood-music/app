@@ -56,6 +56,18 @@ class FrontendAnalytics {
 	async onArtistShare(artistId: string) {
 		console.log(`Artist shared: ${artistId}`);
 	}
+
+	// MISCELLANEOUS
+	async onSearch(query: string) {
+		console.log(`Search performed: ${query}`);
+	}
+
+	async onAppInstall() {
+		console.log(`App installed`);
+	}
+	async onAppUninstall() {
+		console.log(`App uninstalled`);
+	}
 }
 
 const FRONTEND_ANALYTICS_CONTEXT_KEY = Symbol('FrontendAnalytics');
