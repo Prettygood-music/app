@@ -47,6 +47,7 @@
     "eslint": "^9.18.0",
     "eslint-config-prettier": "^10.0.1",
     "eslint-plugin-svelte": "^2.46.1",
+    "esrun": "^3.2.26",
     "formsnap": "^2.0.0",
     "globals": "^15.14.0",
     "jsdom": "^26.0.0",

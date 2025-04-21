@@ -1,7 +1,6 @@
 import { paraglide } from '@inlang/paraglide-sveltekit/vite';
 import { defineConfig } from 'vitest/config';
 import { sveltekit } from '@sveltejs/kit/vite';
-import { analyzer } from 'vite-bundle-analyzer';
 
 export default defineConfig(({ mode }) => ({
 	plugins: [
@@ -9,14 +8,7 @@ export default defineConfig(({ mode }) => ({
 		paraglide({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide'
-		}),
-		{
-			name: "rebuild-llm",
-			handleHotUpdate({ file, server }) {
-				console.log(file)
-			}
-		}
-		//analyzer()
+		})
 	],
 
 	server: {
