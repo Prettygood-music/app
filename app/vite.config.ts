@@ -9,7 +9,13 @@ export default defineConfig(({ mode }) => ({
 		paraglide({
 			project: './project.inlang',
 			outdir: './src/lib/paraglide'
-		})
+		}),
+		{
+			name: "rebuild-llm",
+			handleHotUpdate({ file, server }) {
+				console.log(file)
+			}
+		}
 		//analyzer()
 	],
 
