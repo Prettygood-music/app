@@ -6,8 +6,6 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import { Separator } from '$lib/components/ui/separator';
 
-	import PlayIcon from 'lucide-svelte/icons/play';
-	import PauseIcon from 'lucide-svelte/icons/pause';
 	import HeartIcon from 'lucide-svelte/icons/heart';
 	import ShareIcon from 'lucide-svelte/icons/share-2';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
@@ -16,6 +14,8 @@
 	import { getPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
 	import { page } from '$app/state';
+	import { getAnalyticsContext } from '$lib/services';
+	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
 
 	let {
 		// Track details
@@ -25,17 +25,15 @@
 		recommendedTracks = [],
 
 		// Initial state
-		initialIsPlaying = false,
 		initialIsLiked = false,
 
 		// Event handlers
-		onTogglePlay = () => {},
-		onToggleLike = () => {},
-		onShare = () => {}
+		onToggleLike = () => {}
 	}: {
 		track: Track;
 		recommendedTracks: Track[];
 	} = $props();
+	const analytics = getAnalyticsContext();
 
 	const playerState = getPlayerContext();
 
@@ -77,9 +75,7 @@
 
 	// Handle play/pause
 	function togglePlay() {
-		//isPlaying = !isPlaying;
-		//onTogglePlay(isPlaying, track);
-
+		analytics.onTrackPlay(track.id);
 		if (isCurrentTrack) {
 			playerState.togglePlayPause();
 		} else {
@@ -96,6 +92,7 @@
 	// Handle share
 	async function shareTrack() {
 		// onShare(track);
+		analytics.onTrackShare(track.id);
 		await navigator.share({
 			url: page.url.toString(),
 			title: page.state.title || undefined
@@ -118,19 +115,7 @@
 				</div>
 
 				<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
-					<Button
-						variant="default"
-						size="lg"
-						class="flex h-14 w-14 items-center justify-center rounded-full p-0"
-						onclick={togglePlay}
-					>
-						{#if isPlaying}
-							<PauseIcon class="h-6 w-6" />
-						{:else}
-							<PlayIcon class="ml-1 h-6 w-6" />
-						{/if}
-					</Button>
-
+					<PlayTrack {track} />
 					<Button
 						variant={isLiked ? 'default' : 'ghost'}
 						size="icon"
