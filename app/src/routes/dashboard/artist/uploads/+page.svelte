@@ -13,8 +13,8 @@
 	import { goto } from '$app/navigation';
 	import { databaseClient } from '$lib/databaseClient';
 	import { LINKS } from '$lib/constants.js';
-	import  AlbumIcon  from 'lucide-svelte/icons/album';
-	import  TrackIcon  from 'lucide-svelte/icons/file-music';
+	import AlbumIcon from 'lucide-svelte/icons/album';
+	import TrackIcon from 'lucide-svelte/icons/file-music';
 
 	let { data } = $props();
 	// Placeholder data
@@ -160,7 +160,6 @@
 		<TabsList>
 			<TabsTrigger value="tracks">Tracks</TabsTrigger>
 			<TabsTrigger value="albums">Albums</TabsTrigger>
-			<TabsTrigger value="uploads">Upload New</TabsTrigger>
 		</TabsList>
 
 		<TabsContent value="tracks" class="space-y-4">
@@ -215,7 +214,8 @@
 											</span>
 										</td>
 										<td class="px-4 py-3 text-right">
-											<Button variant="ghost" size="sm">Edit</Button>
+											<Button variant="ghost" size="sm" disabled>Edit</Button>
+											<!-- TODO: implement track deletion -->
 											<Button variant="ghost" size="sm">Delete</Button>
 										</td>
 									</tr>
@@ -225,6 +225,7 @@
 					</div>
 				</CardContent>
 				<CardFooter class="flex justify-between">
+					<!-- TODO: implement track pagination -->
 					<Button variant="outline" disabled>Previous</Button>
 					<div class="text-muted-foreground text-sm">Page 1 of 1</div>
 					<Button variant="outline" disabled>Next</Button>
@@ -239,29 +240,6 @@
 						<div>
 							<CardTitle>Your Albums</CardTitle>
 							<CardDescription>Manage your album releases</CardDescription>
-						</div>
-						<div>
-							<Button>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									width="16"
-									height="16"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="mr-2 h-4 w-4"
-									><line x1="12" x2="12" y1="5" y2="19" /><line
-										x1="5"
-										x2="19"
-										y1="12"
-										y2="12"
-									/></svg
-								>
-								Create Album
-							</Button>
 						</div>
 					</div>
 				</CardHeader>
@@ -309,134 +287,5 @@
 			</Card>
 		</TabsContent>
 
-		<TabsContent value="uploads" class="space-y-4">
-			<Card>
-				<CardHeader>
-					<CardTitle>Upload New Content</CardTitle>
-					<CardDescription>Add new tracks or create albums</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<div class="grid gap-6 md:grid-cols-2">
-						<Card>
-							<CardHeader>
-								<CardTitle>Upload Track</CardTitle>
-								<CardDescription>Add a single track to your catalog</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<div
-									class="border-muted-foreground/25 flex h-40 items-center justify-center rounded-md border-2 border-dashed"
-								>
-									<div class="text-center">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="36"
-											height="36"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="text-muted-foreground mx-auto"
-										>
-											<path d="M9 18V5l12-2v13"></path>
-											<circle cx="6" cy="18" r="3"></circle>
-											<circle cx="18" cy="16" r="3"></circle>
-										</svg>
-										<p class="text-muted-foreground mt-2 text-sm">
-											Drag and drop your audio file or click to browse
-										</p>
-									</div>
-								</div>
-							</CardContent>
-							<CardFooter>
-								<Button class="w-full" on:click={() => goto('/artist-dashboard/uploads/new')}
-									>Upload Track</Button
-								>
-							</CardFooter>
-						</Card>
-
-						<Card>
-							<CardHeader>
-								<CardTitle>Create Album</CardTitle>
-								<CardDescription>Organize multiple tracks into an album</CardDescription>
-							</CardHeader>
-							<CardContent>
-								<div
-									class="border-muted-foreground/25 flex h-40 items-center justify-center rounded-md border-2 border-dashed"
-								>
-									<div class="text-center">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="36"
-											height="36"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="text-muted-foreground mx-auto"
-										>
-											<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-											<polyline points="17 8 12 3 7 8"></polyline>
-											<line x1="12" y1="3" x2="12" y2="15"></line>
-										</svg>
-										<p class="text-muted-foreground mt-2 text-sm">
-											Create a new album and add tracks to it
-										</p>
-									</div>
-								</div>
-							</CardContent>
-							<CardFooter>
-								<Button class="w-full">Create Album</Button>
-							</CardFooter>
-						</Card>
-					</div>
-				</CardContent>
-			</Card>
-
-			<Card>
-				<CardHeader>
-					<CardTitle>Bulk Upload</CardTitle>
-					<CardDescription>Upload multiple tracks at once</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<div
-						class="border-muted-foreground/25 flex h-40 items-center justify-center rounded-md border-2 border-dashed"
-					>
-						<div class="text-center">
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="36"
-								height="36"
-								viewBox="0 0 24 24"
-								fill="none"
-								stroke="currentColor"
-								stroke-width="2"
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								class="text-muted-foreground mx-auto"
-							>
-								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-								<polyline points="17 8 12 3 7 8"></polyline>
-								<line x1="12" y1="3" x2="12" y2="15"></line>
-							</svg>
-							<p class="mt-2 text-sm font-medium">
-								Drag and drop multiple audio files or click to browse
-							</p>
-							<p class="text-muted-foreground mt-1 text-xs">
-								Supports MP3, WAV, FLAC (max 50MB per file)
-							</p>
-						</div>
-					</div>
-				</CardContent>
-				<CardFooter>
-					<Button class="w-full" on:click={() => goto('/artist-dashboard/uploads/new')}
-						>Start Upload</Button
-					>
-				</CardFooter>
-			</Card>
-		</TabsContent>
 	</Tabs>
 </div>
