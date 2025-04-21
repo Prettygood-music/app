@@ -9,6 +9,11 @@ export const LINKS = {
 	ARTIST_DASHBOARD: "/dashboard/artist",
 	INSTALL: "/install",
 
+	UPLOAD : {
+		TRACK : "/dashboard/artist/uploads/track",
+		ALBUM: "/dashboard/artist/uploads/album",
+	},
+
 	LOGIN: "/login",
 	REGISTER: "/auth",
 
