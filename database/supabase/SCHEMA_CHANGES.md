@@ -1,63 +1,71 @@
-# Schema Architecture Changes
+# Schema Migration: prettygood → public
 
-## Summary of Changes
+This document describes the migration from the custom `prettygood` schema to the standard Supabase `public` schema.
 
-We've migrated away from using a separate `prettygood_private` schema to a single `prettygood` schema with Row Level Security (RLS) policies. This change:
+## Changes Made
 
-1. Simplifies the database architecture
-2. Aligns with Supabase best practices
-3. Resolves the "prettygood_private does not exist" errors
-4. Maintains proper security through RLS
+1. **Schema References**: All references to `prettygood` schema have been changed to `public` schema:
+   - Table definitions
+   - Function definitions
+   - Trigger definitions
+   - Comments and documentation
+   - Foreign key constraints
+   - Policy definitions
 
-## What Changed
+2. **Function Locations**: All functions are now defined in the `public` schema:
+   - `set_updated_at()` 
+   - All business logic functions
+   - All utility functions
 
-### Moved from Private Schema to Main Schema
-- **Tables**: `payment_status_history` and `related_genres` moved to the `prettygood` schema
-- **Functions**: `set_updated_at()` and `track_payment_status_changes()` moved to the `prettygood` schema
-- **Triggers**: All triggers updated to reference functions in the new location
+3. **Tables**: All tables have been moved to the `public` schema
 
-### Added RLS Policies
-- **payment_status_history**: Only admins and artists can access their own payment history
-- **related_genres**: Only admins can manage genre relationships
+## Benefits of Using the `public` Schema
 
-## Applying the Changes
+Using the `public` schema in Supabase has several advantages:
 
-1. The migration file `20250421200000_move_from_private_schema.sql` handles all necessary changes
-2. Core schema files have been updated to reflect the new architecture
-3. Data will be copied from the old schema if it exists
+1. **Supabase Default**: Supabase is designed to work with the `public` schema by default. Most examples, documentation, and tools assume this schema is used.
 
-To apply these changes:
+2. **Simpler Queries**: The `public` schema is implicitly part of the search path, which means you don't need to qualify table references with the schema name in many contexts.
 
-```bash
-supabase db push
-```
+3. **API Integration**: The Supabase client libraries and API endpoints are configured to work with tables in the `public` schema automatically.
 
-## Supabase Best Practices
+4. **PostgREST Configuration**: PostgREST (which powers Supabase's RESTful API) is pre-configured to expose tables in the `public` schema.
 
-This refactoring follows these Supabase best practices:
+5. **Row Level Security**: RLS is the recommended way to secure data in Supabase, regardless of schema. Moving to `public` schema emphasizes RLS as the security mechanism.
 
-1. **Use a simple schema structure**:
-   - Keep tables in a single schema when possible
-   - Avoid cross-schema references which can be error-prone
+6. **Reduced Complexity**: Simpler schema design reduces cognitive overhead and makes the database more maintainable.
 
-2. **Leverage RLS for security**:
-   - Control access via RLS policies rather than schema separation
-   - Define granular policies for read/write access
+7. **Migration Compatibility**: Database migrations are more straightforward with the standard schema.
 
-3. **Use security definer functions when needed**:
-   - Functions that need elevated privileges are marked as `SECURITY DEFINER`
-   - This allows controlled access to protected operations
+## Security Considerations
 
-4. **Clear policy definitions**:
-   - Each table has explicit policies defining who can access it
-   - Policies are aligned with business rules (admin access, own data access)
+Security is maintained through Row Level Security (RLS) policies, which are schema-agnostic. The migration to the `public` schema does not reduce security because:
 
-## Final Notes
+- All tables still have RLS enabled
+- All policies have been preserved with the same access logic
+- User authentication and authorization checks remain unchanged
+- Sensitive data remains protected by appropriate policies
 
-After confirming that the application works correctly with these changes, you can safely drop the old schema:
+## Implementation Notes
 
-```sql
-DROP SCHEMA IF EXISTS prettygood_private CASCADE;
-```
+- This change is a simple rename of the schema prefix and doesn't change any business logic
+- No data migration is required since this is purely a schema change
+- All database functions maintain the same behavior and signatures
+- All policies maintain the same security rules
 
-This should be done in a separate migration after thorough testing.
+## Testing
+
+After deploying this change, please verify:
+
+1. All API endpoints work as expected
+2. User permissions remain properly enforced
+3. Database functions return the expected results
+4. Foreign key constraints are properly enforced
+5. Triggers fire correctly
+
+## Rollback Plan
+
+If issues arise, we can revert to the `prettygood` schema by:
+
+1. Restoring the previous schema files from version control
+2. Re-running the migration to recreate the `prettygood` schema structure
