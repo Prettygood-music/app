@@ -4,15 +4,26 @@
 	import ShareIcon from 'lucide-svelte/icons/share-2';
 
 	let {
-		content
-	}: { content?: Partial<{ title: string; description: string } & { url?: string }> } = $props();
+		content,
+		cb
+	}: {
+		content?: Partial<{ title: string; description: string } & { url?: string }>;
+		cb?: VoidFunction;
+	} = $props();
 
-	function onShare() {
-		navigator.share({
-			url: content?.url || page.url.toString(),
-			title: content?.title,
-			text: content?.description
-		});
+
+	async function onShare() {
+		try {
+			await navigator.share({
+				url: content?.url || page.url.toString(),
+				title: content?.title,
+				text: content?.description
+			});
+		} catch (error) {
+
+		} finally {
+			cb?.();
+		}
 	}
 </script>
 

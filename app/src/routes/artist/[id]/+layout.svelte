@@ -3,12 +3,13 @@
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
+	import { getAnalyticsContext } from '$lib/services/analytics/analytics.svelte.js';
 
 	import TipIcon from 'lucide-svelte/icons/coins';
-	import ShareIcon from 'lucide-svelte/icons/share-2';
 
 	let { children, data } = $props();
 	let artist = $derived(data.artist);
+	const analytics = getAnalyticsContext();
 
 	// TODO: track if user is following
 	let isFollowing = $state(false);
@@ -17,10 +18,6 @@
 		isFollowing = !isFollowing;
 		// TODO: implement follow toggle
 		//onToggleFollow(isFollowing);
-	}
-
-	async function onShare(artist: typeof data.artist) {
-		// TODO: Implement onShare
 	}
 
 	function onTipArtist(artist: typeof data.artist) {
@@ -65,18 +62,7 @@
 				</div>
 
 				<div class="flex gap-2">
-					<!-- 
-					<Button
-						size="icon"
-						variant="ghost"
-						class="bg-background/20 hover:bg-background/40 rounded-full"
-						disabled
-						onclick={() => onShare(artist)}
-					>
-						<ShareIcon class="h-5 w-5" />
-					</Button>
-					 -->
-					<ShareButton></ShareButton>
+					<ShareButton cb={() => analytics.onArtistShare(artist.id)}></ShareButton>
 					<Button onclick={toggleFollow} disabled variant={isFollowing ? 'secondary' : 'default'}>
 						{isFollowing ? 'Following' : 'Follow'}
 					</Button>
