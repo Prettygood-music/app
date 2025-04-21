@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { PageData } from './$types';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	/*
   import { TrackList } from '$lib/components/tracks';
@@ -9,10 +8,7 @@
 	import { TrackItem } from '$lib/components/music';
 
 	import { GenreGrid } from '$lib/components/genres';
-	import { formatDuration } from '$lib/services/genres';
-	import Play from 'lucide-svelte/icons/play';
 	import { Button } from '$lib/components/ui/button';
-	import { goto } from '$app/navigation';
 
 	// Page data
 	let { data } = $props();
@@ -24,7 +20,6 @@
 	// Derived data
 	let genre = $derived.by(() => data.genreWithContent?.genre);
 	let tracks = $derived.by(() => data.genreWithContent?.tracks || []);
-	$inspect(tracks);
 	let artists = $derived.by(() => data.genreWithContent?.artists || []);
 	let albums = $derived.by(() => data.genreWithContent?.albums || []);
 	let relatedGenres = $derived.by(() => data.genreWithContent?.relatedGenres || []);
@@ -45,15 +40,6 @@
 		}
 		return `${minutes} min`;
 	});
-
-	// Handle play all action
-	function playAll() {
-		// This would typically add all tracks to the queue and start playback
-		// For now, we'll just navigate to the first track
-		if (tracks.length > 0) {
-			goto(`/tracks/${tracks[0].id}`);
-		}
-	}
 </script>
 
 <svelte:head>
@@ -107,13 +93,6 @@
 							• {formattedTotalDuration}
 						{/if}
 					</div>
-
-					{#if tracks.length > 0}
-						<Button size="sm" onclick={playAll}>
-							<Play class="mr-2 h-4 w-4" />
-							Play All
-						</Button>
-					{/if}
 				</div>
 			</div>
 		</div>

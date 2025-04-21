@@ -10,31 +10,12 @@
 	import PauseIcon from 'lucide-svelte/icons/pause';
 	import HeartIcon from 'lucide-svelte/icons/heart';
 	import ShareIcon from 'lucide-svelte/icons/share-2';
-	import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import { getPlayerContext } from '$lib/state/player.svelte';
 	import type { Track } from '$lib/types';
-
-	/*
-	{
-			id: 'track-1',
-			title: 'Track Title',
-			cover_url: undefined,
-			duration: 240,
-			release_date: new Date().toISOString(),
-			play_count: 0,
-			genre: [],
-			artist: {
-				id: 'artist-1',
-				artist_name: 'Artist Name',
-				display_name: 'Artist Name',
-				avatar_url: undefined,
-				bio: undefined
-			},
-			album: undefined
-		}*/
+	import { page } from '$app/state';
 
 	let {
 		// Track details
@@ -113,8 +94,12 @@
 	}
 
 	// Handle share
-	function shareTrack() {
-		onShare(track);
+	async function shareTrack() {
+		// onShare(track);
+		await navigator.share({
+			url: page.url.toString(),
+			title: page.state.title || undefined
+		});
 	}
 </script>
 
@@ -127,7 +112,7 @@
 					<img
 						src={track.cover_url || '/images/default-track.jpg'}
 						alt={track.title}
-						class="aspect-square border h-64 w-64 rounded-lg object-cover sm:h-80 sm:w-80"
+						class="aspect-square h-64 w-64 rounded-lg border object-cover sm:h-80 sm:w-80"
 						style="--view-transition-tag:track-image-{track.id};"
 					/>
 				</div>
@@ -151,6 +136,7 @@
 						size="icon"
 						class="rounded-full"
 						onclick={toggleLike}
+						disabled
 					>
 						<HeartIcon class="h-5 w-5" />
 					</Button>
