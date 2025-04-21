@@ -11,7 +11,6 @@
 		cb?: VoidFunction;
 	} = $props();
 
-
 	async function onShare() {
 		try {
 			await navigator.share({
@@ -20,7 +19,6 @@
 				text: content?.description
 			});
 		} catch (error) {
-
 		} finally {
 			cb?.();
 		}
@@ -31,7 +29,6 @@
 	size="icon"
 	variant="ghost"
 	class="bg-background/20 hover:bg-background/40 rounded-full"
-	disabled
 	onclick={() => onShare()}
 >
 	<ShareIcon class="h-5 w-5" />

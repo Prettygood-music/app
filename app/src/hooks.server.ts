@@ -1,5 +1,4 @@
 import { decodeJwt, extractUserFromJwt } from '$lib/auth/jwt';
-import { databaseClient } from '$lib/databaseClient';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ event, resolve }) => {
