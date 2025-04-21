@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ShareButton from '$lib/components/app/atoms/share-button/ShareButton.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
@@ -64,15 +65,19 @@
 				</div>
 
 				<div class="flex gap-2">
+					<!-- 
 					<Button
 						size="icon"
 						variant="ghost"
 						class="bg-background/20 hover:bg-background/40 rounded-full"
+						disabled
 						onclick={() => onShare(artist)}
 					>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
-					<Button onclick={toggleFollow} variant={isFollowing ? 'secondary' : 'default'}>
+					 -->
+					<ShareButton></ShareButton>
+					<Button onclick={toggleFollow} disabled variant={isFollowing ? 'secondary' : 'default'}>
 						{isFollowing ? 'Following' : 'Follow'}
 					</Button>
 					<Button variant="default" onclick={() => onTipArtist(artist)}>

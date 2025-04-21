@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { TrackItem } from '$lib/components/music';
-	import { AlbumCard } from '$lib/components/music';
 	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
@@ -12,7 +11,7 @@
 	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import { getPlayerContext } from '$lib/state/player.svelte';
-	import type { Track } from '$lib/types';
+	import type { Artist, Track } from '$lib/types';
 	import { page } from '$app/state';
 	import { getAnalyticsContext } from '$lib/services';
 	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
@@ -30,7 +29,7 @@
 		// Event handlers
 		onToggleLike = () => {}
 	}: {
-		track: Track;
+		track: Track & { artist: Artist };
 		recommendedTracks: Track[];
 	} = $props();
 	const analytics = getAnalyticsContext();
