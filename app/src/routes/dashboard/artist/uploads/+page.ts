@@ -3,47 +3,38 @@ import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ data, parent }) => {
-	const { artist } = await parent();
-	const { data: tracksData, error: tracksError } = await databaseClient
+	const { artist, supabase } = await parent();
+
+	const { data: tracksData, error: tracksError } = await supabase
 		.from('tracks')
-		.select('*')
+		.select('*, track_play_counts(*)')
 		.eq('artist_id', artist.id);
+
+	console.dir(tracksData);
 
 	if (tracksError) {
 		console.error(tracksError);
 		error(500, tracksError);
 	}
-	const { data: tracksPlayCount, error: tracksPlayCountError } = await databaseClient
-		.from('track_play_counts')
-		.select('*')
-		.in(
-			'track_id',
-			tracksData.map((t) => t.id)
-		);
 
-	if (tracksPlayCountError) {
-		console.error(tracksPlayCountError);
-		error(500, tracksPlayCountError);
-	}
-
-	console.dir(tracksData);
-
-	console.dir(tracksPlayCount);
-
-	const { data: albumsData, error: albumsError } = await databaseClient
+	const { data: albumsData, error: albumsError } = await supabase
 		.from('albums')
 		.select('*, tracks(count)')
 		.eq('artist_id', artist.id);
 
+	/*
+	const { data: albumsData, error: albumsError } = await databaseClient
+		.from('albums')
+		.select('*, tracks(count)')
+		.eq('artist_id', artist.id);
+*/
 	const tracks = tracksData.map((t) => {
 		return {
 			...t,
-			plays: 0,
+			plays: t.track_play_counts[0]?.play_count || 0,
 			status: 'published'
 		};
 	});
-
-    console.dir(albumsData)
 
 	return {
 		tracks,

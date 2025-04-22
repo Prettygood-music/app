@@ -8,11 +8,11 @@ export async function load({ locals }) {
 		throw redirect(302, LINKS.LOGIN);
 	}
 
-	const { data: artist, error: err } = await databaseClient
+	const { data: artist, error: err } = await locals.supabase
 		.from('artists')
 		.select('*')
 		.eq('id', locals.user.id)
-		.single();
+		.maybeSingle();
 
 	if (err) {
 		error(404, err);
@@ -31,6 +31,23 @@ export const actions: Actions = {
 		if (!user) {
 			return fail(404);
 		}
+		const { supabase } = event.locals;
+		const {error} = await supabase.rpc('apply_for_artist_account', {
+			artist_name: 'deez nutters',
+			bio: "They tried to stop him, they couldn't",
+			genre: ['Soul frog'],
+			location: 'America',
+			social_links: {
+				twitter: 'tweet'
+			}
+		});
+		if (error) {
+			console.error(error);
+			return fail(500, { error });
+		} else {
+			redirect(302, LINKS.ARTIST_DASHBOARD);
+		}
+		/*
 
 		const { data: rpcArtistData, error: rpcError } = await databaseClient.rpc(
 			'register_as_artist_with_id',
@@ -44,7 +61,7 @@ export const actions: Actions = {
 				},
 				user_id: user.id
 			}
-		);
+		);*/
 		if (rpcError) {
 			console.error(rpcError);
 		}

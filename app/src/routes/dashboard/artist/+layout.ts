@@ -1,8 +1,8 @@
 import { redirect } from '@sveltejs/kit';
-import type { LayoutLoad } from './$types';
 
-export const load: LayoutLoad = async ({ fetch, parent, data }) => {
+export const load = async ({ data }) => {
 	// Return artist data for use in all dashboard pages
+
 	return {
 		artist: data.artist
 	};

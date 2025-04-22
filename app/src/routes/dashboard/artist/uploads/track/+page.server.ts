@@ -2,13 +2,12 @@ import { databaseClient } from '$lib/databaseClient';
 import { trackCreationSchema } from '$lib/schemas/trackSchema';
 import { storeFile } from '$lib/server/services/fileStorage';
 import { fail } from '@sveltejs/kit';
-import { superValidate } from 'sveltekit-superforms';
+import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Get the current user ID from the session
-	const userId = locals.user?.id;
 
 	const form = await superValidate(zod(trackCreationSchema));
 
@@ -20,16 +19,76 @@ export const load: PageServerLoad = async ({ locals }) => {
 
 export const actions: Actions = {
 	default: async (event) => {
+		const { supabase } = event.locals;
+
 		const form = await superValidate(event, zod(trackCreationSchema));
 
-		if (!form.valid || !event.locals.user || !event.locals.token) {
+		if (!form.valid) {
 			return fail(400, {
 				form
 			});
 		}
 
-		//const databaseClient = getDatabaseClient(event.locals.token)
 		const trackData = form.data;
+
+		const audioFile = form.data.audio_file;
+		const coverFile = form.data.cover_image;
+		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
+
+		const { data: audioStorageData, error: audioStorageError } = await supabase.storage
+			.from('test')
+			.upload(`${event.locals.user!.id}/${audioFile.name}`, audioFile, {
+				contentType: 'audio/*'
+			});
+
+		if (audioStorageError) {
+			console.error('audio storage error', audioStorageError);
+			return fail(500, withFiles({ form, error: audioStorageError }));
+		}
+		console.log('audio storage data', audioStorageData);
+		const {
+			data: { publicUrl: audioURL }
+		} = await supabase.storage.from('test').getPublicUrl(audioStorageData!.path);
+		console.log(audioURL);
+
+		//return { form };
+		//return message(form, 'Track created successfully');
+
+		let coverURL: null | string = null;
+		if (coverFile) {
+			const { data } = await supabase.storage
+				.from('test')
+				.upload(`${event.locals.user!.id}/${coverFile.name}`, coverFile, {});
+
+			const {
+				data: { publicUrl: coverPublicURL }
+			} = await supabase.storage.from('test').getPublicUrl(data!.path);
+			coverURL = coverPublicURL;
+		}
+
+		const { data: trackInsert, error: trackError } = await supabase.from('tracks').insert({
+			title: trackData.title,
+			artist_id: event.locals.user!.id,
+			audio_url: audioURL,
+			// FIXME: we need to compute duration
+			duration: 0,
+			cover_url: coverURL,
+			album_id: trackData.album_id || undefined,
+			explicit: trackData.explicit,
+			isrc: trackData.isrc || undefined,
+			genre: trackData.genre,
+			lyrics: trackData.lyrics || undefined,
+			release_date: trackData.release_date || undefined,
+			track_number: trackData.track_number || undefined
+		});
+		if (trackError) {
+			console.error(trackError);
+			fail(500, { form });
+		}
+
+		console.dir(trackInsert);
+		return message(form, 'Track created successfully');
+		/*
 
 		const audioBuffer = await form.data.audio_file.arrayBuffer();
 		const audioPath = await storeFile(
@@ -50,8 +109,7 @@ export const actions: Actions = {
 
 		// FIXME: We should be handling file deletion if there's an issue with the database
 
-		//databaseClient.rpc("")
-		const {data: track, error: err} = await databaseClient.rpc('create_track', {
+		const { data: track, error: err } = await databaseClient.rpc('create_track', {
 			title: trackData.title,
 			artist_id: event.locals.user.id,
 			audio_url: audioPath,
@@ -60,35 +118,16 @@ export const actions: Actions = {
 			cover_url: coverPath,
 			album_id: trackData.album_id || undefined,
 			explicit: trackData.explicit,
-			isrc: trackData.isrc|| undefined,
+			isrc: trackData.isrc || undefined,
 			genre: trackData.genre,
-			lyrics: trackData.lyrics|| undefined,
+			lyrics: trackData.lyrics || undefined,
 			release_date: trackData.release_date || undefined,
-			track_number: trackData.track_number|| undefined
+			track_number: trackData.track_number || undefined
 		});
-		/*
-		const { data: track, error: err } = await databaseClient
-			.from('tracks')
-			.insert({
-				title: trackData.title,
-				artist_id: event.locals.user.id,
-				audio_url: audioPath,
-				// Fix duration
-				duration: 0,
-				cover_url: coverPath,
-				album_id: trackData.album_id,
-				explicit: trackData.explicit,
-				isrc: trackData.isrc,
-				genre: trackData.genre,
-				lyrics: trackData.lyrics,
-				release_date: trackData.release_date,
-				track_number: trackData.track_number
-			})
-			.select();
-*/
+
 		console.dir(track);
 		if (err) {
 			console.error(err);
-		}
+		}*/
 	}
 };

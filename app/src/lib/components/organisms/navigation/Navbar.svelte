@@ -17,7 +17,8 @@
 	let isConnected = $derived.by(() => user.user);
 	let userInitials = $derived.by(() => {
 		if (user.user) {
-			const split = user.user.username.split(' ');
+			// TODO: got to fix user info, we're not getting the "user" we need here
+			const split = user.user.username?.split(' ') || user.user.email?.split('@');
 
 			if (split.length > 1) {
 				return split

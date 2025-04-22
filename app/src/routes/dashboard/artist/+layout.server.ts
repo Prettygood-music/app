@@ -1,31 +1,23 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { databaseClient } from '$lib/databaseClient';
 
-export const load: LayoutServerLoad = async ({ locals, params }) => {
+export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!locals.user) {
 		redirect(308, '/dashboard');
 	}
 
-	const { data, error: artistError } = await databaseClient
+	const { data: artist, error: artistError } = await locals.supabase
 		.from('artists')
 		.select('*')
 		.eq('id', locals.user.id)
 		.single();
-
-	if (artistError) {
-		console.error(artistError);
+	if (!artist) {
+		error(404, "Couldn't find artist");
 	}
-
-	if (!data) {
-		// Should redirect to artist creation
-		error(404, "Couldn't find artist info");
-	}
-
 	//const {} = databaseClient.from("")
 	//const {} =databaseClient.rpc("")
 
 	return {
-		artist: data
+		artist
 	};
 };
