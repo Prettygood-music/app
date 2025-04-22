@@ -225,6 +225,7 @@
 				<Form.Control>
 					{#snippet children({ props })}
 					{@const hasAlbums = albums.length > 0}
+					{@const albumDisplay = $formData.album_id ? albums.find((a) => a.id === $formData.album_id)?.title : null}
 						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
 
 						<Select.Root
@@ -234,7 +235,7 @@
 							name={props.name}
 						>
 							<Select.Trigger {...props}>
-								{$formData.album_id ? $formData.album_id : hasAlbums ? 'Select Album': 'No album found'}
+								{albumDisplay ? albumDisplay : hasAlbums ? 'Select Album': 'No album found'}
 							</Select.Trigger>
 							<Select.Content>
 								{#each albums as album}

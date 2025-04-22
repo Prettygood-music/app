@@ -8,11 +8,16 @@ import type { Actions, PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Get the current user ID from the session
+	const { supabase } = locals;
 
 	const form = await superValidate(zod(trackCreationSchema));
+	const { data: albums } = await supabase
+		.from('albums')
+		.select('*')
+		.eq('artist_id', locals.user!.id);
 
 	return {
-		albums: [],
+		albums: albums || [],
 		form
 	};
 };

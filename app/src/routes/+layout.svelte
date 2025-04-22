@@ -18,6 +18,9 @@
 	import { onMount } from 'svelte';
 	import { DEPENDS } from '$lib/constants';
 
+	import SkSeo from 'sk-seo';
+	import { page } from '$app/state';
+
 	let { children, data } = $props();
 	let { session, supabase } = $derived(data);
 
@@ -56,8 +59,12 @@
 	});
 </script>
 
+<SkSeo
+	openGraph={true}
+	imageURL={page.url.origin + '/api/og'}
+	description="Pretty Good music, for everyone."
+></SkSeo>
 <Seo></Seo>
-
 <ParaglideJS {i18n}>
 	<Toaster />
 

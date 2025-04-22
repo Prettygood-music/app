@@ -1,7 +1,7 @@
 import type { PageServerLoad, Actions } from './$types';
 import { album } from '$lib/schemas';
 import { zod } from 'sveltekit-superforms/adapters';
-import { superValidate } from 'sveltekit-superforms';
+import { message, superValidate } from 'sveltekit-superforms';
 import { storeFile } from '$lib/server/services/fileStorage';
 import { databaseClient } from '$lib/databaseClient';
 import { fail } from '@sveltejs/kit';
@@ -14,20 +14,27 @@ export const load = (async () => {
 
 export const actions: Actions = {
 	default: async (event) => {
+		const { supabase } = event.locals;
+
 		const form = await superValidate(event, zod(album.schema));
-		if (!form.valid || !event.locals.user || !event.locals.token) {
+		if (!form.valid) {
 			return fail(400, {
 				form
 			});
 		}
 		const albumData = form.data;
 		const coverFile = form.data.cover_image;
-		let coverPath: string | undefined = undefined;
+		let coverURL: null | string = null;
 		if (coverFile) {
-			const imageBuffer = await coverFile.arrayBuffer();
-			coverPath = await storeFile(new Uint8Array(imageBuffer), 'image', coverFile.name);
+			const { data } = await supabase.storage
+				.from('test')
+				.upload(`${event.locals.user!.id}/${coverFile.name}`, coverFile, {});
+
+			const {
+				data: { publicUrl: coverPublicURL }
+			} = await supabase.storage.from('test').getPublicUrl(data!.path);
+			coverURL = coverPublicURL;
 		}
-		console.log(coverPath);
 
 		/*
 		const { data: insertedAlbum, error: err } = await databaseClient.rpc("create", {
@@ -39,12 +46,12 @@ export const actions: Actions = {
 			description: albumData.description
 		});*/
 
-		const { data: insertedAlbum, error: err } = await databaseClient
+		const { data: insertedAlbum, error: err } = await supabase
 			.from('albums')
 			.insert({
 				title: albumData.title,
-				artist_id: event.locals.user.id,
-				cover_url: coverPath,
+				artist_id: event.locals.user!.id,
+				cover_url: coverURL,
 				genre: albumData.genre,
 				release_date: albumData.release_date,
 				description: albumData.description
@@ -61,8 +68,7 @@ export const actions: Actions = {
 
 		console.dir(insertedAlbum);
 
-		return {
-			form
-		};
+		return message(form, 'Album created successfully');
+		
 	}
 };

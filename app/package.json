@@ -81,11 +81,15 @@
     "@inlang/paraglide-sveltekit": "^0.15.5",
     "@mysten/sui": "^1.24.0",
     "@prettygood/database": "workspace:*",
+    "@resvg/resvg-js": "^2.6.2",
     "@supabase/postgrest-js": "^1.19.3",
     "@supabase/ssr": "^0.6.1",
     "hono": "^4.7.2",
     "jose": "^6.0.10",
     "nanoid": "^5.1.5",
+    "satori": "^0.12.2",
+    "satori-html": "^0.3.2",
+    "sk-seo": "^0.5.3",
     "uuid": "^11.1.0"
   }
 }
