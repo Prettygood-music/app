@@ -53,7 +53,8 @@
     "docker:setup-and-generate": "npm run docker:setup-fresh-db && npm run generate-types:advanced:docker",
     "gen:types": "pnpx supabase gen types --lang typescript -s prettygood --db-url postgresql://postgres:postgres@localhost:5432/prettygood > ./src/types/database.ts",
     "gen:zod": "supazod -i ./src/types/database.ts  -o ./src/database.schema.ts",
-    "build": "vite build"
+    "build": "vite build",
+    "snaplet:sync": "pnpm dlx @snaplet/seed sync"
   },
   "keywords": [
     "postgresql",
@@ -64,12 +65,20 @@
   "author": "prettygood.music team",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^9.7.0",
+    "@snaplet/copycat": "^6.0.0",
+    "@snaplet/seed": "0.98.0",
+    "@types/pg": "^8.11.13",
+    "esrun": "^3.2.26",
+    "pg": "^8.14.1",
     "supazod": "^1.2.3",
+    "tsx": "^4.19.3",
     "vite": "^6.0.0",
     "vite-plugin-dts": "^4.5.3"
   },
   "dependencies": {
     "@supabase/postgrest-js": "^1.19.3",
+    "@supabase/supabase-js": "^2.49.4",
     "zod": "^3.24.2"
   }
 }

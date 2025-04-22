@@ -2859,3 +2859,55 @@ CREATE TRIGGER set_user_settings_updated_at BEFORE UPDATE ON public.user_setting
 CREATE TRIGGER set_updated_at BEFORE UPDATE ON public.users FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
 
+set check_function_bodies = off;
+
+CREATE OR REPLACE FUNCTION auth.handle_email_confirmation()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+AS $function$
+BEGIN
+  UPDATE public.users
+  SET email_verified = TRUE
+  WHERE id = NEW.id AND NEW.email_confirmed_at IS NOT NULL;
+  
+  RETURN NEW;
+END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION auth.handle_new_user()
+ RETURNS trigger
+ LANGUAGE plpgsql
+ SECURITY DEFINER
+ SET search_path TO ''
+AS $function$
+BEGIN
+  INSERT INTO public.users (
+    id, 
+    username,
+    email,
+    display_name,
+    email_verified
+  ) VALUES (
+    NEW.id,
+    COALESCE(NEW.raw_user_meta_data->>'username', SPLIT_PART(NEW.email, '@', 1) || '_' || SUBSTRING(NEW.id::text, 1, 6)),
+    NEW.email,
+    COALESCE(NEW.raw_user_meta_data->>'display_name', SPLIT_PART(NEW.email, '@', 1)),
+    NEW.email_confirmed_at IS NOT NULL
+  );
+  
+  -- Create default settings
+  INSERT INTO public.user_settings (user_id)
+  VALUES (NEW.id);
+  
+  RETURN NEW;
+END;
+$function$
+;
+
+CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION auth.handle_new_user();
+
+CREATE TRIGGER on_email_confirmation AFTER UPDATE OF email_confirmed_at ON auth.users FOR EACH ROW EXECUTE FUNCTION auth.handle_email_confirmation();
+
+

@@ -89,7 +89,7 @@ FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
 
 -- User registration function that ties into Supabase Auth
 CREATE OR REPLACE FUNCTION auth.handle_new_user()
-RETURNS TRIGGER AS $$
+RETURNS TRIGGER set search_path = '' AS $$
 BEGIN
   INSERT INTO public.users (
     id, 
