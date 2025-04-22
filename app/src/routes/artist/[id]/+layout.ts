@@ -1,10 +1,10 @@
-import type { LayoutLoad } from './$types';
-import { databaseClient } from '$lib/databaseClient';
-import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
+import type { LayoutLoad } from './$types';
 
-export const load = (async ({ params }) => {
-	const { data: artist } = await databaseClient
+export const load = (async ({ params, parent }) => {
+	const { supabase } = await parent();
+
+	const { data: artist } = await supabase
 		.from('artists')
 		.select('*, tracks(*), albums(*, tracks(*))')
 		.eq('id', params.id)

@@ -144,7 +144,7 @@
 
 <div class="pb-16">
 	<!-- Playlist Header with Cover Image or Gradient -->
-	<div class="relative min-h-[200px] md:min-h-[300px]">
+	<div class="relative min-h-[200px] md:min-h-[300px] overflow-hidden">
 		<div 
 			class="absolute inset-0 bg-cover bg-center" 
 			style="background-image: {coverBackground}; filter: blur(40px) opacity(0.6);"
@@ -217,7 +217,7 @@
 		</div>
 	</div>
 	
-	<div class="container mx-auto px-4 py-4">
+	<div class="container mx-auto px-4 py-4 ">
 		<!-- Action Buttons -->
 		<div class="mb-8 flex items-center gap-4">
 			<Button

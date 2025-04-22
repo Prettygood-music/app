@@ -82,6 +82,7 @@
     "@mysten/sui": "^1.24.0",
     "@prettygood/database": "workspace:*",
     "@supabase/postgrest-js": "^1.19.3",
+    "@supabase/ssr": "^0.6.1",
     "hono": "^4.7.2",
     "jose": "^6.0.10",
     "nanoid": "^5.1.5",

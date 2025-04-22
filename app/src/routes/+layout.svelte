@@ -11,12 +11,15 @@
 	import { PlayerState, setPlayerContext } from '$lib/state/player.svelte';
 	import Navbar from '$lib/components/organisms/navigation/Navbar.svelte';
 
-	import { onNavigate } from '$app/navigation';
+	import { invalidate, onNavigate } from '$app/navigation';
 	import Seo from '$lib/components/app/organisms/player-bar/seo.svelte';
 	import { setUserContext, UserState } from '$lib/state/user/user.svelte';
 	import { setAnalyticsContext } from '$lib/services';
+	import { onMount } from 'svelte';
+	import { DEPENDS } from '$lib/constants';
 
 	let { children, data } = $props();
+	let { session, supabase } = $derived(data);
 
 	const userState = new UserState(data.user);
 	setUserContext(userState);
@@ -25,6 +28,15 @@
 	setPlayerContext(playerState);
 
 	const analytics = setAnalyticsContext(data.user?.id || null);
+
+	onMount(() => {
+		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {
+			if (newSession?.expires_at !== session?.expires_at) {
+				invalidate(DEPENDS.AUTH);
+			}
+		});
+		return () => data.subscription.unsubscribe();
+	});
 
 	onNavigate((navigation) => {
 		if (!document.startViewTransition) {
@@ -39,9 +51,6 @@
 		});
 	});
 
-	$effect(() => {
-		userState.onAuthChange(data.user);
-	});
 	$effect(() => {
 		analytics.changeUserId(data.user?.id || null);
 	});

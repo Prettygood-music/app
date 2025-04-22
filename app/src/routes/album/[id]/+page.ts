@@ -1,9 +1,11 @@
-import { databaseClient } from '$lib/databaseClient';
+//import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 
 export const load: PageLoad = async ({ params, parent }) => {
-	const { data: album } = await databaseClient
+	const { supabase } = await parent();
+
+	const { data: album } = await supabase
 		.from('albums')
 		.select('*, tracks(*), artist: artists(*, artist_name, albums(*, tracks(id)))')
 		.eq('id', params.id)

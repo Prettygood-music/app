@@ -46,7 +46,7 @@
 		: false;
 </script>
 
-<header class="bg-background w-full border-b" style="view-transition-name: none;">
+<header class="bg-background w-full " style="view-transition-name: none;">
 	<div class="container flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">

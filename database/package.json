@@ -54,7 +54,8 @@
     "gen:types": "pnpx supabase gen types --lang typescript -s prettygood --db-url postgresql://postgres:postgres@localhost:5432/prettygood > ./src/types/database.ts",
     "gen:zod": "supazod -i ./src/types/database.ts  -o ./src/database.schema.ts",
     "build": "vite build",
-    "snaplet:sync": "pnpm dlx @snaplet/seed sync"
+    "snaplet:sync": "pnpm dlx @snaplet/seed sync",
+    "gen:types_supabase": "pnpx supabase gen types --lang typescript -s public --db-url postgresql://postgres:postgres@127.0.0.1:54322 > ./src/types/database.ts"
   },
   "keywords": [
     "postgresql",

@@ -7,8 +7,9 @@
 import { createSeedClient } from "@snaplet/seed";
 import { createClient } from "@supabase/supabase-js";
 import { faker } from "@faker-js/faker";
+import { Database } from "../src/types/database";
 
-export const supabaseAdmin = createClient(
+export const supabaseAdmin = createClient<Database>(
   "http://127.0.0.1:54321",
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImV4cCI6MTk4MzgxMjk5Nn0.EGIM96RAZx35lJzdJsyH-qQwv8Hdp7fsn3W0YpN81IU",
   {}
@@ -16,6 +17,8 @@ export const supabaseAdmin = createClient(
 
 // Reproducible random data
 faker.seed(1337);
+
+const fakeUUID = "00000000-0000-0000-0000-000000000000";
 
 function generateUser() {
   const email = faker.internet.email();
@@ -26,6 +29,25 @@ function generateUser() {
     password,
   };
 }
+
+function generateArtist(
+  id: string
+): Database["public"]["Tables"]["artists"]["Insert"] {
+  return {
+    id,
+    artist_name: faker.person.fullName(),
+    bio: faker.lorem.paragraph(),
+  };
+}
+
+const genres: Database["public"]["Tables"]["genres"]["Insert"][] = [
+  ...new Set(new Array(10).fill(0).map((_) => faker.music.genre())),
+].map((g) => {
+  return {
+    name: g,
+    description: faker.lorem.sentence(),
+  };
+});
 
 const main = async () => {
   const seed = await createSeedClient({
@@ -59,6 +81,58 @@ const main = async () => {
       console.error("Error creating user:", error);
       process.exit(1);
     }
+  }
+
+  const { data: dbUsers } = await supabaseAdmin.auth.admin.listUsers();
+
+  {
+    const { error } = await supabaseAdmin
+      .from("genres")
+      .delete()
+      .neq("id", fakeUUID);
+    if (error) {
+      console.error("Error deleting genres:", error);
+    }
+  }
+
+  const { data: genresInsert, error: genresError } = await supabaseAdmin
+    .from("genres")
+    .insert(genres)
+    .select("*");
+  if (genresError) {
+    console.error("Error creating genres:", genresError);
+  }
+
+  // NOTE: we're expecting a single user to only own one artist.
+  const { data: artists, error: artistsError } = await supabaseAdmin
+    .from("artists")
+    .insert(
+      new Array(3)
+        .fill(0)
+        .map((_, i) =>
+          generateArtist(faker.helpers.arrayElement(dbUsers.users).id)
+        )
+    )
+    .select("*");
+  if (artistsError) {
+    console.error("Error creating artists:", artistsError);
+  }
+
+  const { data: albums, error: albumsError } = await supabaseAdmin
+    .from("albums")
+    .insert([
+      {
+        artist_id: artists![0].id,
+        title: faker.music.songName(),
+        release_date: faker.date.past().toISOString(),
+        cover_url: faker.image.url(),
+        description: faker.lorem.paragraph(),
+        genre: [faker.helpers.arrayElement(genresInsert!).id],
+        type: "album",
+      },
+    ]);
+  if (albumsError) {
+    console.error("Error creating albums:", albumsError);
   }
 
   // TODO: use supabase client to seed

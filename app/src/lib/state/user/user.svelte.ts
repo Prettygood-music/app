@@ -1,4 +1,4 @@
-import type { User } from '$lib/types/user';
+import type { User } from '@prettygood/database';
 import { getContext, setContext } from 'svelte';
 
 export class UserState {

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { Json } from './types/database';
 export declare const jsonSchema: z.ZodSchema<Json>;
-export declare const prettygoodAlbumGenresRowSchemaSchema: z.ZodObject<{
+export declare const publicAlbumGenresRowSchemaSchema: z.ZodObject<{
     album_id: z.ZodString;
     genre_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -11,7 +11,7 @@ export declare const prettygoodAlbumGenresRowSchemaSchema: z.ZodObject<{
     album_id: string;
     genre_id: string;
 }>;
-export declare const prettygoodAlbumGenresInsertSchemaSchema: z.ZodObject<{
+export declare const publicAlbumGenresInsertSchemaSchema: z.ZodObject<{
     album_id: z.ZodString;
     genre_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -21,7 +21,7 @@ export declare const prettygoodAlbumGenresInsertSchemaSchema: z.ZodObject<{
     album_id: string;
     genre_id: string;
 }>;
-export declare const prettygoodAlbumGenresUpdateSchemaSchema: z.ZodObject<{
+export declare const publicAlbumGenresUpdateSchemaSchema: z.ZodObject<{
     album_id: z.ZodOptional<z.ZodString>;
     genre_id: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
@@ -31,7 +31,7 @@ export declare const prettygoodAlbumGenresUpdateSchemaSchema: z.ZodObject<{
     album_id?: string | undefined;
     genre_id?: string | undefined;
 }>;
-export declare const prettygoodAlbumGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicAlbumGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"album_genres_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -68,7 +68,7 @@ export declare const prettygoodAlbumGenresRelationshipsSchemaSchema: z.ZodTuple<
     referencedRelation: "genres";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodAlbumLikesRowSchemaSchema: z.ZodObject<{
+export declare const publicAlbumLikesRowSchemaSchema: z.ZodObject<{
     album_id: z.ZodString;
     liked_at: z.ZodString;
     user_id: z.ZodString;
@@ -81,7 +81,7 @@ export declare const prettygoodAlbumLikesRowSchemaSchema: z.ZodObject<{
     user_id: string;
     liked_at: string;
 }>;
-export declare const prettygoodAlbumLikesInsertSchemaSchema: z.ZodObject<{
+export declare const publicAlbumLikesInsertSchemaSchema: z.ZodObject<{
     album_id: z.ZodString;
     liked_at: z.ZodOptional<z.ZodString>;
     user_id: z.ZodString;
@@ -94,7 +94,7 @@ export declare const prettygoodAlbumLikesInsertSchemaSchema: z.ZodObject<{
     user_id: string;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodAlbumLikesUpdateSchemaSchema: z.ZodObject<{
+export declare const publicAlbumLikesUpdateSchemaSchema: z.ZodObject<{
     album_id: z.ZodOptional<z.ZodString>;
     liked_at: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -107,7 +107,7 @@ export declare const prettygoodAlbumLikesUpdateSchemaSchema: z.ZodObject<{
     user_id?: string | undefined;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodAlbumLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicAlbumLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"album_likes_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -144,7 +144,7 @@ export declare const prettygoodAlbumLikesRelationshipsSchemaSchema: z.ZodTuple<[
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodAlbumsRowSchemaSchema: z.ZodObject<{
+export declare const publicAlbumsRowSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     cover_url: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
@@ -158,10 +158,10 @@ export declare const prettygoodAlbumsRowSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id: string;
     artist_id: string;
-    description: string | null;
     type: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     genre: string[] | null;
     release_date: string | null;
     title: string;
@@ -169,16 +169,16 @@ export declare const prettygoodAlbumsRowSchemaSchema: z.ZodObject<{
 }, {
     id: string;
     artist_id: string;
-    description: string | null;
     type: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
 }>;
-export declare const prettygoodAlbumsInsertSchemaSchema: z.ZodObject<{
+export declare const publicAlbumsInsertSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     cover_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
@@ -193,10 +193,10 @@ export declare const prettygoodAlbumsInsertSchemaSchema: z.ZodObject<{
     artist_id: string;
     title: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     type?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     updated_at?: string | undefined;
@@ -204,15 +204,15 @@ export declare const prettygoodAlbumsInsertSchemaSchema: z.ZodObject<{
     artist_id: string;
     title: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     type?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     updated_at?: string | undefined;
 }>;
-export declare const prettygoodAlbumsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicAlbumsUpdateSchemaSchema: z.ZodObject<{
     artist_id: z.ZodOptional<z.ZodString>;
     cover_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
@@ -226,10 +226,10 @@ export declare const prettygoodAlbumsUpdateSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id?: string | undefined;
     artist_id?: string | undefined;
-    description?: string | null | undefined;
     type?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     title?: string | undefined;
@@ -237,16 +237,16 @@ export declare const prettygoodAlbumsUpdateSchemaSchema: z.ZodObject<{
 }, {
     id?: string | undefined;
     artist_id?: string | undefined;
-    description?: string | null | undefined;
     type?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     title?: string | undefined;
     updated_at?: string | undefined;
 }>;
-export declare const prettygoodAlbumsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicAlbumsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"albums_artist_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -265,7 +265,7 @@ export declare const prettygoodAlbumsRelationshipsSchemaSchema: z.ZodTuple<[z.Zo
     referencedRelation: "artists";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodArtistFollowersRowSchemaSchema: z.ZodObject<{
+export declare const publicArtistFollowersRowSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     followed_at: z.ZodString;
     user_id: z.ZodString;
@@ -278,7 +278,7 @@ export declare const prettygoodArtistFollowersRowSchemaSchema: z.ZodObject<{
     artist_id: string;
     followed_at: string;
 }>;
-export declare const prettygoodArtistFollowersInsertSchemaSchema: z.ZodObject<{
+export declare const publicArtistFollowersInsertSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     followed_at: z.ZodOptional<z.ZodString>;
     user_id: z.ZodString;
@@ -291,7 +291,7 @@ export declare const prettygoodArtistFollowersInsertSchemaSchema: z.ZodObject<{
     artist_id: string;
     followed_at?: string | undefined;
 }>;
-export declare const prettygoodArtistFollowersUpdateSchemaSchema: z.ZodObject<{
+export declare const publicArtistFollowersUpdateSchemaSchema: z.ZodObject<{
     artist_id: z.ZodOptional<z.ZodString>;
     followed_at: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -304,7 +304,7 @@ export declare const prettygoodArtistFollowersUpdateSchemaSchema: z.ZodObject<{
     artist_id?: string | undefined;
     followed_at?: string | undefined;
 }>;
-export declare const prettygoodArtistFollowersRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicArtistFollowersRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"artist_followers_artist_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -341,7 +341,7 @@ export declare const prettygoodArtistFollowersRelationshipsSchemaSchema: z.ZodTu
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodArtistGenresRowSchemaSchema: z.ZodObject<{
+export declare const publicArtistGenresRowSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     genre_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -351,7 +351,7 @@ export declare const prettygoodArtistGenresRowSchemaSchema: z.ZodObject<{
     genre_id: string;
     artist_id: string;
 }>;
-export declare const prettygoodArtistGenresInsertSchemaSchema: z.ZodObject<{
+export declare const publicArtistGenresInsertSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     genre_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -361,7 +361,7 @@ export declare const prettygoodArtistGenresInsertSchemaSchema: z.ZodObject<{
     genre_id: string;
     artist_id: string;
 }>;
-export declare const prettygoodArtistGenresUpdateSchemaSchema: z.ZodObject<{
+export declare const publicArtistGenresUpdateSchemaSchema: z.ZodObject<{
     artist_id: z.ZodOptional<z.ZodString>;
     genre_id: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
@@ -371,7 +371,7 @@ export declare const prettygoodArtistGenresUpdateSchemaSchema: z.ZodObject<{
     genre_id?: string | undefined;
     artist_id?: string | undefined;
 }>;
-export declare const prettygoodArtistGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicArtistGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"artist_genres_artist_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -408,7 +408,10 @@ export declare const prettygoodArtistGenresRelationshipsSchemaSchema: z.ZodTuple
     referencedRelation: "genres";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodArtistsRowSchemaSchema: z.ZodObject<{
+export declare const publicArtistsRowSchemaSchema: z.ZodObject<{
+    application_date: z.ZodNullable<z.ZodString>;
+    application_notes: z.ZodNullable<z.ZodString>;
+    approved: z.ZodNullable<z.ZodBoolean>;
     artist_name: z.ZodString;
     bio: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
@@ -424,6 +427,9 @@ export declare const prettygoodArtistsRowSchemaSchema: z.ZodObject<{
     created_at: string;
     genre: string[] | null;
     updated_at: string;
+    application_date: string | null;
+    application_notes: string | null;
+    approved: boolean | null;
     artist_name: string;
     bio: string | null;
     location: string | null;
@@ -435,6 +441,9 @@ export declare const prettygoodArtistsRowSchemaSchema: z.ZodObject<{
     created_at: string;
     genre: string[] | null;
     updated_at: string;
+    application_date: string | null;
+    application_notes: string | null;
+    approved: boolean | null;
     artist_name: string;
     bio: string | null;
     location: string | null;
@@ -442,7 +451,10 @@ export declare const prettygoodArtistsRowSchemaSchema: z.ZodObject<{
     verified: boolean | null;
     website: string | null;
 }>;
-export declare const prettygoodArtistsInsertSchemaSchema: z.ZodObject<{
+export declare const publicArtistsInsertSchemaSchema: z.ZodObject<{
+    application_date: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    application_notes: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    approved: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     artist_name: z.ZodString;
     bio: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
@@ -459,6 +471,9 @@ export declare const prettygoodArtistsInsertSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     genre?: string[] | null | undefined;
     updated_at?: string | undefined;
+    application_date?: string | null | undefined;
+    application_notes?: string | null | undefined;
+    approved?: boolean | null | undefined;
     bio?: string | null | undefined;
     location?: string | null | undefined;
     social_links?: Json | undefined;
@@ -470,13 +485,19 @@ export declare const prettygoodArtistsInsertSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     genre?: string[] | null | undefined;
     updated_at?: string | undefined;
+    application_date?: string | null | undefined;
+    application_notes?: string | null | undefined;
+    approved?: boolean | null | undefined;
     bio?: string | null | undefined;
     location?: string | null | undefined;
     social_links?: Json | undefined;
     verified?: boolean | null | undefined;
     website?: string | null | undefined;
 }>;
-export declare const prettygoodArtistsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicArtistsUpdateSchemaSchema: z.ZodObject<{
+    application_date: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    application_notes: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    approved: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     artist_name: z.ZodOptional<z.ZodString>;
     bio: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
@@ -492,6 +513,9 @@ export declare const prettygoodArtistsUpdateSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     genre?: string[] | null | undefined;
     updated_at?: string | undefined;
+    application_date?: string | null | undefined;
+    application_notes?: string | null | undefined;
+    approved?: boolean | null | undefined;
     artist_name?: string | undefined;
     bio?: string | null | undefined;
     location?: string | null | undefined;
@@ -503,6 +527,9 @@ export declare const prettygoodArtistsUpdateSchemaSchema: z.ZodObject<{
     created_at?: string | undefined;
     genre?: string[] | null | undefined;
     updated_at?: string | undefined;
+    application_date?: string | null | undefined;
+    application_notes?: string | null | undefined;
+    approved?: boolean | null | undefined;
     artist_name?: string | undefined;
     bio?: string | null | undefined;
     location?: string | null | undefined;
@@ -510,7 +537,7 @@ export declare const prettygoodArtistsUpdateSchemaSchema: z.ZodObject<{
     verified?: boolean | null | undefined;
     website?: string | null | undefined;
 }>;
-export declare const prettygoodArtistsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicArtistsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"artists_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
     isOneToOne: z.ZodLiteral<true>;
@@ -529,7 +556,7 @@ export declare const prettygoodArtistsRelationshipsSchemaSchema: z.ZodTuple<[z.Z
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodGenresRowSchemaSchema: z.ZodObject<{
+export declare const publicGenresRowSchemaSchema: z.ZodObject<{
     color: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
@@ -541,8 +568,8 @@ export declare const prettygoodGenresRowSchemaSchema: z.ZodObject<{
     updated_at: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -551,8 +578,8 @@ export declare const prettygoodGenresRowSchemaSchema: z.ZodObject<{
     slug: string | null;
 }, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -560,7 +587,7 @@ export declare const prettygoodGenresRowSchemaSchema: z.ZodObject<{
     popularity: number | null;
     slug: string | null;
 }>;
-export declare const prettygoodGenresInsertSchemaSchema: z.ZodObject<{
+export declare const publicGenresInsertSchemaSchema: z.ZodObject<{
     color: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
     description: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -573,8 +600,8 @@ export declare const prettygoodGenresInsertSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     name: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     color?: string | null | undefined;
     image_url?: string | null | undefined;
@@ -583,15 +610,15 @@ export declare const prettygoodGenresInsertSchemaSchema: z.ZodObject<{
 }, {
     name: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     color?: string | null | undefined;
     image_url?: string | null | undefined;
     popularity?: number | null | undefined;
     slug?: string | null | undefined;
 }>;
-export declare const prettygoodGenresUpdateSchemaSchema: z.ZodObject<{
+export declare const publicGenresUpdateSchemaSchema: z.ZodObject<{
     color: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
     description: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -603,8 +630,8 @@ export declare const prettygoodGenresUpdateSchemaSchema: z.ZodObject<{
     updated_at: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     id?: string | undefined;
-    description?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     color?: string | null | undefined;
     image_url?: string | null | undefined;
@@ -613,8 +640,8 @@ export declare const prettygoodGenresUpdateSchemaSchema: z.ZodObject<{
     slug?: string | null | undefined;
 }, {
     id?: string | undefined;
-    description?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     color?: string | null | undefined;
     image_url?: string | null | undefined;
@@ -622,7 +649,101 @@ export declare const prettygoodGenresUpdateSchemaSchema: z.ZodObject<{
     popularity?: number | null | undefined;
     slug?: string | null | undefined;
 }>;
-export declare const prettygoodPaymentsRowSchemaSchema: z.ZodObject<{
+export declare const publicPaymentStatusHistoryRowSchemaSchema: z.ZodObject<{
+    changed_at: z.ZodString;
+    changed_by: z.ZodString;
+    id: z.ZodString;
+    new_status: z.ZodString;
+    notes: z.ZodNullable<z.ZodString>;
+    old_status: z.ZodNullable<z.ZodString>;
+    payment_id: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    id: string;
+    payment_id: string;
+    changed_at: string;
+    changed_by: string;
+    new_status: string;
+    notes: string | null;
+    old_status: string | null;
+}, {
+    id: string;
+    payment_id: string;
+    changed_at: string;
+    changed_by: string;
+    new_status: string;
+    notes: string | null;
+    old_status: string | null;
+}>;
+export declare const publicPaymentStatusHistoryInsertSchemaSchema: z.ZodObject<{
+    changed_at: z.ZodOptional<z.ZodString>;
+    changed_by: z.ZodOptional<z.ZodString>;
+    id: z.ZodOptional<z.ZodString>;
+    new_status: z.ZodString;
+    notes: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    old_status: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    payment_id: z.ZodString;
+}, "strip", z.ZodTypeAny, {
+    payment_id: string;
+    new_status: string;
+    id?: string | undefined;
+    changed_at?: string | undefined;
+    changed_by?: string | undefined;
+    notes?: string | null | undefined;
+    old_status?: string | null | undefined;
+}, {
+    payment_id: string;
+    new_status: string;
+    id?: string | undefined;
+    changed_at?: string | undefined;
+    changed_by?: string | undefined;
+    notes?: string | null | undefined;
+    old_status?: string | null | undefined;
+}>;
+export declare const publicPaymentStatusHistoryUpdateSchemaSchema: z.ZodObject<{
+    changed_at: z.ZodOptional<z.ZodString>;
+    changed_by: z.ZodOptional<z.ZodString>;
+    id: z.ZodOptional<z.ZodString>;
+    new_status: z.ZodOptional<z.ZodString>;
+    notes: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    old_status: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    payment_id: z.ZodOptional<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    id?: string | undefined;
+    payment_id?: string | undefined;
+    changed_at?: string | undefined;
+    changed_by?: string | undefined;
+    new_status?: string | undefined;
+    notes?: string | null | undefined;
+    old_status?: string | null | undefined;
+}, {
+    id?: string | undefined;
+    payment_id?: string | undefined;
+    changed_at?: string | undefined;
+    changed_by?: string | undefined;
+    new_status?: string | undefined;
+    notes?: string | null | undefined;
+    old_status?: string | null | undefined;
+}>;
+export declare const publicPaymentStatusHistoryRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"payment_status_history_payment_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"payment_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"payments">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "payment_status_history_payment_id_fkey";
+    columns: ["payment_id"];
+    isOneToOne: false;
+    referencedRelation: "payments";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "payment_status_history_payment_id_fkey";
+    columns: ["payment_id"];
+    isOneToOne: false;
+    referencedRelation: "payments";
+    referencedColumns: ["id"];
+}>], null>;
+export declare const publicPaymentsRowSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
     amount: z.ZodNumber;
     created_at: z.ZodString;
@@ -665,7 +786,7 @@ export declare const prettygoodPaymentsRowSchemaSchema: z.ZodObject<{
     payment_type: string;
     transaction_hash: string | null;
 }>;
-export declare const prettygoodPaymentsInsertSchemaSchema: z.ZodObject<{
+export declare const publicPaymentsInsertSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     amount: z.ZodNumber;
     created_at: z.ZodOptional<z.ZodString>;
@@ -708,7 +829,7 @@ export declare const prettygoodPaymentsInsertSchemaSchema: z.ZodObject<{
     currency?: string | undefined;
     transaction_hash?: string | null | undefined;
 }>;
-export declare const prettygoodPaymentsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicPaymentsUpdateSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     amount: z.ZodOptional<z.ZodNumber>;
     created_at: z.ZodOptional<z.ZodString>;
@@ -751,7 +872,7 @@ export declare const prettygoodPaymentsUpdateSchemaSchema: z.ZodObject<{
     payment_type?: string | undefined;
     transaction_hash?: string | null | undefined;
 }>;
-export declare const prettygoodPaymentsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicPaymentsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"payments_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -823,101 +944,128 @@ export declare const prettygoodPaymentsRelationshipsSchemaSchema: z.ZodTuple<[z.
     isOneToOne: false;
     referencedRelation: "tracks";
     referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"payments_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "payments_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "payments_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodPlayHistoryRowSchemaSchema: z.ZodObject<{
+export declare const publicPlayHistoryRowSchemaSchema: z.ZodObject<{
     client_ip: z.ZodNullable<z.ZodString>;
     completed: z.ZodNullable<z.ZodBoolean>;
+    context_id: z.ZodNullable<z.ZodString>;
     id: z.ZodString;
     play_duration: z.ZodNullable<z.ZodNumber>;
     played_at: z.ZodString;
     source: z.ZodNullable<z.ZodString>;
     track_id: z.ZodString;
     user_agent: z.ZodNullable<z.ZodString>;
-    user_id: z.ZodString;
+    user_id: z.ZodNullable<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     id: string;
-    user_id: string;
+    user_id: string | null;
     track_id: string;
     client_ip: string | null;
     completed: boolean | null;
+    context_id: string | null;
     play_duration: number | null;
     played_at: string;
     source: string | null;
     user_agent: string | null;
 }, {
     id: string;
-    user_id: string;
+    user_id: string | null;
     track_id: string;
     client_ip: string | null;
     completed: boolean | null;
+    context_id: string | null;
     play_duration: number | null;
     played_at: string;
     source: string | null;
     user_agent: string | null;
 }>;
-export declare const prettygoodPlayHistoryInsertSchemaSchema: z.ZodObject<{
+export declare const publicPlayHistoryInsertSchemaSchema: z.ZodObject<{
     client_ip: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     completed: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
+    context_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     id: z.ZodOptional<z.ZodString>;
     play_duration: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
     played_at: z.ZodOptional<z.ZodString>;
     source: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     track_id: z.ZodString;
     user_agent: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-    user_id: z.ZodString;
+    user_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
-    user_id: string;
     track_id: string;
     id?: string | undefined;
+    user_id?: string | null | undefined;
     client_ip?: string | null | undefined;
     completed?: boolean | null | undefined;
+    context_id?: string | null | undefined;
     play_duration?: number | null | undefined;
     played_at?: string | undefined;
     source?: string | null | undefined;
     user_agent?: string | null | undefined;
 }, {
-    user_id: string;
     track_id: string;
     id?: string | undefined;
+    user_id?: string | null | undefined;
     client_ip?: string | null | undefined;
     completed?: boolean | null | undefined;
+    context_id?: string | null | undefined;
     play_duration?: number | null | undefined;
     played_at?: string | undefined;
     source?: string | null | undefined;
     user_agent?: string | null | undefined;
 }>;
-export declare const prettygoodPlayHistoryUpdateSchemaSchema: z.ZodObject<{
+export declare const publicPlayHistoryUpdateSchemaSchema: z.ZodObject<{
     client_ip: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     completed: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
+    context_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     id: z.ZodOptional<z.ZodString>;
     play_duration: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
     played_at: z.ZodOptional<z.ZodString>;
     source: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     track_id: z.ZodOptional<z.ZodString>;
     user_agent: z.ZodNullable<z.ZodOptional<z.ZodString>>;
-    user_id: z.ZodOptional<z.ZodString>;
+    user_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
     id?: string | undefined;
-    user_id?: string | undefined;
+    user_id?: string | null | undefined;
     track_id?: string | undefined;
     client_ip?: string | null | undefined;
     completed?: boolean | null | undefined;
+    context_id?: string | null | undefined;
     play_duration?: number | null | undefined;
     played_at?: string | undefined;
     source?: string | null | undefined;
     user_agent?: string | null | undefined;
 }, {
     id?: string | undefined;
-    user_id?: string | undefined;
+    user_id?: string | null | undefined;
     track_id?: string | undefined;
     client_ip?: string | null | undefined;
     completed?: boolean | null | undefined;
+    context_id?: string | null | undefined;
     play_duration?: number | null | undefined;
     played_at?: string | undefined;
     source?: string | null | undefined;
     user_agent?: string | null | undefined;
 }>;
-export declare const prettygoodPlayHistoryRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicPlayHistoryRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"play_history_track_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -934,6 +1082,24 @@ export declare const prettygoodPlayHistoryRelationshipsSchemaSchema: z.ZodTuple<
     columns: ["track_id"];
     isOneToOne: false;
     referencedRelation: "tracks";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"play_history_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "play_history_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "play_history_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }>, z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"play_history_user_id_fkey">;
@@ -954,110 +1120,7 @@ export declare const prettygoodPlayHistoryRelationshipsSchemaSchema: z.ZodTuple<
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodPlaylistCollaboratorsRowSchemaSchema: z.ZodObject<{
-    added_at: z.ZodString;
-    added_by: z.ZodString;
-    playlist_id: z.ZodString;
-    user_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    added_by: string;
-    playlist_id: string;
-    added_at: string;
-}, {
-    user_id: string;
-    added_by: string;
-    playlist_id: string;
-    added_at: string;
-}>;
-export declare const prettygoodPlaylistCollaboratorsInsertSchemaSchema: z.ZodObject<{
-    added_at: z.ZodOptional<z.ZodString>;
-    added_by: z.ZodString;
-    playlist_id: z.ZodString;
-    user_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    added_by: string;
-    playlist_id: string;
-    added_at?: string | undefined;
-}, {
-    user_id: string;
-    added_by: string;
-    playlist_id: string;
-    added_at?: string | undefined;
-}>;
-export declare const prettygoodPlaylistCollaboratorsUpdateSchemaSchema: z.ZodObject<{
-    added_at: z.ZodOptional<z.ZodString>;
-    added_by: z.ZodOptional<z.ZodString>;
-    playlist_id: z.ZodOptional<z.ZodString>;
-    user_id: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    user_id?: string | undefined;
-    added_by?: string | undefined;
-    playlist_id?: string | undefined;
-    added_at?: string | undefined;
-}, {
-    user_id?: string | undefined;
-    added_by?: string | undefined;
-    playlist_id?: string | undefined;
-    added_at?: string | undefined;
-}>;
-export declare const prettygoodPlaylistCollaboratorsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"playlist_collaborators_added_by_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"added_by">], null>;
-    isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"users">;
-    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
-}, "strip", z.ZodTypeAny, {
-    foreignKeyName: "playlist_collaborators_added_by_fkey";
-    columns: ["added_by"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}, {
-    foreignKeyName: "playlist_collaborators_added_by_fkey";
-    columns: ["added_by"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}>, z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"playlist_collaborators_playlist_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"playlist_id">], null>;
-    isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"playlists">;
-    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
-}, "strip", z.ZodTypeAny, {
-    foreignKeyName: "playlist_collaborators_playlist_id_fkey";
-    columns: ["playlist_id"];
-    isOneToOne: false;
-    referencedRelation: "playlists";
-    referencedColumns: ["id"];
-}, {
-    foreignKeyName: "playlist_collaborators_playlist_id_fkey";
-    columns: ["playlist_id"];
-    isOneToOne: false;
-    referencedRelation: "playlists";
-    referencedColumns: ["id"];
-}>, z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"playlist_collaborators_user_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
-    isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"users">;
-    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
-}, "strip", z.ZodTypeAny, {
-    foreignKeyName: "playlist_collaborators_user_id_fkey";
-    columns: ["user_id"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}, {
-    foreignKeyName: "playlist_collaborators_user_id_fkey";
-    columns: ["user_id"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}>], null>;
-export declare const prettygoodPlaylistLikesRowSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistLikesRowSchemaSchema: z.ZodObject<{
     liked_at: z.ZodString;
     playlist_id: z.ZodString;
     user_id: z.ZodString;
@@ -1070,7 +1133,7 @@ export declare const prettygoodPlaylistLikesRowSchemaSchema: z.ZodObject<{
     playlist_id: string;
     liked_at: string;
 }>;
-export declare const prettygoodPlaylistLikesInsertSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistLikesInsertSchemaSchema: z.ZodObject<{
     liked_at: z.ZodOptional<z.ZodString>;
     playlist_id: z.ZodString;
     user_id: z.ZodString;
@@ -1083,7 +1146,7 @@ export declare const prettygoodPlaylistLikesInsertSchemaSchema: z.ZodObject<{
     playlist_id: string;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodPlaylistLikesUpdateSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistLikesUpdateSchemaSchema: z.ZodObject<{
     liked_at: z.ZodOptional<z.ZodString>;
     playlist_id: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -1096,7 +1159,7 @@ export declare const prettygoodPlaylistLikesUpdateSchemaSchema: z.ZodObject<{
     playlist_id?: string | undefined;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodPlaylistLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicPlaylistLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"playlist_likes_playlist_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"playlist_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1133,7 +1196,7 @@ export declare const prettygoodPlaylistLikesRelationshipsSchemaSchema: z.ZodTupl
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodPlaylistTracksRowSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistTracksRowSchemaSchema: z.ZodObject<{
     added_at: z.ZodString;
     added_by: z.ZodString;
     playlist_id: z.ZodString;
@@ -1141,18 +1204,18 @@ export declare const prettygoodPlaylistTracksRowSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     track_id: string;
-    added_by: string;
     playlist_id: string;
+    added_by: string;
     added_at: string;
     position: number;
 }, {
     track_id: string;
-    added_by: string;
     playlist_id: string;
+    added_by: string;
     added_at: string;
     position: number;
 }>;
-export declare const prettygoodPlaylistTracksInsertSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistTracksInsertSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     added_by: z.ZodString;
     playlist_id: z.ZodString;
@@ -1160,18 +1223,18 @@ export declare const prettygoodPlaylistTracksInsertSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     track_id: string;
-    added_by: string;
     playlist_id: string;
+    added_by: string;
     position: number;
     added_at?: string | undefined;
 }, {
     track_id: string;
-    added_by: string;
     playlist_id: string;
+    added_by: string;
     position: number;
     added_at?: string | undefined;
 }>;
-export declare const prettygoodPlaylistTracksUpdateSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistTracksUpdateSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     added_by: z.ZodOptional<z.ZodString>;
     playlist_id: z.ZodOptional<z.ZodString>;
@@ -1179,18 +1242,18 @@ export declare const prettygoodPlaylistTracksUpdateSchemaSchema: z.ZodObject<{
     track_id: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
     track_id?: string | undefined;
-    added_by?: string | undefined;
     playlist_id?: string | undefined;
+    added_by?: string | undefined;
     added_at?: string | undefined;
     position?: number | undefined;
 }, {
     track_id?: string | undefined;
-    added_by?: string | undefined;
     playlist_id?: string | undefined;
+    added_by?: string | undefined;
     added_at?: string | undefined;
     position?: number | undefined;
 }>;
-export declare const prettygoodPlaylistTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicPlaylistTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"playlist_tracks_added_by_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"added_by">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1244,8 +1307,26 @@ export declare const prettygoodPlaylistTracksRelationshipsSchemaSchema: z.ZodTup
     isOneToOne: false;
     referencedRelation: "tracks";
     referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"playlist_tracks_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "playlist_tracks_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "playlist_tracks_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodPlaylistsRowSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistsRowSchemaSchema: z.ZodObject<{
     cover_url: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
@@ -1257,23 +1338,23 @@ export declare const prettygoodPlaylistsRowSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id: string;
     user_id: string;
-    description: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     name: string;
     is_public: boolean | null;
 }, {
     id: string;
     user_id: string;
-    description: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     name: string;
     is_public: boolean | null;
 }>;
-export declare const prettygoodPlaylistsInsertSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistsInsertSchemaSchema: z.ZodObject<{
     cover_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
     description: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -1286,22 +1367,22 @@ export declare const prettygoodPlaylistsInsertSchemaSchema: z.ZodObject<{
     user_id: string;
     name: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     is_public?: boolean | null | undefined;
 }, {
     user_id: string;
     name: string;
     id?: string | undefined;
-    description?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     is_public?: boolean | null | undefined;
 }>;
-export declare const prettygoodPlaylistsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicPlaylistsUpdateSchemaSchema: z.ZodObject<{
     cover_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     created_at: z.ZodOptional<z.ZodString>;
     description: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -1313,23 +1394,23 @@ export declare const prettygoodPlaylistsUpdateSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id?: string | undefined;
     user_id?: string | undefined;
-    description?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     name?: string | undefined;
     is_public?: boolean | null | undefined;
 }, {
     id?: string | undefined;
     user_id?: string | undefined;
-    description?: string | null | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
+    description?: string | null | undefined;
     updated_at?: string | undefined;
     name?: string | undefined;
     is_public?: boolean | null | undefined;
 }>;
-export declare const prettygoodPlaylistsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicPlaylistsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"playlists_user_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1348,74 +1429,83 @@ export declare const prettygoodPlaylistsRelationshipsSchemaSchema: z.ZodTuple<[z
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodSearchHistoryRowSchemaSchema: z.ZodObject<{
-    id: z.ZodString;
-    query: z.ZodString;
-    searched_at: z.ZodString;
-    user_id: z.ZodString;
+export declare const publicRelatedGenresRowSchemaSchema: z.ZodObject<{
+    genre_id: z.ZodString;
+    related_genre_id: z.ZodString;
+    weight: z.ZodNullable<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
-    id: string;
-    user_id: string;
-    query: string;
-    searched_at: string;
+    genre_id: string;
+    related_genre_id: string;
+    weight: number | null;
 }, {
-    id: string;
-    user_id: string;
-    query: string;
-    searched_at: string;
+    genre_id: string;
+    related_genre_id: string;
+    weight: number | null;
 }>;
-export declare const prettygoodSearchHistoryInsertSchemaSchema: z.ZodObject<{
-    id: z.ZodOptional<z.ZodString>;
-    query: z.ZodString;
-    searched_at: z.ZodOptional<z.ZodString>;
-    user_id: z.ZodString;
+export declare const publicRelatedGenresInsertSchemaSchema: z.ZodObject<{
+    genre_id: z.ZodString;
+    related_genre_id: z.ZodString;
+    weight: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
 }, "strip", z.ZodTypeAny, {
-    user_id: string;
-    query: string;
-    id?: string | undefined;
-    searched_at?: string | undefined;
+    genre_id: string;
+    related_genre_id: string;
+    weight?: number | null | undefined;
 }, {
-    user_id: string;
-    query: string;
-    id?: string | undefined;
-    searched_at?: string | undefined;
+    genre_id: string;
+    related_genre_id: string;
+    weight?: number | null | undefined;
 }>;
-export declare const prettygoodSearchHistoryUpdateSchemaSchema: z.ZodObject<{
-    id: z.ZodOptional<z.ZodString>;
-    query: z.ZodOptional<z.ZodString>;
-    searched_at: z.ZodOptional<z.ZodString>;
-    user_id: z.ZodOptional<z.ZodString>;
+export declare const publicRelatedGenresUpdateSchemaSchema: z.ZodObject<{
+    genre_id: z.ZodOptional<z.ZodString>;
+    related_genre_id: z.ZodOptional<z.ZodString>;
+    weight: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
 }, "strip", z.ZodTypeAny, {
-    id?: string | undefined;
-    user_id?: string | undefined;
-    query?: string | undefined;
-    searched_at?: string | undefined;
+    genre_id?: string | undefined;
+    related_genre_id?: string | undefined;
+    weight?: number | null | undefined;
 }, {
-    id?: string | undefined;
-    user_id?: string | undefined;
-    query?: string | undefined;
-    searched_at?: string | undefined;
+    genre_id?: string | undefined;
+    related_genre_id?: string | undefined;
+    weight?: number | null | undefined;
 }>;
-export declare const prettygoodSearchHistoryRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"search_history_user_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
+export declare const publicRelatedGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"related_genres_genre_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"genre_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"users">;
+    referencedRelation: z.ZodLiteral<"genres">;
     referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
 }, "strip", z.ZodTypeAny, {
-    foreignKeyName: "search_history_user_id_fkey";
-    columns: ["user_id"];
+    foreignKeyName: "related_genres_genre_id_fkey";
+    columns: ["genre_id"];
     isOneToOne: false;
-    referencedRelation: "users";
+    referencedRelation: "genres";
     referencedColumns: ["id"];
 }, {
-    foreignKeyName: "search_history_user_id_fkey";
-    columns: ["user_id"];
+    foreignKeyName: "related_genres_genre_id_fkey";
+    columns: ["genre_id"];
     isOneToOne: false;
-    referencedRelation: "users";
+    referencedRelation: "genres";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"related_genres_related_genre_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"related_genre_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"genres">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "related_genres_related_genre_id_fkey";
+    columns: ["related_genre_id"];
+    isOneToOne: false;
+    referencedRelation: "genres";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "related_genres_related_genre_id_fkey";
+    columns: ["related_genre_id"];
+    isOneToOne: false;
+    referencedRelation: "genres";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodTrackGenresRowSchemaSchema: z.ZodObject<{
+export declare const publicTrackGenresRowSchemaSchema: z.ZodObject<{
     genre_id: z.ZodString;
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -1425,7 +1515,7 @@ export declare const prettygoodTrackGenresRowSchemaSchema: z.ZodObject<{
     genre_id: string;
     track_id: string;
 }>;
-export declare const prettygoodTrackGenresInsertSchemaSchema: z.ZodObject<{
+export declare const publicTrackGenresInsertSchemaSchema: z.ZodObject<{
     genre_id: z.ZodString;
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -1435,7 +1525,7 @@ export declare const prettygoodTrackGenresInsertSchemaSchema: z.ZodObject<{
     genre_id: string;
     track_id: string;
 }>;
-export declare const prettygoodTrackGenresUpdateSchemaSchema: z.ZodObject<{
+export declare const publicTrackGenresUpdateSchemaSchema: z.ZodObject<{
     genre_id: z.ZodOptional<z.ZodString>;
     track_id: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
@@ -1445,7 +1535,7 @@ export declare const prettygoodTrackGenresUpdateSchemaSchema: z.ZodObject<{
     genre_id?: string | undefined;
     track_id?: string | undefined;
 }>;
-export declare const prettygoodTrackGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicTrackGenresRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"track_genres_genre_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"genre_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1481,8 +1571,26 @@ export declare const prettygoodTrackGenresRelationshipsSchemaSchema: z.ZodTuple<
     isOneToOne: false;
     referencedRelation: "tracks";
     referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"track_genres_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "track_genres_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "track_genres_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodTrackLikesRowSchemaSchema: z.ZodObject<{
+export declare const publicTrackLikesRowSchemaSchema: z.ZodObject<{
     liked_at: z.ZodString;
     track_id: z.ZodString;
     user_id: z.ZodString;
@@ -1495,7 +1603,7 @@ export declare const prettygoodTrackLikesRowSchemaSchema: z.ZodObject<{
     track_id: string;
     liked_at: string;
 }>;
-export declare const prettygoodTrackLikesInsertSchemaSchema: z.ZodObject<{
+export declare const publicTrackLikesInsertSchemaSchema: z.ZodObject<{
     liked_at: z.ZodOptional<z.ZodString>;
     track_id: z.ZodString;
     user_id: z.ZodString;
@@ -1508,7 +1616,7 @@ export declare const prettygoodTrackLikesInsertSchemaSchema: z.ZodObject<{
     track_id: string;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodTrackLikesUpdateSchemaSchema: z.ZodObject<{
+export declare const publicTrackLikesUpdateSchemaSchema: z.ZodObject<{
     liked_at: z.ZodOptional<z.ZodString>;
     track_id: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -1521,7 +1629,7 @@ export declare const prettygoodTrackLikesUpdateSchemaSchema: z.ZodObject<{
     track_id?: string | undefined;
     liked_at?: string | undefined;
 }>;
-export declare const prettygoodTrackLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicTrackLikesRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"track_likes_track_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1538,6 +1646,24 @@ export declare const prettygoodTrackLikesRelationshipsSchemaSchema: z.ZodTuple<[
     columns: ["track_id"];
     isOneToOne: false;
     referencedRelation: "tracks";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"track_likes_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "track_likes_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "track_likes_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }>, z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"track_likes_user_id_fkey">;
@@ -1558,7 +1684,7 @@ export declare const prettygoodTrackLikesRelationshipsSchemaSchema: z.ZodTuple<[
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodTracksRowSchemaSchema: z.ZodObject<{
+export declare const publicTracksRowSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
     artist_id: z.ZodString;
     audio_url: z.ZodString;
@@ -1566,7 +1692,7 @@ export declare const prettygoodTracksRowSchemaSchema: z.ZodObject<{
     created_at: z.ZodString;
     duration: z.ZodNumber;
     explicit: z.ZodNullable<z.ZodBoolean>;
-    genre: z.ZodArray<z.ZodString, "many">;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
     id: z.ZodString;
     isrc: z.ZodNullable<z.ZodString>;
     lyrics: z.ZodNullable<z.ZodString>;
@@ -1580,7 +1706,7 @@ export declare const prettygoodTracksRowSchemaSchema: z.ZodObject<{
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -1596,7 +1722,7 @@ export declare const prettygoodTracksRowSchemaSchema: z.ZodObject<{
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -1607,7 +1733,7 @@ export declare const prettygoodTracksRowSchemaSchema: z.ZodObject<{
     lyrics: string | null;
     track_number: number | null;
 }>;
-export declare const prettygoodTracksInsertSchemaSchema: z.ZodObject<{
+export declare const publicTracksInsertSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     artist_id: z.ZodString;
     audio_url: z.ZodString;
@@ -1615,7 +1741,7 @@ export declare const prettygoodTracksInsertSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     duration: z.ZodNumber;
     explicit: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
-    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    genre: z.ZodNullable<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
     id: z.ZodOptional<z.ZodString>;
     isrc: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     lyrics: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -1632,7 +1758,7 @@ export declare const prettygoodTracksInsertSchemaSchema: z.ZodObject<{
     id?: string | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
-    genre?: string[] | undefined;
+    genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     updated_at?: string | undefined;
     explicit?: boolean | null | undefined;
@@ -1648,7 +1774,7 @@ export declare const prettygoodTracksInsertSchemaSchema: z.ZodObject<{
     id?: string | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
-    genre?: string[] | undefined;
+    genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     updated_at?: string | undefined;
     explicit?: boolean | null | undefined;
@@ -1656,7 +1782,7 @@ export declare const prettygoodTracksInsertSchemaSchema: z.ZodObject<{
     lyrics?: string | null | undefined;
     track_number?: number | null | undefined;
 }>;
-export declare const prettygoodTracksUpdateSchemaSchema: z.ZodObject<{
+export declare const publicTracksUpdateSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     artist_id: z.ZodOptional<z.ZodString>;
     audio_url: z.ZodOptional<z.ZodString>;
@@ -1664,7 +1790,7 @@ export declare const prettygoodTracksUpdateSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     duration: z.ZodOptional<z.ZodNumber>;
     explicit: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
-    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    genre: z.ZodNullable<z.ZodOptional<z.ZodArray<z.ZodString, "many">>>;
     id: z.ZodOptional<z.ZodString>;
     isrc: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     lyrics: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -1678,7 +1804,7 @@ export declare const prettygoodTracksUpdateSchemaSchema: z.ZodObject<{
     artist_id?: string | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
-    genre?: string[] | undefined;
+    genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     title?: string | undefined;
     updated_at?: string | undefined;
@@ -1694,7 +1820,7 @@ export declare const prettygoodTracksUpdateSchemaSchema: z.ZodObject<{
     artist_id?: string | undefined;
     cover_url?: string | null | undefined;
     created_at?: string | undefined;
-    genre?: string[] | undefined;
+    genre?: string[] | null | undefined;
     release_date?: string | null | undefined;
     title?: string | undefined;
     updated_at?: string | undefined;
@@ -1705,7 +1831,7 @@ export declare const prettygoodTracksUpdateSchemaSchema: z.ZodObject<{
     lyrics?: string | null | undefined;
     track_number?: number | null | undefined;
 }>;
-export declare const prettygoodTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"tracks_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1742,7 +1868,7 @@ export declare const prettygoodTracksRelationshipsSchemaSchema: z.ZodTuple<[z.Zo
     referencedRelation: "artists";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodUserLibraryAlbumsRowSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryAlbumsRowSchemaSchema: z.ZodObject<{
     added_at: z.ZodString;
     album_id: z.ZodString;
     user_id: z.ZodString;
@@ -1755,7 +1881,7 @@ export declare const prettygoodUserLibraryAlbumsRowSchemaSchema: z.ZodObject<{
     user_id: string;
     added_at: string;
 }>;
-export declare const prettygoodUserLibraryAlbumsInsertSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryAlbumsInsertSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     album_id: z.ZodString;
     user_id: z.ZodString;
@@ -1768,7 +1894,7 @@ export declare const prettygoodUserLibraryAlbumsInsertSchemaSchema: z.ZodObject<
     user_id: string;
     added_at?: string | undefined;
 }>;
-export declare const prettygoodUserLibraryAlbumsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryAlbumsUpdateSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     album_id: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -1781,7 +1907,7 @@ export declare const prettygoodUserLibraryAlbumsUpdateSchemaSchema: z.ZodObject<
     user_id?: string | undefined;
     added_at?: string | undefined;
 }>;
-export declare const prettygoodUserLibraryAlbumsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicUserLibraryAlbumsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_library_albums_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1818,83 +1944,7 @@ export declare const prettygoodUserLibraryAlbumsRelationshipsSchemaSchema: z.Zod
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodUserLibraryArtistsRowSchemaSchema: z.ZodObject<{
-    added_at: z.ZodString;
-    artist_id: z.ZodString;
-    user_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    artist_id: string;
-    added_at: string;
-}, {
-    user_id: string;
-    artist_id: string;
-    added_at: string;
-}>;
-export declare const prettygoodUserLibraryArtistsInsertSchemaSchema: z.ZodObject<{
-    added_at: z.ZodOptional<z.ZodString>;
-    artist_id: z.ZodString;
-    user_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    artist_id: string;
-    added_at?: string | undefined;
-}, {
-    user_id: string;
-    artist_id: string;
-    added_at?: string | undefined;
-}>;
-export declare const prettygoodUserLibraryArtistsUpdateSchemaSchema: z.ZodObject<{
-    added_at: z.ZodOptional<z.ZodString>;
-    artist_id: z.ZodOptional<z.ZodString>;
-    user_id: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    user_id?: string | undefined;
-    artist_id?: string | undefined;
-    added_at?: string | undefined;
-}, {
-    user_id?: string | undefined;
-    artist_id?: string | undefined;
-    added_at?: string | undefined;
-}>;
-export declare const prettygoodUserLibraryArtistsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"user_library_artists_artist_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
-    isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"artists">;
-    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
-}, "strip", z.ZodTypeAny, {
-    foreignKeyName: "user_library_artists_artist_id_fkey";
-    columns: ["artist_id"];
-    isOneToOne: false;
-    referencedRelation: "artists";
-    referencedColumns: ["id"];
-}, {
-    foreignKeyName: "user_library_artists_artist_id_fkey";
-    columns: ["artist_id"];
-    isOneToOne: false;
-    referencedRelation: "artists";
-    referencedColumns: ["id"];
-}>, z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"user_library_artists_user_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
-    isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"users">;
-    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
-}, "strip", z.ZodTypeAny, {
-    foreignKeyName: "user_library_artists_user_id_fkey";
-    columns: ["user_id"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}, {
-    foreignKeyName: "user_library_artists_user_id_fkey";
-    columns: ["user_id"];
-    isOneToOne: false;
-    referencedRelation: "users";
-    referencedColumns: ["id"];
-}>], null>;
-export declare const prettygoodUserLibraryTracksRowSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryTracksRowSchemaSchema: z.ZodObject<{
     added_at: z.ZodString;
     track_id: z.ZodString;
     user_id: z.ZodString;
@@ -1907,7 +1957,7 @@ export declare const prettygoodUserLibraryTracksRowSchemaSchema: z.ZodObject<{
     track_id: string;
     added_at: string;
 }>;
-export declare const prettygoodUserLibraryTracksInsertSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryTracksInsertSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     track_id: z.ZodString;
     user_id: z.ZodString;
@@ -1920,7 +1970,7 @@ export declare const prettygoodUserLibraryTracksInsertSchemaSchema: z.ZodObject<
     track_id: string;
     added_at?: string | undefined;
 }>;
-export declare const prettygoodUserLibraryTracksUpdateSchemaSchema: z.ZodObject<{
+export declare const publicUserLibraryTracksUpdateSchemaSchema: z.ZodObject<{
     added_at: z.ZodOptional<z.ZodString>;
     track_id: z.ZodOptional<z.ZodString>;
     user_id: z.ZodOptional<z.ZodString>;
@@ -1933,7 +1983,7 @@ export declare const prettygoodUserLibraryTracksUpdateSchemaSchema: z.ZodObject<
     track_id?: string | undefined;
     added_at?: string | undefined;
 }>;
-export declare const prettygoodUserLibraryTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicUserLibraryTracksRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_library_tracks_track_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -1950,6 +2000,24 @@ export declare const prettygoodUserLibraryTracksRelationshipsSchemaSchema: z.Zod
     columns: ["track_id"];
     isOneToOne: false;
     referencedRelation: "tracks";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"user_library_tracks_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "user_library_tracks_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "user_library_tracks_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }>, z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_library_tracks_user_id_fkey">;
@@ -1970,7 +2038,7 @@ export declare const prettygoodUserLibraryTracksRelationshipsSchemaSchema: z.Zod
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodUserRecentlyPlayedRowSchemaSchema: z.ZodObject<{
+export declare const publicUserRecentlyPlayedRowSchemaSchema: z.ZodObject<{
     context_id: z.ZodNullable<z.ZodString>;
     context_type: z.ZodNullable<z.ZodString>;
     id: z.ZodString;
@@ -1981,18 +2049,18 @@ export declare const prettygoodUserRecentlyPlayedRowSchemaSchema: z.ZodObject<{
     id: string;
     user_id: string;
     track_id: string;
-    played_at: string;
     context_id: string | null;
+    played_at: string;
     context_type: string | null;
 }, {
     id: string;
     user_id: string;
     track_id: string;
-    played_at: string;
     context_id: string | null;
+    played_at: string;
     context_type: string | null;
 }>;
-export declare const prettygoodUserRecentlyPlayedInsertSchemaSchema: z.ZodObject<{
+export declare const publicUserRecentlyPlayedInsertSchemaSchema: z.ZodObject<{
     context_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     context_type: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     id: z.ZodOptional<z.ZodString>;
@@ -2003,18 +2071,18 @@ export declare const prettygoodUserRecentlyPlayedInsertSchemaSchema: z.ZodObject
     user_id: string;
     track_id: string;
     id?: string | undefined;
-    played_at?: string | undefined;
     context_id?: string | null | undefined;
+    played_at?: string | undefined;
     context_type?: string | null | undefined;
 }, {
     user_id: string;
     track_id: string;
     id?: string | undefined;
-    played_at?: string | undefined;
     context_id?: string | null | undefined;
+    played_at?: string | undefined;
     context_type?: string | null | undefined;
 }>;
-export declare const prettygoodUserRecentlyPlayedUpdateSchemaSchema: z.ZodObject<{
+export declare const publicUserRecentlyPlayedUpdateSchemaSchema: z.ZodObject<{
     context_id: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     context_type: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     id: z.ZodOptional<z.ZodString>;
@@ -2025,18 +2093,18 @@ export declare const prettygoodUserRecentlyPlayedUpdateSchemaSchema: z.ZodObject
     id?: string | undefined;
     user_id?: string | undefined;
     track_id?: string | undefined;
-    played_at?: string | undefined;
     context_id?: string | null | undefined;
+    played_at?: string | undefined;
     context_type?: string | null | undefined;
 }, {
     id?: string | undefined;
     user_id?: string | undefined;
     track_id?: string | undefined;
-    played_at?: string | undefined;
     context_id?: string | null | undefined;
+    played_at?: string | undefined;
     context_type?: string | null | undefined;
 }>;
-export declare const prettygoodUserRecentlyPlayedRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicUserRecentlyPlayedRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_recently_played_track_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -2053,6 +2121,24 @@ export declare const prettygoodUserRecentlyPlayedRelationshipsSchemaSchema: z.Zo
     columns: ["track_id"];
     isOneToOne: false;
     referencedRelation: "tracks";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"user_recently_played_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "user_recently_played_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "user_recently_played_track_id_fkey";
+    columns: ["track_id"];
+    isOneToOne: false;
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }>, z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_recently_played_user_id_fkey">;
@@ -2073,7 +2159,7 @@ export declare const prettygoodUserRecentlyPlayedRelationshipsSchemaSchema: z.Zo
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodUserSettingsRowSchemaSchema: z.ZodObject<{
+export declare const publicUserSettingsRowSchemaSchema: z.ZodObject<{
     audio_quality: z.ZodNullable<z.ZodString>;
     auto_add_to_library: z.ZodNullable<z.ZodBoolean>;
     crossfade_duration: z.ZodNullable<z.ZodNumber>;
@@ -2128,7 +2214,7 @@ export declare const prettygoodUserSettingsRowSchemaSchema: z.ZodObject<{
     theme: string | null;
     volume_level: number | null;
 }>;
-export declare const prettygoodUserSettingsInsertSchemaSchema: z.ZodObject<{
+export declare const publicUserSettingsInsertSchemaSchema: z.ZodObject<{
     audio_quality: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     auto_add_to_library: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     crossfade_duration: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
@@ -2183,7 +2269,7 @@ export declare const prettygoodUserSettingsInsertSchemaSchema: z.ZodObject<{
     theme?: string | null | undefined;
     volume_level?: number | null | undefined;
 }>;
-export declare const prettygoodUserSettingsUpdateSchemaSchema: z.ZodObject<{
+export declare const publicUserSettingsUpdateSchemaSchema: z.ZodObject<{
     audio_quality: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     auto_add_to_library: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     crossfade_duration: z.ZodNullable<z.ZodOptional<z.ZodNumber>>;
@@ -2238,7 +2324,7 @@ export declare const prettygoodUserSettingsUpdateSchemaSchema: z.ZodObject<{
     theme?: string | null | undefined;
     volume_level?: number | null | undefined;
 }>;
-export declare const prettygoodUserSettingsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicUserSettingsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"user_settings_user_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
     isOneToOne: z.ZodLiteral<true>;
@@ -2257,13 +2343,14 @@ export declare const prettygoodUserSettingsRelationshipsSchemaSchema: z.ZodTuple
     referencedRelation: "users";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
+export declare const publicUsersRowSchemaSchema: z.ZodObject<{
     created_at: z.ZodString;
     display_name: z.ZodNullable<z.ZodString>;
     email: z.ZodString;
     email_verified: z.ZodNullable<z.ZodBoolean>;
     id: z.ZodString;
     profile_url: z.ZodNullable<z.ZodString>;
+    role: z.ZodNullable<z.ZodString>;
     updated_at: z.ZodString;
     username: z.ZodString;
     wallet_address: z.ZodNullable<z.ZodString>;
@@ -2275,6 +2362,7 @@ export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
     email: string;
     email_verified: boolean | null;
     profile_url: string | null;
+    role: string | null;
     username: string;
     wallet_address: string | null;
 }, {
@@ -2285,47 +2373,52 @@ export declare const prettygoodUsersRowSchemaSchema: z.ZodObject<{
     email: string;
     email_verified: boolean | null;
     profile_url: string | null;
+    role: string | null;
     username: string;
     wallet_address: string | null;
 }>;
-export declare const prettygoodUsersInsertSchemaSchema: z.ZodObject<{
+export declare const publicUsersInsertSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     display_name: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     email: z.ZodString;
     email_verified: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
-    id: z.ZodOptional<z.ZodString>;
+    id: z.ZodString;
     profile_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    role: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     updated_at: z.ZodOptional<z.ZodString>;
     username: z.ZodString;
     wallet_address: z.ZodNullable<z.ZodOptional<z.ZodString>>;
 }, "strip", z.ZodTypeAny, {
+    id: string;
     email: string;
     username: string;
-    id?: string | undefined;
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
     email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
+    role?: string | null | undefined;
     wallet_address?: string | null | undefined;
 }, {
+    id: string;
     email: string;
     username: string;
-    id?: string | undefined;
     created_at?: string | undefined;
     updated_at?: string | undefined;
     display_name?: string | null | undefined;
     email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
+    role?: string | null | undefined;
     wallet_address?: string | null | undefined;
 }>;
-export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
+export declare const publicUsersUpdateSchemaSchema: z.ZodObject<{
     created_at: z.ZodOptional<z.ZodString>;
     display_name: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     email: z.ZodOptional<z.ZodString>;
     email_verified: z.ZodNullable<z.ZodOptional<z.ZodBoolean>>;
     id: z.ZodOptional<z.ZodString>;
     profile_url: z.ZodNullable<z.ZodOptional<z.ZodString>>;
+    role: z.ZodNullable<z.ZodOptional<z.ZodString>>;
     updated_at: z.ZodOptional<z.ZodString>;
     username: z.ZodOptional<z.ZodString>;
     wallet_address: z.ZodNullable<z.ZodOptional<z.ZodString>>;
@@ -2337,6 +2430,7 @@ export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
     email?: string | undefined;
     email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
+    role?: string | null | undefined;
     username?: string | undefined;
     wallet_address?: string | null | undefined;
 }, {
@@ -2347,20 +2441,30 @@ export declare const prettygoodUsersUpdateSchemaSchema: z.ZodObject<{
     email?: string | undefined;
     email_verified?: boolean | null | undefined;
     profile_url?: string | null | undefined;
+    role?: string | null | undefined;
     username?: string | undefined;
     wallet_address?: string | null | undefined;
 }>;
-export declare const prettygoodAlbumPlayCountsRowSchemaSchema: z.ZodObject<{
+export declare const publicAlbumPlayCountsRowSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
+    last_played_at: z.ZodNullable<z.ZodString>;
     play_count: z.ZodNullable<z.ZodNumber>;
+    tracks_played: z.ZodNullable<z.ZodNumber>;
+    unique_listeners: z.ZodNullable<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
     album_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    tracks_played: number | null;
+    unique_listeners: number | null;
 }, {
     album_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    tracks_played: number | null;
+    unique_listeners: number | null;
 }>;
-export declare const prettygoodAlbumPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicAlbumPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"tracks_album_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -2379,17 +2483,26 @@ export declare const prettygoodAlbumPlayCountsRelationshipsSchemaSchema: z.ZodTu
     referencedRelation: "albums";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodArtistPlayCountsRowSchemaSchema: z.ZodObject<{
+export declare const publicArtistPlayCountsRowSchemaSchema: z.ZodObject<{
     artist_id: z.ZodNullable<z.ZodString>;
+    last_played_at: z.ZodNullable<z.ZodString>;
     play_count: z.ZodNullable<z.ZodNumber>;
+    tracks_played: z.ZodNullable<z.ZodNumber>;
+    unique_listeners: z.ZodNullable<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
     artist_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    tracks_played: number | null;
+    unique_listeners: number | null;
 }, {
     artist_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    tracks_played: number | null;
+    unique_listeners: number | null;
 }>;
-export declare const prettygoodArtistPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicArtistPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"tracks_artist_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -2408,17 +2521,23 @@ export declare const prettygoodArtistPlayCountsRelationshipsSchemaSchema: z.ZodT
     referencedRelation: "artists";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodTrackPlayCountsRowSchemaSchema: z.ZodObject<{
+export declare const publicTrackPlayCountsRowSchemaSchema: z.ZodObject<{
+    last_played_at: z.ZodNullable<z.ZodString>;
     play_count: z.ZodNullable<z.ZodNumber>;
     track_id: z.ZodNullable<z.ZodString>;
+    unique_listeners: z.ZodNullable<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
     track_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    unique_listeners: number | null;
 }, {
     track_id: string | null;
+    last_played_at: string | null;
     play_count: number | null;
+    unique_listeners: number | null;
 }>;
-export declare const prettygoodTrackPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+export declare const publicTrackPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
     foreignKeyName: z.ZodLiteral<"play_history_track_id_fkey">;
     columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
@@ -2436,61 +2555,146 @@ export declare const prettygoodTrackPlayCountsRelationshipsSchemaSchema: z.ZodTu
     isOneToOne: false;
     referencedRelation: "tracks";
     referencedColumns: ["id"];
-}>], null>;
-export declare const prettygoodUserPlayCountsRowSchemaSchema: z.ZodObject<{
-    play_count: z.ZodNullable<z.ZodNumber>;
-    user_id: z.ZodNullable<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    user_id: string | null;
-    play_count: number | null;
-}, {
-    user_id: string | null;
-    play_count: number | null;
-}>;
-export declare const prettygoodUserPlayCountsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
-    foreignKeyName: z.ZodLiteral<"play_history_user_id_fkey">;
-    columns: z.ZodTuple<[z.ZodLiteral<"user_id">], null>;
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"play_history_track_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"track_id">], null>;
     isOneToOne: z.ZodLiteral<false>;
-    referencedRelation: z.ZodLiteral<"users">;
+    referencedRelation: z.ZodLiteral<"tracks_with_details">;
     referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
 }, "strip", z.ZodTypeAny, {
-    foreignKeyName: "play_history_user_id_fkey";
-    columns: ["user_id"];
+    foreignKeyName: "play_history_track_id_fkey";
+    columns: ["track_id"];
     isOneToOne: false;
-    referencedRelation: "users";
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }, {
-    foreignKeyName: "play_history_user_id_fkey";
-    columns: ["user_id"];
+    foreignKeyName: "play_history_track_id_fkey";
+    columns: ["track_id"];
     isOneToOne: false;
-    referencedRelation: "users";
+    referencedRelation: "tracks_with_details";
     referencedColumns: ["id"];
 }>], null>;
-export declare const prettygoodAddAlbumToLibraryArgsSchemaSchema: z.ZodObject<{
+export declare const publicTracksWithDetailsRowSchemaSchema: z.ZodObject<{
+    album_id: z.ZodNullable<z.ZodString>;
+    album_release_date: z.ZodNullable<z.ZodString>;
+    album_title: z.ZodNullable<z.ZodString>;
+    artist_id: z.ZodNullable<z.ZodString>;
+    artist_name: z.ZodNullable<z.ZodString>;
+    artist_verified: z.ZodNullable<z.ZodBoolean>;
+    audio_url: z.ZodNullable<z.ZodString>;
+    cover_url: z.ZodNullable<z.ZodString>;
+    created_at: z.ZodNullable<z.ZodString>;
+    duration: z.ZodNullable<z.ZodNumber>;
+    explicit: z.ZodNullable<z.ZodBoolean>;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
+    id: z.ZodNullable<z.ZodString>;
+    isrc: z.ZodNullable<z.ZodString>;
+    lyrics: z.ZodNullable<z.ZodString>;
+    play_count: z.ZodNullable<z.ZodNumber>;
+    release_date: z.ZodNullable<z.ZodString>;
+    title: z.ZodNullable<z.ZodString>;
+    track_number: z.ZodNullable<z.ZodNumber>;
+    unique_listeners: z.ZodNullable<z.ZodNumber>;
+    updated_at: z.ZodNullable<z.ZodString>;
+}, "strip", z.ZodTypeAny, {
+    album_id: string | null;
+    id: string | null;
+    artist_id: string | null;
+    cover_url: string | null;
+    created_at: string | null;
+    genre: string[] | null;
+    release_date: string | null;
+    title: string | null;
+    updated_at: string | null;
+    artist_name: string | null;
+    audio_url: string | null;
+    duration: number | null;
+    explicit: boolean | null;
+    isrc: string | null;
+    lyrics: string | null;
+    track_number: number | null;
+    play_count: number | null;
+    unique_listeners: number | null;
+    album_release_date: string | null;
+    album_title: string | null;
+    artist_verified: boolean | null;
+}, {
+    album_id: string | null;
+    id: string | null;
+    artist_id: string | null;
+    cover_url: string | null;
+    created_at: string | null;
+    genre: string[] | null;
+    release_date: string | null;
+    title: string | null;
+    updated_at: string | null;
+    artist_name: string | null;
+    audio_url: string | null;
+    duration: number | null;
+    explicit: boolean | null;
+    isrc: string | null;
+    lyrics: string | null;
+    track_number: number | null;
+    play_count: number | null;
+    unique_listeners: number | null;
+    album_release_date: string | null;
+    album_title: string | null;
+    artist_verified: boolean | null;
+}>;
+export declare const publicTracksWithDetailsRelationshipsSchemaSchema: z.ZodTuple<[z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"tracks_album_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"album_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"albums">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "tracks_album_id_fkey";
+    columns: ["album_id"];
+    isOneToOne: false;
+    referencedRelation: "albums";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "tracks_album_id_fkey";
+    columns: ["album_id"];
+    isOneToOne: false;
+    referencedRelation: "albums";
+    referencedColumns: ["id"];
+}>, z.ZodObject<{
+    foreignKeyName: z.ZodLiteral<"tracks_artist_id_fkey">;
+    columns: z.ZodTuple<[z.ZodLiteral<"artist_id">], null>;
+    isOneToOne: z.ZodLiteral<false>;
+    referencedRelation: z.ZodLiteral<"artists">;
+    referencedColumns: z.ZodTuple<[z.ZodLiteral<"id">], null>;
+}, "strip", z.ZodTypeAny, {
+    foreignKeyName: "tracks_artist_id_fkey";
+    columns: ["artist_id"];
+    isOneToOne: false;
+    referencedRelation: "artists";
+    referencedColumns: ["id"];
+}, {
+    foreignKeyName: "tracks_artist_id_fkey";
+    columns: ["artist_id"];
+    isOneToOne: false;
+    referencedRelation: "artists";
+    referencedColumns: ["id"];
+}>], null>;
+export declare const publicAddAlbumToLibraryArgsSchemaSchema: z.ZodObject<{
     album_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     album_id: string;
 }, {
     album_id: string;
 }>;
-export declare const prettygoodAddAlbumToLibraryReturnsSchemaSchema: z.ZodBoolean;
-export declare const prettygoodAddArtistToLibraryArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-}, {
-    artist_id: string;
-}>;
-export declare const prettygoodAddArtistToLibraryReturnsSchemaSchema: z.ZodBoolean;
-export declare const prettygoodAddTrackToLibraryArgsSchemaSchema: z.ZodObject<{
+export declare const publicAddAlbumToLibraryReturnsSchemaSchema: z.ZodBoolean;
+export declare const publicAddTrackToLibraryArgsSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     track_id: string;
 }, {
     track_id: string;
 }>;
-export declare const prettygoodAddTrackToLibraryReturnsSchemaSchema: z.ZodBoolean;
-export declare const prettygoodAddTrackToPlaylistArgsSchemaSchema: z.ZodObject<{
+export declare const publicAddTrackToLibraryReturnsSchemaSchema: z.ZodBoolean;
+export declare const publicAddTrackToPlaylistArgsSchemaSchema: z.ZodObject<{
     playlist_id: z.ZodString;
     track_id: z.ZodString;
 }, "strip", z.ZodTypeAny, {
@@ -2500,46 +2704,48 @@ export declare const prettygoodAddTrackToPlaylistArgsSchemaSchema: z.ZodObject<{
     track_id: string;
     playlist_id: string;
 }>;
-export declare const prettygoodAddTrackToPlaylistReturnsSchemaSchema: z.ZodUndefined;
-export declare const prettygoodArmorArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodString;
+export declare const publicAddTrackToPlaylistReturnsSchemaSchema: z.ZodUndefined;
+export declare const publicApplyForArtistAccountArgsSchemaSchema: z.ZodObject<{
+    artist_name: z.ZodString;
+    bio: z.ZodOptional<z.ZodString>;
+    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
+    location: z.ZodOptional<z.ZodString>;
+    website: z.ZodOptional<z.ZodString>;
+    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
+    application_notes: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    "": string;
+    artist_name: string;
+    genre?: string[] | undefined;
+    application_notes?: string | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
 }, {
-    "": string;
+    artist_name: string;
+    genre?: string[] | undefined;
+    application_notes?: string | undefined;
+    bio?: string | undefined;
+    location?: string | undefined;
+    social_links?: Json | undefined;
+    website?: string | undefined;
 }>;
-export declare const prettygoodArmorReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodAuthenticateUserArgsSchemaSchema: z.ZodObject<{
-    _email_or_username: z.ZodString;
-    _password: z.ZodString;
+export declare const publicApplyForArtistAccountReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
+export declare const publicApproveArtistApplicationArgsSchemaSchema: z.ZodObject<{
+    artist_id: z.ZodString;
+    approved: z.ZodBoolean;
+    admin_notes: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    _email_or_username: string;
-    _password: string;
+    artist_id: string;
+    approved: boolean;
+    admin_notes?: string | undefined;
 }, {
-    _email_or_username: string;
-    _password: string;
+    artist_id: string;
+    approved: boolean;
+    admin_notes?: string | undefined;
 }>;
-export declare const prettygoodAuthenticateUserReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodAuthenticateWalletArgsSchemaSchema: z.ZodObject<{
-    wallet_address: z.ZodString;
-    signature: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    wallet_address: string;
-    signature: string;
-}, {
-    wallet_address: string;
-    signature: string;
-}>;
-export declare const prettygoodAuthenticateWalletReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodCreateEmailVerificationTokenArgsSchemaSchema: z.ZodObject<{
-    _user_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    _user_id: string;
-}, {
-    _user_id: string;
-}>;
-export declare const prettygoodCreateEmailVerificationTokenReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodCreatePlaylistArgsSchemaSchema: z.ZodObject<{
+export declare const publicApproveArtistApplicationReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
+export declare const publicCreatePlaylistArgsSchemaSchema: z.ZodObject<{
     name: z.ZodString;
     description: z.ZodOptional<z.ZodString>;
     is_public: z.ZodOptional<z.ZodBoolean>;
@@ -2552,7 +2758,7 @@ export declare const prettygoodCreatePlaylistArgsSchemaSchema: z.ZodObject<{
     description?: string | undefined;
     is_public?: boolean | undefined;
 }>;
-export declare const prettygoodCreatePlaylistReturnsSchemaSchema: z.ZodObject<{
+export declare const publicCreatePlaylistReturnsSchemaSchema: z.ZodObject<{
     cover_url: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
@@ -2564,25 +2770,24 @@ export declare const prettygoodCreatePlaylistReturnsSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     id: string;
     user_id: string;
-    description: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     name: string;
     is_public: boolean | null;
 }, {
     id: string;
     user_id: string;
-    description: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     name: string;
     is_public: boolean | null;
 }>;
-export declare const prettygoodCreateTrackArgsSchemaSchema: z.ZodObject<{
+export declare const publicCreateTrackArgsSchemaSchema: z.ZodObject<{
     title: z.ZodString;
-    artist_id: z.ZodString;
     duration: z.ZodNumber;
     audio_url: z.ZodString;
     album_id: z.ZodOptional<z.ZodString>;
@@ -2594,7 +2799,6 @@ export declare const prettygoodCreateTrackArgsSchemaSchema: z.ZodObject<{
     release_date: z.ZodOptional<z.ZodString>;
     isrc: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    artist_id: string;
     title: string;
     audio_url: string;
     duration: number;
@@ -2607,7 +2811,6 @@ export declare const prettygoodCreateTrackArgsSchemaSchema: z.ZodObject<{
     lyrics?: string | undefined;
     track_number?: number | undefined;
 }, {
-    artist_id: string;
     title: string;
     audio_url: string;
     duration: number;
@@ -2620,7 +2823,7 @@ export declare const prettygoodCreateTrackArgsSchemaSchema: z.ZodObject<{
     lyrics?: string | undefined;
     track_number?: number | undefined;
 }>;
-export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
+export declare const publicCreateTrackReturnsSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
     artist_id: z.ZodString;
     audio_url: z.ZodString;
@@ -2628,7 +2831,7 @@ export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
     created_at: z.ZodString;
     duration: z.ZodNumber;
     explicit: z.ZodNullable<z.ZodBoolean>;
-    genre: z.ZodArray<z.ZodString, "many">;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
     id: z.ZodString;
     isrc: z.ZodNullable<z.ZodString>;
     lyrics: z.ZodNullable<z.ZodString>;
@@ -2642,7 +2845,7 @@ export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -2658,7 +2861,7 @@ export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -2669,59 +2872,7 @@ export declare const prettygoodCreateTrackReturnsSchemaSchema: z.ZodObject<{
     lyrics: string | null;
     track_number: number | null;
 }>;
-export declare const prettygoodDearmorArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    "": string;
-}, {
-    "": string;
-}>;
-export declare const prettygoodDearmorReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodDebugGetJwtInfoArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
-export declare const prettygoodDebugGetJwtInfoReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
-export declare const prettygoodDebugVerifyTokenArgsSchemaSchema: z.ZodObject<{
-    token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    token: string;
-}, {
-    token: string;
-}>;
-export declare const prettygoodDebugVerifyTokenReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
-export declare const prettygoodGenRandomBytesArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    "": number;
-}, {
-    "": number;
-}>;
-export declare const prettygoodGenRandomBytesReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodGenRandomUuidArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
-export declare const prettygoodGenRandomUuidReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodGenSaltArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    "": string;
-}, {
-    "": string;
-}>;
-export declare const prettygoodGenSaltReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodGenerateNonceArgsSchemaSchema: z.ZodObject<{
-    wallet_address: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    wallet_address: string;
-}, {
-    wallet_address: string;
-}>;
-export declare const prettygoodGenerateNonceReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodGetAlbumPlayCountArgsSchemaSchema: z.ZodObject<{
-    album_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    album_id: string;
-}, {
-    album_id: string;
-}>;
-export declare const prettygoodGetAlbumPlayCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetAlbumsByGenreArgsSchemaSchema: z.ZodObject<{
+export declare const publicGetAlbumsByGenreArgsSchemaSchema: z.ZodObject<{
     p_genre_id: z.ZodString;
     p_limit: z.ZodOptional<z.ZodNumber>;
     p_offset: z.ZodOptional<z.ZodNumber>;
@@ -2734,7 +2885,7 @@ export declare const prettygoodGetAlbumsByGenreArgsSchemaSchema: z.ZodObject<{
     p_limit?: number | undefined;
     p_offset?: number | undefined;
 }>;
-export declare const prettygoodGetAlbumsByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetAlbumsByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
     artist_id: z.ZodString;
     cover_url: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
@@ -2748,10 +2899,10 @@ export declare const prettygoodGetAlbumsByGenreReturnsSchemaSchema: z.ZodArray<z
 }, "strip", z.ZodTypeAny, {
     id: string;
     artist_id: string;
-    description: string | null;
     type: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     genre: string[] | null;
     release_date: string | null;
     title: string;
@@ -2759,66 +2910,42 @@ export declare const prettygoodGetAlbumsByGenreReturnsSchemaSchema: z.ZodArray<z
 }, {
     id: string;
     artist_id: string;
-    description: string | null;
     type: string | null;
     cover_url: string | null;
     created_at: string;
+    description: string | null;
     genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
 }>, "many">;
-export declare const prettygoodGetArtistFollowersCountArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
+export declare const publicGetArtistPaymentStatsArgsSchemaSchema: z.ZodObject<{
+    time_period: z.ZodOptional<z.ZodString>;
 }, "strip", z.ZodTypeAny, {
-    artist_id: string;
+    time_period?: string | undefined;
 }, {
-    artist_id: string;
+    time_period?: string | undefined;
 }>;
-export declare const prettygoodGetArtistFollowersCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetArtistPaymentStatsArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-}, {
-    artist_id: string;
-}>;
-export declare const prettygoodGetArtistPaymentStatsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetArtistPaymentStatsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
     total_payments: z.ZodNumber;
     total_amount: z.ZodNumber;
     avg_amount: z.ZodNumber;
     payment_type: z.ZodString;
-    month_year: z.ZodString;
+    period: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     payment_type: string;
     total_payments: number;
     total_amount: number;
     avg_amount: number;
-    month_year: string;
+    period: string;
 }, {
     payment_type: string;
     total_payments: number;
     total_amount: number;
     avg_amount: number;
-    month_year: string;
+    period: string;
 }>, "many">;
-export declare const prettygoodGetArtistPlayCountArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-}, {
-    artist_id: string;
-}>;
-export declare const prettygoodGetArtistPlayCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetArtistTotalEarningsArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-}, {
-    artist_id: string;
-}>;
-export declare const prettygoodGetArtistTotalEarningsReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetArtistsByGenreArgsSchemaSchema: z.ZodObject<{
+export declare const publicGetArtistsByGenreArgsSchemaSchema: z.ZodObject<{
     p_genre_id: z.ZodString;
     p_limit: z.ZodOptional<z.ZodNumber>;
     p_offset: z.ZodOptional<z.ZodNumber>;
@@ -2831,7 +2958,10 @@ export declare const prettygoodGetArtistsByGenreArgsSchemaSchema: z.ZodObject<{
     p_limit?: number | undefined;
     p_offset?: number | undefined;
 }>;
-export declare const prettygoodGetArtistsByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetArtistsByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    application_date: z.ZodNullable<z.ZodString>;
+    application_notes: z.ZodNullable<z.ZodString>;
+    approved: z.ZodNullable<z.ZodBoolean>;
     artist_name: z.ZodString;
     bio: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
@@ -2847,6 +2977,9 @@ export declare const prettygoodGetArtistsByGenreReturnsSchemaSchema: z.ZodArray<
     created_at: string;
     genre: string[] | null;
     updated_at: string;
+    application_date: string | null;
+    application_notes: string | null;
+    approved: boolean | null;
     artist_name: string;
     bio: string | null;
     location: string | null;
@@ -2858,6 +2991,9 @@ export declare const prettygoodGetArtistsByGenreReturnsSchemaSchema: z.ZodArray<
     created_at: string;
     genre: string[] | null;
     updated_at: string;
+    application_date: string | null;
+    application_notes: string | null;
+    approved: boolean | null;
     artist_name: string;
     bio: string | null;
     location: string | null;
@@ -2865,222 +3001,27 @@ export declare const prettygoodGetArtistsByGenreReturnsSchemaSchema: z.ZodArray<
     verified: boolean | null;
     website: string | null;
 }>, "many">;
-export declare const prettygoodGetEarningsByPaymentTypeArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
+export declare const publicGetMonthlyPaymentTrendsArgsSchemaSchema: z.ZodObject<{
+    months_back: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
+    months_back?: number | undefined;
 }, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
+    months_back?: number | undefined;
 }>;
-export declare const prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    payment_type: z.ZodString;
-    amount: z.ZodNumber;
+export declare const publicGetMonthlyPaymentTrendsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+    month: z.ZodString;
+    total_amount: z.ZodNumber;
+    payment_count: z.ZodNumber;
 }, "strip", z.ZodTypeAny, {
-    amount: number;
-    payment_type: string;
+    total_amount: number;
+    month: string;
+    payment_count: number;
 }, {
-    amount: number;
-    payment_type: string;
+    total_amount: number;
+    month: string;
+    payment_count: number;
 }>, "many">;
-export declare const prettygoodGetEarningsByPeriodArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-    time_format: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-    time_format: string;
-}, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-    time_format: string;
-}>;
-export declare const prettygoodGetEarningsByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    period: z.ZodString;
-    amount: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    amount: number;
-    period: string;
-}, {
-    amount: number;
-    period: string;
-}>, "many">;
-export declare const prettygoodGetEarningsForPeriodArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}>;
-export declare const prettygoodGetEarningsForPeriodReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetFollowersByPeriodArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-    time_format: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-    time_format: string;
-}, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-    time_format: string;
-}>;
-export declare const prettygoodGetFollowersByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    period: z.ZodString;
-    count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    period: string;
-    count: number;
-}, {
-    period: string;
-    count: number;
-}>, "many">;
-export declare const prettygoodGetFollowersCountForPeriodArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}>;
-export declare const prettygoodGetFollowersCountForPeriodReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetPlayDurationStatsArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetPlayDurationStatsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    avg_duration: z.ZodNumber;
-    completed_count: z.ZodNumber;
-    total_count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    avg_duration: number;
-    completed_count: number;
-    total_count: number;
-}, {
-    avg_duration: number;
-    completed_count: number;
-    total_count: number;
-}>, "many">;
-export declare const prettygoodGetPlaysByCountryArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetPlaysByCountryReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    country_code: z.ZodString;
-    play_count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    play_count: number;
-    country_code: string;
-}, {
-    play_count: number;
-    country_code: string;
-}>, "many">;
-export declare const prettygoodGetPlaysByPeriodArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-    time_format: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    time_format: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    time_format: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetPlaysByPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    period: z.ZodString;
-    count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    period: string;
-    count: number;
-}, {
-    period: string;
-    count: number;
-}>, "many">;
-export declare const prettygoodGetPlaysBySourceArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetPlaysBySourceReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    source: z.ZodString;
-    count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    source: string;
-    count: number;
-}, {
-    source: string;
-    count: number;
-}>, "many">;
-export declare const prettygoodGetPlaysForPeriodArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}, {
-    artist_id: string;
-    start_date: string;
-    end_date: string;
-}>;
-export declare const prettygoodGetPlaysForPeriodReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetPopularGenresArgsSchemaSchema: z.ZodObject<{
+export declare const publicGetPopularGenresArgsSchemaSchema: z.ZodObject<{
     p_start_date: z.ZodString;
     p_end_date: z.ZodString;
     p_limit: z.ZodOptional<z.ZodNumber>;
@@ -3093,7 +3034,7 @@ export declare const prettygoodGetPopularGenresArgsSchemaSchema: z.ZodObject<{
     p_end_date: string;
     p_limit?: number | undefined;
 }>;
-export declare const prettygoodGetPopularGenresReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetPopularGenresReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
     color: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
@@ -3105,8 +3046,8 @@ export declare const prettygoodGetPopularGenresReturnsSchemaSchema: z.ZodArray<z
     updated_at: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -3115,8 +3056,8 @@ export declare const prettygoodGetPopularGenresReturnsSchemaSchema: z.ZodArray<z
     slug: string | null;
 }, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -3124,176 +3065,7 @@ export declare const prettygoodGetPopularGenresReturnsSchemaSchema: z.ZodArray<z
     popularity: number | null;
     slug: string | null;
 }>, "many">;
-export declare const prettygoodGetRecentFollowersArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodOptional<z.ZodString>;
-    limit_count: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}, {
-    artist_id: string;
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}>;
-export declare const prettygoodGetRecentFollowersReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    added_at: z.ZodString;
-    user_id: z.ZodString;
-    username: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    added_at: string;
-    username: string;
-}, {
-    user_id: string;
-    added_at: string;
-    username: string;
-}>, "many">;
-export declare const prettygoodGetRecentPlaysArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodOptional<z.ZodString>;
-    limit_count: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}>;
-export declare const prettygoodGetRecentPlaysReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    played_at: z.ZodString;
-    track_id: z.ZodString;
-    track_title: z.ZodString;
-    username: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    track_id: string;
-    played_at: string;
-    username: string;
-    track_title: string;
-}, {
-    track_id: string;
-    played_at: string;
-    username: string;
-    track_title: string;
-}>, "many">;
-export declare const prettygoodGetRecentTipsArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    start_date: z.ZodOptional<z.ZodString>;
-    limit_count: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}, {
-    artist_id: string;
-    start_date?: string | undefined;
-    limit_count?: number | undefined;
-}>;
-export declare const prettygoodGetRecentTipsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    created_at: z.ZodString;
-    amount: z.ZodNumber;
-    username: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    created_at: string;
-    amount: number;
-    username: string;
-}, {
-    created_at: string;
-    amount: number;
-    username: string;
-}>, "many">;
-export declare const prettygoodGetRecentTransactionsArgsSchemaSchema: z.ZodObject<{
-    artist_id: z.ZodString;
-    limit_count: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    artist_id: string;
-    limit_count?: number | undefined;
-}, {
-    artist_id: string;
-    limit_count?: number | undefined;
-}>;
-export declare const prettygoodGetRecentTransactionsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    id: z.ZodString;
-    created_at: z.ZodString;
-    amount: z.ZodNumber;
-    payment_type: z.ZodString;
-    sender_id: z.ZodString;
-    username: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    sender_id: string;
-    created_at: string;
-    amount: number;
-    payment_type: string;
-    username: string;
-}, {
-    id: string;
-    sender_id: string;
-    created_at: string;
-    amount: number;
-    payment_type: string;
-    username: string;
-}>, "many">;
-export declare const prettygoodGetRecommendationsArgsSchemaSchema: z.ZodObject<{
-    limit_count: z.ZodOptional<z.ZodNumber>;
-}, "strip", z.ZodTypeAny, {
-    limit_count?: number | undefined;
-}, {
-    limit_count?: number | undefined;
-}>;
-export declare const prettygoodGetRecommendationsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    album_id: z.ZodNullable<z.ZodString>;
-    artist_id: z.ZodString;
-    audio_url: z.ZodString;
-    cover_url: z.ZodNullable<z.ZodString>;
-    created_at: z.ZodString;
-    duration: z.ZodNumber;
-    explicit: z.ZodNullable<z.ZodBoolean>;
-    genre: z.ZodArray<z.ZodString, "many">;
-    id: z.ZodString;
-    isrc: z.ZodNullable<z.ZodString>;
-    lyrics: z.ZodNullable<z.ZodString>;
-    release_date: z.ZodNullable<z.ZodString>;
-    title: z.ZodString;
-    track_number: z.ZodNullable<z.ZodNumber>;
-    updated_at: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    album_id: string | null;
-    id: string;
-    artist_id: string;
-    cover_url: string | null;
-    created_at: string;
-    genre: string[];
-    release_date: string | null;
-    title: string;
-    updated_at: string;
-    audio_url: string;
-    duration: number;
-    explicit: boolean | null;
-    isrc: string | null;
-    lyrics: string | null;
-    track_number: number | null;
-}, {
-    album_id: string | null;
-    id: string;
-    artist_id: string;
-    cover_url: string | null;
-    created_at: string;
-    genre: string[];
-    release_date: string | null;
-    title: string;
-    updated_at: string;
-    audio_url: string;
-    duration: number;
-    explicit: boolean | null;
-    isrc: string | null;
-    lyrics: string | null;
-    track_number: number | null;
-}>, "many">;
-export declare const prettygoodGetRelatedGenresArgsSchemaSchema: z.ZodObject<{
+export declare const publicGetRelatedGenresArgsSchemaSchema: z.ZodObject<{
     p_genre_id: z.ZodString;
     p_limit: z.ZodOptional<z.ZodNumber>;
 }, "strip", z.ZodTypeAny, {
@@ -3303,7 +3075,7 @@ export declare const prettygoodGetRelatedGenresArgsSchemaSchema: z.ZodObject<{
     p_genre_id: string;
     p_limit?: number | undefined;
 }>;
-export declare const prettygoodGetRelatedGenresReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetRelatedGenresReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
     color: z.ZodNullable<z.ZodString>;
     created_at: z.ZodString;
     description: z.ZodNullable<z.ZodString>;
@@ -3315,8 +3087,8 @@ export declare const prettygoodGetRelatedGenresReturnsSchemaSchema: z.ZodArray<z
     updated_at: z.ZodString;
 }, "strip", z.ZodTypeAny, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -3325,8 +3097,8 @@ export declare const prettygoodGetRelatedGenresReturnsSchemaSchema: z.ZodArray<z
     slug: string | null;
 }, {
     id: string;
-    description: string | null;
     created_at: string;
+    description: string | null;
     updated_at: string;
     color: string | null;
     image_url: string | null;
@@ -3334,103 +3106,7 @@ export declare const prettygoodGetRelatedGenresReturnsSchemaSchema: z.ZodArray<z
     popularity: number | null;
     slug: string | null;
 }>, "many">;
-export declare const prettygoodGetTrackPlayCountArgsSchemaSchema: z.ZodObject<{
-    track_id: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    track_id: string;
-}, {
-    track_id: string;
-}>;
-export declare const prettygoodGetTrackPlayCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema: z.ZodObject<{
-    track_id: z.ZodString;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    track_id: string;
-    start_date: string;
-    end_date: string;
-}, {
-    track_id: string;
-    start_date: string;
-    end_date: string;
-}>;
-export declare const prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetTrackPlayCountsArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodOptional<z.ZodString>;
-    end_date: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    end_date?: string | undefined;
-}, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    end_date?: string | undefined;
-}>;
-export declare const prettygoodGetTrackPlayCountsReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    track_id: z.ZodString;
-    count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    track_id: string;
-    count: number;
-}, {
-    track_id: string;
-    count: number;
-}>, "many">;
-export declare const prettygoodGetTrackPlaylistsCountArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetTrackPlaylistsCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetTrackPlaysForPeriodArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
-    track_id: z.ZodString;
-    count: z.ZodNumber;
-}, "strip", z.ZodTypeAny, {
-    track_id: string;
-    count: number;
-}, {
-    track_id: string;
-    count: number;
-}>, "many">;
-export declare const prettygoodGetTrackSavesCountArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodString;
-    end_date: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}, {
-    start_date: string;
-    end_date: string;
-    track_ids: string[];
-}>;
-export declare const prettygoodGetTrackSavesCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodGetTracksByGenreArgsSchemaSchema: z.ZodObject<{
+export declare const publicGetTracksByGenreArgsSchemaSchema: z.ZodObject<{
     p_genre_id: z.ZodString;
     p_limit: z.ZodOptional<z.ZodNumber>;
     p_offset: z.ZodOptional<z.ZodNumber>;
@@ -3443,7 +3119,7 @@ export declare const prettygoodGetTracksByGenreArgsSchemaSchema: z.ZodObject<{
     p_limit?: number | undefined;
     p_offset?: number | undefined;
 }>;
-export declare const prettygoodGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
+export declare const publicGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
     artist_id: z.ZodString;
     audio_url: z.ZodString;
@@ -3451,7 +3127,7 @@ export declare const prettygoodGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z
     created_at: z.ZodString;
     duration: z.ZodNumber;
     explicit: z.ZodNullable<z.ZodBoolean>;
-    genre: z.ZodArray<z.ZodString, "many">;
+    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
     id: z.ZodString;
     isrc: z.ZodNullable<z.ZodString>;
     lyrics: z.ZodNullable<z.ZodString>;
@@ -3465,7 +3141,7 @@ export declare const prettygoodGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -3481,7 +3157,7 @@ export declare const prettygoodGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z
     artist_id: string;
     cover_url: string | null;
     created_at: string;
-    genre: string[];
+    genre: string[] | null;
     release_date: string | null;
     title: string;
     updated_at: string;
@@ -3492,37 +3168,7 @@ export declare const prettygoodGetTracksByGenreReturnsSchemaSchema: z.ZodArray<z
     lyrics: string | null;
     track_number: number | null;
 }>, "many">;
-export declare const prettygoodGetTracksPlayCountArgsSchemaSchema: z.ZodObject<{
-    track_ids: z.ZodArray<z.ZodString, "many">;
-    start_date: z.ZodOptional<z.ZodString>;
-    end_date: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    end_date?: string | undefined;
-}, {
-    track_ids: string[];
-    start_date?: string | undefined;
-    end_date?: string | undefined;
-}>;
-export declare const prettygoodGetTracksPlayCountReturnsSchemaSchema: z.ZodNumber;
-export declare const prettygoodPgpArmorHeadersArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    "": string;
-}, {
-    "": string;
-}>;
-export declare const prettygoodPgpArmorHeadersReturnsSchemaSchema: z.ZodArray<z.ZodRecord<z.ZodString, z.ZodUnknown>, "many">;
-export declare const prettygoodPgpKeyIdArgsSchemaSchema: z.ZodObject<{
-    "": z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    "": string;
-}, {
-    "": string;
-}>;
-export declare const prettygoodPgpKeyIdReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodRecordPlayArgsSchemaSchema: z.ZodObject<{
+export declare const publicRecordPlayArgsSchemaSchema: z.ZodObject<{
     track_id: z.ZodString;
     play_duration: z.ZodOptional<z.ZodNumber>;
     completed: z.ZodOptional<z.ZodBoolean>;
@@ -3531,204 +3177,18 @@ export declare const prettygoodRecordPlayArgsSchemaSchema: z.ZodObject<{
 }, "strip", z.ZodTypeAny, {
     track_id: string;
     completed?: boolean | undefined;
+    context_id?: string | undefined;
     play_duration?: number | undefined;
     source?: string | undefined;
-    context_id?: string | undefined;
 }, {
     track_id: string;
     completed?: boolean | undefined;
+    context_id?: string | undefined;
     play_duration?: number | undefined;
     source?: string | undefined;
-    context_id?: string | undefined;
 }>;
-export declare const prettygoodRecordPlayReturnsSchemaSchema: z.ZodUndefined;
-export declare const prettygoodRecordSearchArgsSchemaSchema: z.ZodObject<{
-    query: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    query: string;
-}, {
-    query: string;
-}>;
-export declare const prettygoodRecordSearchReturnsSchemaSchema: z.ZodUndefined;
-export declare const prettygoodRefreshTokenArgsSchemaSchema: z.ZodObject<{
-    current_token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    current_token: string;
-}, {
-    current_token: string;
-}>;
-export declare const prettygoodRefreshTokenReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodRefreshTokenRobustArgsSchemaSchema: z.ZodObject<{
-    current_token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    current_token: string;
-}, {
-    current_token: string;
-}>;
-export declare const prettygoodRefreshTokenRobustReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodRefreshTokenV2ArgsSchemaSchema: z.ZodObject<{
-    current_token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    current_token: string;
-}, {
-    current_token: string;
-}>;
-export declare const prettygoodRefreshTokenV2ReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodRegisterAsArtistArgsSchemaSchema: z.ZodObject<{
-    artist_name: z.ZodString;
-    bio: z.ZodOptional<z.ZodString>;
-    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-    location: z.ZodOptional<z.ZodString>;
-    website: z.ZodOptional<z.ZodString>;
-    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
-}, "strip", z.ZodTypeAny, {
-    artist_name: string;
-    genre?: string[] | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}, {
-    artist_name: string;
-    genre?: string[] | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}>;
-export declare const prettygoodRegisterAsArtistReturnsSchemaSchema: z.ZodObject<{
-    artist_name: z.ZodString;
-    bio: z.ZodNullable<z.ZodString>;
-    created_at: z.ZodString;
-    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
-    id: z.ZodString;
-    location: z.ZodNullable<z.ZodString>;
-    social_links: z.ZodNullable<z.ZodType<Json, z.ZodTypeDef, Json>>;
-    updated_at: z.ZodString;
-    verified: z.ZodNullable<z.ZodBoolean>;
-    website: z.ZodNullable<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}>;
-export declare const prettygoodRegisterAsArtistWithIdArgsSchemaSchema: z.ZodObject<{
-    user_id: z.ZodString;
-    artist_name: z.ZodString;
-    bio: z.ZodOptional<z.ZodString>;
-    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-    location: z.ZodOptional<z.ZodString>;
-    website: z.ZodOptional<z.ZodString>;
-    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    artist_name: string;
-    genre?: string[] | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}, {
-    user_id: string;
-    artist_name: string;
-    genre?: string[] | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}>;
-export declare const prettygoodRegisterAsArtistWithIdReturnsSchemaSchema: z.ZodObject<{
-    artist_name: z.ZodString;
-    bio: z.ZodNullable<z.ZodString>;
-    created_at: z.ZodString;
-    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
-    id: z.ZodString;
-    location: z.ZodNullable<z.ZodString>;
-    social_links: z.ZodNullable<z.ZodType<Json, z.ZodTypeDef, Json>>;
-    updated_at: z.ZodString;
-    verified: z.ZodNullable<z.ZodBoolean>;
-    website: z.ZodNullable<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}>;
-export declare const prettygoodRegisterUserArgsSchemaSchema: z.ZodObject<{
-    _username: z.ZodString;
-    _email: z.ZodString;
-    _password: z.ZodString;
-    _display_name: z.ZodOptional<z.ZodString>;
-    _wallet_address: z.ZodOptional<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    _password: string;
-    _username: string;
-    _email: string;
-    _display_name?: string | undefined;
-    _wallet_address?: string | undefined;
-}, {
-    _password: string;
-    _username: string;
-    _email: string;
-    _display_name?: string | undefined;
-    _wallet_address?: string | undefined;
-}>;
-export declare const prettygoodRegisterUserReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
-export declare const prettygoodRequestPasswordResetArgsSchemaSchema: z.ZodObject<{
-    _email: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    _email: string;
-}, {
-    _email: string;
-}>;
-export declare const prettygoodRequestPasswordResetReturnsSchemaSchema: z.ZodString;
-export declare const prettygoodResetPasswordArgsSchemaSchema: z.ZodObject<{
-    _reset_token: z.ZodString;
-    _new_password: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    _reset_token: string;
-    _new_password: string;
-}, {
-    _reset_token: string;
-    _new_password: string;
-}>;
-export declare const prettygoodResetPasswordReturnsSchemaSchema: z.ZodBoolean;
-export declare const prettygoodTipArtistArgsSchemaSchema: z.ZodObject<{
+export declare const publicRecordPlayReturnsSchemaSchema: z.ZodUndefined;
+export declare const publicTipArtistArgsSchemaSchema: z.ZodObject<{
     artist_id: z.ZodString;
     amount: z.ZodNumber;
     transaction_hash: z.ZodString;
@@ -3750,7 +3210,7 @@ export declare const prettygoodTipArtistArgsSchemaSchema: z.ZodObject<{
     track_id?: string | undefined;
     message?: string | undefined;
 }>;
-export declare const prettygoodTipArtistReturnsSchemaSchema: z.ZodObject<{
+export declare const publicTipArtistReturnsSchemaSchema: z.ZodObject<{
     album_id: z.ZodNullable<z.ZodString>;
     amount: z.ZodNumber;
     created_at: z.ZodString;
@@ -3793,89 +3253,5 @@ export declare const prettygoodTipArtistReturnsSchemaSchema: z.ZodObject<{
     payment_type: string;
     transaction_hash: string | null;
 }>;
-export declare const prettygoodTraceTokenVerificationArgsSchemaSchema: z.ZodObject<{
-    token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    token: string;
-}, {
-    token: string;
-}>;
-export declare const prettygoodTraceTokenVerificationReturnsSchemaSchema: z.ZodType<Json, z.ZodTypeDef, Json>;
-export declare const prettygoodUpdateArtistWithIdArgsSchemaSchema: z.ZodObject<{
-    user_id: z.ZodString;
-    artist_name: z.ZodOptional<z.ZodString>;
-    bio: z.ZodOptional<z.ZodString>;
-    genre: z.ZodOptional<z.ZodArray<z.ZodString, "many">>;
-    location: z.ZodOptional<z.ZodString>;
-    website: z.ZodOptional<z.ZodString>;
-    social_links: z.ZodOptional<z.ZodType<Json, z.ZodTypeDef, Json>>;
-}, "strip", z.ZodTypeAny, {
-    user_id: string;
-    genre?: string[] | undefined;
-    artist_name?: string | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}, {
-    user_id: string;
-    genre?: string[] | undefined;
-    artist_name?: string | undefined;
-    bio?: string | undefined;
-    location?: string | undefined;
-    social_links?: Json | undefined;
-    website?: string | undefined;
-}>;
-export declare const prettygoodUpdateArtistWithIdReturnsSchemaSchema: z.ZodObject<{
-    artist_name: z.ZodString;
-    bio: z.ZodNullable<z.ZodString>;
-    created_at: z.ZodString;
-    genre: z.ZodNullable<z.ZodArray<z.ZodString, "many">>;
-    id: z.ZodString;
-    location: z.ZodNullable<z.ZodString>;
-    social_links: z.ZodNullable<z.ZodType<Json, z.ZodTypeDef, Json>>;
-    updated_at: z.ZodString;
-    verified: z.ZodNullable<z.ZodBoolean>;
-    website: z.ZodNullable<z.ZodString>;
-}, "strip", z.ZodTypeAny, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}, {
-    id: string;
-    created_at: string;
-    genre: string[] | null;
-    updated_at: string;
-    artist_name: string;
-    bio: string | null;
-    location: string | null;
-    social_links: Json;
-    verified: boolean | null;
-    website: string | null;
-}>;
-export declare const prettygoodVerifyEmailArgsSchemaSchema: z.ZodObject<{
-    _verification_token: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    _verification_token: string;
-}, {
-    _verification_token: string;
-}>;
-export declare const prettygoodVerifyEmailReturnsSchemaSchema: z.ZodBoolean;
-export declare const prettygoodVerifySignatureArgsSchemaSchema: z.ZodObject<{
-    wallet_address: z.ZodString;
-    signature: z.ZodString;
-}, "strip", z.ZodTypeAny, {
-    wallet_address: string;
-    signature: string;
-}, {
-    wallet_address: string;
-    signature: string;
-}>;
-export declare const prettygoodVerifySignatureReturnsSchemaSchema: z.ZodString;
+export declare const publicUpdateGenrePopularityArgsSchemaSchema: z.ZodObject<{}, "strip", z.ZodTypeAny, {}, {}>;
+export declare const publicUpdateGenrePopularityReturnsSchemaSchema: z.ZodUndefined;

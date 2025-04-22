@@ -19,22 +19,22 @@ export const jsonSchema: z.ZodSchema<Json> = z.lazy(() =>
     .nullable(),
 );
 
-export const prettygoodAlbumGenresRowSchemaSchema = z.object({
+export const publicAlbumGenresRowSchemaSchema = z.object({
   album_id: z.string(),
   genre_id: z.string(),
 });
 
-export const prettygoodAlbumGenresInsertSchemaSchema = z.object({
+export const publicAlbumGenresInsertSchemaSchema = z.object({
   album_id: z.string(),
   genre_id: z.string(),
 });
 
-export const prettygoodAlbumGenresUpdateSchemaSchema = z.object({
+export const publicAlbumGenresUpdateSchemaSchema = z.object({
   album_id: z.string().optional(),
   genre_id: z.string().optional(),
 });
 
-export const prettygoodAlbumGenresRelationshipsSchemaSchema = z.tuple([
+export const publicAlbumGenresRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("album_genres_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -51,25 +51,25 @@ export const prettygoodAlbumGenresRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodAlbumLikesRowSchemaSchema = z.object({
+export const publicAlbumLikesRowSchemaSchema = z.object({
   album_id: z.string(),
   liked_at: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodAlbumLikesInsertSchemaSchema = z.object({
+export const publicAlbumLikesInsertSchemaSchema = z.object({
   album_id: z.string(),
   liked_at: z.string().optional(),
   user_id: z.string(),
 });
 
-export const prettygoodAlbumLikesUpdateSchemaSchema = z.object({
+export const publicAlbumLikesUpdateSchemaSchema = z.object({
   album_id: z.string().optional(),
   liked_at: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodAlbumLikesRelationshipsSchemaSchema = z.tuple([
+export const publicAlbumLikesRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("album_likes_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -86,7 +86,7 @@ export const prettygoodAlbumLikesRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodAlbumsRowSchemaSchema = z.object({
+export const publicAlbumsRowSchemaSchema = z.object({
   artist_id: z.string(),
   cover_url: z.string().nullable(),
   created_at: z.string(),
@@ -99,7 +99,7 @@ export const prettygoodAlbumsRowSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodAlbumsInsertSchemaSchema = z.object({
+export const publicAlbumsInsertSchemaSchema = z.object({
   artist_id: z.string(),
   cover_url: z.string().optional().nullable(),
   created_at: z.string().optional(),
@@ -112,7 +112,7 @@ export const prettygoodAlbumsInsertSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodAlbumsUpdateSchemaSchema = z.object({
+export const publicAlbumsUpdateSchemaSchema = z.object({
   artist_id: z.string().optional(),
   cover_url: z.string().optional().nullable(),
   created_at: z.string().optional(),
@@ -125,7 +125,7 @@ export const prettygoodAlbumsUpdateSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodAlbumsRelationshipsSchemaSchema = z.tuple([
+export const publicAlbumsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("albums_artist_id_fkey"),
     columns: z.tuple([z.literal("artist_id")]),
@@ -135,25 +135,25 @@ export const prettygoodAlbumsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodArtistFollowersRowSchemaSchema = z.object({
+export const publicArtistFollowersRowSchemaSchema = z.object({
   artist_id: z.string(),
   followed_at: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodArtistFollowersInsertSchemaSchema = z.object({
+export const publicArtistFollowersInsertSchemaSchema = z.object({
   artist_id: z.string(),
   followed_at: z.string().optional(),
   user_id: z.string(),
 });
 
-export const prettygoodArtistFollowersUpdateSchemaSchema = z.object({
+export const publicArtistFollowersUpdateSchemaSchema = z.object({
   artist_id: z.string().optional(),
   followed_at: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodArtistFollowersRelationshipsSchemaSchema = z.tuple([
+export const publicArtistFollowersRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("artist_followers_artist_id_fkey"),
     columns: z.tuple([z.literal("artist_id")]),
@@ -170,22 +170,22 @@ export const prettygoodArtistFollowersRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodArtistGenresRowSchemaSchema = z.object({
+export const publicArtistGenresRowSchemaSchema = z.object({
   artist_id: z.string(),
   genre_id: z.string(),
 });
 
-export const prettygoodArtistGenresInsertSchemaSchema = z.object({
+export const publicArtistGenresInsertSchemaSchema = z.object({
   artist_id: z.string(),
   genre_id: z.string(),
 });
 
-export const prettygoodArtistGenresUpdateSchemaSchema = z.object({
+export const publicArtistGenresUpdateSchemaSchema = z.object({
   artist_id: z.string().optional(),
   genre_id: z.string().optional(),
 });
 
-export const prettygoodArtistGenresRelationshipsSchemaSchema = z.tuple([
+export const publicArtistGenresRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("artist_genres_artist_id_fkey"),
     columns: z.tuple([z.literal("artist_id")]),
@@ -202,7 +202,10 @@ export const prettygoodArtistGenresRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodArtistsRowSchemaSchema = z.object({
+export const publicArtistsRowSchemaSchema = z.object({
+  application_date: z.string().nullable(),
+  application_notes: z.string().nullable(),
+  approved: z.boolean().nullable(),
   artist_name: z.string(),
   bio: z.string().nullable(),
   created_at: z.string(),
@@ -215,7 +218,10 @@ export const prettygoodArtistsRowSchemaSchema = z.object({
   website: z.string().nullable(),
 });
 
-export const prettygoodArtistsInsertSchemaSchema = z.object({
+export const publicArtistsInsertSchemaSchema = z.object({
+  application_date: z.string().optional().nullable(),
+  application_notes: z.string().optional().nullable(),
+  approved: z.boolean().optional().nullable(),
   artist_name: z.string(),
   bio: z.string().optional().nullable(),
   created_at: z.string().optional(),
@@ -228,7 +234,10 @@ export const prettygoodArtistsInsertSchemaSchema = z.object({
   website: z.string().optional().nullable(),
 });
 
-export const prettygoodArtistsUpdateSchemaSchema = z.object({
+export const publicArtistsUpdateSchemaSchema = z.object({
+  application_date: z.string().optional().nullable(),
+  application_notes: z.string().optional().nullable(),
+  approved: z.boolean().optional().nullable(),
   artist_name: z.string().optional(),
   bio: z.string().optional().nullable(),
   created_at: z.string().optional(),
@@ -241,7 +250,7 @@ export const prettygoodArtistsUpdateSchemaSchema = z.object({
   website: z.string().optional().nullable(),
 });
 
-export const prettygoodArtistsRelationshipsSchemaSchema = z.tuple([
+export const publicArtistsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("artists_id_fkey"),
     columns: z.tuple([z.literal("id")]),
@@ -251,7 +260,7 @@ export const prettygoodArtistsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodGenresRowSchemaSchema = z.object({
+export const publicGenresRowSchemaSchema = z.object({
   color: z.string().nullable(),
   created_at: z.string(),
   description: z.string().nullable(),
@@ -263,7 +272,7 @@ export const prettygoodGenresRowSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodGenresInsertSchemaSchema = z.object({
+export const publicGenresInsertSchemaSchema = z.object({
   color: z.string().optional().nullable(),
   created_at: z.string().optional(),
   description: z.string().optional().nullable(),
@@ -275,7 +284,7 @@ export const prettygoodGenresInsertSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodGenresUpdateSchemaSchema = z.object({
+export const publicGenresUpdateSchemaSchema = z.object({
   color: z.string().optional().nullable(),
   created_at: z.string().optional(),
   description: z.string().optional().nullable(),
@@ -287,7 +296,47 @@ export const prettygoodGenresUpdateSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodPaymentsRowSchemaSchema = z.object({
+export const publicPaymentStatusHistoryRowSchemaSchema = z.object({
+  changed_at: z.string(),
+  changed_by: z.string(),
+  id: z.string(),
+  new_status: z.string(),
+  notes: z.string().nullable(),
+  old_status: z.string().nullable(),
+  payment_id: z.string(),
+});
+
+export const publicPaymentStatusHistoryInsertSchemaSchema = z.object({
+  changed_at: z.string().optional(),
+  changed_by: z.string().optional(),
+  id: z.string().optional(),
+  new_status: z.string(),
+  notes: z.string().optional().nullable(),
+  old_status: z.string().optional().nullable(),
+  payment_id: z.string(),
+});
+
+export const publicPaymentStatusHistoryUpdateSchemaSchema = z.object({
+  changed_at: z.string().optional(),
+  changed_by: z.string().optional(),
+  id: z.string().optional(),
+  new_status: z.string().optional(),
+  notes: z.string().optional().nullable(),
+  old_status: z.string().optional().nullable(),
+  payment_id: z.string().optional(),
+});
+
+export const publicPaymentStatusHistoryRelationshipsSchemaSchema = z.tuple([
+  z.object({
+    foreignKeyName: z.literal("payment_status_history_payment_id_fkey"),
+    columns: z.tuple([z.literal("payment_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("payments"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+]);
+
+export const publicPaymentsRowSchemaSchema = z.object({
   album_id: z.string().nullable(),
   amount: z.number(),
   created_at: z.string(),
@@ -303,7 +352,7 @@ export const prettygoodPaymentsRowSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodPaymentsInsertSchemaSchema = z.object({
+export const publicPaymentsInsertSchemaSchema = z.object({
   album_id: z.string().optional().nullable(),
   amount: z.number(),
   created_at: z.string().optional(),
@@ -319,7 +368,7 @@ export const prettygoodPaymentsInsertSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodPaymentsUpdateSchemaSchema = z.object({
+export const publicPaymentsUpdateSchemaSchema = z.object({
   album_id: z.string().optional().nullable(),
   amount: z.number().optional(),
   created_at: z.string().optional(),
@@ -335,7 +384,7 @@ export const prettygoodPaymentsUpdateSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodPaymentsRelationshipsSchemaSchema = z.tuple([
+export const publicPaymentsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("payments_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -364,50 +413,67 @@ export const prettygoodPaymentsRelationshipsSchemaSchema = z.tuple([
     referencedRelation: z.literal("tracks"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
+  z.object({
+    foreignKeyName: z.literal("payments_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
 ]);
 
-export const prettygoodPlayHistoryRowSchemaSchema = z.object({
+export const publicPlayHistoryRowSchemaSchema = z.object({
   client_ip: z.string().nullable(),
   completed: z.boolean().nullable(),
+  context_id: z.string().nullable(),
   id: z.string(),
   play_duration: z.number().nullable(),
   played_at: z.string(),
   source: z.string().nullable(),
   track_id: z.string(),
   user_agent: z.string().nullable(),
-  user_id: z.string(),
+  user_id: z.string().nullable(),
 });
 
-export const prettygoodPlayHistoryInsertSchemaSchema = z.object({
+export const publicPlayHistoryInsertSchemaSchema = z.object({
   client_ip: z.string().optional().nullable(),
   completed: z.boolean().optional().nullable(),
+  context_id: z.string().optional().nullable(),
   id: z.string().optional(),
   play_duration: z.number().optional().nullable(),
   played_at: z.string().optional(),
   source: z.string().optional().nullable(),
   track_id: z.string(),
   user_agent: z.string().optional().nullable(),
-  user_id: z.string(),
+  user_id: z.string().optional().nullable(),
 });
 
-export const prettygoodPlayHistoryUpdateSchemaSchema = z.object({
+export const publicPlayHistoryUpdateSchemaSchema = z.object({
   client_ip: z.string().optional().nullable(),
   completed: z.boolean().optional().nullable(),
+  context_id: z.string().optional().nullable(),
   id: z.string().optional(),
   play_duration: z.number().optional().nullable(),
   played_at: z.string().optional(),
   source: z.string().optional().nullable(),
   track_id: z.string().optional(),
   user_agent: z.string().optional().nullable(),
-  user_id: z.string().optional(),
+  user_id: z.string().optional().nullable(),
 });
 
-export const prettygoodPlayHistoryRelationshipsSchemaSchema = z.tuple([
+export const publicPlayHistoryRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("play_history_track_id_fkey"),
     columns: z.tuple([z.literal("track_id")]),
     isOneToOne: z.literal(false),
     referencedRelation: z.literal("tracks"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("play_history_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
   z.object({
@@ -419,72 +485,25 @@ export const prettygoodPlayHistoryRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodPlaylistCollaboratorsRowSchemaSchema = z.object({
-  added_at: z.string(),
-  added_by: z.string(),
-  playlist_id: z.string(),
-  user_id: z.string(),
-});
-
-export const prettygoodPlaylistCollaboratorsInsertSchemaSchema = z.object({
-  added_at: z.string().optional(),
-  added_by: z.string(),
-  playlist_id: z.string(),
-  user_id: z.string(),
-});
-
-export const prettygoodPlaylistCollaboratorsUpdateSchemaSchema = z.object({
-  added_at: z.string().optional(),
-  added_by: z.string().optional(),
-  playlist_id: z.string().optional(),
-  user_id: z.string().optional(),
-});
-
-export const prettygoodPlaylistCollaboratorsRelationshipsSchemaSchema = z.tuple(
-  [
-    z.object({
-      foreignKeyName: z.literal("playlist_collaborators_added_by_fkey"),
-      columns: z.tuple([z.literal("added_by")]),
-      isOneToOne: z.literal(false),
-      referencedRelation: z.literal("users"),
-      referencedColumns: z.tuple([z.literal("id")]),
-    }),
-    z.object({
-      foreignKeyName: z.literal("playlist_collaborators_playlist_id_fkey"),
-      columns: z.tuple([z.literal("playlist_id")]),
-      isOneToOne: z.literal(false),
-      referencedRelation: z.literal("playlists"),
-      referencedColumns: z.tuple([z.literal("id")]),
-    }),
-    z.object({
-      foreignKeyName: z.literal("playlist_collaborators_user_id_fkey"),
-      columns: z.tuple([z.literal("user_id")]),
-      isOneToOne: z.literal(false),
-      referencedRelation: z.literal("users"),
-      referencedColumns: z.tuple([z.literal("id")]),
-    }),
-  ],
-);
-
-export const prettygoodPlaylistLikesRowSchemaSchema = z.object({
+export const publicPlaylistLikesRowSchemaSchema = z.object({
   liked_at: z.string(),
   playlist_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodPlaylistLikesInsertSchemaSchema = z.object({
+export const publicPlaylistLikesInsertSchemaSchema = z.object({
   liked_at: z.string().optional(),
   playlist_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodPlaylistLikesUpdateSchemaSchema = z.object({
+export const publicPlaylistLikesUpdateSchemaSchema = z.object({
   liked_at: z.string().optional(),
   playlist_id: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodPlaylistLikesRelationshipsSchemaSchema = z.tuple([
+export const publicPlaylistLikesRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("playlist_likes_playlist_id_fkey"),
     columns: z.tuple([z.literal("playlist_id")]),
@@ -501,7 +520,7 @@ export const prettygoodPlaylistLikesRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodPlaylistTracksRowSchemaSchema = z.object({
+export const publicPlaylistTracksRowSchemaSchema = z.object({
   added_at: z.string(),
   added_by: z.string(),
   playlist_id: z.string(),
@@ -509,7 +528,7 @@ export const prettygoodPlaylistTracksRowSchemaSchema = z.object({
   track_id: z.string(),
 });
 
-export const prettygoodPlaylistTracksInsertSchemaSchema = z.object({
+export const publicPlaylistTracksInsertSchemaSchema = z.object({
   added_at: z.string().optional(),
   added_by: z.string(),
   playlist_id: z.string(),
@@ -517,7 +536,7 @@ export const prettygoodPlaylistTracksInsertSchemaSchema = z.object({
   track_id: z.string(),
 });
 
-export const prettygoodPlaylistTracksUpdateSchemaSchema = z.object({
+export const publicPlaylistTracksUpdateSchemaSchema = z.object({
   added_at: z.string().optional(),
   added_by: z.string().optional(),
   playlist_id: z.string().optional(),
@@ -525,7 +544,7 @@ export const prettygoodPlaylistTracksUpdateSchemaSchema = z.object({
   track_id: z.string().optional(),
 });
 
-export const prettygoodPlaylistTracksRelationshipsSchemaSchema = z.tuple([
+export const publicPlaylistTracksRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("playlist_tracks_added_by_fkey"),
     columns: z.tuple([z.literal("added_by")]),
@@ -547,9 +566,16 @@ export const prettygoodPlaylistTracksRelationshipsSchemaSchema = z.tuple([
     referencedRelation: z.literal("tracks"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
+  z.object({
+    foreignKeyName: z.literal("playlist_tracks_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
 ]);
 
-export const prettygoodPlaylistsRowSchemaSchema = z.object({
+export const publicPlaylistsRowSchemaSchema = z.object({
   cover_url: z.string().nullable(),
   created_at: z.string(),
   description: z.string().nullable(),
@@ -560,7 +586,7 @@ export const prettygoodPlaylistsRowSchemaSchema = z.object({
   user_id: z.string(),
 });
 
-export const prettygoodPlaylistsInsertSchemaSchema = z.object({
+export const publicPlaylistsInsertSchemaSchema = z.object({
   cover_url: z.string().optional().nullable(),
   created_at: z.string().optional(),
   description: z.string().optional().nullable(),
@@ -571,7 +597,7 @@ export const prettygoodPlaylistsInsertSchemaSchema = z.object({
   user_id: z.string(),
 });
 
-export const prettygoodPlaylistsUpdateSchemaSchema = z.object({
+export const publicPlaylistsUpdateSchemaSchema = z.object({
   cover_url: z.string().optional().nullable(),
   created_at: z.string().optional(),
   description: z.string().optional().nullable(),
@@ -582,7 +608,7 @@ export const prettygoodPlaylistsUpdateSchemaSchema = z.object({
   user_id: z.string().optional(),
 });
 
-export const prettygoodPlaylistsRelationshipsSchemaSchema = z.tuple([
+export const publicPlaylistsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("playlists_user_id_fkey"),
     columns: z.tuple([z.literal("user_id")]),
@@ -592,53 +618,57 @@ export const prettygoodPlaylistsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodSearchHistoryRowSchemaSchema = z.object({
-  id: z.string(),
-  query: z.string(),
-  searched_at: z.string(),
-  user_id: z.string(),
+export const publicRelatedGenresRowSchemaSchema = z.object({
+  genre_id: z.string(),
+  related_genre_id: z.string(),
+  weight: z.number().nullable(),
 });
 
-export const prettygoodSearchHistoryInsertSchemaSchema = z.object({
-  id: z.string().optional(),
-  query: z.string(),
-  searched_at: z.string().optional(),
-  user_id: z.string(),
+export const publicRelatedGenresInsertSchemaSchema = z.object({
+  genre_id: z.string(),
+  related_genre_id: z.string(),
+  weight: z.number().optional().nullable(),
 });
 
-export const prettygoodSearchHistoryUpdateSchemaSchema = z.object({
-  id: z.string().optional(),
-  query: z.string().optional(),
-  searched_at: z.string().optional(),
-  user_id: z.string().optional(),
+export const publicRelatedGenresUpdateSchemaSchema = z.object({
+  genre_id: z.string().optional(),
+  related_genre_id: z.string().optional(),
+  weight: z.number().optional().nullable(),
 });
 
-export const prettygoodSearchHistoryRelationshipsSchemaSchema = z.tuple([
+export const publicRelatedGenresRelationshipsSchemaSchema = z.tuple([
   z.object({
-    foreignKeyName: z.literal("search_history_user_id_fkey"),
-    columns: z.tuple([z.literal("user_id")]),
+    foreignKeyName: z.literal("related_genres_genre_id_fkey"),
+    columns: z.tuple([z.literal("genre_id")]),
     isOneToOne: z.literal(false),
-    referencedRelation: z.literal("users"),
+    referencedRelation: z.literal("genres"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("related_genres_related_genre_id_fkey"),
+    columns: z.tuple([z.literal("related_genre_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("genres"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
 ]);
 
-export const prettygoodTrackGenresRowSchemaSchema = z.object({
+export const publicTrackGenresRowSchemaSchema = z.object({
   genre_id: z.string(),
   track_id: z.string(),
 });
 
-export const prettygoodTrackGenresInsertSchemaSchema = z.object({
+export const publicTrackGenresInsertSchemaSchema = z.object({
   genre_id: z.string(),
   track_id: z.string(),
 });
 
-export const prettygoodTrackGenresUpdateSchemaSchema = z.object({
+export const publicTrackGenresUpdateSchemaSchema = z.object({
   genre_id: z.string().optional(),
   track_id: z.string().optional(),
 });
 
-export const prettygoodTrackGenresRelationshipsSchemaSchema = z.tuple([
+export const publicTrackGenresRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("track_genres_genre_id_fkey"),
     columns: z.tuple([z.literal("genre_id")]),
@@ -653,32 +683,46 @@ export const prettygoodTrackGenresRelationshipsSchemaSchema = z.tuple([
     referencedRelation: z.literal("tracks"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
+  z.object({
+    foreignKeyName: z.literal("track_genres_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
 ]);
 
-export const prettygoodTrackLikesRowSchemaSchema = z.object({
+export const publicTrackLikesRowSchemaSchema = z.object({
   liked_at: z.string(),
   track_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodTrackLikesInsertSchemaSchema = z.object({
+export const publicTrackLikesInsertSchemaSchema = z.object({
   liked_at: z.string().optional(),
   track_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodTrackLikesUpdateSchemaSchema = z.object({
+export const publicTrackLikesUpdateSchemaSchema = z.object({
   liked_at: z.string().optional(),
   track_id: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodTrackLikesRelationshipsSchemaSchema = z.tuple([
+export const publicTrackLikesRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("track_likes_track_id_fkey"),
     columns: z.tuple([z.literal("track_id")]),
     isOneToOne: z.literal(false),
     referencedRelation: z.literal("tracks"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("track_likes_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
   z.object({
@@ -690,7 +734,7 @@ export const prettygoodTrackLikesRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodTracksRowSchemaSchema = z.object({
+export const publicTracksRowSchemaSchema = z.object({
   album_id: z.string().nullable(),
   artist_id: z.string(),
   audio_url: z.string(),
@@ -698,7 +742,7 @@ export const prettygoodTracksRowSchemaSchema = z.object({
   created_at: z.string(),
   duration: z.number(),
   explicit: z.boolean().nullable(),
-  genre: z.array(z.string()),
+  genre: z.array(z.string()).nullable(),
   id: z.string(),
   isrc: z.string().nullable(),
   lyrics: z.string().nullable(),
@@ -708,7 +752,7 @@ export const prettygoodTracksRowSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodTracksInsertSchemaSchema = z.object({
+export const publicTracksInsertSchemaSchema = z.object({
   album_id: z.string().optional().nullable(),
   artist_id: z.string(),
   audio_url: z.string(),
@@ -716,7 +760,7 @@ export const prettygoodTracksInsertSchemaSchema = z.object({
   created_at: z.string().optional(),
   duration: z.number(),
   explicit: z.boolean().optional().nullable(),
-  genre: z.array(z.string()).optional(),
+  genre: z.array(z.string()).optional().nullable(),
   id: z.string().optional(),
   isrc: z.string().optional().nullable(),
   lyrics: z.string().optional().nullable(),
@@ -726,7 +770,7 @@ export const prettygoodTracksInsertSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodTracksUpdateSchemaSchema = z.object({
+export const publicTracksUpdateSchemaSchema = z.object({
   album_id: z.string().optional().nullable(),
   artist_id: z.string().optional(),
   audio_url: z.string().optional(),
@@ -734,7 +778,7 @@ export const prettygoodTracksUpdateSchemaSchema = z.object({
   created_at: z.string().optional(),
   duration: z.number().optional(),
   explicit: z.boolean().optional().nullable(),
-  genre: z.array(z.string()).optional(),
+  genre: z.array(z.string()).optional().nullable(),
   id: z.string().optional(),
   isrc: z.string().optional().nullable(),
   lyrics: z.string().optional().nullable(),
@@ -744,7 +788,7 @@ export const prettygoodTracksUpdateSchemaSchema = z.object({
   updated_at: z.string().optional(),
 });
 
-export const prettygoodTracksRelationshipsSchemaSchema = z.tuple([
+export const publicTracksRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("tracks_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -761,25 +805,25 @@ export const prettygoodTracksRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodUserLibraryAlbumsRowSchemaSchema = z.object({
+export const publicUserLibraryAlbumsRowSchemaSchema = z.object({
   added_at: z.string(),
   album_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodUserLibraryAlbumsInsertSchemaSchema = z.object({
+export const publicUserLibraryAlbumsInsertSchemaSchema = z.object({
   added_at: z.string().optional(),
   album_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodUserLibraryAlbumsUpdateSchemaSchema = z.object({
+export const publicUserLibraryAlbumsUpdateSchemaSchema = z.object({
   added_at: z.string().optional(),
   album_id: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodUserLibraryAlbumsRelationshipsSchemaSchema = z.tuple([
+export const publicUserLibraryAlbumsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("user_library_albums_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -796,65 +840,37 @@ export const prettygoodUserLibraryAlbumsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodUserLibraryArtistsRowSchemaSchema = z.object({
-  added_at: z.string(),
-  artist_id: z.string(),
-  user_id: z.string(),
-});
-
-export const prettygoodUserLibraryArtistsInsertSchemaSchema = z.object({
-  added_at: z.string().optional(),
-  artist_id: z.string(),
-  user_id: z.string(),
-});
-
-export const prettygoodUserLibraryArtistsUpdateSchemaSchema = z.object({
-  added_at: z.string().optional(),
-  artist_id: z.string().optional(),
-  user_id: z.string().optional(),
-});
-
-export const prettygoodUserLibraryArtistsRelationshipsSchemaSchema = z.tuple([
-  z.object({
-    foreignKeyName: z.literal("user_library_artists_artist_id_fkey"),
-    columns: z.tuple([z.literal("artist_id")]),
-    isOneToOne: z.literal(false),
-    referencedRelation: z.literal("artists"),
-    referencedColumns: z.tuple([z.literal("id")]),
-  }),
-  z.object({
-    foreignKeyName: z.literal("user_library_artists_user_id_fkey"),
-    columns: z.tuple([z.literal("user_id")]),
-    isOneToOne: z.literal(false),
-    referencedRelation: z.literal("users"),
-    referencedColumns: z.tuple([z.literal("id")]),
-  }),
-]);
-
-export const prettygoodUserLibraryTracksRowSchemaSchema = z.object({
+export const publicUserLibraryTracksRowSchemaSchema = z.object({
   added_at: z.string(),
   track_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodUserLibraryTracksInsertSchemaSchema = z.object({
+export const publicUserLibraryTracksInsertSchemaSchema = z.object({
   added_at: z.string().optional(),
   track_id: z.string(),
   user_id: z.string(),
 });
 
-export const prettygoodUserLibraryTracksUpdateSchemaSchema = z.object({
+export const publicUserLibraryTracksUpdateSchemaSchema = z.object({
   added_at: z.string().optional(),
   track_id: z.string().optional(),
   user_id: z.string().optional(),
 });
 
-export const prettygoodUserLibraryTracksRelationshipsSchemaSchema = z.tuple([
+export const publicUserLibraryTracksRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("user_library_tracks_track_id_fkey"),
     columns: z.tuple([z.literal("track_id")]),
     isOneToOne: z.literal(false),
     referencedRelation: z.literal("tracks"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("user_library_tracks_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
   z.object({
@@ -866,7 +882,7 @@ export const prettygoodUserLibraryTracksRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodUserRecentlyPlayedRowSchemaSchema = z.object({
+export const publicUserRecentlyPlayedRowSchemaSchema = z.object({
   context_id: z.string().nullable(),
   context_type: z.string().nullable(),
   id: z.string(),
@@ -875,7 +891,7 @@ export const prettygoodUserRecentlyPlayedRowSchemaSchema = z.object({
   user_id: z.string(),
 });
 
-export const prettygoodUserRecentlyPlayedInsertSchemaSchema = z.object({
+export const publicUserRecentlyPlayedInsertSchemaSchema = z.object({
   context_id: z.string().optional().nullable(),
   context_type: z.string().optional().nullable(),
   id: z.string().optional(),
@@ -884,7 +900,7 @@ export const prettygoodUserRecentlyPlayedInsertSchemaSchema = z.object({
   user_id: z.string(),
 });
 
-export const prettygoodUserRecentlyPlayedUpdateSchemaSchema = z.object({
+export const publicUserRecentlyPlayedUpdateSchemaSchema = z.object({
   context_id: z.string().optional().nullable(),
   context_type: z.string().optional().nullable(),
   id: z.string().optional(),
@@ -893,12 +909,19 @@ export const prettygoodUserRecentlyPlayedUpdateSchemaSchema = z.object({
   user_id: z.string().optional(),
 });
 
-export const prettygoodUserRecentlyPlayedRelationshipsSchemaSchema = z.tuple([
+export const publicUserRecentlyPlayedRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("user_recently_played_track_id_fkey"),
     columns: z.tuple([z.literal("track_id")]),
     isOneToOne: z.literal(false),
     referencedRelation: z.literal("tracks"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("user_recently_played_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("tracks_with_details"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
   z.object({
@@ -910,7 +933,7 @@ export const prettygoodUserRecentlyPlayedRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodUserSettingsRowSchemaSchema = z.object({
+export const publicUserSettingsRowSchemaSchema = z.object({
   audio_quality: z.string().nullable(),
   auto_add_to_library: z.boolean().nullable(),
   crossfade_duration: z.number().nullable(),
@@ -930,7 +953,7 @@ export const prettygoodUserSettingsRowSchemaSchema = z.object({
   volume_level: z.number().nullable(),
 });
 
-export const prettygoodUserSettingsInsertSchemaSchema = z.object({
+export const publicUserSettingsInsertSchemaSchema = z.object({
   audio_quality: z.string().optional().nullable(),
   auto_add_to_library: z.boolean().optional().nullable(),
   crossfade_duration: z.number().optional().nullable(),
@@ -950,7 +973,7 @@ export const prettygoodUserSettingsInsertSchemaSchema = z.object({
   volume_level: z.number().optional().nullable(),
 });
 
-export const prettygoodUserSettingsUpdateSchemaSchema = z.object({
+export const publicUserSettingsUpdateSchemaSchema = z.object({
   audio_quality: z.string().optional().nullable(),
   auto_add_to_library: z.boolean().optional().nullable(),
   crossfade_duration: z.number().optional().nullable(),
@@ -970,7 +993,7 @@ export const prettygoodUserSettingsUpdateSchemaSchema = z.object({
   volume_level: z.number().optional().nullable(),
 });
 
-export const prettygoodUserSettingsRelationshipsSchemaSchema = z.tuple([
+export const publicUserSettingsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("user_settings_user_id_fkey"),
     columns: z.tuple([z.literal("user_id")]),
@@ -980,48 +1003,54 @@ export const prettygoodUserSettingsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodUsersRowSchemaSchema = z.object({
+export const publicUsersRowSchemaSchema = z.object({
   created_at: z.string(),
   display_name: z.string().nullable(),
   email: z.string(),
   email_verified: z.boolean().nullable(),
   id: z.string(),
   profile_url: z.string().nullable(),
+  role: z.string().nullable(),
   updated_at: z.string(),
   username: z.string(),
   wallet_address: z.string().nullable(),
 });
 
-export const prettygoodUsersInsertSchemaSchema = z.object({
+export const publicUsersInsertSchemaSchema = z.object({
   created_at: z.string().optional(),
   display_name: z.string().optional().nullable(),
   email: z.string(),
   email_verified: z.boolean().optional().nullable(),
-  id: z.string().optional(),
+  id: z.string(),
   profile_url: z.string().optional().nullable(),
+  role: z.string().optional().nullable(),
   updated_at: z.string().optional(),
   username: z.string(),
   wallet_address: z.string().optional().nullable(),
 });
 
-export const prettygoodUsersUpdateSchemaSchema = z.object({
+export const publicUsersUpdateSchemaSchema = z.object({
   created_at: z.string().optional(),
   display_name: z.string().optional().nullable(),
   email: z.string().optional(),
   email_verified: z.boolean().optional().nullable(),
   id: z.string().optional(),
   profile_url: z.string().optional().nullable(),
+  role: z.string().optional().nullable(),
   updated_at: z.string().optional(),
   username: z.string().optional(),
   wallet_address: z.string().optional().nullable(),
 });
 
-export const prettygoodAlbumPlayCountsRowSchemaSchema = z.object({
+export const publicAlbumPlayCountsRowSchemaSchema = z.object({
   album_id: z.string().nullable(),
+  last_played_at: z.string().nullable(),
   play_count: z.number().nullable(),
+  tracks_played: z.number().nullable(),
+  unique_listeners: z.number().nullable(),
 });
 
-export const prettygoodAlbumPlayCountsRelationshipsSchemaSchema = z.tuple([
+export const publicAlbumPlayCountsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("tracks_album_id_fkey"),
     columns: z.tuple([z.literal("album_id")]),
@@ -1031,12 +1060,15 @@ export const prettygoodAlbumPlayCountsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodArtistPlayCountsRowSchemaSchema = z.object({
+export const publicArtistPlayCountsRowSchemaSchema = z.object({
   artist_id: z.string().nullable(),
+  last_played_at: z.string().nullable(),
   play_count: z.number().nullable(),
+  tracks_played: z.number().nullable(),
+  unique_listeners: z.number().nullable(),
 });
 
-export const prettygoodArtistPlayCountsRelationshipsSchemaSchema = z.tuple([
+export const publicArtistPlayCountsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("tracks_artist_id_fkey"),
     columns: z.tuple([z.literal("artist_id")]),
@@ -1046,12 +1078,14 @@ export const prettygoodArtistPlayCountsRelationshipsSchemaSchema = z.tuple([
   }),
 ]);
 
-export const prettygoodTrackPlayCountsRowSchemaSchema = z.object({
+export const publicTrackPlayCountsRowSchemaSchema = z.object({
+  last_played_at: z.string().nullable(),
   play_count: z.number().nullable(),
   track_id: z.string().nullable(),
+  unique_listeners: z.number().nullable(),
 });
 
-export const prettygoodTrackPlayCountsRelationshipsSchemaSchema = z.tuple([
+export const publicTrackPlayCountsRelationshipsSchemaSchema = z.tuple([
   z.object({
     foreignKeyName: z.literal("play_history_track_id_fkey"),
     columns: z.tuple([z.literal("track_id")]),
@@ -1059,82 +1093,102 @@ export const prettygoodTrackPlayCountsRelationshipsSchemaSchema = z.tuple([
     referencedRelation: z.literal("tracks"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
-]);
-
-export const prettygoodUserPlayCountsRowSchemaSchema = z.object({
-  play_count: z.number().nullable(),
-  user_id: z.string().nullable(),
-});
-
-export const prettygoodUserPlayCountsRelationshipsSchemaSchema = z.tuple([
   z.object({
-    foreignKeyName: z.literal("play_history_user_id_fkey"),
-    columns: z.tuple([z.literal("user_id")]),
+    foreignKeyName: z.literal("play_history_track_id_fkey"),
+    columns: z.tuple([z.literal("track_id")]),
     isOneToOne: z.literal(false),
-    referencedRelation: z.literal("users"),
+    referencedRelation: z.literal("tracks_with_details"),
     referencedColumns: z.tuple([z.literal("id")]),
   }),
 ]);
 
-export const prettygoodAddAlbumToLibraryArgsSchemaSchema = z.object({
+export const publicTracksWithDetailsRowSchemaSchema = z.object({
+  album_id: z.string().nullable(),
+  album_release_date: z.string().nullable(),
+  album_title: z.string().nullable(),
+  artist_id: z.string().nullable(),
+  artist_name: z.string().nullable(),
+  artist_verified: z.boolean().nullable(),
+  audio_url: z.string().nullable(),
+  cover_url: z.string().nullable(),
+  created_at: z.string().nullable(),
+  duration: z.number().nullable(),
+  explicit: z.boolean().nullable(),
+  genre: z.array(z.string()).nullable(),
+  id: z.string().nullable(),
+  isrc: z.string().nullable(),
+  lyrics: z.string().nullable(),
+  play_count: z.number().nullable(),
+  release_date: z.string().nullable(),
+  title: z.string().nullable(),
+  track_number: z.number().nullable(),
+  unique_listeners: z.number().nullable(),
+  updated_at: z.string().nullable(),
+});
+
+export const publicTracksWithDetailsRelationshipsSchemaSchema = z.tuple([
+  z.object({
+    foreignKeyName: z.literal("tracks_album_id_fkey"),
+    columns: z.tuple([z.literal("album_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("albums"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+  z.object({
+    foreignKeyName: z.literal("tracks_artist_id_fkey"),
+    columns: z.tuple([z.literal("artist_id")]),
+    isOneToOne: z.literal(false),
+    referencedRelation: z.literal("artists"),
+    referencedColumns: z.tuple([z.literal("id")]),
+  }),
+]);
+
+export const publicAddAlbumToLibraryArgsSchemaSchema = z.object({
   album_id: z.string(),
 });
 
-export const prettygoodAddAlbumToLibraryReturnsSchemaSchema = z.boolean();
+export const publicAddAlbumToLibraryReturnsSchemaSchema = z.boolean();
 
-export const prettygoodAddArtistToLibraryArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-});
-
-export const prettygoodAddArtistToLibraryReturnsSchemaSchema = z.boolean();
-
-export const prettygoodAddTrackToLibraryArgsSchemaSchema = z.object({
+export const publicAddTrackToLibraryArgsSchemaSchema = z.object({
   track_id: z.string(),
 });
 
-export const prettygoodAddTrackToLibraryReturnsSchemaSchema = z.boolean();
+export const publicAddTrackToLibraryReturnsSchemaSchema = z.boolean();
 
-export const prettygoodAddTrackToPlaylistArgsSchemaSchema = z.object({
+export const publicAddTrackToPlaylistArgsSchemaSchema = z.object({
   playlist_id: z.string(),
   track_id: z.string(),
 });
 
-export const prettygoodAddTrackToPlaylistReturnsSchemaSchema = z.undefined();
+export const publicAddTrackToPlaylistReturnsSchemaSchema = z.undefined();
 
-export const prettygoodArmorArgsSchemaSchema = z.object({
-  "": z.string(),
+export const publicApplyForArtistAccountArgsSchemaSchema = z.object({
+  artist_name: z.string(),
+  bio: z.string().optional(),
+  genre: z.array(z.string()).optional(),
+  location: z.string().optional(),
+  website: z.string().optional(),
+  social_links: jsonSchema.optional(),
+  application_notes: z.string().optional(),
 });
 
-export const prettygoodArmorReturnsSchemaSchema = z.string();
+export const publicApplyForArtistAccountReturnsSchemaSchema = jsonSchema;
 
-export const prettygoodAuthenticateUserArgsSchemaSchema = z.object({
-  _email_or_username: z.string(),
-  _password: z.string(),
+export const publicApproveArtistApplicationArgsSchemaSchema = z.object({
+  artist_id: z.string(),
+  approved: z.boolean(),
+  admin_notes: z.string().optional(),
 });
 
-export const prettygoodAuthenticateUserReturnsSchemaSchema = z.string();
+export const publicApproveArtistApplicationReturnsSchemaSchema = jsonSchema;
 
-export const prettygoodAuthenticateWalletArgsSchemaSchema = z.object({
-  wallet_address: z.string(),
-  signature: z.string(),
-});
-
-export const prettygoodAuthenticateWalletReturnsSchemaSchema = z.string();
-
-export const prettygoodCreateEmailVerificationTokenArgsSchemaSchema = z.object({
-  _user_id: z.string(),
-});
-
-export const prettygoodCreateEmailVerificationTokenReturnsSchemaSchema =
-  z.string();
-
-export const prettygoodCreatePlaylistArgsSchemaSchema = z.object({
+export const publicCreatePlaylistArgsSchemaSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   is_public: z.boolean().optional(),
 });
 
-export const prettygoodCreatePlaylistReturnsSchemaSchema = z.object({
+export const publicCreatePlaylistReturnsSchemaSchema = z.object({
   cover_url: z.string().nullable(),
   created_at: z.string(),
   description: z.string().nullable(),
@@ -1145,9 +1199,8 @@ export const prettygoodCreatePlaylistReturnsSchemaSchema = z.object({
   user_id: z.string(),
 });
 
-export const prettygoodCreateTrackArgsSchemaSchema = z.object({
+export const publicCreateTrackArgsSchemaSchema = z.object({
   title: z.string(),
-  artist_id: z.string(),
   duration: z.number(),
   audio_url: z.string(),
   album_id: z.string().optional(),
@@ -1160,7 +1213,7 @@ export const prettygoodCreateTrackArgsSchemaSchema = z.object({
   isrc: z.string().optional(),
 });
 
-export const prettygoodCreateTrackReturnsSchemaSchema = z.object({
+export const publicCreateTrackReturnsSchemaSchema = z.object({
   album_id: z.string().nullable(),
   artist_id: z.string(),
   audio_url: z.string(),
@@ -1168,7 +1221,7 @@ export const prettygoodCreateTrackReturnsSchemaSchema = z.object({
   created_at: z.string(),
   duration: z.number(),
   explicit: z.boolean().nullable(),
-  genre: z.array(z.string()),
+  genre: z.array(z.string()).nullable(),
   id: z.string(),
   isrc: z.string().nullable(),
   lyrics: z.string().nullable(),
@@ -1178,57 +1231,13 @@ export const prettygoodCreateTrackReturnsSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodDearmorArgsSchemaSchema = z.object({
-  "": z.string(),
-});
-
-export const prettygoodDearmorReturnsSchemaSchema = z.string();
-
-export const prettygoodDebugGetJwtInfoArgsSchemaSchema = z.object({});
-
-export const prettygoodDebugGetJwtInfoReturnsSchemaSchema = jsonSchema;
-
-export const prettygoodDebugVerifyTokenArgsSchemaSchema = z.object({
-  token: z.string(),
-});
-
-export const prettygoodDebugVerifyTokenReturnsSchemaSchema = jsonSchema;
-
-export const prettygoodGenRandomBytesArgsSchemaSchema = z.object({
-  "": z.number(),
-});
-
-export const prettygoodGenRandomBytesReturnsSchemaSchema = z.string();
-
-export const prettygoodGenRandomUuidArgsSchemaSchema = z.object({});
-
-export const prettygoodGenRandomUuidReturnsSchemaSchema = z.string();
-
-export const prettygoodGenSaltArgsSchemaSchema = z.object({
-  "": z.string(),
-});
-
-export const prettygoodGenSaltReturnsSchemaSchema = z.string();
-
-export const prettygoodGenerateNonceArgsSchemaSchema = z.object({
-  wallet_address: z.string(),
-});
-
-export const prettygoodGenerateNonceReturnsSchemaSchema = z.string();
-
-export const prettygoodGetAlbumPlayCountArgsSchemaSchema = z.object({
-  album_id: z.string(),
-});
-
-export const prettygoodGetAlbumPlayCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetAlbumsByGenreArgsSchemaSchema = z.object({
+export const publicGetAlbumsByGenreArgsSchemaSchema = z.object({
   p_genre_id: z.string(),
   p_limit: z.number().optional(),
   p_offset: z.number().optional(),
 });
 
-export const prettygoodGetAlbumsByGenreReturnsSchemaSchema = z.array(
+export const publicGetAlbumsByGenreReturnsSchemaSchema = z.array(
   z.object({
     artist_id: z.string(),
     cover_url: z.string().nullable(),
@@ -1243,46 +1252,31 @@ export const prettygoodGetAlbumsByGenreReturnsSchemaSchema = z.array(
   }),
 );
 
-export const prettygoodGetArtistFollowersCountArgsSchemaSchema = z.object({
-  artist_id: z.string(),
+export const publicGetArtistPaymentStatsArgsSchemaSchema = z.object({
+  time_period: z.string().optional(),
 });
 
-export const prettygoodGetArtistFollowersCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetArtistPaymentStatsArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-});
-
-export const prettygoodGetArtistPaymentStatsReturnsSchemaSchema = z.array(
+export const publicGetArtistPaymentStatsReturnsSchemaSchema = z.array(
   z.object({
     total_payments: z.number(),
     total_amount: z.number(),
     avg_amount: z.number(),
     payment_type: z.string(),
-    month_year: z.string(),
+    period: z.string(),
   }),
 );
 
-export const prettygoodGetArtistPlayCountArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-});
-
-export const prettygoodGetArtistPlayCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetArtistTotalEarningsArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-});
-
-export const prettygoodGetArtistTotalEarningsReturnsSchemaSchema = z.number();
-
-export const prettygoodGetArtistsByGenreArgsSchemaSchema = z.object({
+export const publicGetArtistsByGenreArgsSchemaSchema = z.object({
   p_genre_id: z.string(),
   p_limit: z.number().optional(),
   p_offset: z.number().optional(),
 });
 
-export const prettygoodGetArtistsByGenreReturnsSchemaSchema = z.array(
+export const publicGetArtistsByGenreReturnsSchemaSchema = z.array(
   z.object({
+    application_date: z.string().nullable(),
+    application_notes: z.string().nullable(),
+    approved: z.boolean().nullable(),
     artist_name: z.string(),
     bio: z.string().nullable(),
     created_at: z.string(),
@@ -1296,133 +1290,25 @@ export const prettygoodGetArtistsByGenreReturnsSchemaSchema = z.array(
   }),
 );
 
-export const prettygoodGetEarningsByPaymentTypeArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
+export const publicGetMonthlyPaymentTrendsArgsSchemaSchema = z.object({
+  months_back: z.number().optional(),
 });
 
-export const prettygoodGetEarningsByPaymentTypeReturnsSchemaSchema = z.array(
+export const publicGetMonthlyPaymentTrendsReturnsSchemaSchema = z.array(
   z.object({
-    payment_type: z.string(),
-    amount: z.number(),
+    month: z.string(),
+    total_amount: z.number(),
+    payment_count: z.number(),
   }),
 );
 
-export const prettygoodGetEarningsByPeriodArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-  time_format: z.string(),
-});
-
-export const prettygoodGetEarningsByPeriodReturnsSchemaSchema = z.array(
-  z.object({
-    period: z.string(),
-    amount: z.number(),
-  }),
-);
-
-export const prettygoodGetEarningsForPeriodArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetEarningsForPeriodReturnsSchemaSchema = z.number();
-
-export const prettygoodGetFollowersByPeriodArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-  time_format: z.string(),
-});
-
-export const prettygoodGetFollowersByPeriodReturnsSchemaSchema = z.array(
-  z.object({
-    period: z.string(),
-    count: z.number(),
-  }),
-);
-
-export const prettygoodGetFollowersCountForPeriodArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetFollowersCountForPeriodReturnsSchemaSchema =
-  z.number();
-
-export const prettygoodGetPlayDurationStatsArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetPlayDurationStatsReturnsSchemaSchema = z.array(
-  z.object({
-    avg_duration: z.number(),
-    completed_count: z.number(),
-    total_count: z.number(),
-  }),
-);
-
-export const prettygoodGetPlaysByCountryArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetPlaysByCountryReturnsSchemaSchema = z.array(
-  z.object({
-    country_code: z.string(),
-    play_count: z.number(),
-  }),
-);
-
-export const prettygoodGetPlaysByPeriodArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-  time_format: z.string(),
-});
-
-export const prettygoodGetPlaysByPeriodReturnsSchemaSchema = z.array(
-  z.object({
-    period: z.string(),
-    count: z.number(),
-  }),
-);
-
-export const prettygoodGetPlaysBySourceArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetPlaysBySourceReturnsSchemaSchema = z.array(
-  z.object({
-    source: z.string(),
-    count: z.number(),
-  }),
-);
-
-export const prettygoodGetPlaysForPeriodArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetPlaysForPeriodReturnsSchemaSchema = z.number();
-
-export const prettygoodGetPopularGenresArgsSchemaSchema = z.object({
+export const publicGetPopularGenresArgsSchemaSchema = z.object({
   p_start_date: z.string(),
   p_end_date: z.string(),
   p_limit: z.number().optional(),
 });
 
-export const prettygoodGetPopularGenresReturnsSchemaSchema = z.array(
+export const publicGetPopularGenresReturnsSchemaSchema = z.array(
   z.object({
     color: z.string().nullable(),
     created_at: z.string(),
@@ -1436,95 +1322,12 @@ export const prettygoodGetPopularGenresReturnsSchemaSchema = z.array(
   }),
 );
 
-export const prettygoodGetRecentFollowersArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string().optional(),
-  limit_count: z.number().optional(),
-});
-
-export const prettygoodGetRecentFollowersReturnsSchemaSchema = z.array(
-  z.object({
-    added_at: z.string(),
-    user_id: z.string(),
-    username: z.string(),
-  }),
-);
-
-export const prettygoodGetRecentPlaysArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string().optional(),
-  limit_count: z.number().optional(),
-});
-
-export const prettygoodGetRecentPlaysReturnsSchemaSchema = z.array(
-  z.object({
-    played_at: z.string(),
-    track_id: z.string(),
-    track_title: z.string(),
-    username: z.string(),
-  }),
-);
-
-export const prettygoodGetRecentTipsArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  start_date: z.string().optional(),
-  limit_count: z.number().optional(),
-});
-
-export const prettygoodGetRecentTipsReturnsSchemaSchema = z.array(
-  z.object({
-    created_at: z.string(),
-    amount: z.number(),
-    username: z.string(),
-  }),
-);
-
-export const prettygoodGetRecentTransactionsArgsSchemaSchema = z.object({
-  artist_id: z.string(),
-  limit_count: z.number().optional(),
-});
-
-export const prettygoodGetRecentTransactionsReturnsSchemaSchema = z.array(
-  z.object({
-    id: z.string(),
-    created_at: z.string(),
-    amount: z.number(),
-    payment_type: z.string(),
-    sender_id: z.string(),
-    username: z.string(),
-  }),
-);
-
-export const prettygoodGetRecommendationsArgsSchemaSchema = z.object({
-  limit_count: z.number().optional(),
-});
-
-export const prettygoodGetRecommendationsReturnsSchemaSchema = z.array(
-  z.object({
-    album_id: z.string().nullable(),
-    artist_id: z.string(),
-    audio_url: z.string(),
-    cover_url: z.string().nullable(),
-    created_at: z.string(),
-    duration: z.number(),
-    explicit: z.boolean().nullable(),
-    genre: z.array(z.string()),
-    id: z.string(),
-    isrc: z.string().nullable(),
-    lyrics: z.string().nullable(),
-    release_date: z.string().nullable(),
-    title: z.string(),
-    track_number: z.number().nullable(),
-    updated_at: z.string(),
-  }),
-);
-
-export const prettygoodGetRelatedGenresArgsSchemaSchema = z.object({
+export const publicGetRelatedGenresArgsSchemaSchema = z.object({
   p_genre_id: z.string(),
   p_limit: z.number().optional(),
 });
 
-export const prettygoodGetRelatedGenresReturnsSchemaSchema = z.array(
+export const publicGetRelatedGenresReturnsSchemaSchema = z.array(
   z.object({
     color: z.string().nullable(),
     created_at: z.string(),
@@ -1538,70 +1341,13 @@ export const prettygoodGetRelatedGenresReturnsSchemaSchema = z.array(
   }),
 );
 
-export const prettygoodGetTrackPlayCountArgsSchemaSchema = z.object({
-  track_id: z.string(),
-});
-
-export const prettygoodGetTrackPlayCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetTrackPlayCountByPeriodArgsSchemaSchema = z.object({
-  track_id: z.string(),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetTrackPlayCountByPeriodReturnsSchemaSchema =
-  z.number();
-
-export const prettygoodGetTrackPlayCountsArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string().optional(),
-  end_date: z.string().optional(),
-});
-
-export const prettygoodGetTrackPlayCountsReturnsSchemaSchema = z.array(
-  z.object({
-    track_id: z.string(),
-    count: z.number(),
-  }),
-);
-
-export const prettygoodGetTrackPlaylistsCountArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetTrackPlaylistsCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetTrackPlaysForPeriodArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetTrackPlaysForPeriodReturnsSchemaSchema = z.array(
-  z.object({
-    track_id: z.string(),
-    count: z.number(),
-  }),
-);
-
-export const prettygoodGetTrackSavesCountArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string(),
-  end_date: z.string(),
-});
-
-export const prettygoodGetTrackSavesCountReturnsSchemaSchema = z.number();
-
-export const prettygoodGetTracksByGenreArgsSchemaSchema = z.object({
+export const publicGetTracksByGenreArgsSchemaSchema = z.object({
   p_genre_id: z.string(),
   p_limit: z.number().optional(),
   p_offset: z.number().optional(),
 });
 
-export const prettygoodGetTracksByGenreReturnsSchemaSchema = z.array(
+export const publicGetTracksByGenreReturnsSchemaSchema = z.array(
   z.object({
     album_id: z.string().nullable(),
     artist_id: z.string(),
@@ -1610,7 +1356,7 @@ export const prettygoodGetTracksByGenreReturnsSchemaSchema = z.array(
     created_at: z.string(),
     duration: z.number(),
     explicit: z.boolean().nullable(),
-    genre: z.array(z.string()),
+    genre: z.array(z.string()).nullable(),
     id: z.string(),
     isrc: z.string().nullable(),
     lyrics: z.string().nullable(),
@@ -1621,29 +1367,7 @@ export const prettygoodGetTracksByGenreReturnsSchemaSchema = z.array(
   }),
 );
 
-export const prettygoodGetTracksPlayCountArgsSchemaSchema = z.object({
-  track_ids: z.array(z.string()),
-  start_date: z.string().optional(),
-  end_date: z.string().optional(),
-});
-
-export const prettygoodGetTracksPlayCountReturnsSchemaSchema = z.number();
-
-export const prettygoodPgpArmorHeadersArgsSchemaSchema = z.object({
-  "": z.string(),
-});
-
-export const prettygoodPgpArmorHeadersReturnsSchemaSchema = z.array(
-  z.record(z.unknown()),
-);
-
-export const prettygoodPgpKeyIdArgsSchemaSchema = z.object({
-  "": z.string(),
-});
-
-export const prettygoodPgpKeyIdReturnsSchemaSchema = z.string();
-
-export const prettygoodRecordPlayArgsSchemaSchema = z.object({
+export const publicRecordPlayArgsSchemaSchema = z.object({
   track_id: z.string(),
   play_duration: z.number().optional(),
   completed: z.boolean().optional(),
@@ -1651,101 +1375,9 @@ export const prettygoodRecordPlayArgsSchemaSchema = z.object({
   context_id: z.string().optional(),
 });
 
-export const prettygoodRecordPlayReturnsSchemaSchema = z.undefined();
+export const publicRecordPlayReturnsSchemaSchema = z.undefined();
 
-export const prettygoodRecordSearchArgsSchemaSchema = z.object({
-  query: z.string(),
-});
-
-export const prettygoodRecordSearchReturnsSchemaSchema = z.undefined();
-
-export const prettygoodRefreshTokenArgsSchemaSchema = z.object({
-  current_token: z.string(),
-});
-
-export const prettygoodRefreshTokenReturnsSchemaSchema = z.string();
-
-export const prettygoodRefreshTokenRobustArgsSchemaSchema = z.object({
-  current_token: z.string(),
-});
-
-export const prettygoodRefreshTokenRobustReturnsSchemaSchema = z.string();
-
-export const prettygoodRefreshTokenV2ArgsSchemaSchema = z.object({
-  current_token: z.string(),
-});
-
-export const prettygoodRefreshTokenV2ReturnsSchemaSchema = z.string();
-
-export const prettygoodRegisterAsArtistArgsSchemaSchema = z.object({
-  artist_name: z.string(),
-  bio: z.string().optional(),
-  genre: z.array(z.string()).optional(),
-  location: z.string().optional(),
-  website: z.string().optional(),
-  social_links: jsonSchema.optional(),
-});
-
-export const prettygoodRegisterAsArtistReturnsSchemaSchema = z.object({
-  artist_name: z.string(),
-  bio: z.string().nullable(),
-  created_at: z.string(),
-  genre: z.array(z.string()).nullable(),
-  id: z.string(),
-  location: z.string().nullable(),
-  social_links: jsonSchema.nullable(),
-  updated_at: z.string(),
-  verified: z.boolean().nullable(),
-  website: z.string().nullable(),
-});
-
-export const prettygoodRegisterAsArtistWithIdArgsSchemaSchema = z.object({
-  user_id: z.string(),
-  artist_name: z.string(),
-  bio: z.string().optional(),
-  genre: z.array(z.string()).optional(),
-  location: z.string().optional(),
-  website: z.string().optional(),
-  social_links: jsonSchema.optional(),
-});
-
-export const prettygoodRegisterAsArtistWithIdReturnsSchemaSchema = z.object({
-  artist_name: z.string(),
-  bio: z.string().nullable(),
-  created_at: z.string(),
-  genre: z.array(z.string()).nullable(),
-  id: z.string(),
-  location: z.string().nullable(),
-  social_links: jsonSchema.nullable(),
-  updated_at: z.string(),
-  verified: z.boolean().nullable(),
-  website: z.string().nullable(),
-});
-
-export const prettygoodRegisterUserArgsSchemaSchema = z.object({
-  _username: z.string(),
-  _email: z.string(),
-  _password: z.string(),
-  _display_name: z.string().optional(),
-  _wallet_address: z.string().optional(),
-});
-
-export const prettygoodRegisterUserReturnsSchemaSchema = jsonSchema;
-
-export const prettygoodRequestPasswordResetArgsSchemaSchema = z.object({
-  _email: z.string(),
-});
-
-export const prettygoodRequestPasswordResetReturnsSchemaSchema = z.string();
-
-export const prettygoodResetPasswordArgsSchemaSchema = z.object({
-  _reset_token: z.string(),
-  _new_password: z.string(),
-});
-
-export const prettygoodResetPasswordReturnsSchemaSchema = z.boolean();
-
-export const prettygoodTipArtistArgsSchemaSchema = z.object({
+export const publicTipArtistArgsSchemaSchema = z.object({
   artist_id: z.string(),
   amount: z.number(),
   transaction_hash: z.string(),
@@ -1754,7 +1386,7 @@ export const prettygoodTipArtistArgsSchemaSchema = z.object({
   message: z.string().optional(),
 });
 
-export const prettygoodTipArtistReturnsSchemaSchema = z.object({
+export const publicTipArtistReturnsSchemaSchema = z.object({
   album_id: z.string().nullable(),
   amount: z.number(),
   created_at: z.string(),
@@ -1770,44 +1402,6 @@ export const prettygoodTipArtistReturnsSchemaSchema = z.object({
   updated_at: z.string(),
 });
 
-export const prettygoodTraceTokenVerificationArgsSchemaSchema = z.object({
-  token: z.string(),
-});
+export const publicUpdateGenrePopularityArgsSchemaSchema = z.object({});
 
-export const prettygoodTraceTokenVerificationReturnsSchemaSchema = jsonSchema;
-
-export const prettygoodUpdateArtistWithIdArgsSchemaSchema = z.object({
-  user_id: z.string(),
-  artist_name: z.string().optional(),
-  bio: z.string().optional(),
-  genre: z.array(z.string()).optional(),
-  location: z.string().optional(),
-  website: z.string().optional(),
-  social_links: jsonSchema.optional(),
-});
-
-export const prettygoodUpdateArtistWithIdReturnsSchemaSchema = z.object({
-  artist_name: z.string(),
-  bio: z.string().nullable(),
-  created_at: z.string(),
-  genre: z.array(z.string()).nullable(),
-  id: z.string(),
-  location: z.string().nullable(),
-  social_links: jsonSchema.nullable(),
-  updated_at: z.string(),
-  verified: z.boolean().nullable(),
-  website: z.string().nullable(),
-});
-
-export const prettygoodVerifyEmailArgsSchemaSchema = z.object({
-  _verification_token: z.string(),
-});
-
-export const prettygoodVerifyEmailReturnsSchemaSchema = z.boolean();
-
-export const prettygoodVerifySignatureArgsSchemaSchema = z.object({
-  wallet_address: z.string(),
-  signature: z.string(),
-});
-
-export const prettygoodVerifySignatureReturnsSchemaSchema = z.string();
+export const publicUpdateGenrePopularityReturnsSchemaSchema = z.undefined();
