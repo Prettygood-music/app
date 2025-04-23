@@ -10,15 +10,7 @@ declare global {
 			safeGetSession: () => Promise<{ session: Session | null; user: User | null }>;
 			session: Session | null;
 			user: User | null;
-			/*
-      user: {
-        id: string;
-        username: string;
-        display_name: string | null;
-        email: string;
-        email_verified: boolean;
-        wallet_address: string | null;
-      } | null;*/
+
 			/**
 			 * @deprecated
 			 * Use `locals.supabase.auth.getSession()` instead.
