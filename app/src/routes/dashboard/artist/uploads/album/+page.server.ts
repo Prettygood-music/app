@@ -2,8 +2,6 @@ import type { PageServerLoad, Actions } from './$types';
 import { album } from '$lib/schemas';
 import { zod } from 'sveltekit-superforms/adapters';
 import { message, superValidate } from 'sveltekit-superforms';
-import { storeFile } from '$lib/server/services/fileStorage';
-import { databaseClient } from '$lib/databaseClient';
 import { fail } from '@sveltejs/kit';
 
 export const load = (async () => {
@@ -36,16 +34,6 @@ export const actions: Actions = {
 			coverURL = coverPublicURL;
 		}
 
-		/*
-		const { data: insertedAlbum, error: err } = await databaseClient.rpc("create", {
-			title: albumData.title,
-			artist_id: event.locals.user.id,
-			cover_url: coverPath,
-			genre: albumData.genre,
-			release_date: albumData.release_date,
-			description: albumData.description
-		});*/
-
 		const { data: insertedAlbum, error: err } = await supabase
 			.from('albums')
 			.insert({
@@ -69,6 +57,5 @@ export const actions: Actions = {
 		console.dir(insertedAlbum);
 
 		return message(form, 'Album created successfully');
-		
 	}
 };

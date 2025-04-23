@@ -1,6 +1,4 @@
-import { databaseClient } from '$lib/databaseClient';
 import { trackCreationSchema } from '$lib/schemas/trackSchema';
-import { storeFile } from '$lib/server/services/fileStorage';
 import { fail } from '@sveltejs/kit';
 import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -43,15 +41,14 @@ export const actions: Actions = {
 
 		const audioFile = form.data.audio_file;
 		const coverFile = form.data.cover_image;
-		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
-
-
+		
 		// TODO: this should be an utility function
 		const extension = mime.extension(audioFile.name);
 		const uuid = crypto.randomUUID();
 		// Filename to save as, including extension
 		const fileName = `${uuid}.${extension}`;
-
+		
+		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
 		const { data: audioStorageData, error: audioStorageError } = await supabase.storage
 			.from('test')
 			.upload(`${event.locals.user!.id}/${fileName}`, audioFile, {
@@ -105,46 +102,5 @@ export const actions: Actions = {
 
 		console.dir(trackInsert);
 		return message(form, 'Track created successfully');
-		/*
-
-		const audioBuffer = await form.data.audio_file.arrayBuffer();
-		const audioPath = await storeFile(
-			new Uint8Array(audioBuffer),
-			'audio',
-			form.data.audio_file.name
-		);
-
-		// Store the cover image if provided
-		let coverPath: string | undefined = undefined;
-		const coverFile = form.data.cover_image;
-		if (coverFile) {
-			const imageBuffer = await coverFile.arrayBuffer();
-			coverPath = await storeFile(new Uint8Array(imageBuffer), 'image', coverFile.name);
-		}
-
-		console.log(audioPath, coverPath);
-
-		// FIXME: We should be handling file deletion if there's an issue with the database
-
-		const { data: track, error: err } = await databaseClient.rpc('create_track', {
-			title: trackData.title,
-			artist_id: event.locals.user.id,
-			audio_url: audioPath,
-			// Fix duration
-			duration: 0,
-			cover_url: coverPath,
-			album_id: trackData.album_id || undefined,
-			explicit: trackData.explicit,
-			isrc: trackData.isrc || undefined,
-			genre: trackData.genre,
-			lyrics: trackData.lyrics || undefined,
-			release_date: trackData.release_date || undefined,
-			track_number: trackData.track_number || undefined
-		});
-
-		console.dir(track);
-		if (err) {
-			console.error(err);
-		}*/
 	}
 };

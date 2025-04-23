@@ -1,4 +1,3 @@
-import { databaseClient } from '$lib/databaseClient';
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
@@ -22,12 +21,6 @@ export const load = (async ({ data, parent }) => {
 		.select('*, tracks(count)')
 		.eq('artist_id', artist.id);
 
-	/*
-	const { data: albumsData, error: albumsError } = await databaseClient
-		.from('albums')
-		.select('*, tracks(count)')
-		.eq('artist_id', artist.id);
-*/
 	const tracks = tracksData.map((t) => {
 		return {
 			...t,

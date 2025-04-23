@@ -14,8 +14,6 @@ export const load: LayoutServerLoad = async ({ locals }) => {
 	if (!artist) {
 		error(404, "Couldn't find artist");
 	}
-	//const {} = databaseClient.from("")
-	//const {} =databaseClient.rpc("")
 
 	return {
 		artist

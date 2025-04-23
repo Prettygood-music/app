@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { Button } from '$lib/components/ui/button';
 	import {
 		Card,
 		CardContent,
@@ -7,86 +8,14 @@
 		CardHeader,
 		CardTitle
 	} from '$lib/components/ui/card';
-	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
-	import { Button } from '$lib/components/ui/button';
 	import { Input } from '$lib/components/ui/input';
-	import { goto } from '$app/navigation';
-	import { databaseClient } from '$lib/databaseClient';
+	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import { LINKS } from '$lib/constants.js';
 	import AlbumIcon from 'lucide-svelte/icons/album';
 	import TrackIcon from 'lucide-svelte/icons/file-music';
 
 	let { data } = $props();
 	// Placeholder data
-	let tracks = $state([
-		{
-			id: 'trk-001',
-			title: 'Track Title 1',
-			duration: '3:45',
-			plays: 5243,
-			release_date: '2025-01-15',
-			status: 'published'
-		},
-		{
-			id: 'trk-002',
-			title: 'Another Great Song',
-			duration: '4:12',
-			plays: 4125,
-			release_date: '2025-01-15',
-			status: 'published'
-		},
-		{
-			id: 'trk-003',
-			title: 'My Best Track',
-			duration: '2:58',
-			plays: 3967,
-			release_date: '2025-02-01',
-			status: 'published'
-		},
-		{
-			id: 'trk-004',
-			title: 'Popular Song',
-			duration: '3:24',
-			plays: 2845,
-			release_date: '2025-02-01',
-			status: 'published'
-		},
-		{
-			id: 'trk-005',
-			title: 'Awesome Track',
-			duration: '4:01',
-			plays: 2356,
-			release_date: '2025-02-22',
-			status: 'published'
-		},
-		{
-			id: 'trk-006',
-			title: 'New Song (Draft)',
-			duration: '3:33',
-			plays: 0,
-			release_date: '',
-			status: 'draft'
-		}
-	]);
-
-	let albums = $state([
-		{
-			id: 'alb-001',
-			title: 'My Album',
-			tracks: 5,
-			release_date: '2025-01-15',
-			plays: 14590,
-			status: 'published'
-		},
-		{
-			id: 'alb-002',
-			title: 'New Project (In Progress)',
-			tracks: 3,
-			release_date: '',
-			plays: 0,
-			status: 'draft'
-		}
-	]);
 
 	let filter = $state<string>('');
 
@@ -286,6 +215,5 @@
 				</CardContent>
 			</Card>
 		</TabsContent>
-
 	</Tabs>
 </div>
