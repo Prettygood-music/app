@@ -1,43 +1,19 @@
-import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 import { artistData } from './data';
 
 type ExpectedOut = (typeof artistData)['stats']['day'];
 
-export const load: PageLoad = async ({ parent }) => {
-	const { artist } = await parent();
-	const { data, err } = await databaseClient
+export const load: PageLoad = async ({ parent, data }) => {
+	const { artist, supabase } = await parent();
+	const { data: artistData, error: err } = await supabase
 		.from('artists')
-		.select('id, payments(*),artist_play_counts(*)')
-		.eq('artist.id', artist.id)
+		.select('id, payments(*), artist_play_counts(*), artist_followers(*)')
+		.eq('id', artist.id)
 		.single();
 
-	const { data: followerCountData, error: followerError } = await databaseClient.rpc(
-		'get_artist_followers_count',
-		{
-			artist_id: artist.id
-		}
-	);
-	if (followerError) {
-		console.error(followerError);
-	} else {
-		console.log('followersCount', followerCountData);
-	}
-
-	const { data: totalEarningsData } = await databaseClient.rpc('get_artist_total_earnings', {
-		artist_id: artist.id
-	});
-	console.log('earnings', totalEarningsData);
-
-	const { data: artistPaymentStats } = await databaseClient.rpc('get_artist_payment_stats', {
-		artist_id: artist.id
-	});
-	console.log('payments', artistPaymentStats);
-
 	if (err) {
-		console.dir(err);
+		console.log('artist error', err);
 	}
 
-	console.dir(data);
-	return {};
+	return { artistData };
 };

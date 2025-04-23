@@ -1,4 +1,3 @@
-//import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
 

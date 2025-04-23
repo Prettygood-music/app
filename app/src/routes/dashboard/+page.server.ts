@@ -1,5 +1,4 @@
 import { LINKS } from '$lib/constants.js';
-import { databaseClient } from '$lib/databaseClient.js';
 import { error, fail, redirect, type Actions } from '@sveltejs/kit';
 
 export async function load({ locals }) {
@@ -32,7 +31,7 @@ export const actions: Actions = {
 			return fail(404);
 		}
 		const { supabase } = event.locals;
-		const {error} = await supabase.rpc('apply_for_artist_account', {
+		const { error } = await supabase.rpc('apply_for_artist_account', {
 			artist_name: 'deez nutters',
 			bio: "They tried to stop him, they couldn't",
 			genre: ['Soul frog'],
@@ -47,26 +46,5 @@ export const actions: Actions = {
 		} else {
 			redirect(302, LINKS.ARTIST_DASHBOARD);
 		}
-		/*
-
-		const { data: rpcArtistData, error: rpcError } = await databaseClient.rpc(
-			'register_as_artist_with_id',
-			{
-				artist_name: 'deez nutters',
-				bio: "They tried to stop him, they couldn't",
-				genre: ['Soul frog'],
-				location: 'America',
-				social_links: {
-					twitter: 'tweet'
-				},
-				user_id: user.id
-			}
-		);*/
-		if (rpcError) {
-			console.error(rpcError);
-		}
-		console.dir(rpcArtistData);
-
-		return {};
 	}
 };
