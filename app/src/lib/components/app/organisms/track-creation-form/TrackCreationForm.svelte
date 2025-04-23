@@ -224,8 +224,10 @@
 			<Form.Field {form} name="album_id">
 				<Form.Control>
 					{#snippet children({ props })}
-					{@const hasAlbums = albums.length > 0}
-					{@const albumDisplay = $formData.album_id ? albums.find((a) => a.id === $formData.album_id)?.title : null}
+						{@const hasAlbums = albums.length > 0}
+						{@const albumDisplay = $formData.album_id
+							? albums.find((a) => a.id === $formData.album_id)?.title
+							: null}
 						<Form.Label for="album_id" class="block">Album (Optional)</Form.Label>
 
 						<Select.Root
@@ -235,7 +237,7 @@
 							name={props.name}
 						>
 							<Select.Trigger {...props}>
-								{albumDisplay ? albumDisplay : hasAlbums ? 'Select Album': 'No album found'}
+								{albumDisplay ? albumDisplay : hasAlbums ? 'Select Album' : 'No album found'}
 							</Select.Trigger>
 							<Select.Content>
 								{#each albums as album}
@@ -271,10 +273,19 @@
 
 		<!-- Genre Tags -->
 		<div class="space-y-2">
-			<Form.Field {form} name="track_number">
+			<Form.Field {form} name="genre">
 				<Form.Control>
 					{#snippet children({ props })}
-						<Form.Label class="block">Genre</Form.Label>
+						<Form.Label class="block">Genres</Form.Label>
+						<Select.Root type="multiple" bind:value={$formData.genre} name={props.name}>
+							<Select.Trigger {...props}>Select Genres</Select.Trigger>
+							<Select.Content>
+								{#each availableGenres as genre}
+									<Select.Item value={genre}>{genre}</Select.Item>
+								{/each}
+							</Select.Content>
+						</Select.Root>
+						
 						<div class="mb-2 flex flex-wrap gap-2">
 							{#each $formData.genre as genre}
 								<Badge variant="secondary" class="gap-1 pr-1">
@@ -297,7 +308,7 @@
 				</Form.Control>
 				<Form.FieldErrors />
 			</Form.Field>
-
+			<!-- 
 			<div class="flex gap-2">
 				<select
 					bind:value={selectedGenre}
@@ -312,6 +323,7 @@
 					>Add</Button
 				>
 			</div>
+			 -->
 		</div>
 
 		<!-- Explicit Content -->

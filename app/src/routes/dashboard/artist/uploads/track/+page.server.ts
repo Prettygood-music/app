@@ -5,6 +5,7 @@ import { fail } from '@sveltejs/kit';
 import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
+import mime from 'mime-types';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Get the current user ID from the session
@@ -29,9 +30,13 @@ export const actions: Actions = {
 		const form = await superValidate(event, zod(trackCreationSchema));
 
 		if (!form.valid) {
-			return fail(400, {
-				form
-			});
+			return fail(
+				400,
+				withFiles({
+					form,
+					error: 'Invalid form data'
+				})
+			);
 		}
 
 		const trackData = form.data;
@@ -40,9 +45,16 @@ export const actions: Actions = {
 		const coverFile = form.data.cover_image;
 		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
 
+
+		// TODO: this should be an utility function
+		const extension = mime.extension(audioFile.name);
+		const uuid = crypto.randomUUID();
+		// Filename to save as, including extension
+		const fileName = `${uuid}.${extension}`;
+
 		const { data: audioStorageData, error: audioStorageError } = await supabase.storage
 			.from('test')
-			.upload(`${event.locals.user!.id}/${audioFile.name}`, audioFile, {
+			.upload(`${event.locals.user!.id}/${fileName}`, audioFile, {
 				contentType: 'audio/*'
 			});
 

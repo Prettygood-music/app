@@ -61,6 +61,7 @@
 
 <SkSeo
 	openGraph={true}
+	title="Pretty Good Music"
 	imageURL={page.url.origin + '/api/og'}
 	description="Pretty Good music, for everyone."
 ></SkSeo>
@@ -68,7 +69,7 @@
 <ParaglideJS {i18n}>
 	<Toaster />
 
-	<div class="bg-background flex h-screen flex-col" id="content">
+	<div class="bg-background flex h-screen w-screen flex-col overflow-hidden" id="content">
 		<Navbar />
 		<main class="flex flex-1 flex-col overflow-y-hidden">
 			{@render children()}
@@ -80,11 +81,6 @@
 
 	{#if browser}
 		<ConnectionStatus />
-		<!-- 
-			{#if showInstallPrompt}
-			<InstallPrompt variant="banner" />
-			{/if}
-			-->
 	{/if}
 </ParaglideJS>
 
