@@ -1,9 +1,8 @@
-import { databaseClient } from '$lib/databaseClient';
 import type { PageLoad } from './$types';
 
 export const load = (async ({ parent }) => {
-	const { artist, user } = await parent();
-	const { data: payments, error: err } = await databaseClient
+	const { artist, user, supabase } = await parent();
+	const { data: payments, error: err } = await supabase
 		.from('payments')
 		.select('*')
 		.eq('recipient_id', artist.id);
@@ -11,7 +10,6 @@ export const load = (async ({ parent }) => {
 		console.error(err);
 	}
 
-	console.dir(payments);
 	return {
 		payments,
 		artist,

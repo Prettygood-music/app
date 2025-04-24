@@ -1,5 +1,4 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { databaseClient } from '$lib/databaseClient';
 import type { Actions } from './$types';
 import { registerSchema } from './schema';
 import { zod } from 'sveltekit-superforms/adapters';
@@ -31,26 +30,7 @@ export const actions: Actions = {
 				form
 			});
 		}
-		/*
-		// Call the register_user RPC function
-		const { data, error } = await databaseClient.rpc('register_user', {
-			_username: form.data.username,
-			_email: form.data.email,
-			_password: form.data.password,
-			_display_name: form.data.displayName
-		});
 
-		console.dir(data);
-
-		// Extract data from the response
-		//const { user_id, verification_token } = data;
-		if (error) {
-			console.error(error);
-			return fail(500, {
-				form: { ...form, error: error }
-			});
-		}
-*/
 		return {
 			form
 		};

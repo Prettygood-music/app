@@ -7,12 +7,15 @@ export const LINKS = {
 	PROFILE: '/dashboard',
 	ARTIST_DASHBOARD: '/dashboard/artist',
 	INSTALL: '/install',
-	ALBUMS: "/albums",
-	ARTISTS: "/artists",
-	
+	ARTISTS: '/artists',
+	ALBUMS: {
+		ROOT: '/albums',
+		ID: (id: string) => `/albums/${id}`
+	},
+
 	TRACKS: {
-		ROOT: "/track",
-		ID: (id: string) => `/track/${id}`,
+		ROOT: '/track',
+		ID: (id: string) => `/track/${id}`
 	},
 
 	UPLOAD: {

@@ -50,9 +50,13 @@
 			<Separator class="my-4" />
 
 			<div class="relative">
-				<div class="space-y-0.5">
-					<h3 class="text-lg font-semibold tracking-tight">Popular Albums</h3>
-					<p class="text-muted-foreground text-sm">On the rise.</p>
+				<div class="flex items-center justify-between">
+					<div class="space-y-0.5">
+						<h3 class="text-lg font-semibold tracking-tight">Popular Albums</h3>
+						<p class="text-muted-foreground text-sm">On the rise.</p>
+					</div>
+
+					<Button variant="ghost" href={LINKS.ALBUMS.ROOT}>See more</Button>
 				</div>
 				<ScrollArea orientation="both" class="mt-4">
 					<div class="flex space-x-4 pb-4">
