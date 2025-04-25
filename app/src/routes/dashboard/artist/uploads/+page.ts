@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
+import type { PageLoad } from '../../../../dashboard/artist/uploads/$types';
 
 export const load = (async ({ data, parent }) => {
 	const { artist, supabase } = await parent();

@@ -50,7 +50,7 @@
 </script>
 
 <header class="bg-background w-full" style="view-transition-name: none;">
-	<div class="container flex h-14 items-center justify-between">
+	<div class="px-4 flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
 			<img src="/favicon.svg" width="32" height="32" alt="prettygood.music logo" />

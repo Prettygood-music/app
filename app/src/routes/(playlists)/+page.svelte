@@ -11,7 +11,6 @@
 </script>
 
 <div class="grid h-full overflow-y-auto lg:grid-cols-5">
-	<!-- <Sidebar {playlists} class="hidden overflow-y-auto lg:block" /> -->
 	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
 	<div class="lg:col-span-5">
 		<div class="h-full w-screen overflow-hidden py-6 [&>*]:px-4 [&>*]:lg:px-8">

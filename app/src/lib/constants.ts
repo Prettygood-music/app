@@ -12,6 +12,10 @@ export const LINKS = {
 		ROOT: '/albums',
 		ID: (id: string) => `/albums/${id}`
 	},
+	PLAYLISTS: {
+		ID: (id: string) => `/playlist/${id}`,
+		NEW: '/playlist/new'	
+	},
 
 	TRACKS: {
 		ROOT: '/track',
