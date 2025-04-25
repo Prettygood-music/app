@@ -23,8 +23,10 @@
 
 	let { children, data } = $props();
 	let { session, supabase } = $derived(data);
-
 	const userState = new UserState(data.user);
+	$effect(() => {
+		userState.user = data.user;
+	});
 	setUserContext(userState);
 
 	const playerState = new PlayerState();
@@ -37,6 +39,8 @@
 			if (newSession?.expires_at !== session?.expires_at) {
 				invalidate(DEPENDS.AUTH);
 			}
+
+			userState.user = newSession?.user || null;
 		});
 		return () => data.subscription.unsubscribe();
 	});
@@ -57,6 +61,11 @@
 	$effect(() => {
 		analytics.changeUserId(data.user?.id || null);
 	});
+
+	async function onDisconnect() {
+		await supabase.auth.signOut();
+		//invalidate(DEPENDS.AUTH);
+	}
 </script>
 
 <SkSeo
@@ -70,7 +79,7 @@
 	<Toaster />
 
 	<div class="bg-background flex h-screen w-screen flex-col overflow-hidden" id="content">
-		<Navbar />
+		<Navbar {onDisconnect} />
 		<main class="flex flex-1 flex-col overflow-y-hidden">
 			{@render children()}
 		</main>

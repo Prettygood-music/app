@@ -45,9 +45,11 @@
 			window.matchMedia('(display-mode: fullscreen)').matches ||
 			(window.navigator as any).standalone === true
 		: false;
+
+	let { onDisconnect }: { onDisconnect?: VoidFunction } = $props();
 </script>
 
-<header class="bg-background w-full " style="view-transition-name: none;">
+<header class="bg-background w-full" style="view-transition-name: none;">
 	<div class="container flex h-14 items-center justify-between">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
@@ -91,8 +93,10 @@
 						</DropdownMenu.Group>
 						<DropdownMenu.Separator />
 						<DropdownMenu.Group>
-							<DropdownMenu.Item onclick={() => console.log('disconnect')}
-								>Disconnect</DropdownMenu.Item
+							<DropdownMenu.Item
+								onclick={async () => {
+									onDisconnect?.();
+								}}>Disconnect</DropdownMenu.Item
 							>
 						</DropdownMenu.Group>
 					</DropdownMenu.Content>
