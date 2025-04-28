@@ -1,5 +1,9 @@
 export const DEPENDS = {
-	AUTH: 'app:auth'
+	AUTH: 'app:auth',
+	PLAYLISTS: 'app:playlists',
+	ALBUMS: 'app:albums',
+	ARTIST: 'app:artist',
+	TRACKS: 'app:tracks',
 } as const;
 
 export const LINKS = {
@@ -30,3 +34,9 @@ export const LINKS = {
 	LOGIN: '/login',
 	REGISTER: '/auth'
 } as const;
+
+
+
+export const STORAGE_KEYS = {
+	PLAYLISTS: 'playlists',
+}

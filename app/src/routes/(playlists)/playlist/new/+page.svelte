@@ -1,8 +1,17 @@
 <script lang="ts">
+	import { invalidate } from '$app/navigation';
 	import PlaylistCreationForm from '$lib/components/app/organisms/playlist-creation-form/PlaylistCreationForm.svelte';
 	import { Card } from '$lib/components/ui/card';
+	import { DEPENDS } from '$lib/constants.js';
+	import { onMount } from 'svelte';
 
 	let { data } = $props();
+
+	onMount(() => {
+		return () => {
+			invalidate(DEPENDS.PLAYLISTS);
+		};
+	});
 </script>
 
 <div class="w-full">

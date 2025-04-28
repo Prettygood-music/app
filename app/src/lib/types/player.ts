@@ -1,6 +1,6 @@
 import type { Database } from "@prettygood/database";
 
-export type Track = Database["prettygood"]["Tables"]["tracks"]["Row"];
+export type Track = Database["public"]["Tables"]["tracks"]["Row"];
 // Types
 export interface User {
     id: string;

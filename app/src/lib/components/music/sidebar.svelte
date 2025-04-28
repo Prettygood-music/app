@@ -35,7 +35,12 @@
 				<ScrollArea class="h-[300px] px-1">
 					<div class="space-y-1 p-2">
 						{#each playlists as playlist}
-							<Button variant="ghost" class="w-full justify-start font-normal">
+							<Button
+								variant="ghost"
+								class="w-full justify-start font-normal"
+								href={LINKS.PLAYLISTS.ID(playlist.id)}
+								aria-label="Playlist - {playlist.name}"
+							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"
@@ -52,7 +57,7 @@
 									<path d="M16 6H3" />
 									<path d="M12 18H3" />
 								</svg>
-								{playlist}
+								{playlist.name}
 							</Button>
 						{/each}
 					</div>
