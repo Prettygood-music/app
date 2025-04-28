@@ -6,59 +6,53 @@
 	import * as DropdownMenu from '../ui/dropdown-menu';
 	import { PlusIcon } from 'lucide-svelte';
 	import { LINKS } from '$lib/constants';
+	import type { Playlist, User } from '$lib/types';
+	import ImageFallback from '../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
-	let className: string | null | undefined = undefined;
-	type Playlist = {
-		id: string;
-		name: string;
-		cover_url?: string;
-	};
-	export let playlists: Playlist[];
-	export { className as class };
+	//let className: string | null | undefined = undefined;
+
+	let {
+		playlists,
+		class: className
+	}: { playlists: (Playlist & { creator: User })[]; class?: string } = $props();
 </script>
 
-<div class={cn('bg-card h-full rounded-md pb-12', className)}>
+<div class={cn('bg-card h-full overflow-y-auto rounded-md', className)}>
 	<div class="space-y-4 py-4">
 		<div class="px-3 py-2">
-			<h2 class="mb-2 px-4 text-lg font-semibold tracking-tight">Playlists</h2>
-			<div class="space-y-1">
+			<h2 class="mb-2 text-lg font-semibold tracking-tight">Playlists</h2>
+			<div class="space-y-4">
 				<Button
 					href={LINKS.PLAYLISTS.NEW}
 					class="{buttonVariants({
 						variant: 'ghost'
-					})} bg-muted hover:bg-primary group"
+					})} bg-muted hover:bg-primary group w-full"
 				>
 					Create Playlist
 					<PlusIcon class=" duration-300 group-hover:rotate-45" />
 				</Button>
 
-				<ScrollArea class="h-[300px] px-1">
-					<div class="space-y-1 p-2">
+				<ScrollArea class="h-[300px]" orientation="vertical">
+					<div class="space-y-4 overflow-x-hidden">
 						{#each playlists as playlist}
-							<Button
-								variant="ghost"
-								class="w-full justify-start font-normal"
+							<a
+								class={'flex w-full items-center justify-start space-x-3 overflow-hidden font-normal'}
 								href={LINKS.PLAYLISTS.ID(playlist.id)}
 								aria-label="Playlist - {playlist.name}"
 							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									viewBox="0 0 24 24"
-									fill="none"
-									stroke="currentColor"
-									stroke-width="2"
-									stroke-linecap="round"
-									stroke-linejoin="round"
-									class="mr-2 h-4 w-4"
-								>
-									<path d="M21 15V6" />
-									<path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
-									<path d="M12 12H3" />
-									<path d="M16 6H3" />
-									<path d="M12 18H3" />
-								</svg>
-								{playlist.name}
-							</Button>
+								<div class="h-[40px] w-[40px] flex-shrink-0 overflow-hidden rounded">
+									<ImageFallback src={playlist.cover_url} name={playlist.name}></ImageFallback>
+								</div>
+								<!-- <div class="aspect-square bg-red-500">H</div> -->
+								<div class=" text-ellipsis">
+									<div class="text-sm">
+										{playlist.name} nyooo
+									</div>
+									<div class="text-muted-foreground mt-1 text-xs">
+										{playlist.creator.display_name}
+									</div>
+								</div>
+							</a>
 						{/each}
 					</div>
 				</ScrollArea>

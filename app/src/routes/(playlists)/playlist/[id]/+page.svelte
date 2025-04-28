@@ -3,25 +3,19 @@
 	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
-	import {
-		DropdownMenu,
-		DropdownMenuContent,
-		DropdownMenuItem,
-		DropdownMenuTrigger
-	} from '$lib/components/ui/dropdown-menu';
-	import type { Playlist, Track, User } from '$lib/types/player';
+	import type { Track, User } from '$lib/types/player';
 
-	import PlayIcon from 'lucide-svelte/icons/play';
-	import PauseIcon from 'lucide-svelte/icons/pause';
-	import HeartIcon from 'lucide-svelte/icons/heart';
-	import ShareIcon from 'lucide-svelte/icons/share-2';
-	import MoreHorizontalIcon from 'lucide-svelte/icons/more-horizontal';
+	import { page } from '$app/state';
+	import ShareButton from '$lib/components/app/atoms/share-button/ShareButton.svelte';
+	import { generateGradient, generateGradientDataURL } from '$lib/utils.js';
+	import { EyeIcon, LockIcon } from 'lucide-svelte';
 	import CalendarIcon from 'lucide-svelte/icons/calendar';
-	import MusicIcon from 'lucide-svelte/icons/music';
 	import ClockIcon from 'lucide-svelte/icons/clock';
-	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
-	import PencilIcon from 'lucide-svelte/icons/pencil';
+	import MusicIcon from 'lucide-svelte/icons/music';
+	import PauseIcon from 'lucide-svelte/icons/pause';
+	import PlayIcon from 'lucide-svelte/icons/play';
 	import UserIcon from 'lucide-svelte/icons/user';
+	import Card from './card.svelte';
 
 	// Page data from load function
 	let { data } = $props();
@@ -32,7 +26,7 @@
 	let creator = $state<User>(data.creator);
 	let tracks = $state<Track[]>(data.tracks);
 	let isOwner = $state<boolean>(data.isOwner);
-	let similarPlaylists = $state<Playlist[]>(data.similarPlaylists);
+	let similarPlaylists = $state(data.similarPlaylists);
 
 	// Using Svelte 5 runes for state management
 	let isPlaying = $state(false);
@@ -114,50 +108,6 @@
 		console.log(`Sharing playlist: ${playlist.name}`);
 	}
 
-	// Generate a gradient background based on the playlist title
-	function generateGradient(title: string): string {
-		// Simple hash function to generate a consistent color from a string
-		const hash = title.split('').reduce((acc, char) => {
-			return char.charCodeAt(0) + ((acc << 5) - acc);
-		}, 0);
-
-		const h1 = Math.abs(hash % 360);
-		const h2 = (h1 + 40) % 360;
-
-		return `linear-gradient(135deg, hsl(${h1}, 70%, 60%), hsl(${h2}, 70%, 50%))`;
-	}
-
-	/**
-	 * Generates a gradient image data URL from a string input
-	 *
-	 * @param title - The string to generate the gradient from
-	 * @param width - Width of the generated image (default: 200)
-	 * @param height - Height of the generated image (default: 200)
-	 * @returns A data URL that can be used directly in an img src attribute
-	 */
-	function generateGradientDataURL(
-		title: string,
-		width: number = 200,
-		height: number = 200
-	): string {
-		// Simple hash function to generate a consistent color from a string
-		const hash = title.split('').reduce((acc, char) => {
-			return char.charCodeAt(0) + ((acc << 5) - acc);
-		}, 0);
-
-		const h1 = Math.abs(hash % 360);
-		const h2 = (h1 + 40) % 360;
-
-		// Create an SVG with the gradient
-		const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:hsl(${h1}, 70%, 60%);stop-opacity:1" /><stop offset="100%" style="stop-color:hsl(${h2}, 70%, 50%);stop-opacity:1" /></linearGradient></defs><rect width="100%" height="100%" fill="url(#grad)" /></svg>`;
-
-		// URL-encode the SVG
-		const encodedSVG = encodeURIComponent(svg);
-
-		// Return as data URL
-		return `data:image/svg+xml,${encodedSVG}`;
-	}
-
 	// Default cover image or gradient background
 
 	let albumCover = $state(
@@ -175,16 +125,6 @@
 			}
 		} else {
 			return false;
-		}
-	});
-
-	let displayedCover = $derived.by(() => {
-		if (cover && cover.complete) {
-			if (cover.naturalWidth === 0) {
-				return generateGradient(data.playlist.name);
-			}
-		} else {
-			return albumCover;
 		}
 	});
 
@@ -231,8 +171,8 @@
 					{@html `
 						<img
 							onerror="this.onerror=null;this.src='${generateGradientDataURL(playlist.name)}'"
-							src={playlist.cover_url}
-							alt={playlist.name}
+							src=${playlist.cover_url}
+							alt=${playlist.name}
 							class="h-full w-full object-cover"
 						/>
 						`}
@@ -292,6 +232,17 @@
 						<CalendarIcon class="h-4 w-4" />
 						<span>Updated {formatRelativeTime(playlist.updated_at)}</span>
 					</div>
+					<div class="text-muted-foreground">•</div>
+
+					<div class="flex items-center gap-1">
+						{#if playlist.is_public}
+							<EyeIcon class="h-4 w-4" />
+							<span>Public</span>
+						{:else}
+							<LockIcon class="h-4 w-4" />
+							<span>Private</span>
+						{/if}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -303,6 +254,7 @@
 			<Button
 				variant="default"
 				size="lg"
+				disabled={tracks.length === 0}
 				class="flex h-14 w-14 items-center justify-center rounded-full p-0"
 				onclick={togglePlay}
 			>
@@ -312,11 +264,11 @@
 					<PlayIcon class="ml-1 h-6 w-6" />
 				{/if}
 			</Button>
-
-			<Button variant="outline" size="sm" class="gap-2" onclick={shufflePlay}>
-				<ShuffleIcon class="h-4 w-4" />
-				Shuffle
-			</Button>
+			<!-- 
+	<Button variant="outline" size="sm" class="gap-2" onclick={shufflePlay}>
+		<ShuffleIcon class="h-4 w-4" />
+		Shuffle
+	</Button>
 
 			<Button
 				variant={isLiked ? 'default' : 'ghost'}
@@ -326,10 +278,12 @@
 			>
 				<HeartIcon class="h-5 w-5" />
 			</Button>
-
-			<Button variant="ghost" size="icon" class="rounded-full" onclick={sharePlaylist}>
-				<ShareIcon class="h-5 w-5" />
-			</Button>
+	-->
+			<ShareButton
+				content={{
+					url: page.url.toString()
+				}}
+			></ShareButton>
 		</div>
 
 		<!-- Track List -->
@@ -352,7 +306,7 @@
 							: "The creator hasn't added any tracks yet."}
 					</p>
 					{#if isOwner}
-						<Button variant="default" class="mt-4" onclick={editPlaylist}>Add Tracks</Button>
+						<Button variant="default" class="mt-4" disabled>Add Tracks</Button>
 					{/if}
 				</div>
 			{/if}
@@ -366,32 +320,11 @@
 				<h2 class="mb-4 text-xl font-bold">Similar Playlists</h2>
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 					{#each similarPlaylists as similarPlaylist}
-						<a href="/playlist/{similarPlaylist.id}" class="group">
-							<div class="overflow-hidden rounded-md">
-								{#if similarPlaylist.cover_url}
-									<img
-										src={similarPlaylist.cover_url}
-										alt={similarPlaylist.title}
-										class="aspect-square w-full object-cover transition-transform group-hover:scale-105"
-									/>
-								{:else}
-									<div
-										class="flex aspect-square w-full items-center justify-center text-4xl font-bold text-white transition-transform group-hover:scale-105"
-										style="background: {generateGradient(similarPlaylist.title)};"
-									>
-										{similarPlaylist.title.substring(0, 1).toUpperCase()}
-									</div>
-								{/if}
-							</div>
-							<div class="mt-2">
-								<h3 class="group-hover:text-primary line-clamp-1 font-medium group-hover:underline">
-									{similarPlaylist.title}
-								</h3>
-								<p class="text-muted-foreground text-xs">
-									By {similarPlaylist.creator_name} • {similarPlaylist.track_count} tracks
-								</p>
-							</div>
-						</a>
+						<Card
+							playlist={similarPlaylist}
+							tracks={similarPlaylist.tracks}
+							creator={similarPlaylist.creator}
+						></Card>
 					{/each}
 				</div>
 			</div>

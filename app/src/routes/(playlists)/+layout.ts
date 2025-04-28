@@ -5,9 +5,12 @@ import type { LayoutLoad } from './$types';
 export const load = (async ({ depends, parent }) => {
 	const { supabase, session, user } = await parent();
 
-	let playlists : Database["public"]["Tables"]["playlists"]["Row"][] = [];
+	let playlists: Database['public']['Tables']['playlists']['Row'][] = [];
 	if (user) {
-		const { data } = await supabase.from('playlists').select('*').eq('user_id', user.id);
+		const { data } = await supabase
+			.from('playlists')
+			.select('*, creator:users!playlists_user_id_fkey(*)')
+			.eq('user_id', user.id);
 		if (data) {
 			playlists = data;
 		}

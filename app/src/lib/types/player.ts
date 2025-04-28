@@ -1,15 +1,9 @@
 import type { Database } from "@prettygood/database";
 
 export type Track = Database["public"]["Tables"]["tracks"]["Row"];
-// Types
-export interface User {
-    id: string;
-    username: string;
-    wallet_address: string | null;
-    display_name: string;
-    avatar_url: string | null;
-    is_artist: boolean;
-  }
+export type Playlist = Database["public"]["Tables"]["playlists"]["Row"];
+export type User = Database["public"]["Tables"]["users"]["Row"];
+
   
   /*
   export interface Track {
@@ -37,19 +31,5 @@ export interface User {
     release_date: string; // ISO date
     track_count: number;
     tracks: Track[];
-  }
-  
-  export interface Playlist {
-    id: string;
-    title: string;
-    creator_id: string;
-    creator_name: string;
-    cover_url: string | null;
-    description: string | null;
-    is_public: boolean;
-    track_count: number;
-    tracks: Track[];
-    created_at: string; // ISO date
-    updated_at: string; // ISO date
   }
   

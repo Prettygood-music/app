@@ -25,11 +25,6 @@
 	}
 </script>
 
-<Button
-	size="icon"
-	variant="ghost"
-	class="bg-background/20 hover:bg-background/40 rounded-full"
-	onclick={() => onShare()}
->
+<Button size="icon" variant="ghost" class="rounded-full" onclick={() => onShare()}>
 	<ShareIcon class="h-5 w-5" />
 </Button>
