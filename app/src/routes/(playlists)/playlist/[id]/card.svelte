@@ -14,23 +14,7 @@
 </script>
 
 <a href={LINKS.PLAYLISTS.ID(playlist.id)} class="group">
-	<div class="overflow-hidden rounded-md">
-		<!--  
-		{#if playlist.cover_url}
-			<img
-				src={playlist.cover_url}
-				alt={playlist.name}
-				class="aspect-square w-full object-cover transition-transform group-hover:scale-105"
-			/>
-		{:else}
-			<div
-				class="flex aspect-square w-full items-center justify-center text-4xl font-bold text-white transition-transform group-hover:scale-105"
-				style="background: {generateGradient(playlist.name)};"
-			>
-				{playlist.name.substring(0, 1).toUpperCase()}
-			</div>
-		{/if}
-        -->
+	<div class="overflow-hidden rounded-md h-full">
 		<ImageFallback src={playlist.cover_url} name={playlist.name}></ImageFallback>
 	</div>
 	<div class="mt-2">
