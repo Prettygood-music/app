@@ -15,6 +15,7 @@
 	import { page } from '$app/state';
 	import { getAnalyticsContext } from '$lib/services';
 	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
+	import AddPlaylist from '../../molecules/add-playlist/add-playlist.svelte';
 
 	let {
 		// Track details
@@ -128,6 +129,7 @@
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
+					<AddPlaylist trackID={track.id}></AddPlaylist>
 
 					<!-- 
 						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>

@@ -9,7 +9,7 @@ export const load = (async ({ depends, parent }) => {
 	if (user) {
 		const { data } = await supabase
 			.from('playlists')
-			.select('*, creator:users!playlists_user_id_fkey(*)')
+			.select('*, creator:users!playlists_user_id_fkey(*), tracks(id)')
 			.eq('user_id', user.id);
 		if (data) {
 			playlists = data;

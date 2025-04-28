@@ -39,4 +39,5 @@ export const LINKS = {
 
 export const STORAGE_KEYS = {
 	PLAYLISTS: 'playlists',
+	ALBUMS: 'albums',
 }

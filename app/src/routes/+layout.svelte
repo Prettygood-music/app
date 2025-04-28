@@ -23,7 +23,8 @@
 
 	let { children, data } = $props();
 	let { session, supabase } = $derived(data);
-	const userState = new UserState(data.user);
+
+	const userState = new UserState(data.user, data.supabase);
 	$effect(() => {
 		userState.user = data.user;
 	});

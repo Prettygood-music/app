@@ -48,7 +48,7 @@ export const actions: Actions = {
 
 			const {
 				data: { publicUrl }
-			} = await supabase.storage.from('test').getPublicUrl(coverStorageData!.path);
+			} = await supabase.storage.from(STORAGE_KEYS.PLAYLISTS).getPublicUrl(coverStorageData!.path);
 			coverURL = publicUrl;
 		}
 

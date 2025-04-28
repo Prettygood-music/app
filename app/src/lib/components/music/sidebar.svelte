@@ -46,7 +46,7 @@
 								<!-- <div class="aspect-square bg-red-500">H</div> -->
 								<div class=" text-ellipsis">
 									<div class="text-sm">
-										{playlist.name} nyooo
+										{playlist.name}
 									</div>
 									<div class="text-muted-foreground mt-1 text-xs">
 										{playlist.creator.display_name}
