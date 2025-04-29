@@ -112,14 +112,15 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 	];
 
 	// User stats and additional info
-	const followers = 237;
-	const joinDate = '2022-06-15T08:30:00Z';
+	const followers = 0;
+	const joinDate = userProfile.created_at //'2022-06-15T08:30:00Z';
 
 	// Additional stats for the About tab
 	const stats = {
-		listeningHours: 483,
-		topGenre: 'Electronic',
+		listeningHours: 0,
+		topGenre: 'Unknown',
 		recentActivity: [
+			/*
 			{
 				type: 'like',
 				description: "Liked 'Digital Horizon' by Beth Binary",
@@ -144,7 +145,7 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 				type: 'playlist',
 				description: "Added 3 tracks to 'Coding Focus' playlist",
 				time: '1 week ago'
-			}
+			}*/
 		]
 	};
 
