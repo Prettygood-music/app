@@ -228,7 +228,7 @@
 					</div>
 				{:else}
 					<div
-						class="flex h-48 flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
+						class="flex  flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
 					>
 						<ListMusicIcon class="text-muted-foreground mb-4 h-12 w-12" />
 						<h3 class="mb-1 text-lg font-medium">No playlists yet</h3>
@@ -258,9 +258,9 @@
 					</div>
 				{:else}
 					<div
-						class="flex h-48 flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
+						class="flex  flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
 					>
-						<HeartIcon class="text-muted-foreground mb-4 h-12 w-12" />
+						<HeartIcon size={24} class="text-muted-foreground mb-4" />
 						<h3 class="mb-1 text-lg font-medium">No liked tracks yet</h3>
 						<p class="text-muted-foreground text-sm">
 							{isCurrentUser
