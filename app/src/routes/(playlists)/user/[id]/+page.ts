@@ -8,8 +8,12 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 	const { supabase, user } = await parent();
 	const { data: userProfile, error: err } = await supabase
 		.from('users')
-		.select('*, playlists!playlists_user_id_fkey(*, tracks(id)), following: artist_followers(count)')
+		.select(
+			'*, playlists!playlists_user_id_fkey(*, tracks(id)), following: artist_followers(count), play_history(tracks(*)), track_likes(tracks(*))'
+		)
 		.eq('id', userId)
+		.order('played_at', { ascending: false, referencedTable: 'play_history' })
+		.limit(5, { referencedTable: 'play_history' })
 		.single();
 
 	if (!userProfile) {
@@ -107,80 +111,6 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		}
 	];
 
-	// User's recently played tracks
-	const recentlyPlayed: Track[] = [
-		{
-			id: 'track-5',
-			title: 'Digital Horizon',
-			artist_id: 'artist-3',
-			artist_name: 'Beth Binary',
-			album_id: 'album-5',
-			album_name: 'Quantum State',
-			cover_url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=300&dpr=2&q=80',
-			duration: 287,
-			playback_url: '#',
-			published_at: '2022-08-10',
-			genres: ['Electronic', 'Ambient'],
-			play_count: 654321
-		},
-		{
-			id: 'track-1',
-			title: 'Recursive Rhythms',
-			artist_id: 'artist-1',
-			artist_name: 'Nina Netcode',
-			album_id: 'album-1',
-			album_name: 'Async Awakenings',
-			cover_url: 'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-			duration: 245,
-			playback_url: '#',
-			published_at: '2023-05-15',
-			genres: ['Electronic', 'Ambient'],
-			play_count: 1245678
-		},
-		{
-			id: 'track-7',
-			title: 'Floating Point',
-			artist_id: 'artist-2',
-			artist_name: 'Lena Logic',
-			album_id: 'album-4',
-			album_name: 'Silicon Dreams',
-			cover_url: 'https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?w=300&dpr=2&q=80',
-			duration: 294,
-			playback_url: '#',
-			published_at: '2023-01-15',
-			genres: ['Electronic', 'Downtempo'],
-			play_count: 321098
-		},
-		{
-			id: 'track-8',
-			title: 'Neural Waves',
-			artist_id: 'artist-1',
-			artist_name: 'Nina Netcode',
-			album_id: 'album-2',
-			album_name: 'Digital Dreams',
-			cover_url: 'https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?w=300&dpr=2&q=80',
-			duration: 326,
-			playback_url: '#',
-			published_at: '2021-11-03',
-			genres: ['Electronic', 'Ambient'],
-			play_count: 210987
-		},
-		{
-			id: 'track-9',
-			title: 'Static Memories',
-			artist_id: 'artist-3',
-			artist_name: 'Beth Binary',
-			album_id: 'album-5',
-			album_name: 'Quantum State',
-			cover_url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=300&dpr=2&q=80',
-			duration: 218,
-			playback_url: '#',
-			published_at: '2022-08-10',
-			genres: ['Electronic', 'Experimental'],
-			play_count: 198765
-		}
-	];
-
 	// User stats and additional info
 	const followers = 237;
 	const joinDate = '2022-06-15T08:30:00Z';
@@ -223,7 +153,6 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		isCurrentUser,
 		playlists: userProfile?.playlists,
 		likedTracks,
-		recentlyPlayed,
 		followers,
 		joinDate,
 		stats

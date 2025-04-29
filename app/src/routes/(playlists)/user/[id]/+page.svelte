@@ -27,8 +27,8 @@
 	let user = $state(data.user);
 	let isCurrentUser = $state(data.isCurrentUser);
 	let playlists = $state(data.playlists);
-	let likedTracks = $state<Track[]>(data.likedTracks);
-	let recentlyPlayed = $state<Track[]>(data.recentlyPlayed);
+	let likedTracks = $state<Track[]>(data.user.track_likes.flatMap(track => track.tracks));
+	let recentlyPlayed = $state(data.user.play_history);
 	let followers = $state<number>(data.followers);
 	let following = $state<number>(data.user.following[0].count);
 	let joinDate = $state<string>(data.joinDate);
@@ -176,7 +176,7 @@
 						</div>
 
 						<div class="space-y-1">
-							{#each recentlyPlayed.slice(0, 5) as track, i}
+							{#each recentlyPlayed as track, i}
 								<TrackItem {track} index={i} />
 							{/each}
 						</div>
@@ -188,7 +188,7 @@
 					<section>
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-bold">Public Playlists</h2>
-							<Button variant="link" href="/user/{user.id}/playlists">See All</Button>
+							<!-- <Button variant="link" href="/user/{user.id}/playlists">See All</Button> -->
 						</div>
 
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -204,7 +204,7 @@
 					<section class="">
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-bold">Liked Tracks</h2>
-							<Button variant="link" href="/user/{user.id}/liked">See All</Button>
+							<!-- <Button variant="link" href="/user/{user.id}/liked">See All</Button> -->
 						</div>
 
 						<div class="space-y-1">
@@ -218,10 +218,10 @@
 
 			<!-- Playlists Tab -->
 			<TabsContent value="playlists">
-				<h2 class="mb-6 text-2xl font-bold">Playlists</h2>
+				<h2 class="mb-4 text-2xl font-bold">Playlists</h2>
 
 				{#if playlists.length > 0}
-					<div class="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+					<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 						{#each playlists as playlist}
 							<Card {playlist} tracks={playlist.tracks} creator={user}></Card>
 						{/each}
