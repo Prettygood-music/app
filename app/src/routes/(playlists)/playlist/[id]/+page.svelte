@@ -23,10 +23,9 @@
 	// Get data from the load function
 	//let playlist = $state<Playlist>(data.playlist);
 	let playlist = $derived(data.playlist);
-	let creator = $state<User>(data.creator);
-	let tracks = $state<Track[]>(data.tracks);
-	let isOwner = $state<boolean>(data.isOwner);
-	let similarPlaylists = $state(data.similarPlaylists);
+	let creator = $derived<User>(data.creator);
+	let tracks = $derived<Track[]>(data.tracks);
+	let isOwner = $derived<boolean>(data.isOwner);
 
 	// Using Svelte 5 runes for state management
 	let isPlaying = $state(false);
@@ -312,19 +311,15 @@
 			{/if}
 		</div>
 
+		{#if data.similarPlaylists && data.similarPlaylists.length > 0}
 		<Separator class="my-8" />
 
 		<!-- Similar Playlists -->
-		{#if similarPlaylists && similarPlaylists.length > 0}
 			<div class="mb-8">
 				<h2 class="mb-4 text-xl font-bold">Similar Playlists</h2>
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-					{#each similarPlaylists as similarPlaylist}
-						<Card
-							playlist={similarPlaylist}
-							tracks={similarPlaylist.tracks}
-							creator={similarPlaylist.creator}
-						></Card>
+					{#each data.similarPlaylists as playlist}
+						<Card {playlist} tracks={playlist.tracks} creator={playlist.creator}></Card>
 					{/each}
 				</div>
 			</div>
