@@ -13,9 +13,9 @@
 	// Get albums from the server load function
 </script>
 
-<a href={LINKS.PLAYLISTS.ID(playlist.id)} class="group">
-	<div class="overflow-hidden rounded-md h-full">
-		<ImageFallback src={playlist.cover_url} name={playlist.name}></ImageFallback>
+<a href={LINKS.PLAYLISTS.ID(playlist.id)} class="group flex flex-col">
+	<div class=" flex-grow">
+		<ImageFallback class="rounded-md" src={playlist.cover_url} name={playlist.name}></ImageFallback>
 	</div>
 	<div class="mt-2">
 		<h3 class="group-hover:text-primary line-clamp-1 font-medium group-hover:underline">
