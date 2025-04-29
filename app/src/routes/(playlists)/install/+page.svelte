@@ -13,6 +13,7 @@
 	import Zap from 'lucide-svelte/icons/zap';
 	import Laptop from 'lucide-svelte/icons/laptop';
 	import WifiOff from 'lucide-svelte/icons/wifi-off';
+	import { onMount } from 'svelte';
 
 	// State for installation
 	let deferredPrompt = $state<any>(null);
@@ -30,6 +31,9 @@
 			window.matchMedia('(display-mode: fullscreen)').matches ||
 			(window.navigator as any).standalone === true
 		) {
+			isInstalled = true;
+		}
+		if (!('deferredInstallPrompt' in window)) {
 			isInstalled = true;
 		}
 	}

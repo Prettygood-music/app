@@ -4,6 +4,7 @@ import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import mime from 'mime-types';
+import { STORAGE_KEYS } from '$lib/constants';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Get the current user ID from the session
@@ -41,16 +42,16 @@ export const actions: Actions = {
 
 		const audioFile = form.data.audio_file;
 		const coverFile = form.data.cover_image;
-		
+
 		// TODO: this should be an utility function
 		const extension = mime.extension(audioFile.name);
 		const uuid = crypto.randomUUID();
 		// Filename to save as, including extension
 		const fileName = `${uuid}.${extension}`;
-		
+
 		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
 		const { data: audioStorageData, error: audioStorageError } = await supabase.storage
-			.from('test')
+			.from(STORAGE_KEYS.TRACKS)
 			.upload(`${event.locals.user!.id}/${fileName}`, audioFile, {
 				contentType: 'audio/*'
 			});
@@ -62,7 +63,7 @@ export const actions: Actions = {
 		console.log('audio storage data', audioStorageData);
 		const {
 			data: { publicUrl: audioURL }
-		} = await supabase.storage.from('test').getPublicUrl(audioStorageData!.path);
+		} = await supabase.storage.from(STORAGE_KEYS.TRACKS).getPublicUrl(audioStorageData!.path);
 		console.log(audioURL);
 
 		//return { form };
@@ -70,13 +71,14 @@ export const actions: Actions = {
 
 		let coverURL: null | string = null;
 		if (coverFile) {
+			// FIXME: we need to generate a unique ID for the cover image
 			const { data } = await supabase.storage
-				.from('test')
+				.from(STORAGE_KEYS.TRACKS)
 				.upload(`${event.locals.user!.id}/${coverFile.name}`, coverFile, {});
 
 			const {
 				data: { publicUrl: coverPublicURL }
-			} = await supabase.storage.from('test').getPublicUrl(data!.path);
+			} = await supabase.storage.from(STORAGE_KEYS.TRACKS).getPublicUrl(data!.path);
 			coverURL = coverPublicURL;
 		}
 

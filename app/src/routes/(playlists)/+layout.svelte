@@ -12,7 +12,7 @@
 </script>
 
 <div class="flex h-full items-stretch gap-4 px-2">
-	<div class="hidden w-[240px] pb-4 lg:block">
+	<div class="hidden min-w-[240px] pb-4 lg:block">
 		<!-- TODO: handle if connected -->
 		<Sidebar playlists={data.playlists} />
 	</div>

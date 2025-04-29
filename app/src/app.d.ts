@@ -25,4 +25,8 @@ declare global {
 	}
 }
 
+declare interface Window {
+	deferredInstallPrompt: Event | null;
+}
+
 export {};

@@ -33,7 +33,7 @@
 	const playerState = new PlayerState();
 	setPlayerContext(playerState);
 
-	const analytics = setAnalyticsContext(data.user?.id || null);
+	const analytics = setAnalyticsContext(data.user?.id || null, data.supabase);
 
 	onMount(() => {
 		const { data } = supabase.auth.onAuthStateChange((_, newSession) => {

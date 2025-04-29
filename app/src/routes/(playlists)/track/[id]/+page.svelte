@@ -55,7 +55,7 @@
 	track={data.track}
 	recommendedTracks={recommendedTracks}
 	initialIsPlaying={isPlaying}
-	initialIsLiked={isLiked}
+	initialIsLiked={data.isLiked}
 	onTogglePlay={handleTogglePlay}
 	onToggleLike={handleToggleLike}
 	onShare={handleShare}

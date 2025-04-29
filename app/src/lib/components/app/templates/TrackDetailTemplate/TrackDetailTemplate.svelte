@@ -16,6 +16,7 @@
 	import { getAnalyticsContext } from '$lib/services';
 	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
 	import AddPlaylist from '../../molecules/add-playlist/add-playlist.svelte';
+	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
 
 	let {
 		// Track details
@@ -41,15 +42,7 @@
 		const playerTrack = playerState.currentTrack;
 		return playerTrack && playerTrack.id === track.id;
 	});
-	let isPlaying = $derived.by(() => {
-		if (isCurrentTrack) {
-			return playerState.isPlaying;
-		} else {
-			return false;
-		}
-	});
-	// Using Svelte 5 runes for state management
-	//let isPlaying = $state(initialIsPlaying);
+
 	let isLiked = $state(initialIsLiked);
 
 	// Function to format date in human-readable format
@@ -116,6 +109,7 @@
 
 				<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
 					<PlayTrack {track} />
+					<!-- 
 					<Button
 						variant={isLiked ? 'default' : 'ghost'}
 						size="icon"
@@ -125,6 +119,8 @@
 					>
 						<HeartIcon class="h-5 w-5" />
 					</Button>
+					 -->
+					<LikeButton id={track.id} isLiked={isLiked} kind="track"></LikeButton>
 
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
 						<ShareIcon class="h-5 w-5" />

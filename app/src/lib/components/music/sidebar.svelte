@@ -1,15 +1,11 @@
 <script lang="ts">
-	//import type { Playlist } from '$lib/data/playlists.js';
-	import { cn } from '$lib/utils.js';
 	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
-	import * as DropdownMenu from '../ui/dropdown-menu';
-	import { PlusIcon } from 'lucide-svelte';
 	import { LINKS } from '$lib/constants';
 	import type { Playlist, User } from '$lib/types';
+	import { cn } from '$lib/utils.js';
+	import { PlusIcon } from 'lucide-svelte';
 	import ImageFallback from '../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
-
-	//let className: string | null | undefined = undefined;
 
 	let {
 		playlists,
@@ -33,10 +29,10 @@
 				</Button>
 
 				<ScrollArea class="h-[300px]" orientation="vertical">
-					<div class="space-y-4 overflow-x-hidden">
+					<div class="space-y-2 overflow-x-hidden">
 						{#each playlists as playlist}
 							<a
-								class={'flex w-full items-center justify-start space-x-3 overflow-hidden font-normal'}
+								class={'flex w-full items-center justify-start hover:bg-muted p-2 space-x-3 overflow-hidden font-normal'}
 								href={LINKS.PLAYLISTS.ID(playlist.id)}
 								aria-label="Playlist - {playlist.name}"
 							>

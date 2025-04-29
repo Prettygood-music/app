@@ -11,6 +11,7 @@
 	import { cn } from '$lib/utils';
 	import { LINKS } from '$lib/constants';
 	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
 
 	const user = getUserContext();
 
@@ -43,14 +44,15 @@
 	const isStandalone = browser
 		? window.matchMedia('(display-mode: standalone)').matches ||
 			window.matchMedia('(display-mode: fullscreen)').matches ||
-			(window.navigator as any).standalone === true
+			(window.navigator as any).standalone === true ||
+			!('deferredInstallPrompt' in navigator)
 		: false;
 
 	let { onDisconnect }: { onDisconnect?: VoidFunction } = $props();
 </script>
 
 <header class="bg-background w-full" style="view-transition-name: none;">
-	<div class="px-4 flex h-14 items-center justify-between">
+	<div class="flex h-14 items-center justify-between px-4">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center space-x-2">
 			<img src="/favicon.svg" width="32" height="32" alt="prettygood.music logo" />
