@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { AlbumCard, ArtistCard, TrackItem } from '$lib/components/music';
+	import { ArtistCard, TrackItem } from '$lib/components/music';
+	import AlbumCard from './AlbumCard.svelte';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
@@ -9,30 +10,11 @@
 	import GlobeIcon from 'lucide-svelte/icons/globe';
 	import InstagramIcon from 'lucide-svelte/icons/instagram';
 	import TwitterIcon from 'lucide-svelte/icons/twitter';
+	import type { Album, Artist } from '$lib/types';
 
 	let {
 		// Artist details
-		artist = {
-			id: 'artist-1',
-			artist_name: 'Artist Name',
-			cover_url: undefined,
-			avatar_url: undefined,
-			bio: 'Artist biography goes here with a detailed description of their career, style, and achievements.',
-			tracks: [],
-			albums: [],
-			social_links: {
-				website: 'https://example.com',
-				twitter: 'artistname',
-				instagram: 'artistname'
-			},
-			stats: {
-				monthlyListeners: '25.4 Million',
-				totalPlays: '127.8 Million',
-				activeSince: '2018',
-				origin: 'Berlin, Germany'
-			},
-			genres: ['Electronic', 'Ambient', 'Techno']
-		},
+		artist,
 
 		// Similar artists
 		similarArtists = [],
@@ -52,6 +34,8 @@
 		// Page title
 		pageTitle = undefined,
 		pageDescription = undefined
+	}: {
+		artist: Artist & { albums: Album[] };
 	} = $props();
 
 	// Using Svelte 5 runes for state management
@@ -100,9 +84,10 @@
 
 				<div class="relative">
 					<ScrollArea orientation="both">
-						<div class="flex space-x-4 pb-4">
+						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 							{#each artist.albums as album}
-								<AlbumCard {album} size="default" />
+								<!-- <AlbumCard {album} size="default" /> -->
+								<AlbumCard {album} tracks={album.tracks} date={new Date(album.release_date).getFullYear()}></AlbumCard>
 							{/each}
 						</div>
 					</ScrollArea>
@@ -141,7 +126,7 @@
 
 		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 			{#each artist.albums || [] as album}
-				<AlbumCard {album} />
+				<!-- <AlbumCard {album} /> -->
 			{/each}
 		</div>
 	</TabsContent>

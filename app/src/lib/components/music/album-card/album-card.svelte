@@ -34,7 +34,7 @@
 	function onPlayClick() {
 		console.log(`Playing album: ${album.title}`);
 
-		playerState.playList(album)
+		playerState.playList(album);
 	}
 </script>
 

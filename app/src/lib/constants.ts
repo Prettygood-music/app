@@ -13,8 +13,8 @@ export const LINKS = {
 	INSTALL: '/install',
 	ARTISTS: '/artists',
 	ALBUMS: {
-		ROOT: '/albums',
-		ID: (id: string) => `/albums/${id}`
+		ROOT: '/album',
+		ID: (id: string) => `/album/${id}`
 	},
 	PLAYLISTS: {
 		ID: (id: string) => `/playlist/${id}`,
