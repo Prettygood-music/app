@@ -1,15 +1,15 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card';
 
-	let { title, value, trend }: { title: string; value: number | string; trend: string } = $props();
-	const isPositive = trend.startsWith('+');
+	let { title, value, trend }: { title: string; value: number | string; trend?: string } = $props();
+	const isPositive = trend?.startsWith('+');
 </script>
 
 <Card.Root>
 	<Card.Header class="flex flex-row items-center justify-between space-y-0 pb-2">
 		<Card.Title class="text-sm font-medium">{title}</Card.Title>
 		<div
-			class={`rounded-full p-1 ${isPositive ? 'bg-emerald-100 text-emerald-700 dark:text-emerald-100 dark:bg-emerald-700' : 'bg-rose-100 text-rose-700 dark:text-text-100 dark:bg-rose-700'}`}
+			class={`rounded-full p-1 ${isPositive ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-700 dark:text-emerald-100' : 'dark:text-text-100 bg-rose-100 text-rose-100 dark:bg-rose-700'}`}
 		>
 			{#if isPositive}
 				<svg
@@ -42,8 +42,10 @@
 	</Card.Header>
 	<Card.Content>
 		<div class="text-2xl font-bold">{value}</div>
-		<p class="text-muted-foreground text-xs">
-			{trend} from last period
-		</p>
+		{#if trend}
+			<p class="text-muted-foreground text-xs">
+				{trend} from last period
+			</p>
+		{/if}
 	</Card.Content>
 </Card.Root>

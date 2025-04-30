@@ -12,6 +12,8 @@
 	import { LINKS } from '$lib/constants';
 	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
+	import Music_2 from 'lucide-svelte/icons/music-2';
+	import Disc_3 from 'lucide-svelte/icons/disc-3';
 
 	const user = getUserContext();
 
@@ -38,7 +40,12 @@
 		{
 			title: 'Profile',
 			icon: User,
-			href: LINKS.PROFILE
+			href: LINKS.USERS.ID(user.user!.id)
+		},
+		{
+			title: 'Artist Dashboard',
+			icon: Disc_3,
+			href: LINKS.ARTIST_DASHBOARD
 		}
 	];
 	const isStandalone = browser

@@ -13,6 +13,8 @@
 	import { LINKS } from '$lib/constants.js';
 	import AlbumIcon from 'lucide-svelte/icons/album';
 	import TrackIcon from 'lucide-svelte/icons/file-music';
+	import ImageFallback from '../../../(playlists)/playlist/[id]/imageFallback.svelte';
+	import { formatDuration } from '$lib/utils.js';
 
 	let { data } = $props();
 	// Placeholder data
@@ -127,7 +129,7 @@
 								{#each filteredTracks as track}
 									<tr class="border-b">
 										<td class="px-4 py-3 font-medium">{track.title}</td>
-										<td class="px-4 py-3">{track.duration}</td>
+										<td class="px-4 py-3">{formatDuration(track.duration)}</td>
 										<td class="px-4 py-3">{formatDate(track.release_date)}</td>
 										<td class="px-4 py-3">{track.plays.toLocaleString()}</td>
 
@@ -145,7 +147,7 @@
 										<td class="px-4 py-3 text-right">
 											<Button variant="ghost" size="sm" disabled>Edit</Button>
 											<!-- TODO: implement track deletion -->
-											<Button variant="ghost" size="sm">Delete</Button>
+											<Button variant="ghost" size="sm" disabled>Delete</Button>
 										</td>
 									</tr>
 								{/each}
@@ -179,35 +181,25 @@
 							<Card>
 								<CardHeader class="pb-2">
 									<div class="bg-muted flex aspect-square items-center justify-center rounded-md">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="48"
-											height="48"
-											viewBox="0 0 24 24"
-											fill="none"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-											class="text-muted-foreground"
-										>
-											<path d="M9 18V5l12-2v13"></path>
-											<circle cx="6" cy="18" r="3"></circle>
-											<circle cx="18" cy="16" r="3"></circle>
-										</svg>
+										<ImageFallback
+											src={album.cover_url}
+											alt={album.title}
+											name={album.title}
+											class="rounded-md"
+										/>
 									</div>
 								</CardHeader>
 								<CardContent>
 									<h3 class="text-lg font-semibold">{album.title}</h3>
 									<div class="text-muted-foreground mt-1 text-sm">
-										<p>{album.tracks} tracks</p>
+										<p>{album.tracks.length} tracks</p>
 										<p>Released: {formatDate(album.release_date)}</p>
-										<p>Plays: {album.plays.toLocaleString()}</p>
+										<p>Plays: {album.playCount.toLocaleString()}</p>
 									</div>
 								</CardContent>
 								<CardFooter class="flex justify-end gap-2">
-									<Button variant="outline" size="sm">View</Button>
-									<Button variant="outline" size="sm">Edit</Button>
+									<Button variant="outline" size="sm" href={LINKS.ALBUMS.ID(album.id)}>View</Button>
+									<Button variant="outline" disabled size="sm">Edit</Button>
 								</CardFooter>
 							</Card>
 						{/each}

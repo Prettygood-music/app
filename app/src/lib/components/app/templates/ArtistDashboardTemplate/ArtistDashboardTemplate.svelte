@@ -1,3 +1,16 @@
+<script lang="ts" module>
+	export interface StatData {
+		totalPlays: number;
+		playsTrend?: string;
+		followers: number;
+		followersTrend?: string;
+		totalEarnings: number;
+		earningsTrend?: string;
+		recentTips: number;
+		tipsTrend?: string;
+	}
+</script>
+
 <script lang="ts">
 	import {
 		Card,
@@ -13,24 +26,6 @@
 	import StatCard from '$lib/components/app/molecules/StatCard/StatCard.svelte';
 
 	// Define types for the stats
-	interface StatData {
-		totalPlays: number;
-		playsTrend: string;
-		followers: number;
-		followersTrend: string;
-		totalEarnings: number;
-		earningsTrend: string;
-		recentTips: number;
-		tipsTrend: string;
-	}
-
-	// Define the stats object structure
-	interface Stats {
-		day: StatData;
-		week: StatData;
-		month: StatData;
-		year: StatData;
-	}
 
 	// Define activity item types
 	type ActivityType = 'play' | 'follow' | 'tip' | 'comment' | 'share';
@@ -44,7 +39,7 @@
 	// Define the complete props interface
 	interface ArtistDashboardProps {
 		artistName?: string;
-		stats?: Stats;
+		stats: StatData;
 		recentActivity?: ActivityItem[];
 		onViewAllActivity?: () => void;
 		onUploadTrack?: () => void;
@@ -57,48 +52,7 @@
 	// TODO: We'll want a stat factory that will compute trends from values tbh
 	let {
 		artistName,
-		stats = {
-			day: {
-				totalPlays: 0,
-				playsTrend: '+0%',
-				followers: 0,
-				followersTrend: '+0%',
-				totalEarnings: 0,
-				earningsTrend: '+0%',
-				recentTips: 0,
-				tipsTrend: '+0%'
-			},
-			week: {
-				totalPlays: 0,
-				playsTrend: '+0%',
-				followers: 0,
-				followersTrend: '+0%',
-				totalEarnings: 0,
-				earningsTrend: '+0%',
-				recentTips: 0,
-				tipsTrend: '+0%'
-			},
-			month: {
-				totalPlays: 0,
-				playsTrend: '+0%',
-				followers: 0,
-				followersTrend: '+0%',
-				totalEarnings: 0,
-				earningsTrend: '+0%',
-				recentTips: 0,
-				tipsTrend: '+0%'
-			},
-			year: {
-				totalPlays: 0,
-				playsTrend: '+0%',
-				followers: 0,
-				followersTrend: '+0%',
-				totalEarnings: 0,
-				earningsTrend: '+0%',
-				recentTips: 0,
-				tipsTrend: '+0%'
-			}
-		},
+		stats,
 		recentActivity = [],
 		onViewAllActivity = () => {},
 		onUploadTrack = () => {},
@@ -106,9 +60,6 @@
 		onCreateAnnouncement = () => {},
 		onGetHelp = () => {}
 	}: ArtistDashboardProps = $props();
-
-	let selectedPeriod = $state<keyof Stats>('week');
-	let currentStats = $derived(stats[selectedPeriod]);
 </script>
 
 <div class="space-y-6">
@@ -119,94 +70,16 @@
 		</p>
 	</div>
 
-	<Tabs value={selectedPeriod} class="space-y-4">
-		<TabsList>
-			<TabsTrigger value="day" onclick={() => (selectedPeriod = 'day')}>Today</TabsTrigger>
-			<TabsTrigger value="week" onclick={() => (selectedPeriod = 'week')}>This Week</TabsTrigger>
-			<TabsTrigger value="month" onclick={() => (selectedPeriod = 'month')}>This Month</TabsTrigger>
-			<TabsTrigger value="year" onclick={() => (selectedPeriod = 'year')}>This Year</TabsTrigger>
-		</TabsList>
-
-		<TabsContent value="day" class="space-y-4">
-			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<StatCard title="Total Plays" value={stats.day.totalPlays} trend={stats.day.playsTrend} />
-				<StatCard title="Followers" value={stats.day.followers} trend={stats.day.followersTrend} />
-				<StatCard
-					title="Earnings"
-					value={`$${stats.day.totalEarnings.toFixed(2)}`}
-					trend={stats.day.earningsTrend}
-				/>
-				<StatCard title="Tips Received" value={stats.day.recentTips} trend={stats.day.tipsTrend} />
-			</div>
-		</TabsContent>
-
-		<TabsContent value="week" class="space-y-4">
-			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<StatCard title="Total Plays" value={stats.week.totalPlays} trend={stats.week.playsTrend} />
-				<StatCard
-					title="Followers"
-					value={stats.week.followers}
-					trend={stats.week.followersTrend}
-				/>
-				<StatCard
-					title="Earnings"
-					value={`$${stats.week.totalEarnings.toFixed(2)}`}
-					trend={stats.week.earningsTrend}
-				/>
-				<StatCard
-					title="Tips Received"
-					value={stats.week.recentTips}
-					trend={stats.week.tipsTrend}
-				/>
-			</div>
-		</TabsContent>
-
-		<TabsContent value="month" class="space-y-4">
-			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<StatCard
-					title="Total Plays"
-					value={stats.month.totalPlays}
-					trend={stats.month.playsTrend}
-				/>
-				<StatCard
-					title="Followers"
-					value={stats.month.followers}
-					trend={stats.month.followersTrend}
-				/>
-				<StatCard
-					title="Earnings"
-					value={`$${stats.month.totalEarnings.toFixed(2)}`}
-					trend={stats.month.earningsTrend}
-				/>
-				<StatCard
-					title="Tips Received"
-					value={stats.month.recentTips}
-					trend={stats.month.tipsTrend}
-				/>
-			</div>
-		</TabsContent>
-
-		<TabsContent value="year" class="space-y-4">
-			<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-				<StatCard title="Total Plays" value={stats.year.totalPlays} trend={stats.year.playsTrend} />
-				<StatCard
-					title="Followers"
-					value={stats.year.followers}
-					trend={stats.year.followersTrend}
-				/>
-				<StatCard
-					title="Earnings"
-					value={`$${stats.year.totalEarnings.toFixed(2)}`}
-					trend={stats.year.earningsTrend}
-				/>
-				<StatCard
-					title="Tips Received"
-					value={stats.year.recentTips}
-					trend={stats.year.tipsTrend}
-				/>
-			</div>
-		</TabsContent>
-	</Tabs>
+	<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+		<StatCard title="Total Plays" value={stats.totalPlays} trend={stats.playsTrend} />
+		<StatCard title="Followers" value={stats.followers} trend={stats.followersTrend} />
+		<StatCard
+			title="Earnings"
+			value={`$${stats.totalEarnings.toFixed(2)}`}
+			trend={stats.earningsTrend}
+		/>
+		<StatCard title="Tips Received" value={stats.recentTips} trend={stats.tipsTrend} />
+	</div>
 
 	<div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
 		<!-- Activity Feed -->

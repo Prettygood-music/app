@@ -2,8 +2,8 @@ import type { PageLoad } from './$types';
 import type { Playlist, Track, User } from '$lib/types/player';
 import { error } from '@sveltejs/kit';
 
-export const load: PageLoad = async ({ params, fetch, parent }) => {
-	const { supabase } = await parent();
+export const load: PageLoad = async ({ params, parent }) => {
+	const { supabase, user } = await parent();
 	const playlistId = params.id;
 
 	const { data: playlist, error: err } = await supabase
@@ -17,6 +17,14 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		error(404, 'Playlist not found');
 	}
 
+	const { data: trackDetails } = await supabase
+		.from('tracks_with_details')
+		.select('*')
+		.in(
+			'id',
+			playlist.tracks.map((track: Track) => track.id)
+		);
+
 	const creator = playlist.creator;
 
 	const { data: similarPlaylists } = await supabase
@@ -25,23 +33,14 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		.neq('id', playlistId)
 		.limit(5);
 
-	// For now, we'll use placeholder data
-	const currentUser: User = {
-		id: 'user-1',
-		username: 'music_lover',
-		display_name: 'Music Lover',
-		wallet_address: '0x123456789abcdef',
-		avatar_url: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&dpr=2&q=80',
-		is_artist: false
-	};
-
 	// Simulate checking if the current user is the playlist creator
-	const isOwner = currentUser.id === playlist.creator.id;
+	const isOwner = user?.id === playlist.creator.id;
 
 	return {
-		playlist,
+		playlist: playlist,
+		tracks: trackDetails || [],
 		creator: playlist.creator,
-		tracks: playlist.tracks,
+		// tracks: playlist.tracks,
 		isOwner,
 		similarPlaylists
 	};

@@ -11,7 +11,6 @@
 	}: { isLiked?: boolean; kind: 'album' | 'track' | 'playlist'; id: string } = $props();
 
 	async function onClick() {
-		console.log(`Album liked: ${isLiked}`);
 		let cb: VoidFunction | null = null;
 		switch (kind) {
 			case 'album':

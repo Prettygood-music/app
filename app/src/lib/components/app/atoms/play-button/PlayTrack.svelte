@@ -10,7 +10,7 @@
 
 	const playerState = getPlayerContext();
 	const analytics = getAnalyticsContext();
-    
+
 	const isCurrentTrack = $derived.by(() => {
 		const playerTrack = playerState.currentTrack;
 		return playerTrack && playerTrack.id === track.id;
@@ -20,11 +20,11 @@
 	});
 
 	function togglePlay() {
-		analytics.onTrackPlay(track.id);
 		if (isCurrentTrack) {
 			playerState.togglePlayPause();
 		} else {
 			playerState.playTrack(track);
+			analytics.onTrackPlay(track.id);
 		}
 	}
 </script>

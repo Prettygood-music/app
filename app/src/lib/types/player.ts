@@ -1,11 +1,11 @@
-import type { Database } from "@prettygood/database";
+import type { Database } from '@prettygood/database';
 
-export type Track = Database["public"]["Tables"]["tracks"]["Row"];
-export type Playlist = Database["public"]["Tables"]["playlists"]["Row"];
-export type User = Database["public"]["Tables"]["users"]["Row"];
+export type Track = Database['public']['Tables']['tracks']['Row'];
+export type Playlist = Database['public']['Tables']['playlists']['Row'];
+export type User = Database['public']['Tables']['users']['Row'];
+export type TrackWithDetails = Database['public']['Views']['tracks_with_details']['Row'];
 
-  
-  /*
+/*
   export interface Track {
     id: string;
     title: string;
@@ -21,15 +21,13 @@ export type User = Database["public"]["Tables"]["users"]["Row"];
     play_count: number;
   }*/
 
-  
-  export interface Album {
-    id: string;
-    title: string;
-    artist_id: string;
-    artist_name: string;
-    cover_url: string | null;
-    release_date: string; // ISO date
-    track_count: number;
-    tracks: Track[];
-  }
-  
+export interface Album {
+	id: string;
+	title: string;
+	artist_id: string;
+	artist_name: string;
+	cover_url: string | null;
+	release_date: string; // ISO date
+	track_count: number;
+	tracks: Track[];
+}

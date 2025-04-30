@@ -13,17 +13,42 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		)
 		.eq('id', userId)
 		.order('played_at', { ascending: false, referencedTable: 'play_history' })
+
 		.limit(5, { referencedTable: 'play_history' })
 		.single();
 
 	if (!userProfile) {
 		throw error(404, 'User not found');
 	}
+	const recenlyPlayedTracks = userProfile.play_history.flatMap((track) => track.tracks);
+	const recentlyPlayedTracksIDs = [...new Set(recenlyPlayedTracks.map((t) => t.id))];
+	/*
+	const uniqueRecentlyPlayedTracks = recentlyPlayedTracksIDs.map((id) =>
+		recenlyPlayedTracks.find((t) => t.id === id)
+	);*/
+
+	const {data: uniqueRecentlyPlayedTracks} = await supabase
+		.from('tracks_with_details')
+		.select('*')
+		.in('id', recentlyPlayedTracksIDs);
 
 	// Is this the current user's profile?
 	const isCurrentUser = user && userId === user.id;
 
 	// User's liked tracks
+	const { data: likedTracksID } = await supabase
+		.from('track_likes')
+		.select('track_id')
+		.eq('user_id', userId);
+
+	const { data: likedTracks } = await supabase
+		.from('tracks_with_details')
+		.select('*')
+		.in(
+			'id',
+			(likedTracksID || []).map((track) => track.track_id)
+		);
+	/*
 	const likedTracks: Track[] = [
 		{
 			id: 'track-1',
@@ -109,11 +134,11 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 			genres: ['Electronic', 'Chillout'],
 			play_count: 543210
 		}
-	];
+	];*/
 
 	// User stats and additional info
 	const followers = 0;
-	const joinDate = userProfile.created_at //'2022-06-15T08:30:00Z';
+	const joinDate = userProfile.created_at; //'2022-06-15T08:30:00Z';
 
 	// Additional stats for the About tab
 	const stats = {
@@ -152,8 +177,9 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 	return {
 		user: userProfile,
 		isCurrentUser,
+		latestTracks: uniqueRecentlyPlayedTracks || [],
 		playlists: userProfile?.playlists,
-		likedTracks,
+		likedTracks: likedTracks || [],
 		followers,
 		joinDate,
 		stats

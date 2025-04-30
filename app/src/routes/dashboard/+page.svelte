@@ -10,7 +10,6 @@
 	} from '$lib/components/ui/card';
 	import BadgeCheck from 'lucide-svelte/icons/badge-check';
 	import { LINKS } from '$lib/constants';
-	import { goto } from '$app/navigation';
 
 	let { data } = $props();
 
@@ -94,16 +93,6 @@
 						</CardContent>
 					{/if}
 				</Card>
-			</div>
-
-			<div class="flex justify-end">
-				<Button
-					variant="ghost"
-					onclick={async () => {
-						await data.supabase.auth.signOut();
-						await goto('/');
-					}}>Sign Out</Button
-				>
 			</div>
 		</div>
 	</div>

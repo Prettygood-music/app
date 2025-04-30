@@ -1,4 +1,4 @@
-import type { PageLoad } from '../../../../dashboard/artist/earnings/$types';
+import type { PageLoad } from './$types';
 
 export const load = (async ({ parent }) => {
 	const { artist, user, supabase } = await parent();

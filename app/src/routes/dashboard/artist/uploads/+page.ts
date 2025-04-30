@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import type { PageLoad } from '../../../../dashboard/artist/uploads/$types';
+import type { PageLoad } from './$types';
 
 export const load = (async ({ data, parent }) => {
 	const { artist, supabase } = await parent();
@@ -29,13 +29,12 @@ export const load = (async ({ data, parent }) => {
 		};
 	});
 
+	const albums = (albumsData || []).map((a) => {
+		return { ...a, playCount: a.tracks[0].count };
+	});
+
 	return {
 		tracks,
-		albums: (albumsData || []).map((a) => {
-			return {
-				...a,
-				plays: 0
-			};
-		})
+		albums
 	};
 }) satisfies PageLoad;

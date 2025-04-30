@@ -1,6 +1,7 @@
 <script lang="ts">
-	import ArtistDashboardTemplate from '$lib/components/app/templates/ArtistDashboardTemplate/ArtistDashboardTemplate.svelte';
-	import { artistData, recentActivity } from './data';
+	import ArtistDashboardTemplate, {
+		type StatData
+	} from '$lib/components/app/templates/ArtistDashboardTemplate/ArtistDashboardTemplate.svelte';
 
 	// This will come from the load function in +page.ts later
 	let { data } = $props();
@@ -30,10 +31,20 @@
 		// Open help dialog
 		console.log('Get help clicked');
 	}
+
+	let stats: StatData = {
+		totalEarnings: data.artistData.payments.map((payment) => payment.amount).reduce((a, b) => a + b, 0) || 0,
+
+		recentTips: data.artistData.tipCount[0].count || 0,
+		totalPlays: data.artistData.artist_play_counts[0].play_count || 0,
+
+		followers: data.artistData.followerCount[0].count || 0
+	};
 </script>
 
 <ArtistDashboardTemplate
 	artistName={data.artist.artist_name}
+	{stats}
 	onViewAllActivity={handleViewAllActivity}
 	onUploadTrack={handleUploadTrack}
 	onEditProfile={handleEditProfile}

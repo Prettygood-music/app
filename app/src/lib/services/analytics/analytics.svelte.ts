@@ -22,6 +22,9 @@ class FrontendAnalytics {
 	async onTrackPlay(trackId: string) {
 		// TODO: Implement track play event
 		console.log(`Track played: ${trackId}`);
+		const { data, error } = await this.supabase
+			.from('play_history')
+			.insert({ user_id: this.userId, track_id: trackId });
 	}
 
 	async onTrackLike(trackId: string) {

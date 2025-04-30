@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Track } from '$lib/types/player';
+	import type { TrackWithDetails } from '$lib/types/player';
 	import { Button } from '$lib/components/ui/button';
 	import Thumbnail from '$lib/components/app/atoms/thumbnail/thumbnail.svelte';
 	import HeartIcon from 'lucide-svelte/icons/heart';
@@ -13,7 +13,7 @@
 		index,
 		showIndex = true
 	}: {
-		track: Track;
+		track: TrackWithDetails;
 		index?: number;
 		showIndex?: boolean;
 	} = $props();

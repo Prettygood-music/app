@@ -16,6 +16,8 @@
 	import { getPlayerContext } from '$lib/state/player.svelte';
 	import type { Artist, Track } from '$lib/types';
 	import { page } from '$app/state';
+	import { LINKS } from '$lib/constants';
+	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	type Album = {
 		id: string;
@@ -244,13 +246,20 @@
 				<div>
 					<h2 class="mb-4 text-xl font-bold">Artist</h2>
 					<a
-						href="/artist/{artist.id}"
+						href="{LINKS.ARTISTS.ID(artist.id)}"
 						class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 					>
+					<!-- 
 						<Avatar class="h-16 w-16">
 							<AvatarImage src={artist.avatar_url || ''} alt={artist.artist_name} />
 							<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
 						</Avatar>
+						 -->
+						<ImageFallback
+							src={artist.avatar_url || ''}
+							name={artist.artist_name}
+							class="h-16 w-16 rounded-md rounded-full">
+						</ImageFallback>
 						<div>
 							<h4 class="group-hover:text-primary font-medium group-hover:underline">
 								{artist.artist_name}

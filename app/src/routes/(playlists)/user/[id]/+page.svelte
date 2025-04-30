@@ -27,8 +27,8 @@
 	let user = $state(data.user);
 	let isCurrentUser = $state(data.isCurrentUser);
 	let playlists = $state(data.playlists);
-	let likedTracks = $state<Track[]>(data.user.track_likes.flatMap(track => track.tracks));
-	let recentlyPlayed = $state(data.user.play_history);
+	let likedTracks = $derived(data.likedTracks);
+	let recentlyPlayed = $state(data.user.play_history.flatMap((item) => item.tracks));
 	let followers = $state<number>(data.followers);
 	let following = $state<number>(data.user.following[0].count);
 	let joinDate = $state<string>(data.joinDate);
@@ -176,7 +176,7 @@
 						</div>
 
 						<div class="space-y-1">
-							{#each recentlyPlayed as track, i}
+							{#each data.latestTracks as track, i}
 								<TrackItem {track} index={i} />
 							{/each}
 						</div>
@@ -228,7 +228,7 @@
 					</div>
 				{:else}
 					<div
-						class="flex  flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
+						class="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
 					>
 						<ListMusicIcon class="text-muted-foreground mb-4 h-12 w-12" />
 						<h3 class="mb-1 text-lg font-medium">No playlists yet</h3>
@@ -258,7 +258,7 @@
 					</div>
 				{:else}
 					<div
-						class="flex  flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
+						class="flex flex-col items-center justify-center rounded-md border border-dashed p-8 text-center"
 					>
 						<HeartIcon size={24} class="text-muted-foreground mb-4" />
 						<h3 class="mb-1 text-lg font-medium">No liked tracks yet</h3>

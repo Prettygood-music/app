@@ -11,7 +11,10 @@ export const LINKS = {
 	PROFILE: '/dashboard',
 	ARTIST_DASHBOARD: '/dashboard/artist',
 	INSTALL: '/install',
-	ARTISTS: '/artists',
+	ARTISTS: {
+		ROOT: '/artist',
+		ID: (id: string) => `/artist/${id}`
+	},
 	ALBUMS: {
 		ROOT: '/album',
 		ID: (id: string) => `/album/${id}`
@@ -24,6 +27,9 @@ export const LINKS = {
 	TRACKS: {
 		ROOT: '/track',
 		ID: (id: string) => `/track/${id}`
+	},
+	USERS: {
+		ID: (id: string) => `/user/${id}`,
 	},
 
 	UPLOAD: {

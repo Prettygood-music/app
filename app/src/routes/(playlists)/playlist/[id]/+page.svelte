@@ -24,13 +24,13 @@
 	//let playlist = $state<Playlist>(data.playlist);
 	let playlist = $derived(data.playlist);
 	let creator = $derived<User>(data.creator);
-	let tracks = $derived<Track[]>(data.tracks);
+	let tracks = $derived(data.tracks);
 	let isOwner = $derived<boolean>(data.isOwner);
 
 	// Using Svelte 5 runes for state management
 	let isPlaying = $state(false);
 	let isLiked = $state(false);
-	let totalDuration = $derived(tracks.reduce((total, track) => total + track.duration, 0));
+	let totalDuration = $derived(tracks.reduce((total, track) => total + (track.duration || 0), 0));
 
 	// Function to format date in human-readable format
 	function formatDate(dateString: string): string {
@@ -76,13 +76,6 @@
 		}
 	}
 
-	// Format individual track duration
-	function formatTrackDuration(seconds: number): string {
-		const minutes = Math.floor(seconds / 60);
-		const remainingSeconds = seconds % 60;
-		return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-	}
-
 	// Handle play/pause for the whole playlist
 	function togglePlay() {
 		isPlaying = !isPlaying;
@@ -106,26 +99,6 @@
 	function sharePlaylist() {
 		console.log(`Sharing playlist: ${playlist.name}`);
 	}
-
-	// Default cover image or gradient background
-
-	let albumCover = $state(
-		data.playlist.cover_url
-			? `url(${data.playlist.cover_url})`
-			: generateGradient(data.playlist.name)
-	);
-
-	let hasSuccessfullyLoadedCover = $derived.by(() => {
-		if (cover && cover.complete) {
-			if (cover.naturalWidth === 0) {
-				return false;
-			} else {
-				return true;
-			}
-		} else {
-			return false;
-		}
-	});
 
 	let coverBackground = $state(
 		data.playlist.cover_url
@@ -290,6 +263,7 @@
 			{#if tracks.length > 0}
 				<div class="space-y-1">
 					{#each tracks as track, i}
+					
 						<TrackItem {track} index={i} />
 					{/each}
 				</div>
@@ -312,9 +286,9 @@
 		</div>
 
 		{#if data.similarPlaylists && data.similarPlaylists.length > 0}
-		<Separator class="my-8" />
+			<Separator class="my-8" />
 
-		<!-- Similar Playlists -->
+			<!-- Similar Playlists -->
 			<div class="mb-8">
 				<h2 class="mb-4 text-xl font-bold">Similar Playlists</h2>
 				<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
