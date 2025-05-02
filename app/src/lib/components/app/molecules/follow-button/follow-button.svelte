@@ -1,9 +1,15 @@
 <script lang="ts">
-	import UserPlusIcon from 'lucide-svelte/icons/user-plus.svelte';
 	import Button from '$lib/components/ui/button/button.svelte';
+
+	import { getAnalyticsContext } from '$lib/services';
+	let {} = $props();
+
+	let isFollowing = $state(false);
+	async function toggleFollow() {
+		isFollowing = !isFollowing;
+	}
 </script>
 
-<Button>
-	<UserPlusIcon></UserPlusIcon>
-	Follow
+<Button onclick={toggleFollow} variant={isFollowing ? 'secondary' : 'default'}>
+	{isFollowing ? 'Following' : 'Follow'}
 </Button>

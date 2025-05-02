@@ -65,7 +65,6 @@
 
 	async function onDisconnect() {
 		await supabase.auth.signOut();
-		//invalidate(DEPENDS.AUTH);
 	}
 </script>
 

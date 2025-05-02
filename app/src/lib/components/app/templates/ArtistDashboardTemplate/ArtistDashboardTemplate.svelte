@@ -24,6 +24,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { Tabs, TabsContent, TabsList, TabsTrigger } from '$lib/components/ui/tabs';
 	import StatCard from '$lib/components/app/molecules/StatCard/StatCard.svelte';
+	import { LINKS } from '$lib/constants';
 
 	// Define types for the stats
 
@@ -175,7 +176,7 @@
 				<CardDescription>Manage your artist profile</CardDescription>
 			</CardHeader>
 			<CardContent class="space-y-2">
-				<Button variant="outline" class="w-full justify-start" onclick={onUploadTrack}>
+				<Button variant="outline" class="w-full justify-start" href={LINKS.UPLOAD.TRACK}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"
@@ -193,7 +194,25 @@
 					>
 					Upload New Track
 				</Button>
-				<Button variant="outline" class="w-full justify-start" onclick={onEditProfile}>
+				<Button variant="outline" class="w-full justify-start" href={LINKS.UPLOAD.ALBUM}>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="16"
+						height="16"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						class="mr-2"
+						><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline
+							points="17 8 12 3 7 8"
+						/><line x1="12" x2="12" y1="3" y2="15" /></svg
+					>
+					Upload New Album
+				</Button>
+				<Button variant="outline" class="w-full justify-start" disabled onclick={onEditProfile}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						width="16"

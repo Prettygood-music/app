@@ -101,6 +101,7 @@
 		</Card>
 
 		<!-- Notification Signup -->
+<!-- 		 
 		<Card class="col-span-2 md:col-span-1">
 			<CardHeader>
 				<CardTitle>Get Notified</CardTitle>
@@ -179,7 +180,7 @@
 					{/if}
 				</Button>
 			</CardFooter>
-		</Card>
+		</Card> -->
 	</div>
 
 	<!-- FAQ Section -->

@@ -5,7 +5,7 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import SuperDebug, { fileProxy, superForm, type SuperValidated } from 'sveltekit-superforms';
-//import { schema, type Schema } from '$lib/schemas/schema';
+	//import { schema, type Schema } from '$lib/schemas/schema';
 	import { album } from '$lib/schemas';
 	import X from 'lucide-svelte/icons/x';
 	import { zodClient } from 'sveltekit-superforms/adapters';

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ShareButton from '$lib/components/app/atoms/share-button/ShareButton.svelte';
+	import FollowButton from '$lib/components/app/molecules/follow-button/follow-button.svelte';
 	import * as Avatar from '$lib/components/ui/avatar';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
@@ -63,9 +64,7 @@
 
 				<div class="flex gap-2">
 					<ShareButton cb={() => analytics.onArtistShare(artist.id)}></ShareButton>
-					<Button onclick={toggleFollow} disabled variant={isFollowing ? 'secondary' : 'default'}>
-						{isFollowing ? 'Following' : 'Follow'}
-					</Button>
+					<FollowButton></FollowButton>
 					<Button variant="default" onclick={() => onTipArtist(artist)}>
 						<TipIcon class="mr-2 h-4 w-4" />
 						Tip Artist

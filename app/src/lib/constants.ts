@@ -4,12 +4,14 @@ export const DEPENDS = {
 	ALBUMS: 'app:albums',
 	ARTIST: 'app:artist',
 	TRACKS: 'app:tracks',
+	WALLET: 'app:wallet'
 } as const;
 
 export const LINKS = {
 	HOME: '/',
 	PROFILE: '/dashboard',
 	ARTIST_DASHBOARD: '/dashboard/artist',
+
 	INSTALL: '/install',
 	ARTISTS: {
 		ROOT: '/artist',
@@ -21,7 +23,7 @@ export const LINKS = {
 	},
 	PLAYLISTS: {
 		ID: (id: string) => `/playlist/${id}`,
-		NEW: '/playlist/new'	
+		NEW: '/playlist/new'
 	},
 
 	TRACKS: {
@@ -29,7 +31,7 @@ export const LINKS = {
 		ID: (id: string) => `/track/${id}`
 	},
 	USERS: {
-		ID: (id: string) => `/user/${id}`,
+		ID: (id: string) => `/user/${id}`
 	},
 
 	UPLOAD: {
@@ -41,10 +43,8 @@ export const LINKS = {
 	REGISTER: '/auth'
 } as const;
 
-
-
 export const STORAGE_KEYS = {
 	PLAYLISTS: 'playlists',
 	ALBUMS: 'albums',
-	TRACKS: "tracks",
-}
+	TRACKS: 'tracks'
+};

@@ -44,23 +44,37 @@ class FrontendAnalytics {
 	}
 
 	async onTrackShare(trackId: string) {
+		throw new Error('Not implemented');
+
 		console.log(`Track shared: ${trackId}`);
 	}
 
 	// ALBUMS
 	async onAlbumPlay(albumId: string) {
+		throw new Error('Not implemented, prefer using onTrackPlay');
+
 		console.log(`Album played: ${albumId}`);
 	}
 
 	async onAlbumLike(albumId: string) {
+		const { data, error } = await this.supabase
+			.from('album_likes')
+			.insert({ user_id: this.userId, album_id: albumId });
 		console.log(`Album liked: ${albumId}`);
 	}
 
 	async onAlbumUnlike(albumId: string) {
+		await this.supabase
+			.from('album_likes')
+			.delete()
+			.eq('user_id', this.userId)
+			.eq('album_id', albumId);
 		console.log(`Album unliked: ${albumId}`);
 	}
 
 	async onAlbumShare(albumId: string) {
+		throw new Error('Not implemented');
+
 		console.log(`Album shared: ${albumId}`);
 	}
 
@@ -78,17 +92,29 @@ class FrontendAnalytics {
 	}
 
 	async onPlaylistShare(albumId: string) {
+		throw new Error('Not implemented');
+
 		console.log(`Album shared: ${albumId}`);
 	}
 
 	// ARTISTS
 	async onArtistFollow(artistId: string) {
+		const { data, error } = await this.supabase
+			.from('artist_followers')
+			.insert({ user_id: this.userId, artist_id: artistId });
 		console.log(`Artist followed: ${artistId}`);
 	}
 	async onArtistUnfollow(artistId: string) {
+		const { data, error } = await this.supabase
+			.from('artist_followers')
+			.delete()
+			.eq('user_id', this.userId)
+			.eq('artist_id', artistId);
 		console.log(`Artist unfollowed: ${artistId}`);
 	}
 	async onArtistShare(artistId: string) {
+		throw new Error('Not implemented');
+
 		console.log(`Artist shared: ${artistId}`);
 	}
 
