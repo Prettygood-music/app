@@ -40,7 +40,7 @@
 		{
 			title: 'Profile',
 			icon: User,
-			href: LINKS.USERS.ID(user.user!.id)
+			href: user.user ? LINKS.USERS.ID(user.user!.id) : null
 		},
 		{
 			title: 'Artist Dashboard',
