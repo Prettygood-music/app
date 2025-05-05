@@ -12,10 +12,12 @@
 </script>
 
 <div class="flex h-full items-stretch gap-4 md:px-2">
-	<div class="hidden md:min-w-[240px] pb-4 lg:block">
-		<!-- TODO: handle if connected -->
-		<Sidebar playlists={data.playlists} />
-	</div>
+	{#if user.user}
+		<div class="hidden pb-4 md:min-w-[240px] lg:block">
+			<!-- TODO: handle if connected -->
+			<Sidebar playlists={data.playlists} />
+		</div>
+	{/if}
 
 	<div class="flex-grow overflow-y-auto">
 		{@render children?.()}
