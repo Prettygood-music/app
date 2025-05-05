@@ -80,7 +80,7 @@
 
 	<div class="bg-background flex h-screen w-screen flex-col overflow-hidden" id="content">
 		<Navbar {onDisconnect} />
-		<main class="flex flex-1 flex-col overflow-y-hidden">
+		<main class="flex flex-1 flex-col overflow-y-hidden [&>*]:mb-12">
 			{@render children()}
 		</main>
 		<div class="shrink-0">

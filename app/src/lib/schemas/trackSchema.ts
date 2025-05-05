@@ -10,6 +10,7 @@ export const trackCreationSchema = z.object({
   release_date: z.string().optional().nullable(),
   isrc: z.string().optional().nullable(),
   lyrics: z.string().optional().nullable(),
+  duration: z.number(),
   // These will be file uploads
   audio_file: z.instanceof(File, { message: "Audio file is required" }),
   cover_image: z.instanceof(File).optional().nullable(),

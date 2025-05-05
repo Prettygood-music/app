@@ -7,6 +7,7 @@
 	import Mic from 'lucide-svelte/icons/mic';
 	import Disc from 'lucide-svelte/icons/disc';
 	import Play from 'lucide-svelte/icons/play';
+	import { getPlayerContext } from '$lib/state/player.svelte';
 
 	let { data } = $props();
 	let activeTab = $state('all');
@@ -16,6 +17,8 @@
 		const remainingSeconds = seconds % 60;
 		return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 	}
+
+	const playerState = getPlayerContext();
 </script>
 
 <svelte:head>
@@ -65,28 +68,24 @@
 							<table class="w-full table-auto">
 								<thead class="bg-muted/50">
 									<tr>
-										<th class="px-4 py-3 text-left">#</th>
-										<th class="px-4 py-3 text-left">Title</th>
-										<th class="px-4 py-3 text-left">Artist</th>
+										<th class="px-4 py-3 text-left">Track</th>
 										<th class="px-4 py-3 text-left">Duration</th>
-										<th class="sr-only px-4 py-3 text-left">Actions</th>
+										<th class="px-4 py-3 text-right">Actions</th>
 									</tr>
 								</thead>
 								<tbody>
 									{#each data.results.tracks.slice(0, 5) as track, i}
-										<tr class="border-muted hover:bg-muted/20 group border-b">
-											<td class="text-muted-foreground px-4 py-3">{i + 1}</td>
+										<tr class="border-muted hover:bg-muted/20 border-b">
 											<td class="px-4 py-3 font-medium">
-												<a
-													href={`/track/${track.id}`}
-													class="flex items-center gap-2 hover:underline"
-												>
+												<div class="flex items-center gap-2">
 													{#if track.cover_url}
-														<img
-															src={track.cover_url}
-															alt={track.title}
-															class="h-10 w-10 rounded"
-														/>
+														<a href={`/track/${track.id}`} class="w-content flex-shrink-0">
+															<img
+																src={track.cover_url}
+																alt={track.title}
+																class="h-10 w-10 rounded"
+															/>
+														</a>
 													{:else}
 														<div
 															class="bg-muted flex h-10 w-10 items-center justify-center rounded"
@@ -94,16 +93,16 @@
 															<Music class="text-muted-foreground h-5 w-5" />
 														</div>
 													{/if}
-													<span>{track.title}</span>
-												</a>
-											</td>
-											<td class="px-4 py-3">
-												<a
-													href={`/artist/${track.artist?.id}`}
-													class="text-muted-foreground hover:underline"
-												>
-													{track.artist?.artist_name || 'Unknown Artist'}
-												</a>
+													<div>
+														<a href={`/track/${track.id}`} class="hover:underline">{track.title}</a>
+														<a
+															href={`/artist/${track.artist?.id}`}
+															class="text-muted-foreground block hover:underline"
+														>
+															{track.artist?.artist_name || 'Unknown Artist'}
+														</a>
+													</div>
+												</div>
 											</td>
 											<td class="text-muted-foreground px-4 py-3"
 												>{formatDuration(track.duration)}</td
@@ -112,7 +111,8 @@
 												<Button
 													variant="ghost"
 													size="icon"
-													class="opacity-0 group-hover:opacity-100"
+													class=""
+													onclick={() => playerState.playTrack(track)}
 												>
 													<Play class="h-5 w-5" />
 												</Button>

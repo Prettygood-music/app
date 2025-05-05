@@ -1,5 +1,6 @@
 import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
+import mime from 'mime-types';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -55,4 +56,21 @@ export function generateGradientDataURL(
 
 	// Return as data URL
 	return `data:image/svg+xml,${encodedSVG}`;
+}
+
+/**
+ * Generates a unique file name by appending a UUID to the file's extension.
+ *
+ * @param file - The file for which a unique name is to be generated.
+ * @returns A promise that resolves to a unique file name string in the format `<UUID>.<extension>`.
+ *
+ * @remarks
+ * - The file's extension is derived from its name using the `mime.extension` method.
+ * - A UUID is generated using `crypto.randomUUID()` to ensure uniqueness.
+ */
+export async function makeUniqueName(file: File) {
+	const extension = mime.extension(file.name);
+	const uuid = crypto.randomUUID();
+	const fileName = `${uuid}.${extension}`;
+	return fileName;
 }

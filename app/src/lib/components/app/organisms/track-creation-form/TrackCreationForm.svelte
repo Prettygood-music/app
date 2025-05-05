@@ -59,6 +59,9 @@
 	// Audio file preview state
 	let audioPreview = $state<string | null>(null);
 	let audioDuration = $state<number>(0);
+	$effect(() => {
+		$formData.duration = audioDuration;
+	});
 	let isAudioLoading = $state(false);
 
 	// Cover image preview state
@@ -171,6 +174,15 @@
 					</CardContent>
 				</Card>
 			{/if}
+			<Form.Field {form} name="duration" >
+				<Form.Control>
+					{#snippet children({ props })}
+						<!-- <Form.Label>Duration</Form.Label> -->
+
+						<Input {...props} value={$formData.duration} type="hidden" />
+					{/snippet}
+				</Form.Control>
+			</Form.Field>
 		</div>
 
 		<!-- Track Title -->
@@ -285,7 +297,7 @@
 								{/each}
 							</Select.Content>
 						</Select.Root>
-						
+
 						<div class="mb-2 flex flex-wrap gap-2">
 							{#each $formData.genre as genre}
 								<Badge variant="secondary" class="gap-1 pr-1">

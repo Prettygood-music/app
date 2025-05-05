@@ -4,7 +4,7 @@
 	let { data } = $props();
 </script>
 
-<div class="h-full w-screen overflow-hidden py-6 [&>*]:px-4 [&>*]:lg:px-8">
+<div class="h-full w-screen overflow-hidden overflow-y-auto py-6 [&>*]:px-4 [&>*]:lg:px-8">
 	<section>
 		<div class="flex items-center justify-between">
 			<div class="space-y-1">

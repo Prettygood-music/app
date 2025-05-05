@@ -13,7 +13,7 @@
 <div class="grid h-full overflow-y-auto lg:grid-cols-5">
 	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
 	<div class="lg:col-span-5">
-		<div class="h-full w-screen overflow-hidden py-6 [&>*]:px-4 [&>*]:lg:px-8">
+		<div class="h-full w-screen overflow-hidden py-6 [&>*]:md:px-4 [&>*]:lg:px-8">
 			<div class="flex items-center justify-between">
 				<div class="space-y-1">
 					<h2 class="text-2xl font-semibold tracking-tight">Listen Now</h2>

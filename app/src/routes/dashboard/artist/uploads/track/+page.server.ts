@@ -5,6 +5,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
 import mime from 'mime-types';
 import { STORAGE_KEYS } from '$lib/constants';
+import { makeUniqueName } from '$lib/utils';
 
 export const load: PageServerLoad = async ({ locals }) => {
 	// Get the current user ID from the session
@@ -43,11 +44,7 @@ export const actions: Actions = {
 		const audioFile = form.data.audio_file;
 		const coverFile = form.data.cover_image;
 
-		// TODO: this should be an utility function
-		const extension = mime.extension(audioFile.name);
-		const uuid = crypto.randomUUID();
-		// Filename to save as, including extension
-		const fileName = `${uuid}.${extension}`;
+		const fileName = await makeUniqueName(audioFile);
 
 		// NOTE: be mindful that this will break if we end up creating a dedicated artist ID
 		const { data: audioStorageData, error: audioStorageError } = await supabase.storage
@@ -57,24 +54,20 @@ export const actions: Actions = {
 			});
 
 		if (audioStorageError) {
-			console.error('audio storage error', audioStorageError);
+			console.error("Couldn't store audio file", audioStorageError);
 			return fail(500, withFiles({ form, error: audioStorageError }));
 		}
-		console.log('audio storage data', audioStorageData);
 		const {
 			data: { publicUrl: audioURL }
 		} = await supabase.storage.from(STORAGE_KEYS.TRACKS).getPublicUrl(audioStorageData!.path);
 		console.log(audioURL);
 
-		//return { form };
-		//return message(form, 'Track created successfully');
-
 		let coverURL: null | string = null;
 		if (coverFile) {
-			// FIXME: we need to generate a unique ID for the cover image
+			const coverFileName = await makeUniqueName(coverFile);
 			const { data } = await supabase.storage
 				.from(STORAGE_KEYS.TRACKS)
-				.upload(`${event.locals.user!.id}/${coverFile.name}`, coverFile, {});
+				.upload(`${event.locals.user!.id}/${coverFileName}`, coverFile, {});
 
 			const {
 				data: { publicUrl: coverPublicURL }
@@ -86,8 +79,7 @@ export const actions: Actions = {
 			title: trackData.title,
 			artist_id: event.locals.user!.id,
 			audio_url: audioURL,
-			// FIXME: we need to compute duration
-			duration: 0,
+			duration: parseInt(trackData.duration.toString()),
 			cover_url: coverURL,
 			album_id: trackData.album_id || undefined,
 			explicit: trackData.explicit,

@@ -12,7 +12,7 @@
 </script>
 
 <a
-	class="hover:bg-muted group flex w-[200px] flex-col rounded-md p-2 duration-200"
+	class="hover:bg-muted group flex w-[200px] max-w-[45%] flex-col rounded-md p-2 duration-200"
 	href={LINKS.TRACKS.ID(id)}
 >
 	<div class="relative aspect-square h-full w-full flex-1 overflow-hidden rounded-md">
