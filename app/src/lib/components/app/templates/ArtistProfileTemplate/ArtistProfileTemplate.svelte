@@ -127,6 +127,8 @@
 		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 			{#each artist.albums || [] as album}
 				<!-- <AlbumCard {album} /> -->
+				<AlbumCard {album} tracks={album.tracks} date={new Date(album.release_date).getFullYear()}></AlbumCard>
+
 			{/each}
 		</div>
 	</TabsContent>

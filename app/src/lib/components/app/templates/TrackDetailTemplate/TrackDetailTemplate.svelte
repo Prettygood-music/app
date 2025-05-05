@@ -94,7 +94,7 @@
 </script>
 
 <div class="overflow-y-auto">
-	<div class="container mx-auto md:px-4 py-8">
+	<div class="container mx-auto py-8 md:px-4">
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
 			<!-- Track Artwork and Primary Actions -->
 			<div class="flex flex-col items-center lg:items-start">
@@ -120,12 +120,12 @@
 						<HeartIcon class="h-5 w-5" />
 					</Button>
 					 -->
-					<LikeButton id={track.id} isLiked={isLiked} kind="track"></LikeButton>
+					<LikeButton id={track.id} {isLiked} kind="track"></LikeButton>
 
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
-					<AddPlaylist track={track}></AddPlaylist>
+					<AddPlaylist {track}></AddPlaylist>
 
 					<!-- 
 						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
@@ -137,7 +137,7 @@
 
 			<!-- Track Details -->
 			<div class="lg:col-span-2">
-				<div class="mb-6 space-y-2">
+				<div class="mb-6">
 					<div class="space-y-1">
 						<h1 class="text-3xl font-bold md:text-4xl">{track.title}</h1>
 						<div class="flex items-center">
@@ -206,7 +206,7 @@
 
 					<!-- Artist Section -->
 					<div>
-						<h3 class="mb-4 text-lg font-medium">Artist</h3>
+						<h3 class="mb-3 text-lg font-medium">Artist</h3>
 						<a
 							href="/artist/{track.artist.id}"
 							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
@@ -233,7 +233,7 @@
 
 		<!-- Recommended Tracks Section -->
 		{#if recommendedTracks && recommendedTracks.length > 0}
-			<div class="mt-12">
+			<div class="">
 				<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
 				<div class="space-y-1">
 					{#each recommendedTracks as recTrack}
