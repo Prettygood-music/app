@@ -107,7 +107,7 @@ class WalletManager {
 		} catch (error) {
 			console.error(error);
 		} finally {
-			this.refreshBalance();
+			this.refreshBalance(this.account);
 		}
 	}
 }

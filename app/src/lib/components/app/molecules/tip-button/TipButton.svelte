@@ -20,6 +20,7 @@
 	import { onMount } from 'svelte';
 	import { getWalletManager } from '../../organisms/wallet-manager/WalletManager.context.svelte';
 	import Sui from '$lib/assets/logos/sui.svelte';
+	import { toast } from 'svelte-sonner';
 
 	const walletManager = getWalletManager();
 
@@ -27,10 +28,18 @@
 		walletManager.currentWallet;
 	});
 
-	let transaction = $state(null);
 	let amount = $state<number>(null!);
 	async function sendTip() {
-		await walletManager.transferSui(amount, recipient);
+		const transfer = walletManager.transferSui(amount, recipient);
+
+		toast.promise(transfer, {
+			loading: 'Sending tip...',
+			success: (data) => {
+				return 'Thank you for tipping!';
+			},
+			error: "Error... Your tip couldn't be sent."
+		});
+		open = false;
 	}
 </script>
 

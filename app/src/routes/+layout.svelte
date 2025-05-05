@@ -3,6 +3,7 @@
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 	import { Toaster } from '$lib/components/ui/sonner';
+	
 
 	import { browser } from '$app/environment';
 	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';

@@ -125,7 +125,7 @@
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
-					<AddPlaylist trackID={track.id}></AddPlaylist>
+					<AddPlaylist track={track}></AddPlaylist>
 
 					<!-- 
 						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>

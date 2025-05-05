@@ -74,3 +74,9 @@ export async function makeUniqueName(file: File) {
 	const fileName = `${uuid}.${extension}`;
 	return fileName;
 }
+
+
+
+export function makeExplorerLink(digest: string){
+	return `https://testnet.suivision.xyz/txblock/${digest}`;
+}

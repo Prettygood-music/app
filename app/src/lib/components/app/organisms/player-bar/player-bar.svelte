@@ -13,13 +13,14 @@
 	import VolumeIcon from '../../atoms/volume-icon/volume-icon.svelte';
 	import Thumbnail from '../../atoms/thumbnail/thumbnail.svelte';
 	import ProgressIndicator from '../../atoms/progress-indicator/progress-indicator.svelte';
+	import PlaylistPanel from './PlaylistPanel.svelte';
 
 	const playerState = getPlayerContext();
 </script>
 
 {#if playerState && playerState.currentTrack}
 	{@const currentTrack = playerState.currentTrack}
-	<div class="bg-background  z-10 hidden w-full border-t lg:block">
+	<div class="bg-background z-10 hidden w-full border-t lg:block">
 		<div class="container grid grid-cols-3 px-6 py-4">
 			<div class="flex items-center space-x-2">
 				<Thumbnail coverURL={currentTrack.cover_url}></Thumbnail>
@@ -33,7 +34,7 @@
 						class="text-muted-foreground mt-0.5 text-xs hover:underline"
 					>
 						{currentTrack.artist_id}
-						 <!-- {currentTrack.audio_url} -->
+						<!-- {currentTrack.audio_url} -->
 					</a>
 				</div>
 			</div>
@@ -117,9 +118,7 @@
 					/>
 				</div>
 
-				<Button size="icon" variant="ghost">
-					<PlaylistIcon></PlaylistIcon>
-				</Button>
+				<PlaylistPanel queue={playerState.queue}></PlaylistPanel>
 			</div>
 		</div>
 	</div>
