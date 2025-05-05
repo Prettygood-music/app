@@ -14,13 +14,7 @@
 	const analytics = getAnalyticsContext();
 
 	// TODO: track if user is following
-	let isFollowing = $state(false);
-
-	function toggleFollow() {
-		isFollowing = !isFollowing;
-		// TODO: implement follow toggle
-		//onToggleFollow(isFollowing);
-	}
+	let isFollowing = $state(data.isUserFollowing);
 
 	function onTipArtist(artist: typeof data.artist) {
 		// This would integrate with the Sui wallet functionality
@@ -65,7 +59,7 @@
 
 				<div class="flex gap-2">
 					<ShareButton cb={() => analytics.onArtistShare(artist.id)}></ShareButton>
-					<FollowButton></FollowButton>
+					<FollowButton isFollowing={data.isUserFollowing} artistID={artist.id}></FollowButton>
 					<!-- 
 						<Button variant="default" onclick={() => onTipArtist(artist)}>
 							<TipIcon class="mr-2 h-4 w-4" />
