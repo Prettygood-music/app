@@ -21,13 +21,6 @@
 
 	// Placeholder data
 	let timeFrame = $state('month');
-
-	// Format currency function
-	function formatCurrency(amount: number, currency: string = 'SUI') {
-		return `${amount.toFixed(2)} ${currency}`;
-	}
-
-	$inspect(data.user)
 </script>
 
 {#if data.user && data.user.wallet_address}
@@ -141,5 +134,5 @@
 		</Tabs>
 	</div>
 {:else}
-	<Empty data={{form: data.form}}></Empty>
+	<Empty data={{ form: data.form }}></Empty>
 {/if}

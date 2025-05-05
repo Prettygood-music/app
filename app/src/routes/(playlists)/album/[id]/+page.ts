@@ -4,14 +4,19 @@ import { error } from '@sveltejs/kit';
 export const load: PageLoad = async ({ params, parent }) => {
 	const { supabase, user } = await parent();
 
-	const { data: album } = await supabase
+	const { data: album, error: albumError } = await supabase
 		.from('albums')
-		.select('*, tracks(*), artist: artists(*, artist_name, albums(*, tracks(id)))')
+		.select('*, tracks(*), artist: artists(*, payout:users!artists_id_fkey(wallet_address), artist_name, albums(*, tracks(id)))')
 		.eq('id', params.id)
 		.order('created_at', { ascending: false, referencedTable: 'tracks' })
 		.limit(10, { referencedTable: 'tracks' })
 		.neq('artist.albums.id', params.id)
 		.single();
+
+	if(albumError){
+		console.error(albumError);
+		throw error(500, "Couldn't find album")
+	}
 
 	if (!album) {
 		error(404, 'Album not found');
@@ -32,7 +37,7 @@ export const load: PageLoad = async ({ params, parent }) => {
 	}
 	return {
 		album: album,
-		artist: album.artist,
+		artist: {...album.artist, payout_address: album.artist.payout.wallet_address},
 		tracks: album.tracks,
 		relatedAlbums: album.artist.albums,
 		isLiked

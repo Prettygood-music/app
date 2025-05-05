@@ -19,6 +19,7 @@
 	import { LINKS } from '$lib/constants';
 	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
+	import TipButton from '../../molecules/tip-button/TipButton.svelte';
 
 	type Album = {
 		id: string;
@@ -53,7 +54,7 @@
 	}: {
 		album: Album;
 		relatedAlbums: Album[];
-		artist: Artist;
+		artist: Artist & { payout_address: string | null };
 		initialIsLiked: boolean;
 	} = $props();
 
@@ -175,7 +176,9 @@
 					</Button>
 
 					<LikeButton id={album.id} kind={'album'} {isLiked}></LikeButton>
-
+					{#if artist.payout_address}
+						<TipButton recipient={artist.payout_address}></TipButton>
+					{/if}
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareAlbum}>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
