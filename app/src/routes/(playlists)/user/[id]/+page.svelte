@@ -20,6 +20,7 @@
 	import WalletIcon from 'lucide-svelte/icons/wallet';
 	import Card from '../../playlist/[id]/card.svelte';
 	import TipButton from '$lib/components/app/molecules/tip-button/TipButton.svelte';
+	import Achievements from './Achievements.svelte';
 
 	// Page data from load function
 	let { data } = $props();
@@ -87,7 +88,7 @@
 
 <div class="pb-16">
 	<!-- Profile Header with Cover/Background -->
-	<div class="from-muted/70 to-background relative min-h-[200px] bg-gradient-to-b">
+	<div class="from-muted/70 to-background relative min-h-[200px] bg-gradient-to-b rounded-t-md">
 		<div class="container mx-auto px-4 py-8">
 			<div class="flex flex-col items-center gap-6 md:flex-row md:items-end">
 				<!-- User Avatar -->
@@ -167,7 +168,9 @@
 				<TabsTrigger value="overview">Overview</TabsTrigger>
 				<TabsTrigger value="playlists">Playlists</TabsTrigger>
 				<TabsTrigger value="liked">Liked Tracks</TabsTrigger>
+				<TabsTrigger value="achievements">Achievements</TabsTrigger>
 				<TabsTrigger value="about">About</TabsTrigger>
+
 			</TabsList>
 
 			<!-- Overview Tab -->
@@ -425,6 +428,12 @@
 						</div>
 					</section>
 				</div>
+			</TabsContent>
+
+
+			<TabsContent value="achievements">
+
+				<Achievements ownedAchievementIDs={data.ownedAchiementsIDs} achievements={data.achievements}></Achievements>
 			</TabsContent>
 		</Tabs>
 	</div>

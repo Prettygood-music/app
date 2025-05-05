@@ -1,11 +1,12 @@
 import type { PageLoad } from './$types';
-import type { User, Playlist, Track } from '$lib/types/player';
 import { error } from '@sveltejs/kit';
+import type { Achievement } from './types';
 
-export const load: PageLoad = async ({ params, fetch, parent }) => {
+export const load: PageLoad = async ({ params, parent }) => {
 	const userId = params.id;
 
 	const { supabase, user } = await parent();
+	// TODO: query owned achievements
 	const { data: userProfile, error: err } = await supabase
 		.from('users')
 		.select(
@@ -17,6 +18,10 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		.limit(5, { referencedTable: 'play_history' })
 		.single();
 
+	const ownedAchiementsIDs: string[] = [];
+	// TODO: query all achievements
+	const achievements: Achievement[] = [];
+
 	if (!userProfile) {
 		throw error(404, 'User not found');
 	}
@@ -27,7 +32,7 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		recenlyPlayedTracks.find((t) => t.id === id)
 	);*/
 
-	const {data: uniqueRecentlyPlayedTracks} = await supabase
+	const { data: uniqueRecentlyPlayedTracks } = await supabase
 		.from('tracks_with_details')
 		.select('*')
 		.in('id', recentlyPlayedTracksIDs);
@@ -48,97 +53,10 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 			'id',
 			(likedTracksID || []).map((track) => track.track_id)
 		);
-	/*
-	const likedTracks: Track[] = [
-		{
-			id: 'track-1',
-			title: 'Recursive Rhythms',
-			artist_id: 'artist-1',
-			artist_name: 'Nina Netcode',
-			album_id: 'album-1',
-			album_name: 'Async Awakenings',
-			cover_url: 'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-			duration: 245,
-			playback_url: '#',
-			published_at: '2023-05-15',
-			genres: ['Electronic', 'Ambient'],
-			play_count: 1245678
-		},
-		{
-			id: 'track-2',
-			title: 'Binary Sunset',
-			artist_id: 'artist-1',
-			artist_name: 'Nina Netcode',
-			album_id: 'album-1',
-			album_name: 'Async Awakenings',
-			cover_url: 'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-			duration: 198,
-			playback_url: '#',
-			published_at: '2023-05-15',
-			genres: ['Electronic', 'Downtempo'],
-			play_count: 987543
-		},
-		{
-			id: 'track-3',
-			title: 'Quantum Leap',
-			artist_id: 'artist-1',
-			artist_name: 'Nina Netcode',
-			album_id: 'album-2',
-			album_name: 'Digital Dreams',
-			cover_url: 'https://images.unsplash.com/photo-1528143358888-6d3c7f67bd5d?w=300&dpr=2&q=80',
-			duration: 274,
-			playback_url: '#',
-			published_at: '2021-11-03',
-			genres: ['Electronic', 'Techno'],
-			play_count: 876432
-		},
-		{
-			id: 'track-4',
-			title: 'Circuit Dreams',
-			artist_id: 'artist-2',
-			artist_name: 'Lena Logic',
-			album_id: 'album-4',
-			album_name: 'Silicon Dreams',
-			cover_url: 'https://images.unsplash.com/photo-1496293455970-f8581aae0e3b?w=300&dpr=2&q=80',
-			duration: 313,
-			playback_url: '#',
-			published_at: '2023-01-15',
-			genres: ['Electronic', 'IDM'],
-			play_count: 765321
-		},
-		{
-			id: 'track-5',
-			title: 'Digital Horizon',
-			artist_id: 'artist-3',
-			artist_name: 'Beth Binary',
-			album_id: 'album-5',
-			album_name: 'Quantum State',
-			cover_url: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=300&dpr=2&q=80',
-			duration: 287,
-			playback_url: '#',
-			published_at: '2022-08-10',
-			genres: ['Electronic', 'Ambient'],
-			play_count: 654321
-		},
-		{
-			id: 'track-6',
-			title: 'Cyber Serenity',
-			artist_id: 'artist-4',
-			artist_name: 'Ethan Byte',
-			album_id: 'album-6',
-			album_name: 'Digital Escape',
-			cover_url: 'https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?w=300&dpr=2&q=80',
-			duration: 246,
-			playback_url: '#',
-			published_at: '2022-03-25',
-			genres: ['Electronic', 'Chillout'],
-			play_count: 543210
-		}
-	];*/
 
 	// User stats and additional info
 	const followers = 0;
-	const joinDate = userProfile.created_at; //'2022-06-15T08:30:00Z';
+	const joinDate = userProfile.created_at;
 
 	// Additional stats for the About tab
 	const stats = {
@@ -182,6 +100,8 @@ export const load: PageLoad = async ({ params, fetch, parent }) => {
 		likedTracks: likedTracks || [],
 		followers,
 		joinDate,
-		stats
+		stats,
+		achievements,
+		ownedAchiementsIDs
 	};
 };
