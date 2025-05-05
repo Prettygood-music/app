@@ -6,21 +6,11 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
 	import { getAnalyticsContext } from '$lib/services/analytics/analytics.svelte.js';
-
-	import TipIcon from 'lucide-svelte/icons/coins';
+	import ImageFallback from '../../playlist/[id]/imageFallback.svelte';
 
 	let { children, data } = $props();
 	let artist = $derived(data.artist);
 	const analytics = getAnalyticsContext();
-
-	// TODO: track if user is following
-	let isFollowing = $state(data.isUserFollowing);
-
-	function onTipArtist(artist: typeof data.artist) {
-		// This would integrate with the Sui wallet functionality
-		console.log(`User wants to tip artist: ${artist.id}`);
-		alert('Tipping functionality would integrate with Sui wallet');
-	}
 </script>
 
 <div class="flex flex-col overflow-y-auto">
@@ -40,10 +30,11 @@
 
 		<div class="absolute inset-x-0 bottom-0">
 			<div class="container flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center">
-				<Avatar.Root class="border-background h-24 w-24 border-4 md:h-36 md:w-36">
-					<Avatar.Image src={artist?.avatar_url || ''} alt={artist.artist_name} />
-					<Avatar.Fallback>{artist.artist_name.substring(0, 2)}</Avatar.Fallback>
-				</Avatar.Root>
+				<ImageFallback
+					src={artist.avatar_url}
+					name={artist.artist_name}
+					class="h-24 w-24 rounded-full border-4 md:h-36 md:w-36"
+				></ImageFallback>
 
 				<div class="flex-1">
 					<h1 class="text-3xl font-bold text-white drop-shadow-md md:text-5xl">
@@ -51,6 +42,7 @@
 					</h1>
 					<div class="mt-2 flex items-center gap-2">
 						<Badge variant="secondary" class="text-xs">ARTIST</Badge>
+						<!-- TODO: fix monthly listeners count -->
 						<span class="text-sm text-white/80"
 							>{artist.stats?.monthlyListeners || '25.4M'} monthly listeners</span
 						>
@@ -60,12 +52,7 @@
 				<div class="flex gap-2">
 					<ShareButton cb={() => analytics.onArtistShare(artist.id)}></ShareButton>
 					<FollowButton isFollowing={data.isUserFollowing} artistID={artist.id}></FollowButton>
-					<!-- 
-						<Button variant="default" onclick={() => onTipArtist(artist)}>
-							<TipIcon class="mr-2 h-4 w-4" />
-							Tip Artist
-						</Button>
-						-->
+
 					{#if data.artist.payout_address.wallet_address}
 						<TipButton recipient={data.artist.payout_address.wallet_address}></TipButton>
 					{/if}

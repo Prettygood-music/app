@@ -6,7 +6,7 @@
 
 	// Initial state
 	let isPlaying = $state(false);
-	let isLiked = $state(false);
+	
 
 	// Event handlers
 	function handleTogglePlay(playing, album) {
@@ -40,7 +40,7 @@
 	artist={data.artist}
 	tracks={data.tracks}
 	relatedAlbums={data.relatedAlbums}
-	initialIsLiked={isLiked}
+	initialIsLiked={data.isLiked}
 	onTogglePlay={handleTogglePlay}
 	onShufflePlay={handleShufflePlay}
 	onToggleLike={handleToggleLike}

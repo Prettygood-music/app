@@ -18,6 +18,7 @@
 	import { page } from '$app/state';
 	import { LINKS } from '$lib/constants';
 	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
+	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
 
 	type Album = {
 		id: string;
@@ -53,6 +54,7 @@
 		album: Album;
 		relatedAlbums: Album[];
 		artist: Artist;
+		initialIsLiked: boolean;
 	} = $props();
 
 	const playerState = getPlayerContext();
@@ -172,19 +174,11 @@
 						Shuffle
 					</Button>
 
-					<Button variant={isLiked ? 'default' : 'ghost'} size="icon" class="rounded-full" disabled>
-						<HeartIcon class="h-5 w-5" />
-					</Button>
+					<LikeButton id={album.id} kind={'album'} {isLiked}></LikeButton>
 
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareAlbum}>
 						<ShareIcon class="h-5 w-5" />
 					</Button>
-
-					<!-- 
-						<Button variant="ghost" size="icon" class="rounded-full" onclick={showMoreOptions}>
-							<MoreHorizontalIcon class="h-5 w-5" />
-						</Button>
-						-->
 				</div>
 
 				<!-- Album Release Information -->
@@ -246,10 +240,10 @@
 				<div>
 					<h2 class="mb-4 text-xl font-bold">Artist</h2>
 					<a
-						href="{LINKS.ARTISTS.ID(artist.id)}"
+						href={LINKS.ARTISTS.ID(artist.id)}
 						class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 					>
-					<!-- 
+						<!-- 
 						<Avatar class="h-16 w-16">
 							<AvatarImage src={artist.avatar_url || ''} alt={artist.artist_name} />
 							<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
@@ -258,8 +252,8 @@
 						<ImageFallback
 							src={artist.avatar_url || ''}
 							name={artist.artist_name}
-							class="h-16 w-16 rounded-md rounded-full">
-						</ImageFallback>
+							class="h-16 w-16 rounded-full rounded-md"
+						></ImageFallback>
 						<div>
 							<h4 class="group-hover:text-primary font-medium group-hover:underline">
 								{artist.artist_name}
