@@ -19,6 +19,7 @@
 	import UserIcon from 'lucide-svelte/icons/user';
 	import WalletIcon from 'lucide-svelte/icons/wallet';
 	import Card from '../../playlist/[id]/card.svelte';
+	import TipButton from '$lib/components/app/molecules/tip-button/TipButton.svelte';
 
 	// Page data from load function
 	let { data } = $props();
@@ -145,10 +146,13 @@
 						</Button>
 
 						{#if user.wallet_address}
-							<Button variant="outline" onclick={tipUser} class="gap-2">
+							<!--
+						<Button variant="outline" onclick={tipUser} class="gap-2">
 								<CoinsIcon class="h-4 w-4" />
 								Tip
 							</Button>
+							  -->
+							<TipButton recipient={user.wallet_address}></TipButton>
 						{/if}
 					</div>
 				{/if}

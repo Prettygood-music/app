@@ -82,6 +82,7 @@
     "@hono/zod-validator": "^0.4.3",
     "@inlang/paraglide-sveltekit": "^0.15.5",
     "@mysten/sui": "^1.24.0",
+    "@mysten/wallet-standard": "^0.14.9",
     "@prettygood/database": "workspace:*",
     "@resvg/resvg-js": "^2.6.2",
     "@supabase/postgrest-js": "^1.19.3",

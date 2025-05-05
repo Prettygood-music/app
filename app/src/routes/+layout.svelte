@@ -20,6 +20,7 @@
 
 	import SkSeo from 'sk-seo';
 	import { page } from '$app/state';
+	import { setWalletManager } from '$lib/components/app/organisms/wallet-manager/WalletManager.context.svelte';
 
 	let { children, data } = $props();
 	let { session, supabase } = $derived(data);
@@ -32,6 +33,11 @@
 
 	const playerState = new PlayerState();
 	setPlayerContext(playerState);
+
+	if(browser){
+
+		setWalletManager();
+	}
 
 	const analytics = setAnalyticsContext(data.user?.id || null, data.supabase);
 
