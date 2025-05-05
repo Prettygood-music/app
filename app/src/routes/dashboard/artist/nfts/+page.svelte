@@ -54,7 +54,7 @@
 
 	<div class="grid gap-6 md:grid-cols-2">
 		<!-- Coming Soon Card -->
-		<Card class="col-span-2 md:col-span-1">
+		<Card class="col-span-2 lg:col-span-1">
 			<CardHeader>
 				<CardTitle>Coming Soon!</CardTitle>
 				<CardDescription>NFT features are currently in development</CardDescription>
@@ -94,14 +94,13 @@
 				</div>
 
 				<p class="text-muted-foreground text-sm">
-					These features will be available in a future update. Sign up to be notified when they
-					launch.
+					These features will be available in a future update.
 				</p>
 			</CardContent>
 		</Card>
 
 		<!-- Notification Signup -->
-<!-- 		 
+		<!-- 		 
 		<Card class="col-span-2 md:col-span-1">
 			<CardHeader>
 				<CardTitle>Get Notified</CardTitle>
@@ -233,10 +232,12 @@
 				</p>
 			</div>
 		</CardContent>
+
 		<CardFooter>
 			<Button
 				variant="outline"
 				class="w-full"
+				disabled
 				onclick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
 			>
 				Get Notified About Launch

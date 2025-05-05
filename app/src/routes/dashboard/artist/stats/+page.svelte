@@ -40,7 +40,7 @@
 			<TabsTrigger value="overview">Overview</TabsTrigger>
 			<TabsTrigger value="plays">Plays</TabsTrigger>
 			<TabsTrigger value="audience">Audience</TabsTrigger>
-			<TabsTrigger value="traffic">Traffic Sources</TabsTrigger>
+			<!-- <TabsTrigger value="traffic">Traffic Sources</TabsTrigger> -->
 		</TabsList>
 
 		<TabsContent value="overview" class="space-y-4">
@@ -173,7 +173,7 @@
 						</div>
 					</CardContent>
 					<CardFooter>
-						<Button variant="outline" class="w-full">View All Tracks</Button>
+						<Button variant="outline" class="w-full" disabled>View All Tracks</Button>
 					</CardFooter>
 				</Card>
 			</div>

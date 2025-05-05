@@ -59,7 +59,7 @@
 	let { onDisconnect }: { onDisconnect?: VoidFunction } = $props();
 </script>
 
-<header class="bg-background w-full flex items-center " style="view-transition-name: none;">
+<header class="bg-background w-full" style="view-transition-name: none;">
 	<div class="flex h-14 items-center justify-between px-4">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center">
@@ -77,7 +77,7 @@
 		</div>
 
 		<!-- User Section -->
-		<div class="flex items-center space-x-4 ml-2">
+		<div class="ml-2 flex items-center space-x-4">
 			<!-- TODO: don't show if already installed -->
 			{#if !isStandalone}
 				<Button href={LINKS.INSTALL} size="sm" variant="ghost" class="text-muted-foreground">
@@ -113,13 +113,10 @@
 					</DropdownMenu.Content>
 				</DropdownMenu.Root>
 			{:else}
-			
 				<Button href={LINKS.LOGIN} class="hidden md:block">Connect</Button>
-				<Button href={LINKS.LOGIN} class="md:hidden" size="icon" >
+				<Button href={LINKS.LOGIN} class="md:hidden" size="icon">
 					<CircleUserIcon></CircleUserIcon>
-					
 				</Button>
-
 			{/if}
 		</div>
 	</div>

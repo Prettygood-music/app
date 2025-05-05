@@ -15,7 +15,6 @@
 		{ href: makeLink('/stats'), label: 'Stats & Analytics' },
 		{ href: makeLink('/earnings'), label: 'Earnings & Payments' },
 		{ href: makeLink('/uploads'), label: 'Content Management' },
-		{ href: makeLink('/wallet'), label: 'Wallet' },
 		{ href: makeLink('/nfts'), label: 'NFTs (Coming Soon)' }
 	];
 
@@ -39,7 +38,10 @@
 	<aside class="bg-card hidden h-screen w-64 flex-col border-r md:flex">
 		<div class="p-4">
 			<h1 class="text-xl font-semibold">Artist Dashboard</h1>
-			<a href="{LINKS.PROFILE}" class="flex mt-1 items-center text-muted-foreground hover:text-foreground text-xs">
+			<a
+				href={LINKS.PROFILE}
+				class="text-muted-foreground hover:text-foreground mt-1 flex items-center text-xs"
+			>
 				<ArrowLeft size={14}></ArrowLeft>
 				Back to dashboard</a
 			>
