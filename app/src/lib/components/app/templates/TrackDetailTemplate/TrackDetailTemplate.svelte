@@ -36,7 +36,6 @@
 	} = $props();
 
 	const analytics = getAnalyticsContext();
-	let isLiked = $state(initialIsLiked);
 
 	// Function to format date in human-readable format
 	function formatDate(dateString: string): string {
@@ -97,7 +96,7 @@
 						<HeartIcon class="h-5 w-5" />
 					</Button>
 					 -->
-					<LikeButton id={track.id} {isLiked} kind="track"></LikeButton>
+					<LikeButton id={track.id} isLiked={initialIsLiked} kind="track"></LikeButton>
 
 					<Button variant="ghost" size="icon" class="rounded-full" onclick={shareTrack}>
 						<ShareIcon class="h-5 w-5" />
