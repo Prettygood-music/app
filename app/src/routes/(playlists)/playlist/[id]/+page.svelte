@@ -16,6 +16,7 @@
 	import PlayIcon from 'lucide-svelte/icons/play';
 	import UserIcon from 'lucide-svelte/icons/user';
 	import Card from './card.svelte';
+	import { getPlayerContext } from '$lib/state/player.svelte';
 
 	// Page data from load function
 	let { data } = $props();
@@ -65,12 +66,19 @@
 			return `${minutes} min`;
 		}
 	}
+	const playerState = getPlayerContext();
 
 	// Handle play/pause for the whole playlist
 	function togglePlay() {
-		isPlaying = !isPlaying;
-		// In a real app, this would trigger the audio player
-		console.log(`${isPlaying ? 'Playing' : 'Paused'} playlist: ${playlist.name}`);
+		if (isPlaying) {
+			playerState.pause();
+		} else {
+			if (playerState.currentListId === playlist.id) {
+				playerState.play();
+			} else {
+				playerState.playList(playlist);
+			}
+		}
 	}
 
 	// Handle like
