@@ -208,8 +208,8 @@
 
 		<!-- Recommended Tracks Section -->
 		{#if recommendedTracks && recommendedTracks.length > 0}
-			<div class="">
-				<h2 class="mb-6 text-2xl font-bold">You might also like</h2>
+			<div class="mt-8">
+				<h2 class="mb-4 text-2xl font-bold">You might also like</h2>
 				<div class="space-y-1">
 					{#each recommendedTracks as recTrack}
 						<TrackItem track={recTrack} />

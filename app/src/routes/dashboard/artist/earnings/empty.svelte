@@ -31,8 +31,6 @@
 	</Card.Header>
 
 	<Card.Content>
-		<div>small explainer</div>
-
 		<form method="POST" use:enhance>
 			<div class="space-y-2">
 				<Form.Field {form} name="address">
@@ -50,11 +48,9 @@
 					<Form.FieldErrors />
 				</Form.Field>
 			</div>
-            <Button type="submit">Set wallet</Button>
+			<Button type="submit">Set wallet</Button>
 		</form>
 	</Card.Content>
 
-	<Card.Footer>
-		
-	</Card.Footer>
+	<Card.Footer></Card.Footer>
 </Card.Root>

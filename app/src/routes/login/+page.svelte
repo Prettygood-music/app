@@ -70,14 +70,7 @@
 					<Form.FieldErrors />
 				</Form.Field>
 
-				<!-- Remember Me Checkbox -->
-				<div class="flex items-center space-x-2">
-					<Checkbox name="rememberMe" id="rememberMe" />
-					<Label for="rememberMe" class="text-sm font-medium leading-none">
-						Remember me for 30 days
-					</Label>
-				</div>
-
+				
 				<!-- Submit Button -->
 				<Button type="submit" class="w-full" disabled={loading}>
 					{#if loading}

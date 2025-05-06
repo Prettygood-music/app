@@ -32,16 +32,6 @@
 	let isLiked = $state(false);
 	let totalDuration = $derived(tracks.reduce((total, track) => total + (track.duration || 0), 0));
 
-	// Function to format date in human-readable format
-	function formatDate(dateString: string): string {
-		const date = new Date(dateString);
-		return new Intl.DateTimeFormat('en-US', {
-			year: 'numeric',
-			month: 'long',
-			day: 'numeric'
-		}).format(date);
-	}
-
 	// Function to format relative time (e.g., "2 days ago")
 	function formatRelativeTime(dateString: string): string {
 		const date = new Date(dateString);
@@ -83,21 +73,10 @@
 		console.log(`${isPlaying ? 'Playing' : 'Paused'} playlist: ${playlist.name}`);
 	}
 
-	// Handle shuffle play
-	function shufflePlay() {
-		console.log(`Shuffle playing playlist: ${playlist.name}`);
-		isPlaying = true;
-	}
-
 	// Handle like
 	function toggleLike() {
 		isLiked = !isLiked;
 		console.log(`${isLiked ? 'Liked' : 'Unliked'} playlist: ${playlist.name}`);
-	}
-
-	// Handle share
-	function sharePlaylist() {
-		console.log(`Sharing playlist: ${playlist.name}`);
 	}
 
 	let coverBackground = $state(
@@ -263,7 +242,6 @@
 			{#if tracks.length > 0}
 				<div class="space-y-1">
 					{#each tracks as track, i}
-					
 						<TrackItem {track} index={i} />
 					{/each}
 				</div>
