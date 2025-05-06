@@ -81,12 +81,6 @@
 		}
 	}
 
-	// Handle like
-	function toggleLike() {
-		isLiked = !isLiked;
-		console.log(`${isLiked ? 'Liked' : 'Unliked'} playlist: ${playlist.name}`);
-	}
-
 	let coverBackground = $state(
 		data.playlist.cover_url
 			? `url(${data.playlist.cover_url})`
