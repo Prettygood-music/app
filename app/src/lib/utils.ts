@@ -75,8 +75,10 @@ export async function makeUniqueName(file: File) {
 	return fileName;
 }
 
-
-
-export function makeExplorerLink(digest: string){
+export function makeExplorerLink(digest: string) {
 	return `https://testnet.suivision.xyz/txblock/${digest}`;
+}
+
+export function makeExplorerLinkForObject(id: string) {
+	return `https://suiscan.xyz/testnet/object/${id}/tx-blocks`;
 }

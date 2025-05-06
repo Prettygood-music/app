@@ -16,7 +16,13 @@ export const registerSchema = z
 			.regex(/[0-9]/, 'Password must contain at least one number'),
 		confirmPassword: z.string(),
 		displayName: z.string().optional(),
-		terms: z.enum(['on']).optional()
+		terms: z.enum(['on']).optional(),
+		address: z
+			.string()
+			.regex(/^0x[a-fA-F0-9]{64}$/, {
+				message: "Invalid SUI address format. Must be '0x' followed by 64 hexadecimal characters."
+			})
+			.optional()
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		message: 'Passwords do not match',

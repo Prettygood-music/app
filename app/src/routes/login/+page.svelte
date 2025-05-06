@@ -50,9 +50,11 @@
 						{#snippet children({ props })}
 							<div class="flex items-center justify-between">
 								<Form.Label>Password</Form.Label>
+								<!-- 
 								<a href="/auth/forgot-password" class="text-primary text-sm hover:underline">
 									Forgot password?
 								</a>
+								 -->
 							</div>
 							<!-- 
 							<Input
@@ -64,7 +66,7 @@
 								autocomplete="current-password"
 							/>
                -->
-							<Input bind:value={$formData.password} {...props} />
+							<Input bind:value={$formData.password} type="password" {...props} />
 						{/snippet}
 					</Form.Control>
 					<Form.FieldErrors />

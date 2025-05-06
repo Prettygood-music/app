@@ -1,18 +1,20 @@
 <script lang="ts">
-	import type { Achievement } from '$lib/types';
+	import type { Achievement, OwnedAchievement } from '$lib/types';
+	import { makeExplorerLinkForObject } from '$lib/utils';
+	import { ExternalLinkIcon, LinkIcon } from 'lucide-svelte';
 
 	let {
 		ownedAchievements,
 		achievements
-	}: { ownedAchievements: Achievement[]; achievements: Achievement[] } = $props();
+	}: { ownedAchievements: OwnedAchievement[]; achievements: Achievement[] } = $props();
 
 	let remainingAchievements = $derived.by(() => {
-		const ownedIDs = ownedAchievements.map((a) => a.id);
+		const ownedIDs = ownedAchievements.map((a) => a.achievement_id);
 		return achievements.filter((a) => !ownedIDs.includes(a.id));
 	});
 </script>
 
-{#snippet AchievementCard(achievement: Achievement, owned: boolean)}
+{#snippet AchievementCard(achievement: OwnedAchievement | Achievement, owned: boolean)}
 	<li class="flex flex-col rounded-md border p-4 {owned ? '' : 'opacity-60 grayscale'}">
 		<img src={achievement.image} alt={achievement.title} class="rounded-md" />
 		<div class="mt-3">
@@ -23,6 +25,17 @@
 				{achievement.description}
 			</p>
 		</div>
+
+		{#if owned && 'blockchain_address' in achievement}
+			<a
+				class="mt-2 flex items-start text-end text-sm justify-end"
+				target="_blank"
+				href={makeExplorerLinkForObject(achievement.blockchain_address!)}
+			>
+				View in explorer
+				<ExternalLinkIcon size="14" class="ml-1"></ExternalLinkIcon>
+			</a>
+		{/if}
 	</li>
 {/snippet}
 

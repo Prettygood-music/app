@@ -157,6 +157,20 @@
 						</Form.Control>
 						<Form.FieldErrors />
 					</Form.Field>
+					<Form.Field {form} name="address">
+						<Form.Control>
+							{#snippet children({ props })}
+								<Form.Label>SUI Wallet Address <span class="text-destructive">*</span></Form.Label>
+								<Input
+									{...props}
+									bind:value={$formData.address}
+									placeholder="Enter Address"
+									required
+								/>
+							{/snippet}
+						</Form.Control>
+						<Form.FieldErrors />
+					</Form.Field>
 
 					<!-- Terms Checkbox -->
 					<Form.Field {form} name="terms">
@@ -189,9 +203,6 @@
 										>Privacy Policy</a
 									>
 								</label>
-								{#if form?.fieldErrors?.terms}
-									<p id="terms-error" class="text-destructive text-sm">{form.fieldErrors.terms}</p>
-								{/if}
 							</div>
 						</div>
 					</Form.Field>
