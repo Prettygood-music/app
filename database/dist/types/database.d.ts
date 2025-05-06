@@ -4,6 +4,39 @@ export type Json = string | number | boolean | null | {
 export type Database = {
     public: {
         Tables: {
+            achievements: {
+                Row: {
+                    category: string;
+                    created_at: string;
+                    description: string;
+                    id: string;
+                    image: string;
+                    rarity: string;
+                    title: string;
+                    updated_at: string;
+                };
+                Insert: {
+                    category: string;
+                    created_at?: string;
+                    description: string;
+                    id?: string;
+                    image: string;
+                    rarity: string;
+                    title: string;
+                    updated_at?: string;
+                };
+                Update: {
+                    category?: string;
+                    created_at?: string;
+                    description?: string;
+                    id?: string;
+                    image?: string;
+                    rarity?: string;
+                    title?: string;
+                    updated_at?: string;
+                };
+                Relationships: [];
+            };
             album_genres: {
                 Row: {
                     album_id: string;
@@ -761,6 +794,42 @@ export type Database = {
                     }
                 ];
             };
+            user_achievements: {
+                Row: {
+                    achievement_id: string;
+                    blockchain_address: string;
+                    obtained_at: string;
+                    user_id: string;
+                };
+                Insert: {
+                    achievement_id: string;
+                    blockchain_address: string;
+                    obtained_at?: string;
+                    user_id: string;
+                };
+                Update: {
+                    achievement_id?: string;
+                    blockchain_address?: string;
+                    obtained_at?: string;
+                    user_id?: string;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "user_achievements_achievement_id_fkey";
+                        columns: ["achievement_id"];
+                        isOneToOne: false;
+                        referencedRelation: "achievements";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "user_achievements_user_id_fkey";
+                        columns: ["user_id"];
+                        isOneToOne: false;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    }
+                ];
+            };
             user_library_albums: {
                 Row: {
                     added_at: string;
@@ -1093,6 +1162,35 @@ export type Database = {
                     }
                 ];
             };
+            user_achievement_details: {
+                Row: {
+                    achievement_id: string | null;
+                    blockchain_address: string | null;
+                    category: string | null;
+                    description: string | null;
+                    image: string | null;
+                    obtained_at: string | null;
+                    rarity: string | null;
+                    title: string | null;
+                    user_id: string | null;
+                };
+                Relationships: [
+                    {
+                        foreignKeyName: "user_achievements_achievement_id_fkey";
+                        columns: ["achievement_id"];
+                        isOneToOne: false;
+                        referencedRelation: "achievements";
+                        referencedColumns: ["id"];
+                    },
+                    {
+                        foreignKeyName: "user_achievements_user_id_fkey";
+                        columns: ["user_id"];
+                        isOneToOne: false;
+                        referencedRelation: "users";
+                        referencedColumns: ["id"];
+                    }
+                ];
+            };
         };
         Functions: {
             add_album_to_library: {
@@ -1132,6 +1230,14 @@ export type Database = {
                     artist_id: string;
                     approved: boolean;
                     admin_notes?: string;
+                };
+                Returns: Json;
+            };
+            award_achievement: {
+                Args: {
+                    user_id: string;
+                    achievement_id: string;
+                    blockchain_address: string;
                 };
                 Returns: Json;
             };
