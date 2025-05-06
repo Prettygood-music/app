@@ -93,7 +93,7 @@
 			<div class="flex flex-col items-center gap-6 md:flex-row md:items-end">
 				<!-- User Avatar -->
 				<Avatar class="border-background h-32 w-32 border-4">
-					<AvatarImage src={user?.avatar_url || ''} alt={user.display_name} />
+					<AvatarImage src={user?.avatar || ''} alt={user.display_name} />
 					<AvatarFallback>
 						<div
 							class="flex h-full w-full items-center justify-center text-4xl font-bold text-white"

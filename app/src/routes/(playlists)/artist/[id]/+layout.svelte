@@ -23,15 +23,15 @@
 				class="h-full w-full object-cover"
 			/>
 		{:else}
-			<div class="from-primary/20 to-primary/40 h-full w-full bg-gradient-to-r"></div>
+			<div class="from-primary/20 to-primary/80 h-full w-full bg-gradient-to-r"></div>
 		{/if}
 
-		<div class="from-background absolute inset-0 bg-gradient-to-t to-transparent"></div>
+		<div class="from-muted/70 absolute inset-0 bg-gradient-to-b rounded-t-md to-transparent"></div>
 
 		<div class="absolute inset-x-0 bottom-0">
 			<div class="container flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center">
 				<ImageFallback
-					src={artist.avatar_url}
+					src={artist.avatar}
 					name={artist.artist_name}
 					class="h-24 w-24 rounded-full border-4 md:h-36 md:w-36"
 				></ImageFallback>

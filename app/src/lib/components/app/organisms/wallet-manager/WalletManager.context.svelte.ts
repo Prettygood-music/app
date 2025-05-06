@@ -33,7 +33,6 @@ class WalletManager {
 			}
 		});
 
-        $effect(() => console.log(this.currentWallet?.accounts.map((a) => a.address)))
 
 		$effect(() => {
 			this.refreshBalance(this.account);

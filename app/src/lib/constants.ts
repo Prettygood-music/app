@@ -15,7 +15,8 @@ export const LINKS = {
 	INSTALL: '/install',
 	ARTISTS: {
 		ROOT: '/artist',
-		ID: (id: string) => `/artist/${id}`
+		ID: (id: string) => `/artist/${id}`,
+		CREATE: `/dashboard/create-artist`
 	},
 	ALBUMS: {
 		ROOT: '/album',
@@ -46,5 +47,32 @@ export const LINKS = {
 export const STORAGE_KEYS = {
 	PLAYLISTS: 'playlists',
 	ALBUMS: 'albums',
-	TRACKS: 'tracks'
+	TRACKS: 'tracks',
+	ARTISTS: "artists"
 };
+
+export const availableGenres = [
+	'Pop',
+	'Rock',
+	'Hip-Hop',
+	'Rap',
+	'R&B',
+	'Electronic',
+	'Dance',
+	'Jazz',
+	'Blues',
+	'Country',
+	'Folk',
+	'Classical',
+	'Metal',
+	'Punk',
+	'Reggae',
+	'Soul',
+	'Funk',
+	'Ambient',
+	'World',
+	'Latin',
+	'Indie',
+	'Alternative',
+	'Experimental'
+];

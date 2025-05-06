@@ -36,7 +36,6 @@
 
 	const playerState = getPlayerContext();
 </script>
-
 <div
 	class="hover:bg-muted/50 group flex items-center justify-between rounded-md p-2 transition-colors"
 >

@@ -33,12 +33,13 @@
 	}
 
 	let stats: StatData = {
-		totalEarnings: data.artistData.payments.map((payment) => payment.amount).reduce((a, b) => a + b, 0) || 0,
+		totalEarnings:
+			data.artistData.payments.map((payment) => payment.amount).reduce((a, b) => a + b, 0) || 0,
 
-		recentTips: data.artistData.tipCount[0].count || 0,
-		totalPlays: data.artistData.artist_play_counts[0].play_count || 0,
+		recentTips: data.artistData.tipCount.at(0)?.count || 0,
+		totalPlays: data.artistData.artist_play_counts.at(0)?.play_count || 0,
 
-		followers: data.artistData.followerCount[0].count || 0
+		followers: data.artistData.followerCount.at(0)?.count || 0
 	};
 </script>
 

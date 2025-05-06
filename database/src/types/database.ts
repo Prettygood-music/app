@@ -188,6 +188,7 @@ export type Database = {
           application_notes: string | null
           approved: boolean | null
           artist_name: string
+          avatar: string | null
           bio: string | null
           created_at: string
           genre: string[] | null
@@ -203,6 +204,7 @@ export type Database = {
           application_notes?: string | null
           approved?: boolean | null
           artist_name: string
+          avatar?: string | null
           bio?: string | null
           created_at?: string
           genre?: string[] | null
@@ -218,6 +220,7 @@ export type Database = {
           application_notes?: string | null
           approved?: boolean | null
           artist_name?: string
+          avatar?: string | null
           bio?: string | null
           created_at?: string
           genre?: string[] | null
@@ -1113,6 +1116,7 @@ export type Database = {
         Args: {
           artist_name: string
           bio?: string
+          avatar?: string
           genre?: string[]
           location?: string
           website?: string
@@ -1202,6 +1206,7 @@ export type Database = {
           application_notes: string | null
           approved: boolean | null
           artist_name: string
+          avatar: string | null
           bio: string | null
           created_at: string
           genre: string[] | null

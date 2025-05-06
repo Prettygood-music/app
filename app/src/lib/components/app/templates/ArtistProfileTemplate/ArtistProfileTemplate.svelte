@@ -110,7 +110,7 @@
 								<ArtistCard
 									id={similarArtist.id}
 									name={similarArtist.display_name || similarArtist.artist_name}
-									avatarUrl={similarArtist.avatar_url}
+									avatarUrl={similarArtist.avatar}
 								/>
 							{/each}
 						</div>

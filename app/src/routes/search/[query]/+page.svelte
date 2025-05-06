@@ -139,9 +139,9 @@
 							{#each data.results.artists.slice(0, 4) as artist}
 								<a href={`/artist/${artist.id}`} class="group">
 									<div class="bg-muted relative mb-3 aspect-square overflow-hidden rounded-full">
-										{#if artist.profile_url}
+										{#if artist.avatar}
 											<img
-												src={artist.profile_url}
+												src={artist.avatar}
 												alt={artist.artist_name}
 												class="h-full w-full object-cover"
 											/>

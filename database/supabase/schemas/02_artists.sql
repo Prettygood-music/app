@@ -3,6 +3,7 @@ CREATE TABLE public.artists (
   id UUID PRIMARY KEY REFERENCES public.users(id) ON DELETE CASCADE,
   artist_name TEXT NOT NULL,
   bio TEXT,
+  avatar TEXT,
   genre TEXT[],
   location TEXT,
   website TEXT,
@@ -17,6 +18,7 @@ CREATE TABLE public.artists (
 
 -- Add comments
 COMMENT ON TABLE public.artists IS 'Artist profiles for the public.music platform';
+COMMENT ON COLUMN public.artists.avatar IS 'URL or reference to the artist''s profile image';
 COMMENT ON COLUMN public.artists.genre IS 'Array of genres associated with the artist';
 COMMENT ON COLUMN public.artists.social_links IS 'JSON containing social media links';
 COMMENT ON COLUMN public.artists.verified IS 'Whether the artist has been verified by the platform';
@@ -48,6 +50,7 @@ CREATE INDEX idx_artists_genre ON public.artists USING GIN(genre);
 CREATE OR REPLACE FUNCTION public.apply_for_artist_account(
   artist_name TEXT,
   bio TEXT DEFAULT NULL,
+  avatar TEXT DEFAULT NULL,
   genre TEXT[] DEFAULT '{}',
   location TEXT DEFAULT NULL,
   website TEXT DEFAULT NULL,
@@ -74,6 +77,7 @@ BEGIN
     id,
     artist_name,
     bio,
+    avatar,
     genre,
     location,
     website,
@@ -87,6 +91,7 @@ BEGIN
     artist_id,
     artist_name,
     bio,
+    avatar,
     COALESCE(genre, '{}'),
     location,
     website,

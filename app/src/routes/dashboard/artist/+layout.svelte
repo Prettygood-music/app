@@ -113,7 +113,6 @@
 			</Button>
 		</header>
 
-		<!-- Mobile navigation drawer -->
 		{#if isMobileNavOpen}
 			<button
 				class="bg-background/80 fixed inset-0 z-50 backdrop-blur-sm md:hidden"

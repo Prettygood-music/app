@@ -212,7 +212,7 @@
 							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 						>
 							<Avatar class="h-16 w-16">
-								<AvatarImage src={track.artist.avatar_url || ''} alt={track.artist.artist_name} />
+								<AvatarImage src={track.artist.avatar || ''} alt={track.artist.artist_name} />
 								<AvatarFallback>{track.artist.artist_name.substring(0, 2)}</AvatarFallback>
 							</Avatar>
 							<div>

@@ -176,7 +176,7 @@
 				>
 					<div class="flex items-center">
 						<Avatar class="mr-2 h-6 w-6">
-							<AvatarImage src={creator.avatar_url || ''} alt={creator.display_name} />
+							<AvatarImage src={creator.avatar || ''} alt={creator.display_name} />
 							<AvatarFallback><UserIcon class="h-3 w-3" /></AvatarFallback>
 						</Avatar>
 						<a href="/user/{creator.id}" class="hover:text-primary hover:underline">

@@ -3,7 +3,6 @@
 	import { ParaglideJS } from '@inlang/paraglide-sveltekit';
 	import '../app.css';
 	import { Toaster } from '$lib/components/ui/sonner';
-	
 
 	import { browser } from '$app/environment';
 	import MobilePlayerBar from '$lib/components/app/organisms/player-bar/mobile-player-bar.svelte';
@@ -35,8 +34,7 @@
 	const playerState = new PlayerState();
 	setPlayerContext(playerState);
 
-	if(browser){
-
+	if (browser) {
 		setWalletManager();
 	}
 
@@ -85,7 +83,7 @@
 <ParaglideJS {i18n}>
 	<Toaster />
 
-	<div class="bg-background flex h-screen w-screen flex-col overflow-hidden" id="content">
+	<div class=" flex h-screen w-screen flex-col overflow-hidden" id="content">
 		<Navbar {onDisconnect} />
 		<main class="flex flex-1 flex-col overflow-y-hidden [&>*]:mb-12">
 			{@render children()}

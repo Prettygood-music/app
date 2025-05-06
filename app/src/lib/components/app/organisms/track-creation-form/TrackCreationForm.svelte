@@ -103,7 +103,6 @@
 		if (!input.files?.length) return;
 
 		const file = input.files[0];
-		console.dir(file);
 		$formData.cover_image = file;
 
 		// Create image preview
@@ -174,7 +173,7 @@
 					</CardContent>
 				</Card>
 			{/if}
-			<Form.Field {form} name="duration" >
+			<Form.Field {form} name="duration">
 				<Form.Control>
 					{#snippet children({ props })}
 						<!-- <Form.Label>Duration</Form.Label> -->

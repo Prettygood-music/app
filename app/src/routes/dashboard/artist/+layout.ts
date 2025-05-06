@@ -1,5 +1,6 @@
-import { error } from '@sveltejs/kit';
+import { error, redirect } from '@sveltejs/kit';
 import type { LayoutLoad } from './$types';
+import { LINKS } from '$lib/constants';
 
 export const load: LayoutLoad = async ({ data, parent }) => {
 	// Return artist data for use in all dashboard pages
@@ -12,7 +13,8 @@ export const load: LayoutLoad = async ({ data, parent }) => {
 		.single();
 
 	if (!artist) {
-		error(404, "Couldn't find artist");
+		redirect(307, LINKS.ARTISTS.CREATE)
+		//error(404, "Couldn't find artist");
 	}
 	return {
 		artist: artist

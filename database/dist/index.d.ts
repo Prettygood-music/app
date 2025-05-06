@@ -177,6 +177,7 @@ export declare function createClient(url: string, headers?: Record<string, strin
                 application_notes: string | null;
                 approved: boolean | null;
                 artist_name: string;
+                avatar: string | null;
                 bio: string | null;
                 created_at: string;
                 genre: string[] | null;
@@ -192,6 +193,7 @@ export declare function createClient(url: string, headers?: Record<string, strin
                 application_notes?: string | null;
                 approved?: boolean | null;
                 artist_name: string;
+                avatar?: string | null;
                 bio?: string | null;
                 created_at?: string;
                 genre?: string[] | null;
@@ -207,6 +209,7 @@ export declare function createClient(url: string, headers?: Record<string, strin
                 application_notes?: string | null;
                 approved?: boolean | null;
                 artist_name?: string;
+                avatar?: string | null;
                 bio?: string | null;
                 created_at?: string;
                 genre?: string[] | null;
@@ -1048,6 +1051,7 @@ export declare function createClient(url: string, headers?: Record<string, strin
             Args: {
                 artist_name: string;
                 bio?: string;
+                avatar?: string;
                 genre?: string[];
                 location?: string;
                 website?: string;
@@ -1155,6 +1159,7 @@ export declare function createClient(url: string, headers?: Record<string, strin
                 application_notes: string | null;
                 approved: boolean | null;
                 artist_name: string;
+                avatar: string | null;
                 bio: string | null;
                 created_at: string;
                 genre: string[] | null;
@@ -1445,6 +1450,7 @@ export declare function createClientV2(url: string, key: string): import('@supab
                 application_notes: string | null;
                 approved: boolean | null;
                 artist_name: string;
+                avatar: string | null;
                 bio: string | null;
                 created_at: string;
                 genre: string[] | null;
@@ -1460,6 +1466,7 @@ export declare function createClientV2(url: string, key: string): import('@supab
                 application_notes?: string | null;
                 approved?: boolean | null;
                 artist_name: string;
+                avatar?: string | null;
                 bio?: string | null;
                 created_at?: string;
                 genre?: string[] | null;
@@ -1475,6 +1482,7 @@ export declare function createClientV2(url: string, key: string): import('@supab
                 application_notes?: string | null;
                 approved?: boolean | null;
                 artist_name?: string;
+                avatar?: string | null;
                 bio?: string | null;
                 created_at?: string;
                 genre?: string[] | null;
@@ -2316,6 +2324,7 @@ export declare function createClientV2(url: string, key: string): import('@supab
             Args: {
                 artist_name: string;
                 bio?: string;
+                avatar?: string;
                 genre?: string[];
                 location?: string;
                 website?: string;
@@ -2423,6 +2432,7 @@ export declare function createClientV2(url: string, key: string): import('@supab
                 application_notes: string | null;
                 approved: boolean | null;
                 artist_name: string;
+                avatar: string | null;
                 bio: string | null;
                 created_at: string;
                 genre: string[] | null;

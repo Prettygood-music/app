@@ -9,6 +9,7 @@
 	import { album } from '$lib/schemas';
 	import X from 'lucide-svelte/icons/x';
 	import { zodClient } from 'sveltekit-superforms/adapters';
+	import { availableGenres } from '$lib/constants';
 
 	let {
 		data
@@ -23,32 +24,7 @@
 
 	const coverFile = fileProxy(formData, 'cover_image');
 
-	// Available genres
-	const availableGenres = [
-		'Pop',
-		'Rock',
-		'Hip-Hop',
-		'Rap',
-		'R&B',
-		'Electronic',
-		'Dance',
-		'Jazz',
-		'Blues',
-		'Country',
-		'Folk',
-		'Classical',
-		'Metal',
-		'Punk',
-		'Reggae',
-		'Soul',
-		'Funk',
-		'Ambient',
-		'World',
-		'Latin',
-		'Indie',
-		'Alternative',
-		'Experimental'
-	];
+	
 
 	// Cover image preview state
 	let imagePreview = $state<string | null>(null);

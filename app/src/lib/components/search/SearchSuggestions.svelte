@@ -90,6 +90,7 @@
 							<button
 								class="hover:bg-muted flex w-full items-center gap-2 rounded-md p-2 text-left"
 								onclick={() => handleNavigate(`/artist/${artist.id}`)}
+								style="background-image: url({artist.avatar})"
 							>
 								<Mic class="text-muted-foreground h-4 w-4 flex-shrink-0" />
 								<div class="overflow-hidden">

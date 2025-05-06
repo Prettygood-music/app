@@ -14,7 +14,7 @@ export interface Artist {
 		instagram?: string;
 	};
 }*/
-export type Artist = Database['prettygood']['Tables']['artists']['Row'];
+export type Artist = Database['public']['Tables']['artists']['Row'];
 /**
  * Artist with detailed information
  */

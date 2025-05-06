@@ -14,7 +14,7 @@
 	import ClockIcon from 'lucide-svelte/icons/clock';
 	import ShuffleIcon from 'lucide-svelte/icons/shuffle';
 	import { getPlayerContext } from '$lib/state/player.svelte';
-	import type { Artist, Track } from '$lib/types';
+	import type { Artist, Track, TrackWithDetails } from '$lib/types';
 	import { page } from '$app/state';
 	import { LINKS } from '$lib/constants';
 	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
@@ -50,9 +50,11 @@
 		relatedAlbums = [],
 
 		// Initial state
-		initialIsLiked = false
+		initialIsLiked = false,
+		tracks
 	}: {
 		album: Album;
+		tracks: TrackWithDetails[];
 		relatedAlbums: Album[];
 		artist: Artist & { payout_address: string | null };
 		initialIsLiked: boolean;
@@ -231,7 +233,7 @@
 				<div class="mb-8">
 					<h2 class="mb-4 text-xl font-bold">Tracks</h2>
 					<div class="space-y-1">
-						{#each album.tracks as track, i}
+						{#each tracks as track, i}
 							<TrackItem {track} index={i} />
 						{/each}
 					</div>
@@ -248,12 +250,12 @@
 					>
 						<!-- 
 						<Avatar class="h-16 w-16">
-							<AvatarImage src={artist.avatar_url || ''} alt={artist.artist_name} />
+							<AvatarImage src={artist.avatar || ''} alt={artist.artist_name} />
 							<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
 						</Avatar>
 						 -->
 						<ImageFallback
-							src={artist.avatar_url || ''}
+							src={artist.avatar || ''}
 							name={artist.artist_name}
 							class="h-16 w-16 rounded-full rounded-md"
 						></ImageFallback>

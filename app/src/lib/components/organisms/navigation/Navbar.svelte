@@ -59,20 +59,14 @@
 	let { onDisconnect }: { onDisconnect?: VoidFunction } = $props();
 </script>
 
-<header class="bg-background w-full" style="view-transition-name: none;">
+<header class="w-full bg-background border-b" style="view-transition-name: none;">
 	<div class="flex h-14 items-center justify-between px-4">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center">
 			<img src="/favicon.svg" width="32" height="32" alt="prettygood.music logo" />
-			<!-- <span class="text-primary text-xl font-bold">prettygood.music</span> -->
 		</a>
 
 		<div class="flex w-full items-center md:max-w-sm md:flex-1">
-			<!-- 
-				<Button size="icon" href={LINKS.HOME} variant="ghost" class="text-muted-foreground">
-					<HomeIcon></HomeIcon>
-				</Button>
-				-->
 			<EnhancedSearchBar showButton={false}></EnhancedSearchBar>
 		</div>
 
