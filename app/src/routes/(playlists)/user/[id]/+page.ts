@@ -6,6 +6,11 @@ export const load: PageLoad = async ({ params, parent }) => {
 	const userId = params.id;
 
 	const { supabase, user } = await parent();
+
+	if (!user) {
+		error(404, 'User was not found');
+	}
+
 	// TODO: query owned achievements
 	const { data: userProfile, error: err } = await supabase
 		.from('users')
@@ -18,9 +23,12 @@ export const load: PageLoad = async ({ params, parent }) => {
 		.limit(5, { referencedTable: 'play_history' })
 		.single();
 
-	const ownedAchiementsIDs: string[] = [];
-	// TODO: query all achievements
-	const achievements: Achievement[] = [];
+	const { data: ownedAchievements } = await supabase
+		.from('user_achievement_details')
+		.select('*')
+		.eq('user_id', user.id);
+
+	const { data: achievements } = await supabase.from('achievements').select('*');
 
 	if (!userProfile) {
 		throw error(404, 'User not found');
@@ -101,7 +109,7 @@ export const load: PageLoad = async ({ params, parent }) => {
 		followers,
 		joinDate,
 		stats,
-		achievements,
-		ownedAchiementsIDs
+		achievements: achievements || [],
+		ownedAchievements: ownedAchievements || []
 	};
 };

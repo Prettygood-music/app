@@ -4,7 +4,7 @@ export type Track = Database['public']['Tables']['tracks']['Row'];
 export type Playlist = Database['public']['Tables']['playlists']['Row'];
 export type User = Database['public']['Tables']['users']['Row'];
 export type TrackWithDetails = Database['public']['Views']['tracks_with_details']['Row'];
-
+export type Achievement = Database["public"]["Tables"]["achievements"]["Row"];
 /*
   export interface Track {
     id: string;

@@ -1,17 +1,14 @@
 <script lang="ts">
-	import type { Achievement } from './types';
+	import type { Achievement } from '$lib/types';
 
 	let {
-		ownedAchievementIDs,
+		ownedAchievements,
 		achievements
-	}: { ownedAchievementIDs: string[]; achievements: Achievement[] } = $props();
-
-	let ownedAchievements = $derived.by(() => {
-		return achievements.filter((a) => ownedAchievementIDs.includes(a.id));
-	});
+	}: { ownedAchievements: Achievement[]; achievements: Achievement[] } = $props();
 
 	let remainingAchievements = $derived.by(() => {
-		return achievements.filter((a) => !ownedAchievementIDs.includes(a.id));
+		const ownedIDs = ownedAchievements.map((a) => a.id);
+		return achievements.filter((a) => !ownedIDs.includes(a.id));
 	});
 </script>
 

@@ -87,8 +87,7 @@
 </svelte:head>
 
 <div class="pb-16">
-	<!-- Profile Header with Cover/Background -->
-	<div class="from-muted/70 to-background relative min-h-[200px] bg-gradient-to-b rounded-t-md">
+	<div class="from-muted/70 to-background relative min-h-[200px] rounded-t-md bg-gradient-to-b">
 		<div class="container mx-auto px-4 py-8">
 			<div class="flex flex-col items-center gap-6 md:flex-row md:items-end">
 				<!-- User Avatar -->
@@ -170,7 +169,6 @@
 				<TabsTrigger value="liked">Liked Tracks</TabsTrigger>
 				<TabsTrigger value="achievements">Achievements</TabsTrigger>
 				<TabsTrigger value="about">About</TabsTrigger>
-
 			</TabsList>
 
 			<!-- Overview Tab -->
@@ -376,11 +374,8 @@
 										<p class="font-mono text-sm">{user.wallet_address}</p>
 									</div>
 
-									{#if !isCurrentUser}
-										<Button variant="outline" class="w-full gap-2 md:w-auto" onclick={tipUser}>
-											<CoinsIcon class="h-4 w-4" />
-											Tip {user.display_name}
-										</Button>
+									{#if !isCurrentUser && user.wallet_address}
+										<TipButton recipient={user.wallet_address}></TipButton>
 									{/if}
 								</div>
 							</div>
@@ -430,10 +425,9 @@
 				</div>
 			</TabsContent>
 
-
 			<TabsContent value="achievements">
-
-				<Achievements ownedAchievementIDs={data.ownedAchiementsIDs} achievements={data.achievements}></Achievements>
+				<Achievements ownedAchievement={data.ownedAchievements} achievements={data.achievements}
+				></Achievements>
 			</TabsContent>
 		</Tabs>
 	</div>
