@@ -8,7 +8,7 @@ import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
 
 class Minter {
 	db: ReturnType<typeof createClientV2>;
-	baseURL = 'http://localhost:5173';
+	baseURL = 'https://prettygood.music';
 	client: SuiClient;
 	signer: Ed25519Keypair;
 
