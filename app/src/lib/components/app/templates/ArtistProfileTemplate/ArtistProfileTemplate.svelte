@@ -10,11 +10,12 @@
 	import GlobeIcon from 'lucide-svelte/icons/globe';
 	import InstagramIcon from 'lucide-svelte/icons/instagram';
 	import TwitterIcon from 'lucide-svelte/icons/twitter';
-	import type { Album, Artist } from '$lib/types';
+	import type { Album, Artist, TrackWithDetails } from '$lib/types';
 
 	let {
 		// Artist details
 		artist,
+		tracks,
 
 		// Similar artists
 		similarArtists = [],
@@ -36,6 +37,7 @@
 		pageDescription = undefined
 	}: {
 		artist: Artist & { albums: Album[] };
+		tracks: TrackWithDetails;
 	} = $props();
 
 	// Using Svelte 5 runes for state management
@@ -68,7 +70,7 @@
 			</div>
 
 			<div class="space-y-2">
-				{#each artist.tracks as track, i}
+				{#each tracks as track, i}
 					<TrackItem {track} index={i} />
 				{/each}
 			</div>
@@ -87,7 +89,11 @@
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
 							{#each artist.albums as album}
 								<!-- <AlbumCard {album} size="default" /> -->
-								<AlbumCard {album} tracks={album.tracks} date={new Date(album.release_date).getFullYear()}></AlbumCard>
+								<AlbumCard
+									{album}
+									tracks={album.tracks}
+									date={new Date(album.release_date).getFullYear()}
+								></AlbumCard>
 							{/each}
 						</div>
 					</ScrollArea>
@@ -127,8 +133,8 @@
 		<div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
 			{#each artist.albums || [] as album}
 				<!-- <AlbumCard {album} /> -->
-				<AlbumCard {album} tracks={album.tracks} date={new Date(album.release_date).getFullYear()}></AlbumCard>
-
+				<AlbumCard {album} tracks={album.tracks} date={new Date(album.release_date).getFullYear()}
+				></AlbumCard>
 			{/each}
 		</div>
 	</TabsContent>

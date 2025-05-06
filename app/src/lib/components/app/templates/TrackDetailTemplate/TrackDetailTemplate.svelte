@@ -1,48 +1,41 @@
 <script lang="ts">
 	import { TrackItem } from '$lib/components/music';
 	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
-	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
 
-	import HeartIcon from 'lucide-svelte/icons/heart';
-	import ShareIcon from 'lucide-svelte/icons/share-2';
-	import CalendarIcon from 'lucide-svelte/icons/calendar';
-	import MusicIcon from 'lucide-svelte/icons/music';
-	import ClockIcon from 'lucide-svelte/icons/clock';
-	import { getPlayerContext } from '$lib/state/player.svelte';
-	import type { Artist, Track } from '$lib/types';
 	import { page } from '$app/state';
 	import { getAnalyticsContext } from '$lib/services';
+	import { getPlayerContext } from '$lib/state/player.svelte';
+	import type { Album, Artist, Track, TrackWithDetails } from '$lib/types';
+	import CalendarIcon from 'lucide-svelte/icons/calendar';
+	import ClockIcon from 'lucide-svelte/icons/clock';
+	import MusicIcon from 'lucide-svelte/icons/music';
+	import ShareIcon from 'lucide-svelte/icons/share-2';
+	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
 	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
 	import AddPlaylist from '../../molecules/add-playlist/add-playlist.svelte';
-	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
 
 	let {
 		// Track details
 		track,
+		artist,
+		album,
 
 		// Recommended tracks
 		recommendedTracks = [],
 
-		// Initial state
-		initialIsLiked = false,
-
-		// Event handlers
-		onToggleLike = () => {}
+		initialIsLiked = false
 	}: {
-		track: Track & { artist: Artist };
+		track: TrackWithDetails;
+		artist: Artist;
+		album: Album;
 		recommendedTracks: Track[];
+		initialIsLiked: boolean;
 	} = $props();
+
 	const analytics = getAnalyticsContext();
-
-	const playerState = getPlayerContext();
-
-	let isCurrentTrack = $derived.by(() => {
-		const playerTrack = playerState.currentTrack;
-		return playerTrack && playerTrack.id === track.id;
-	});
-
 	let isLiked = $state(initialIsLiked);
 
 	// Function to format date in human-readable format
@@ -64,22 +57,6 @@
 		const minutes = Math.floor(seconds / 60);
 		const remainingSeconds = seconds % 60;
 		return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
-	}
-
-	// Handle play/pause
-	function togglePlay() {
-		analytics.onTrackPlay(track.id);
-		if (isCurrentTrack) {
-			playerState.togglePlayPause();
-		} else {
-			playerState.playTrack(track);
-		}
-	}
-
-	// Handle like
-	function toggleLike() {
-		isLiked = !isLiked;
-		onToggleLike(isLiked, track);
 	}
 
 	// Handle share
@@ -141,8 +118,8 @@
 					<div class="space-y-1">
 						<h1 class="text-3xl font-bold md:text-4xl">{track.title}</h1>
 						<div class="flex items-center">
-							<a href="/artist/{track.artist.id}" class="text-primary text-lg hover:underline">
-								{track.artist.display_name || track.artist.artist_name}
+							<a href="/artist/{artist.id}" class="text-primary text-lg hover:underline">
+								{artist.display_name || artist.artist_name}
 							</a>
 						</div>
 					</div>
@@ -175,8 +152,7 @@
 					{/if}
 
 					<!-- Album Section (if track belongs to an album) -->
-					{#if track.album}
-						{@const album = track.album}
+					{#if album}
 						<div class="mt-6">
 							<h3 class="mb-3 text-lg font-medium">From the album</h3>
 							<a
@@ -208,20 +184,20 @@
 					<div>
 						<h3 class="mb-3 text-lg font-medium">Artist</h3>
 						<a
-							href="/artist/{track.artist.id}"
+							href="/artist/{artist.id}"
 							class="hover:bg-muted/50 group flex items-center gap-4 rounded-md p-2 transition-colors"
 						>
 							<Avatar class="h-16 w-16">
-								<AvatarImage src={track.artist.avatar || ''} alt={track.artist.artist_name} />
-								<AvatarFallback>{track.artist.artist_name.substring(0, 2)}</AvatarFallback>
+								<AvatarImage src={artist.avatar || ''} alt={artist.artist_name} />
+								<AvatarFallback>{artist.artist_name.substring(0, 2)}</AvatarFallback>
 							</Avatar>
 							<div>
 								<h4 class="group-hover:text-primary font-medium group-hover:underline">
-									{track.artist.artist_name}
+									{artist.artist_name}
 								</h4>
-								{#if track.artist.bio}
+								{#if artist.bio}
 									<p class="text-muted-foreground line-clamp-2 max-w-md text-sm">
-										{track.artist.bio}
+										{artist.bio}
 									</p>
 								{/if}
 							</div>

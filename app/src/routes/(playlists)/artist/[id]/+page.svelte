@@ -43,6 +43,7 @@
 
 <ArtistProfileTemplate
 	artist={data.artist}
+	tracks={data.tracks}
 	similarArtists={data.similarArtists}
 	initialIsFollowing={isFollowing}
 	initialSelectedTab="overview"

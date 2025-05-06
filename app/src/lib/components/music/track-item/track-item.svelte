@@ -6,6 +6,8 @@
 	import PlayCircle from 'lucide-svelte/icons/play-circle';
 	import { formatDuration } from '$lib/utils';
 	import { getPlayerContext } from '$lib/state/player.svelte';
+	import { getAnalyticsContext } from '$lib/services';
+	import LikeButton from '$lib/components/app/atoms/like-button/LikeButton.svelte';
 
 	// Props
 	let {
@@ -35,7 +37,9 @@
 	}
 
 	const playerState = getPlayerContext();
+	//const analytics = getAnalyticsContext()
 </script>
+
 <div
 	class="hover:bg-muted/50 group flex items-center justify-between rounded-md p-2 transition-colors"
 >
@@ -64,6 +68,11 @@
 	</div>
 
 	<div class="flex items-center gap-3">
+		<div class="hidden group-hover:block">
+
+			<LikeButton id={track.id} kind={"track"}></LikeButton>
+		</div>
+		<!-- 
 		<Button
 			size="icon"
 			variant="ghost"
@@ -72,6 +81,7 @@
 		>
 			<HeartIcon class="h-4 w-4" />
 		</Button>
+		 -->
 		<span class="text-muted-foreground w-12 text-right text-sm">
 			{formatDuration(track.duration)}
 		</span>

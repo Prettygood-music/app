@@ -44,6 +44,7 @@ export const load: PageLoad = async ({ params, parent }) => {
 	return {
 		album: album,
 		artist: { ...album.artist, payout_address: album.artist.payout.wallet_address },
+		
 		tracks: trackDetails!, //album.tracks,
 		relatedAlbums: album.artist.albums,
 		isLiked
