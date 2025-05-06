@@ -6,14 +6,15 @@
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { LINKS } from '$lib/constants.js';
 	import { madeForYouAlbums } from '$lib/data/albums.js';
+	import Card from './playlist/[id]/card.svelte';
 
 	let { data } = $props();
 </script>
 
 <div class="grid h-full overflow-y-auto lg:grid-cols-5">
 	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
-	<div class="lg:col-span-5">
-		<div class="h-full w-screen overflow-hidden py-6 [&>*]:md:px-4 [&>*]:lg:px-8">
+	<div class="">
+		<div class="h-full w-[80vw]  overflow-hidden py-6 [&>*]:md:px-4 [&>*]:lg:px-8">
 			<div class="flex items-center justify-between">
 				<div class="space-y-1">
 					<h2 class="text-2xl font-semibold tracking-tight">Listen Now</h2>
@@ -79,21 +80,15 @@
 				</ScrollArea>
 			</div>
 			<div class="mt-6 space-y-1">
-				<h2 class="text-2xl font-semibold tracking-tight">Made for You</h2>
+				<h2 class="text-2xl font-semibold tracking-tight">Playlists of the day</h2>
 				<p class="text-muted-foreground text-sm">Your personal playlists. Updated daily.</p>
 			</div>
 			<Separator class="my-4" />
 			<div class="relative">
-				<ScrollArea orientation="both">
-					<div class="flex space-x-4 pb-4">
-						{#each madeForYouAlbums as album}
-							<AlbumArtwork
-								{album}
-								class="w-[150px]"
-								aspectRatio="square"
-								width={150}
-								height={150}
-							/>
+				<ScrollArea orientation="horizontal">
+					<div class="flex space-x-4">
+						{#each data.recommendations.playlists as playlist}
+							<Card {playlist} creator={playlist.creator} tracks={playlist.tracks} />
 						{/each}
 					</div>
 				</ScrollArea>

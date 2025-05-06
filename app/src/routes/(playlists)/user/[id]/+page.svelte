@@ -163,11 +163,11 @@
 	<!-- Main Content Tabs -->
 	<div class="container mx-auto px-4 py-6">
 		<Tabs value={selectedTab} onValueChange={(value) => (selectedTab = value)}>
-			<TabsList class="mb-6 grid w-full grid-cols-4 gap-2 md:flex md:w-auto md:grid-cols-none">
+			<TabsList class="mb-6 grid w-full grid-cols-5 gap-2 md:flex md:w-auto md:grid-cols-none">
 				<TabsTrigger value="overview">Overview</TabsTrigger>
 				<TabsTrigger value="playlists">Playlists</TabsTrigger>
-				<TabsTrigger value="liked">Liked Tracks</TabsTrigger>
-				<TabsTrigger value="achievements">Achievements</TabsTrigger>
+				<TabsTrigger value="liked">Liked</TabsTrigger>
+				<TabsTrigger value="achievements">Feats</TabsTrigger>
 				<TabsTrigger value="about">About</TabsTrigger>
 			</TabsList>
 
@@ -188,12 +188,10 @@
 					</section>
 				{/if}
 
-				<!-- Public Playlists -->
 				{#if playlists.length > 0}
 					<section>
 						<div class="mb-4 flex items-center justify-between">
-							<h2 class="text-2xl font-bold">Public Playlists</h2>
-							<!-- <Button variant="link" href="/user/{user.id}/playlists">See All</Button> -->
+							<h2 class="text-2xl font-bold">Playlists</h2>
 						</div>
 
 						<div class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -204,12 +202,10 @@
 					</section>
 				{/if}
 
-				<!-- Liked Tracks Section -->
 				{#if likedTracks.length > 0}
 					<section class="">
 						<div class="mb-4 flex items-center justify-between">
 							<h2 class="text-2xl font-bold">Liked Tracks</h2>
-							<!-- <Button variant="link" href="/user/{user.id}/liked">See All</Button> -->
 						</div>
 
 						<div class="space-y-1">
@@ -426,7 +422,7 @@
 			</TabsContent>
 
 			<TabsContent value="achievements">
-				<Achievements ownedAchievement={data.ownedAchievements} achievements={data.achievements}
+				<Achievements ownedAchievements={data.ownedAchievements} achievements={data.achievements}
 				></Achievements>
 			</TabsContent>
 		</Tabs>

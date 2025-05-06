@@ -13,11 +13,11 @@
 	// Get albums from the server load function
 </script>
 
-<a href={LINKS.PLAYLISTS.ID(playlist.id)} class="group flex flex-col">
+<a href={LINKS.PLAYLISTS.ID(playlist.id)} class="group flex flex-col rounded w-[200px] border">
 	<div class=" flex-grow">
 		<ImageFallback class="rounded-md" src={playlist.cover_url} name={playlist.name}></ImageFallback>
 	</div>
-	<div class="mt-2">
+	<div class="p-2 ">
 		<h3 class="group-hover:text-primary line-clamp-1 font-medium group-hover:underline">
 			{playlist.name}
 		</h3>

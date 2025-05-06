@@ -13,13 +13,13 @@
 
 <div class="flex h-full items-stretch gap-4 md:px-2">
 	{#if user.user}
-		<div class="hidden pb-4 md:min-w-[240px] lg:block py-4">
+		<div class="hidden pb-4 md:min-w-[240px] lg:block mt-4">
 			<!-- TODO: handle if connected -->
 			<Sidebar playlists={data.playlists} />
 		</div>
 	{/if}
 
-	<div class="flex-grow overflow-y-auto">
+	<div class="flex-grow overflow-y-auto mt-4">
 		{@render children?.()}
 	</div>
 </div>
