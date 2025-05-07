@@ -37,7 +37,7 @@
 						{#each data.recommendations.tracks as track}
 							<TrackCard
 								id={track.id}
-								cover_url={track.cover_url}
+								cover_url={track.cover_url || track.album?.cover_url || null}
 								title={track.title}
 								artist_name={track.artist.artist_name}
 								explicit={track.explicit}
