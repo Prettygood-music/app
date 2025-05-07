@@ -16,6 +16,7 @@
 	import LikeButton from '../../atoms/like-button/LikeButton.svelte';
 	import PlayTrack from '../../atoms/play-button/PlayTrack.svelte';
 	import AddPlaylist from '../../molecules/add-playlist/add-playlist.svelte';
+	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	let {
 		// Track details
@@ -75,12 +76,21 @@
 			<!-- Track Artwork and Primary Actions -->
 			<div class="flex flex-col items-center lg:items-start">
 				<div class="mb-6 overflow-hidden shadow-xl">
+					
+					<ImageFallback
+						src={track.cover_url}
+						name={track.title!}
+						class="h-64 w-64 rounded-lg border object-cover sm:h-80 sm:w-80"
+						style="--view-transition-tag:track-image-{track.id};"
+					></ImageFallback>
+					<!-- 
 					<img
 						src={track.cover_url || '/images/default-track.jpg'}
 						alt={track.title}
 						class="aspect-square h-64 w-64 rounded-lg border object-cover sm:h-80 sm:w-80"
 						style="--view-transition-tag:track-image-{track.id};"
 					/>
+					 -->
 				</div>
 
 				<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
