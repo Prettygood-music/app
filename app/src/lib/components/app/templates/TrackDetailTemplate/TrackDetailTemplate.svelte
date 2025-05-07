@@ -222,7 +222,7 @@
 				<h2 class="mb-4 text-2xl font-bold">You might also like</h2>
 				<div class="space-y-1">
 					{#each recommendedTracks as recTrack}
-						<TrackItem track={recTrack} />
+						<TrackItem track={recTrack} coverFallback={album.cover_url} />
 					{/each}
 				</div>
 			</div>

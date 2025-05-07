@@ -8,16 +8,19 @@
 	import { getPlayerContext } from '$lib/state/player.svelte';
 	import { getAnalyticsContext } from '$lib/services';
 	import LikeButton from '$lib/components/app/atoms/like-button/LikeButton.svelte';
+	import ImageFallback from '../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	// Props
 	let {
 		track,
 		index,
+		coverFallback,
 		showIndex = true
 	}: {
 		track: TrackWithDetails;
 		index?: number;
 		showIndex?: boolean;
+		coverFallback?: string | null;
 	} = $props();
 
 	// Function to format play count numbers
@@ -54,8 +57,15 @@
 			</div>
 		{/if}
 
+		<!-- 
 		<Thumbnail coverURL={track.cover_url} />
-
+ -->
+		<ImageFallback
+			coverURL={track.cover_url || coverFallback}
+			class="h-12 w-12 rounded-md"
+			style="--view-transition-tag:track-image-{track.id};"
+			name={track.title!}
+		></ImageFallback>
 		<div>
 			<a
 				href="/track/{track.id}"
@@ -69,8 +79,7 @@
 
 	<div class="flex items-center gap-3">
 		<div class="hidden group-hover:block">
-
-			<LikeButton id={track.id} kind={"track"}></LikeButton>
+			<LikeButton id={track.id} kind={'track'}></LikeButton>
 		</div>
 		<!-- 
 		<Button

@@ -234,7 +234,7 @@
 					<h2 class="mb-4 text-xl font-bold">Tracks</h2>
 					<div class="space-y-1">
 						{#each tracks as track, i}
-							<TrackItem {track} index={i} />
+							<TrackItem {track} index={i} coverFallback={album.cover_url} />
 						{/each}
 					</div>
 				</div>
