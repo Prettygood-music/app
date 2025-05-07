@@ -78,7 +78,7 @@
 				<div class="mb-6 overflow-hidden shadow-xl">
 					
 					<ImageFallback
-						src={track.cover_url}
+						src={track.cover_url || album.cover_url}
 						name={track.title!}
 						class="h-64 w-64 rounded-lg border object-cover sm:h-80 sm:w-80"
 						style="--view-transition-tag:track-image-{track.id};"
