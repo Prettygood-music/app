@@ -71,7 +71,7 @@
 </script>
 
 <div class="overflow-y-auto">
-	<div class="container mx-auto py-8 md:px-4">
+	<div class="container mx-auto py-8 px-2 md:px-4">
 		<div class="grid grid-cols-1 gap-8 lg:grid-cols-3">
 			<!-- Track Artwork and Primary Actions -->
 			<div class="flex flex-col items-center lg:items-start">
