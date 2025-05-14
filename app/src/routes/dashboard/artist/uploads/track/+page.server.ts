@@ -94,6 +94,9 @@ export const actions: Actions = {
 		}
 
 		console.dir(trackInsert);
-		return message(form, 'Track created successfully');
+		return message(form, {
+			type: 'success',
+			text: `Track ${trackData.title} created successfully`
+		});
 	}
 };

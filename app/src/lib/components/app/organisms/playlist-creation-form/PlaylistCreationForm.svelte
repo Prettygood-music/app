@@ -8,13 +8,14 @@
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { Switch } from '$lib/components/ui/switch';
 	import { Button } from '$lib/components/ui/button';
+	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
 
 	let { data }: { data: { form: SuperValidated<PlaylistCreationSchema> } } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(playlist.playlistCreationSchema)
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 
 	const coverFile = fileProxy(formData, 'cover_image');
 
@@ -122,7 +123,7 @@
 	</div>
 
 	<div class="flex justify-end gap-2 border-t pt-4">
-		<Button type="submit" >Create Playlist</Button>
+		<SpinnerButton showSpinner={$submitting} type="submit">Create Playlist</SpinnerButton>
 	</div>
 </form>
 <SuperDebug data={$formData}></SuperDebug>

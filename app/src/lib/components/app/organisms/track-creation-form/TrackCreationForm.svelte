@@ -12,6 +12,8 @@
 	import X from 'lucide-svelte/icons/x';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import * as Select from '$lib/components/ui/select';
+	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let {
 		albums,
@@ -24,7 +26,22 @@
 	const form = superForm(data.form, {
 		validators: zodClient(trackCreationSchema)
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting, message } = form;
+
+	message.subscribe((msg) => {
+		if (msg) {
+			switch (msg.type) {
+				case 'error':
+					toast.error(msg.text);
+					break;
+				case 'success':
+					toast.success(msg.text);
+					break;
+				default:
+					break;
+			}
+		}
+	});
 
 	const audioFile = fileProxy(formData, 'audio_file');
 	const coverFile = fileProxy(formData, 'cover_image');
@@ -407,8 +424,10 @@
 	</div>
 
 	<div class="flex justify-end gap-2 border-t pt-4">
-		<Button type="button" variant="outline">Cancel</Button>
-		<Button type="submit" disabled={isAudioLoading || !$formData.audio_file}>Save Track</Button>
+		<!-- <Button type="button" variant="outline">Cancel</Button> -->
+		<SpinnerButton showSpinner={$submitting} type="submit">Create Track</SpinnerButton>
+
+		<!-- <Button type="submit" disabled={isAudioLoading || !$formData.audio_file}>Save Track</Button> -->
 	</div>
 </form>
 <SuperDebug data={$formData}></SuperDebug>
