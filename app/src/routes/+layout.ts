@@ -29,17 +29,15 @@ export const load = (async ({ depends, data }) => {
 	 * safe, and on the server, it reads `session` from the `LayoutData`, which
 	 * safely checked the session using `safeGetSession`.
 	 */
-	const {
-		data: { session }
-	} = await supabase.auth.getSession();
 
-	const {
-		data: { user }
-	} = await supabase.auth.getUser();
-
+	const [{ data: session }, { data: user }] = await Promise.all([
+		supabase.auth.getSession(),
+		supabase.auth.getUser()
+	]);
+	
 	return {
-		user: user,
-		session,
+		user: user.user,
+		session: session.session,
 		supabase
 	};
 }) satisfies LayoutLoad;

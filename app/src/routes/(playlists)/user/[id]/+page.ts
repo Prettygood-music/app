@@ -1,6 +1,5 @@
 import type { PageLoad } from './$types';
 import { error } from '@sveltejs/kit';
-import type { Achievement } from './types';
 
 export const load: PageLoad = async ({ params, parent }) => {
 	const userId = params.id;
@@ -10,8 +9,21 @@ export const load: PageLoad = async ({ params, parent }) => {
 	if (!user) {
 		error(404, 'User was not found');
 	}
-
-	// TODO: query owned achievements
+	const [{ data: userProfile }, { data: ownedAchievements }, { data: achievements }] =
+		await Promise.all([
+			supabase
+				.from('users')
+				.select(
+					'*, playlists!playlists_user_id_fkey(*, tracks(id)), following: artist_followers(count), play_history(tracks(*)), track_likes(tracks(*))'
+				)
+				.eq('id', userId)
+				.order('played_at', { ascending: false, referencedTable: 'play_history' })
+				.limit(5, { referencedTable: 'play_history' })
+				.single(),
+			supabase.from('user_achievement_details').select('*').eq('user_id', user.id),
+			supabase.from('achievements').select('*')
+		]);
+	/*
 	const { data: userProfile, error: err } = await supabase
 		.from('users')
 		.select(
@@ -29,16 +41,12 @@ export const load: PageLoad = async ({ params, parent }) => {
 		.eq('user_id', user.id);
 
 	const { data: achievements } = await supabase.from('achievements').select('*');
-
+*/
 	if (!userProfile) {
 		throw error(404, 'User not found');
 	}
 	const recenlyPlayedTracks = userProfile.play_history.flatMap((track) => track.tracks);
 	const recentlyPlayedTracksIDs = [...new Set(recenlyPlayedTracks.map((t) => t.id))];
-	/*
-	const uniqueRecentlyPlayedTracks = recentlyPlayedTracksIDs.map((id) =>
-		recenlyPlayedTracks.find((t) => t.id === id)
-	);*/
 
 	const { data: uniqueRecentlyPlayedTracks } = await supabase
 		.from('tracks_with_details')
