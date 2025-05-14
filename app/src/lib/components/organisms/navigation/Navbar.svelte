@@ -37,7 +37,7 @@
 		}
 	});
 
-	const dropdownContent = [
+	const dropdownContent = $derived([
 		{
 			title: 'Profile',
 			icon: User,
@@ -48,7 +48,7 @@
 			icon: Disc_3,
 			href: LINKS.ARTIST_DASHBOARD
 		}
-	];
+	]);
 	const isStandalone = browser
 		? window.matchMedia('(display-mode: standalone)').matches ||
 			window.matchMedia('(display-mode: fullscreen)').matches ||
@@ -59,7 +59,7 @@
 	let { onDisconnect }: { onDisconnect?: VoidFunction } = $props();
 </script>
 
-<header class="w-full bg-background border-b" style="view-transition-name: none;">
+<header class="bg-background w-full border-b" style="view-transition-name: none;">
 	<div class="flex h-14 items-center justify-between px-4">
 		<!-- Logo -->
 		<a href="/" class="mr-4 flex items-center">
