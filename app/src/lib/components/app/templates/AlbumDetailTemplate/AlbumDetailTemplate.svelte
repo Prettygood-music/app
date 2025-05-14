@@ -100,6 +100,12 @@
 			if (playerState.currentListId === album.id) {
 				playerState.play();
 			} else {
+				album.tracks = album.tracks.map((track) => ({
+					...track,
+					artist: {
+						artist_name: artist.artist_name,
+					}
+				}));
 				playerState.playList(album);
 			}
 		}

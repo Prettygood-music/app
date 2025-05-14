@@ -35,9 +35,10 @@ export const load: PageLoad = async ({ params, parent }) => {
 
 	// Simulate checking if the current user is the playlist creator
 	const isOwner = user?.id === playlist.creator.id;
+	const playListWithDetails = {...playlist, tracks: trackDetails };
 
 	return {
-		playlist: playlist,
+		playlist: playListWithDetails,
 		tracks: trackDetails || [],
 		creator: playlist.creator,
 		// tracks: playlist.tracks,

@@ -22,18 +22,14 @@
 	let { data } = $props();
 
 	// Get data from the load function
-	//let playlist = $state<Playlist>(data.playlist);
 	let playlist = $derived(data.playlist);
 	let creator = $derived<User>(data.creator);
 	let tracks = $derived(data.tracks);
 	let isOwner = $derived<boolean>(data.isOwner);
 
-	// Using Svelte 5 runes for state management
-	let isPlaying = $state(false);
 	let isLiked = $state(false);
 	let totalDuration = $derived(tracks.reduce((total, track) => total + (track.duration || 0), 0));
 
-	// Function to format relative time (e.g., "2 days ago")
 	function formatRelativeTime(dateString: string): string {
 		const date = new Date(dateString);
 		const now = new Date();
@@ -67,16 +63,25 @@
 		}
 	}
 	const playerState = getPlayerContext();
-
+	let isCurrent = $derived(playerState.currentListId === playlist.id);
+	let isPlaying = $derived(playerState.isListCurrentlyPlaying(playlist));
 	// Handle play/pause for the whole playlist
 	function togglePlay() {
 		if (isPlaying) {
 			playerState.pause();
 		} else {
-			if (playerState.currentListId === playlist.id) {
+			if (isCurrent) {
 				playerState.play();
 			} else {
-				playerState.playList(playlist);
+				let pl = {
+					...playlist,
+					tracks: (playlist.tracks || []).map((track) => ({
+						...track,
+						artist: { name: track.artist_name }
+					}))
+				};
+
+				playerState.playList(pl);
 			}
 		}
 	}

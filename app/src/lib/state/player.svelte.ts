@@ -12,9 +12,11 @@ export interface PlayerSettings {
 	//equalizerBands: number[]; // frequency bands adjustment
 }
 
+export type TrackWithAuthorDetails = Track & { artist: { name: string } };
+
 export class PlayerState {
-	currentTrack = $state<Track | null>(null);
-	queue = $state<Track[]>([]);
+	currentTrack = $state<TrackWithAuthorDetails | null>(null);
+	queue = $state<TrackWithAuthorDetails[]>([]);
 	queueIndex = $state(-1);
 
 	isPlaying = $state(false);
@@ -109,7 +111,7 @@ export class PlayerState {
 		}
 	}
 
-	playTrack(track: Track, addToHistory = true) {
+	playTrack(track: TrackWithAuthorDetails, addToHistory = true) {
 		// Add current track to history if exists
 		if (this.currentTrack && addToHistory) {
 			this.playHistory = [...this.playHistory, this.currentTrack];
@@ -172,7 +174,7 @@ export class PlayerState {
 		}
 	}
 
-	setQueue(tracks: Track[], initialIndex = 0) {
+	setQueue(tracks: TrackWithAuthorDetails[], initialIndex = 0) {
 		if (tracks.length === 0) return;
 
 		this.queue = this.settings.shuffle ? this.shuffleArray([...tracks]) : [...tracks];
@@ -183,7 +185,7 @@ export class PlayerState {
 		}
 	}
 
-	addToQueue(track: Track, playNext = false) {
+	addToQueue(track: TrackWithAuthorDetails, playNext = false) {
 		if (playNext) {
 			const newQueue = [...this.queue];
 			newQueue.splice(this.queueIndex + 1, 0, track);
@@ -330,7 +332,7 @@ export class PlayerState {
 
 	// Utils
 	// An album is pretty much "just a list"
-	playList(list: { tracks: Track[]; id: string }) {
+	playList(list: { tracks: TrackWithAuthorDetails[]; id: string }) {
 		const { tracks, id } = list;
 		this.currentListId = id;
 

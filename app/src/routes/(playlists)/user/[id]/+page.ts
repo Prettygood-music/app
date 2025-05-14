@@ -23,25 +23,7 @@ export const load: PageLoad = async ({ params, parent }) => {
 			supabase.from('user_achievement_details').select('*').eq('user_id', user.id),
 			supabase.from('achievements').select('*')
 		]);
-	/*
-	const { data: userProfile, error: err } = await supabase
-		.from('users')
-		.select(
-			'*, playlists!playlists_user_id_fkey(*, tracks(id)), following: artist_followers(count), play_history(tracks(*)), track_likes(tracks(*))'
-		)
-		.eq('id', userId)
-		.order('played_at', { ascending: false, referencedTable: 'play_history' })
-
-		.limit(5, { referencedTable: 'play_history' })
-		.single();
-
-	const { data: ownedAchievements } = await supabase
-		.from('user_achievement_details')
-		.select('*')
-		.eq('user_id', user.id);
-
-	const { data: achievements } = await supabase.from('achievements').select('*');
-*/
+	
 	if (!userProfile) {
 		throw error(404, 'User not found');
 	}

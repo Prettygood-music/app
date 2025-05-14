@@ -83,12 +83,13 @@
 <ParaglideJS {i18n}>
 	<Toaster />
 
-	<div class=" flex h-screen w-screen flex-col overflow-hidden" id="content">
+	<div class=" flex  w-screen flex-col overflow-hidden" id="content">
 		<Navbar {onDisconnect} />
-		<main class="flex flex-1 flex-col overflow-y-hidden [&>*]:mb-12">
+		<main class="pb-24 flex flex-1 flex-col overflow-y-hidden [&>*]:mb-24">
 			{@render children()}
 		</main>
 		<div class="shrink-0">
+			<MobilePlayerBar></MobilePlayerBar>
 			<PlayerBar></PlayerBar>
 		</div>
 	</div>

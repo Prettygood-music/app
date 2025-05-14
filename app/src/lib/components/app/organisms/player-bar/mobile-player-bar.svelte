@@ -13,9 +13,10 @@
 {#if playerState && playerState.currentTrack}
 	{@const currentTrack = playerState.currentTrack}
 
-	<div class="bg-background fixed bottom-1 z-10 w-full rounded border px-2 pt-2 lg:hidden">
+	<div class="bg-background fixed bottom-0 z-10 w-full rounded border px-2 pt-2 lg:hidden">
 		<div class="flex items-center">
-			<Thumbnail coverURL={currentTrack.cover_url}></Thumbnail>
+			
+			<Thumbnail coverURL={currentTrack.cover_url} name={currentTrack.title} ></Thumbnail>
 			<div class="ml-2 flex-1">
 				<div class="text-sm">
 					{currentTrack.title}
@@ -24,7 +25,7 @@
 					href="/artist/{currentTrack.artist_id}"
 					class="text-muted-foreground mt-0.5 text-xs hover:underline"
 				>
-					{currentTrack.artist_name}
+					{currentTrack.artist.name}
 				</a>
 			</div>
 

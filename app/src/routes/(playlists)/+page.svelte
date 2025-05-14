@@ -11,10 +11,10 @@
 	let { data } = $props();
 </script>
 
-<div class="grid h-full overflow-y-auto lg:grid-cols-5">
+<div class="grid h-full  lg:grid-cols-5">
 	<!-- <div class="col-span-3 overflow-y-auto lg:col-span-4 lg:border-l"> -->
 	<div class="">
-		<div class="h-full w-[80vw]  overflow-hidden py-6 [&>*]:md:px-4 [&>*]:lg:px-8">
+		<div class="h-full overflow-hidden py-6 w-[100vw] lg:w-[80vw] [&>*]:px-2 [&>*]:md:px-4 [&>*]:lg:px-8">
 			<div class="flex items-center justify-between">
 				<div class="space-y-1">
 					<h2 class="text-2xl font-semibold tracking-tight">Listen Now</h2>

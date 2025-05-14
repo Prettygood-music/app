@@ -2,11 +2,10 @@
 	import { Button } from '$lib/components/ui/button';
 	import PlayIcon from 'lucide-svelte/icons/play';
 	import PauseIcon from 'lucide-svelte/icons/pause';
-	import { getPlayerContext } from '$lib/state/player.svelte';
-	import type { Track } from '$lib/types';
+	import { getPlayerContext, type TrackWithAuthorDetails } from '$lib/state/player.svelte';
 	import { getAnalyticsContext } from '$lib/services';
 
-	let { track }: { track: Track } = $props();
+	let { track }: { track: TrackWithAuthorDetails } = $props();
 
 	const playerState = getPlayerContext();
 	const analytics = getAnalyticsContext();

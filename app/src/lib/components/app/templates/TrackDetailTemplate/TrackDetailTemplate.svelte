@@ -76,7 +76,6 @@
 			<!-- Track Artwork and Primary Actions -->
 			<div class="flex flex-col items-center lg:items-start">
 				<div class="mb-6 overflow-hidden shadow-xl">
-					
 					<ImageFallback
 						src={track.cover_url || album.cover_url}
 						name={track.title!}
@@ -94,7 +93,7 @@
 				</div>
 
 				<div class="flex w-full items-center justify-center space-x-4 lg:justify-start">
-					<PlayTrack {track} />
+					<PlayTrack track={{...track, artist: {name: artist.artist_name}}} />
 					<!-- 
 					<Button
 						variant={isLiked ? 'default' : 'ghost'}

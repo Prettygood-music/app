@@ -9,15 +9,22 @@
 </script>
 
 <script lang="ts">
-	import Placeholder from './placeholder-thumbnail.png';
 	import { cn } from '$lib/utils.js';
+	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	export type ThumbnailSize = keyof typeof thumbnailSize;
 
-	let { coverURL, size = 'default' }: { coverURL: string | null; size?: ThumbnailSize } = $props();
+	let {
+		coverURL,
+		name,
+		size = 'default'
+	}: { name: string; coverURL: string | null; size?: ThumbnailSize } = $props();
 </script>
 
-<div
+
+<ImageFallback
+	src={coverURL}
+	{name}
+	alt="{name} Cover"
 	class={cn(thumbnailSize[size], 'rounded-sm border bg-cover bg-center')}
-	style=" background-image: url({coverURL || Placeholder});"
-></div>
+></ImageFallback>

@@ -13,16 +13,17 @@
 	}: WithElementRef<HTMLAttributes<HTMLImageElement>, HTMLImageElement> &
 		HTMLImgAttributes & { name: string } = $props();
 
-	let safeSrc = $state(src ? src : generateGradientDataURL(name));
+	let safeSrc = $derived(src ? src : generateGradientDataURL(name));
 </script>
 
 {@html `
 		<img
 			onerror="this.onerror=null;this.src='${generateGradientDataURL(name)}'"
 			src=${safeSrc}
-			alt=${name}
+			alt='${name}'
 			class="${cn('h-full w-full object-cover', className)}"
 			width=${restProps.width}
 			height=${restProps.height}
+			style=${restProps.style}
 			/>
 		`}

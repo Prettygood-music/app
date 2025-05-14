@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { LINKS } from '$lib/constants';
+	import ImageFallback from '../../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	type ComponentProps = {
 		id: string;
@@ -16,10 +17,17 @@
 	href={LINKS.TRACKS.ID(id)}
 >
 	<div class="relative aspect-square h-full w-full flex-1 overflow-hidden rounded-md">
+		<!--  -->
 		<div
 			class="h-full w-full rounded-lg border bg-cover bg-center duration-300 group-hover:scale-110"
-			style="background-image: url({cover_url}); --view-transition-tag:track-image-{id};"
-		></div>
+			>
+			<!-- style="background-image: url({cover_url}); --view-transition-tag:track-image-{id};" -->
+			<ImageFallback
+				src={cover_url}
+				name={title}
+				class="h-full w-full rounded-lg border object-cover"
+				style="--view-transition-tag:track-image-{id};"></ImageFallback>
+	</div>
 		{#if explicit}
 			<div class=" absolute bottom-1 right-1">
 				<div

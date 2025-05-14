@@ -3,7 +3,6 @@
 
 	// Page data from load function
 	let { data } = $props();
-	//$inspect(data.isLiked)
 </script>
 
 <svelte:head>
