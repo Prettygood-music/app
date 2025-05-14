@@ -3,7 +3,6 @@ import { fail } from '@sveltejs/kit';
 import { message, superValidate, withFiles } from 'sveltekit-superforms';
 import { zod } from 'sveltekit-superforms/adapters';
 import type { Actions, PageServerLoad } from './$types';
-import mime from 'mime-types';
 import { STORAGE_KEYS } from '$lib/constants';
 import { makeUniqueName } from '$lib/utils';
 

@@ -10,6 +10,7 @@
 	import X from 'lucide-svelte/icons/x';
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { availableGenres } from '$lib/constants';
+	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
 
 	let {
 		data
@@ -20,11 +21,9 @@
 	const form = superForm(data.form, {
 		validators: zodClient(album.schema)
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 
 	const coverFile = fileProxy(formData, 'cover_image');
-
-	
 
 	// Cover image preview state
 	let imagePreview = $state<string | null>(null);
@@ -188,8 +187,9 @@
 	</div>
 
 	<div class="flex justify-end gap-2 border-t pt-4">
-		<Button type="button" variant="outline">Cancel</Button>
-		<Button type="submit">Save</Button>
+		<SpinnerButton showSpinner={$submitting} variant="outline" type="button">Cancel</SpinnerButton>
+
+		<SpinnerButton showSpinner={$submitting} type="submit">Save</SpinnerButton>
 	</div>
 </form>
 <SuperDebug data={$formData}></SuperDebug>

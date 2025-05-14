@@ -4,6 +4,7 @@ import { zod } from 'sveltekit-superforms/adapters';
 import { message, superValidate } from 'sveltekit-superforms';
 import { fail } from '@sveltejs/kit';
 import { STORAGE_KEYS } from '$lib/constants';
+import { makeUniqueName } from '$lib/utils';
 
 export const load = (async () => {
 	const form = await superValidate(zod(album.schema));
@@ -25,9 +26,11 @@ export const actions: Actions = {
 		const coverFile = form.data.cover_image;
 		let coverURL: null | string = null;
 		if (coverFile) {
+
+			const fileName = makeUniqueName(coverFile);
 			const { data } = await supabase.storage
 				.from(STORAGE_KEYS.ALBUMS)
-				.upload(`${event.locals.user!.id}/${coverFile.name}`, coverFile, {});
+				.upload(`${event.locals.user!.id}/${fileName}`, coverFile, {});
 
 			const {
 				data: { publicUrl: coverPublicURL }
