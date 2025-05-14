@@ -54,7 +54,17 @@ export const actions: Actions = {
 
 		if (audioStorageError) {
 			console.error("Couldn't store audio file", audioStorageError);
-			return fail(500, withFiles({ form, error: audioStorageError }));
+			return fail(
+				500,
+				withFiles({
+					form,
+					error: audioStorageError,
+					message: {
+						type: 'error',
+						text: 'Error storing audio file'
+					}
+				})
+			);
 		}
 		const {
 			data: { publicUrl: audioURL }

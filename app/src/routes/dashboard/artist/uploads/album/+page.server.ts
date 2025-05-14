@@ -26,16 +26,19 @@ export const actions: Actions = {
 		const coverFile = form.data.cover_image;
 		let coverURL: null | string = null;
 		if (coverFile) {
+			const fileName = await makeUniqueName(coverFile);
 
-			const fileName = makeUniqueName(coverFile);
-			const { data } = await supabase.storage
+			const { data, error: storageError } = await supabase.storage
 				.from(STORAGE_KEYS.ALBUMS)
 				.upload(`${event.locals.user!.id}/${fileName}`, coverFile, {});
-
-			const {
-				data: { publicUrl: coverPublicURL }
-			} = await supabase.storage.from(STORAGE_KEYS.ALBUMS).getPublicUrl(data!.path);
-			coverURL = coverPublicURL;
+			if (storageError) {
+				console.error(storageError);
+			} else {
+				const {
+					data: { publicUrl: coverPublicURL }
+				} = await supabase.storage.from(STORAGE_KEYS.ALBUMS).getPublicUrl(data!.path);
+				coverURL = coverPublicURL;
+			}
 		}
 
 		const { data: insertedAlbum, error: err } = await supabase
@@ -60,8 +63,9 @@ export const actions: Actions = {
 
 		console.dir(insertedAlbum);
 
-return message(form, {
+		return message(form, {
 			type: 'success',
 			text: `Album ${albumData.title} created successfully`
-		});	}
+		});
+	}
 };
