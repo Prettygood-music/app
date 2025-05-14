@@ -1,13 +1,9 @@
 <script lang="ts">
-	import type { TrackWithDetails } from '$lib/types/player';
-	import { Button } from '$lib/components/ui/button';
-	import Thumbnail from '$lib/components/app/atoms/thumbnail/thumbnail.svelte';
-	import HeartIcon from 'lucide-svelte/icons/heart';
-	import PlayCircle from 'lucide-svelte/icons/play-circle';
-	import { formatDuration } from '$lib/utils';
-	import { getPlayerContext } from '$lib/state/player.svelte';
-	import { getAnalyticsContext } from '$lib/services';
 	import LikeButton from '$lib/components/app/atoms/like-button/LikeButton.svelte';
+	import { getPlayerContext } from '$lib/state/player.svelte';
+	import type { TrackWithDetails } from '$lib/types/player';
+	import { formatDuration } from '$lib/utils';
+	import PlayCircle from 'lucide-svelte/icons/play-circle';
 	import ImageFallback from '../../../../routes/(playlists)/playlist/[id]/imageFallback.svelte';
 
 	// Props
@@ -34,13 +30,9 @@
 		}
 	}
 
-	// Handle like button click
-	function onLikeClick() {
-		console.log(`Liked track: ${track.title}`);
-	}
-
 	const playerState = getPlayerContext();
-	//const analytics = getAnalyticsContext()
+
+	console.log(track);
 </script>
 
 <div
@@ -52,16 +44,13 @@
 				<span class="group-hover:hidden">{index + 1}</span>
 				<PlayCircle
 					class="text-primary hidden h-6 w-6 cursor-pointer group-hover:block"
-					onclick={() => playerState.playTrack(track)}
+					onclick={() => playerState.playTrack({ ...track, artist: { name: track.artist_name } })}
 				/>
 			</div>
 		{/if}
 
-		<!-- 
-		<Thumbnail coverURL={track.cover_url} />
- -->
 		<ImageFallback
-			coverURL={track.cover_url || coverFallback}
+			src={track.cover_url}
 			class="h-12 w-12 rounded-md"
 			style="--view-transition-tag:track-image-{track.id};"
 			name={track.title!}
