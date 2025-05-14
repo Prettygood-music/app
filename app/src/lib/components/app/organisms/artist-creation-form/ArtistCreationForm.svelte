@@ -11,6 +11,7 @@
 	import { X } from 'lucide-svelte';
 	import { availableGenres } from '$lib/constants';
 	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let {
 		data
@@ -21,8 +22,23 @@
 	const form = superForm(data.form, {
 		validators: zodClient(artist.schema)
 	});
-	const { form: formData, enhance, submitting } = form;
+	
+	const { form: formData, enhance, submitting, message } = form;
 
+	message.subscribe((msg) => {
+		if (msg) {
+			switch (msg.type) {
+				case 'error':
+					toast.error(msg.text);
+					break;
+				case 'success':
+					toast.success(msg.text);
+					break;
+				default:
+					break;
+			}
+		}
+	});
 	const avatarFile = fileProxy(formData, 'avatar');
 	let avatarPreview = $state<string | null>(null);
 

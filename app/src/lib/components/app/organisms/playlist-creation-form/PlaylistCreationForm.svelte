@@ -7,15 +7,31 @@
 	import { Input } from '$lib/components/ui/input';
 	import { Textarea } from '$lib/components/ui/textarea';
 	import { Switch } from '$lib/components/ui/switch';
-	import { Button } from '$lib/components/ui/button';
 	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let { data }: { data: { form: SuperValidated<PlaylistCreationSchema> } } = $props();
 
 	const form = superForm(data.form, {
 		validators: zodClient(playlist.playlistCreationSchema)
 	});
-	const { form: formData, enhance, submitting } = form;
+	const { form: formData, enhance, submitting, message } = form;
+
+
+	message.subscribe((msg) => {
+		if (msg) {
+			switch (msg.type) {
+				case 'error':
+					toast.error(msg.text);
+					break;
+				case 'success':
+					toast.success(msg.text);
+					break;
+				default:
+					break;
+			}
+		}
+	});
 
 	const coverFile = fileProxy(formData, 'cover_image');
 

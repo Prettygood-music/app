@@ -11,6 +11,7 @@
 	import { zodClient } from 'sveltekit-superforms/adapters';
 	import { availableGenres } from '$lib/constants';
 	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
+	import { toast } from 'svelte-sonner';
 
 	let {
 		data
@@ -21,7 +22,22 @@
 	const form = superForm(data.form, {
 		validators: zodClient(album.schema)
 	});
-	const { form: formData, enhance, submitting } = form;
+	const { form: formData, enhance, submitting, message } = form;
+
+	message.subscribe((msg) => {
+		if (msg) {
+			switch (msg.type) {
+				case 'error':
+					toast.error(msg.text);
+					break;
+				case 'success':
+					toast.success(msg.text);
+					break;
+				default:
+					break;
+			}
+		}
+	});
 
 	const coverFile = fileProxy(formData, 'cover_image');
 

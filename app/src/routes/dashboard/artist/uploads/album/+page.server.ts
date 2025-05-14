@@ -60,6 +60,8 @@ export const actions: Actions = {
 
 		console.dir(insertedAlbum);
 
-		return message(form, 'Album created successfully');
-	}
+return message(form, {
+			type: 'success',
+			text: `Album ${albumData.title} created successfully`
+		});	}
 };
