@@ -10,6 +10,7 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import { X } from 'lucide-svelte';
 	import { availableGenres } from '$lib/constants';
+	import SpinnerButton from '../../atoms/spinner-button/SpinnerButton.svelte';
 
 	let {
 		data
@@ -18,10 +19,9 @@
 	} = $props();
 
 	const form = superForm(data.form, {
-		validators: zodClient(artist.schema),
-		clearOnSubmit: false
+		validators: zodClient(artist.schema)
 	});
-	const { form: formData, enhance } = form;
+	const { form: formData, enhance, submitting } = form;
 
 	const avatarFile = fileProxy(formData, 'avatar');
 	let avatarPreview = $state<string | null>(null);
@@ -208,7 +208,7 @@
 	</div>
 
 	<div>
-		<Button type="submit">Create Artist Profile</Button>
+		<SpinnerButton showSpinner={$submitting} type="submit">Create Artist Profile</SpinnerButton>
 	</div>
 </form>
 
