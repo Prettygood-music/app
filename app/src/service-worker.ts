@@ -52,7 +52,7 @@ sw.addEventListener('activate', (event: ExtendableEvent) => {
 // Fetch event - serve from cache or fetch from network
 sw.addEventListener('fetch', (event) => {
 	// Don't cache API requests or other special URLs
-	const isApiRequest = event.request.url.includes('/api/');
+	const isApiRequest = event.request.url.includes('/api/') || event.request.url.includes('supabase');
 	const isStreamRequest =
 		event.request.url.includes('/tracks/') && event.request.url.includes('/stream');
 
