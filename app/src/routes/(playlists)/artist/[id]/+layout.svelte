@@ -26,7 +26,7 @@
 			<div class="from-primary/20 to-primary/80 h-full w-full bg-gradient-to-r"></div>
 		{/if}
 
-		<div class="from-muted/70 absolute inset-0 bg-gradient-to-b rounded-t-md to-transparent"></div>
+		<div class="from-muted/70 absolute inset-0 rounded-t-md bg-gradient-to-b to-transparent"></div>
 
 		<div class="absolute inset-x-0 bottom-0">
 			<div class="container flex w-full flex-col items-end gap-4 p-6 md:flex-row md:items-center">
@@ -43,7 +43,7 @@
 					<div class="mt-2 flex items-center gap-2">
 						<Badge variant="secondary" class="text-xs">ARTIST</Badge>
 						<!-- TODO: fix monthly listeners count -->
-						<span class="text-sm text-white/80"
+						<span class="text-sm text-muted-foreground"
 							>{artist.stats?.monthlyListeners || '25.4M'} monthly listeners</span
 						>
 					</div>
