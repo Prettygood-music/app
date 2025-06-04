@@ -54,7 +54,7 @@
 </svelte:head>
 
 <Tabs value={selectedTab} onValueChange={(value) => (selectedTab = value)} class="w-full">
-	<TabsList class="grid w-full grid-cols-3 md:flex md:w-auto">
+	<TabsList class="grid w-full grid-cols-3 md:flex md:w-auto mb-4">
 		<TabsTrigger value="overview">Overview</TabsTrigger>
 		<TabsTrigger value="albums">Albums</TabsTrigger>
 		<TabsTrigger value="about">About</TabsTrigger>
